@@ -3,14 +3,40 @@ mod MMATCHING is
   pr ECORE .
   pr BASIC_DEFINITION_CONFIGURATION .
   
+  sort ConfigurationBeingMixed .
+  subsort Configuration < ConfigurationBeingMixed .
+  
   op flatten : Model -> Model .
+  op flatten : Model Model -> Model .
+  
+  op hasSuperTypes : AttributeSet Configuration -> Bool .
+  op mixFeatures : Oid Set{Oid} Configuration -> ConfigurationBeingMixed .
   
   var O1 O2 O3 : Oid .
   var Atts1 Atts2 Atts3 : AttributeSet .
-  var SFS1 : Set{Oid} .
+  var SFS1 SFS2 Oids1 : Set{Oid} .
+  var Conf Conf1 Conf2 : Configuration .
+  var Conf+ : ConfigurationBeingMixed .
   
-  eq flatten(< O1 : EClass | eStructuralFeatures : 
+  eq hasSuperTypes((eSuperTypes : (O1, Oids1), Atts1), < O1 : C:Cid | Atts2 >) = true .
+  eq hasSuperTypes((Atts1), Conf) = false [owise] .
   
+  eq mixFeatures(O1, SFS1,
+                 < O2 : EClass | eSuperTypes : (O1, Oids1), eStructuralFeatures : SFS2, Atts1 > 
+                 Conf)
+    = < O2 : EClass | eSuperTypes : (O1, Oids1), eStructuralFeatures : (SFS1, SFS2), Atts1 > 
+      mixFeatures(O1, SFS1, Conf) [print "mixing - " SFS1 " and " SFS2 " from object " O2].
+  eq mixFeatures(O1, SFS1, Conf) = Conf [owise] .
+  
+  eq flatten(Conf) = flatten(Conf, none) .
+  
+  ---- 1st. We search those classes without ancestors
+  ceq flatten(< O1 : EClass | eStructuralFeatures : (O2, SFS1), Atts1 > ---- At least it has a StructuralFeature.
+              Conf1, Conf2) = 
+      flatten(mixFeatures(O1, (O2, SFS1), Conf1), 
+              < O1 : EClass | eStructuralFeatures : SFS1, Atts1 > Conf2)
+    if not hasSuperTypes(Atts1, Conf1) [print O1 " --- " SFS1].
+  eq flatten(Conf1, Conf2) = Conf1 Conf2 [owise] .
   
   
   ---- Test. Partial PLS definition.
@@ -23,28 +49,29 @@ mod MMATCHING is
   
   op plsmm : -> Model [ctor] .
   eq plsmm =
-    < plant@devsmm : EClass | name : "Plant", eStructuralFeatures : els@plant@devsmm >
-    < positionedEl@devsmm : EClass | name : "PositionedEl" >
-    < els@plant@devsmm : EReference | name : "els", 
-                                      eType : positionedEl@devsmm,
-                                      containment : true, 
-                                      lowerBound : 0, 
-                                      upperBound : *,
-                                      eOpposite : null >
-    ---- Machine
-    < machine@devsmm : EClass | name : "Machine", eSuperTypes : positionedEl@devsmm,
-                                eStructuralFeatures : (pt@machine@devsmm, 
-                                                       defectiverate@machine@devsmm, 
-                                                       in@machine@devsmm,
-                                                       out@machine@devsmm) >
-    < pt@machine@devsmm : EAttribute | name : "pt", lowerBound : 1, upperBound : 1, eType : Int >
-    < defectiverate@machine@devsmm : EAttribute | name : "defectiverate", lowerBound : 1, upperBound : 1, eType : Int >
-    < in@machine@devsmm : EReference | name : "in", lowerBound : 0, upperBound : 1, eType : tray@devsmm, containment : false >
-    < out@machine@devsmm : EReference | name : "out", lowerBound : 1, upperBound : 1, eType : tray@devsmm, containment : false >
-    < generator@devsmm : EClass | name : "Generator", eSuperTypes : machine@devsmm >
-    < assemble@devsmm : EClass | name : "Assemble", eSuperTypes : machine@devsmm >
-    < genHead@devsmm : EClass | name : "GenHead", eSuperTypes : generator@devsmm >
-    < genHandle@devsmm : EClass | name : "GenHandle", eSuperTypes : generator@devsmm > .
+  < plant@devsmm : EClass | name : "Plant", eStructuralFeatures : els@plant@devsmm >
+  < positionedEl@devsmm : EClass | name : "PositionedEl", eStructuralFeatures : empty >
+  < els@plant@devsmm : EReference | name : "els", 
+                                    eType : positionedEl@devsmm,
+                                    containment : true, 
+                                    lowerBound : 0, 
+                                    upperBound : *,
+                                    eOpposite : null >
+  ---- Machine
+  < machine@devsmm : EClass | name : "Machine", eSuperTypes : positionedEl@devsmm,
+                              eStructuralFeatures : (pt@machine@devsmm, 
+                                                     defectiverate@machine@devsmm, 
+                                                     in@machine@devsmm,
+                                                     out@machine@devsmm) >
+  < pt@machine@devsmm : EAttribute | name : "pt", lowerBound : 1, upperBound : 1, eType : Int >
+  < defectiverate@machine@devsmm : EAttribute | name : "defectiverate", lowerBound : 1, upperBound : 1, eType : Int >
+  < in@machine@devsmm : EReference | name : "in", lowerBound : 0, upperBound : 1, eType : tray@devsmm, containment : false >
+  < out@machine@devsmm : EReference | name : "out", lowerBound : 1, upperBound : 1, eType : tray@devsmm, containment : false >
+  < generator@devsmm : EClass | name : "Generator", eSuperTypes : machine@devsmm, eStructuralFeatures : empty >
+  < assemble@devsmm : EClass | name : "Assemble", eSuperTypes : machine@devsmm, eStructuralFeatures : empty >
+  < genHead@devsmm : EClass | name : "GenHead", eSuperTypes : generator@devsmm, eStructuralFeatures : empty >
+  < genHandle@devsmm : EClass | name : "GenHandle", eSuperTypes : generator@devsmm, eStructuralFeatures : empty > .
 endm
 
+set print attribute off .
 red flatten(plsmm) .

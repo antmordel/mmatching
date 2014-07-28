@@ -13,3 +13,5 @@
 ```
 
 
+Continuar por:
+ - Cambiar el metamodelo para que pueda hacer matching, y cambiar el modelo aplanado en el comando match.
