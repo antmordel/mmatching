@@ -1,6 +1,5 @@
 mod PLS_MM is
-  pr ECORE .
-  pr BASIC_DEFINITION_CONFIGURATION .
+  pr MMATCHING .
   
   ---pr MY-QID .
   
@@ -76,7 +75,7 @@ mod PLS_MM is
   
 endm
 
-match 
+match
     < Server : EClass | eStructuralFeatures : (In@Server, Out@Server, Oids1), Atts1 >
     < In@Server : EReference | lowerBound : 0, upperBound : 1, eType : Queue, containment : false, Atts4 >
     < Out@Server : EReference | lowerBound : 1, upperBound : 1, eType : Queue, containment : false, Atts5 >

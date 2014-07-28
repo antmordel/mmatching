@@ -1,0 +1,50 @@
+
+mod MMATCHING is
+  pr ECORE .
+  pr BASIC_DEFINITION_CONFIGURATION .
+  
+  op flatten : Model -> Model .
+  
+  var O1 O2 O3 : Oid .
+  var Atts1 Atts2 Atts3 : AttributeSet .
+  var SFS1 : Set{Oid} .
+  
+  eq flatten(< O1 : EClass | eStructuralFeatures : 
+  
+  
+  
+  ---- Test. Partial PLS definition.
+  ops plant@devsmm positionedEl@devsmm machine@devsmm container@devsmm part@devsmm
+      head@devsmm hammer@devsmm handle@devsmm limitedContainer@devsmm user@devsmm 
+      tray@devsmm conveyor@devsmm generator@devsmm assemble@devsmm genHead@devsmm genHandle@devsmm : -> Oid [ctor] .
+  ops els@plant@devsmm pt@machine@devsmm defectiverate@machine@devsmm parts@container@devsmm 
+      defective@part@devsmm capacity@limitedContainer@devsmm outParts@conveyor@devsmm
+      in@machine@devsmm out@machine@devsmm : -> Oid [ctor] .
+  
+  op plsmm : -> Model [ctor] .
+  eq plsmm =
+    < plant@devsmm : EClass | name : "Plant", eStructuralFeatures : els@plant@devsmm >
+    < positionedEl@devsmm : EClass | name : "PositionedEl" >
+    < els@plant@devsmm : EReference | name : "els", 
+                                      eType : positionedEl@devsmm,
+                                      containment : true, 
+                                      lowerBound : 0, 
+                                      upperBound : *,
+                                      eOpposite : null >
+    ---- Machine
+    < machine@devsmm : EClass | name : "Machine", eSuperTypes : positionedEl@devsmm,
+                                eStructuralFeatures : (pt@machine@devsmm, 
+                                                       defectiverate@machine@devsmm, 
+                                                       in@machine@devsmm,
+                                                       out@machine@devsmm) >
+    < pt@machine@devsmm : EAttribute | name : "pt", lowerBound : 1, upperBound : 1, eType : Int >
+    < defectiverate@machine@devsmm : EAttribute | name : "defectiverate", lowerBound : 1, upperBound : 1, eType : Int >
+    < in@machine@devsmm : EReference | name : "in", lowerBound : 0, upperBound : 1, eType : tray@devsmm, containment : false >
+    < out@machine@devsmm : EReference | name : "out", lowerBound : 1, upperBound : 1, eType : tray@devsmm, containment : false >
+    < generator@devsmm : EClass | name : "Generator", eSuperTypes : machine@devsmm >
+    < assemble@devsmm : EClass | name : "Assemble", eSuperTypes : machine@devsmm >
+    < genHead@devsmm : EClass | name : "GenHead", eSuperTypes : generator@devsmm >
+    < genHandle@devsmm : EClass | name : "GenHandle", eSuperTypes : generator@devsmm > .
+endm
+
+red flatten(plsmm) .
