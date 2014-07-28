@@ -1,0 +1,177 @@
+---- Basic definitions based on mOdCL
+
+---- Modules OCL-NAT, OCL-TYPE have been borrowed from mOdCL (developed by Manuel Roldan).
+
+fmod OCL-NAT is
+   pr NAT * (op _xor_ : Nat Nat -> Nat  to _nxor_,
+             op _|_   : Nat Nat -> Nat  to _|N_,
+             op _<_   : Nat Nat -> Bool to _<N_,
+             op _<=_  : Nat Nat -> Bool to _<=N_,
+             op _>_   : Nat Nat -> Bool to _>N_,
+             op _>=_  : Nat Nat -> Bool to _>=N_,
+             op _-_   : Nat Nat -> Nat  to _-N_,
+             op _*_   : Nat Nat -> Nat  to _*N_,
+             op _+_   : Nat Nat -> Nat  to _+N_) .
+endfm
+
+fmod OCL-STRING is
+   pr STRING * (op _|_   : Nat Nat -> Nat  to _|N_,    
+                op _xor_ : Nat Nat -> Nat to _nxor_,   
+                op _<_   : Nat Nat -> Bool to _<N_,    
+                op _<=_  : Nat Nat -> Bool to _<=N_,   
+                op _>_   : Nat Nat -> Bool to _>N_,    
+                op _>=_  : Nat Nat -> Bool to _>=N_,   
+                op _*_   : Nat Nat -> Nat to _*N_,     
+                op _+_   : Nat Nat -> Nat to _+N_,
+ 
+                op _<_  : String String -> Bool to _lt_,   
+                op _<=_ : String String -> Bool to _leq_,   
+                op _>_  : String String -> Bool to _gt_,   
+                op _>=_ : String String -> Bool to _geq_,  
+                op _+_  : String String -> String to _++_) .   
+endfm
+
+fmod OCL-RAT is
+   pr RAT * (op _xor_ : Nat Nat -> Nat  to _nxor_,
+             op _|_   : Nat Nat -> Nat  to _|N_,     
+             op _<_   : Nat Nat -> Bool to _<N_,    
+             op _<=_  : Nat Nat -> Bool to _<=N_,   
+             op _>_   : Nat Nat -> Bool to _>N_,    
+             op _>=_  : Nat Nat -> Bool to _>=N_,   
+             op _-_   : Nat Nat -> Nat  to _-N_,    
+             op _*_   : Nat Nat -> Nat  to _*N_,    
+             op _+_   : Nat Nat -> Nat  to _+N_,
+             op -_ : Int -> Int to -I_,
+             
+             --- Maudeling uses Rat. However the / operator is reserved for Int 
+             --- and Float, so that we rename / to  //
+             op _/_   : Rat Rat -> Rat  to _//_,         
+             op floor : PosRat -> Nat to floorR,
+             op ceiling : PosRat -> Nat to ceilingR) .
+endfm
+
+fmod OCL-FLOAT is
+   pr FLOAT * (op abs   : Float -> Float to absF,
+               op -_    : Float -> Float  to -F_,
+               op _+_   : Float Float -> Float to _+F_,
+               op _-_   : Float Float -> Float to _-F_,
+               op _/_   : Float Float -> Float to _/F_,
+               op _*_   : Float Float -> Float to _*F_,
+               op min   : Float Float -> Float to minF,
+               op max   : Float Float -> Float to maxF,
+               op _rem_ : Float Float -> Float to _remF_,
+               op _^_   : Float Float -> Float to _^F_,
+               op _<_   : Float Float -> Bool  to _<F_,
+               op _<=_  : Float Float -> Bool  to _<=F_,
+               op _>_   : Float Float -> Bool  to _>F_,
+               op _>=_  : Float Float -> Bool  to _>=F_, 
+
+               op floor : Float -> Float to floorF,
+               op ceiling : Float -> Float to ceilingF) .
+endfm
+
+fmod OCL-CONVERSION is
+   pr CONVERSION
+            * (--- Renamings in FLOAT
+               op abs   : Float -> Float to absF,
+               op -_    : Float -> Float  to -F_,
+               op _+_   : Float Float -> Float to _+F_,
+               op _-_   : Float Float -> Float to _-F_,
+               op _/_   : Float Float -> Float to _/F_,
+               op _*_   : Float Float -> Float to _*F_,
+
+               op min   : Float Float -> Float to minF,
+               op max   : Float Float -> Float to maxF,
+               op _rem_ : Float Float -> Float to _remF_,
+               op _^_   : Float Float -> Float to _^F_,
+               op _<_   : Float Float -> Bool  to _<F_,
+               op _<=_  : Float Float -> Bool  to _<=F_,
+               op _>_   : Float Float -> Bool  to _>F_,
+               op _>=_  : Float Float -> Bool  to _>=F_,
+               op floor : Float -> Float to floorF,
+               op ceiling : Float -> Float to ceilingF,
+
+               --- Renamings in RAT
+               op _xor_ : Nat Nat -> Nat  to _nxor_,
+               op _|_   : Nat Nat -> Nat  to _|N_,
+               op _<_   : Nat Nat -> Bool to _<N_,
+               op _<=_  : Nat Nat -> Bool to _<=N_,
+               op _>_   : Nat Nat -> Bool to _>N_,
+               op _>=_  : Nat Nat -> Bool to _>=N_,
+               op _-_   : Nat Nat -> Nat  to _-N_,
+               op _*_   : Nat Nat -> Nat  to _*N_,
+               op _+_   : Nat Nat -> Nat  to _+N_,
+               op -_ : Int -> Int to -I_,
+               op _/_   : Rat Rat -> Rat  to _//_,
+               op floor : PosRat -> Nat to floorR,
+               op ceiling : PosRat -> Nat to ceilingR,
+               
+               --- Renamings in STRING
+               op _<_  : String String -> Bool to _lt_,
+               op _<=_ : String String -> Bool to _leq_,
+               op _>_  : String String -> Bool to _gt_,
+               op _>=_ : String String -> Bool to _geq_,
+               op _+_  : String String -> String to _++_,  
+               op float : Rat -> Float to rat2float,
+               op float : String ~> Float to string2float,
+               op rat : String NzNat ~> Rat to string2rat ) .
+endfm
+
+mod OCL-TYPE is
+  pr CONFIGURATION .
+  pr OCL-RAT .
+  pr OCL-STRING .
+  pr OCL-FLOAT .
+  pr OCL-CONVERSION .
+  
+  sorts Enum BasicType OclVoid OclInvalid OclAny OclType .
+  sorts Set Bag OrderedSet Sequence Collection . 
+endm
+
+fmod TUPLE{X :: TRIV, Y :: TRIV} is
+  sort Tuple .
+  op (_,_) : X$Elt Y$Elt -> Tuple [ctor] .
+  
+  op first : Tuple -> X$Elt .
+  eq first((XVar:X$Elt, YVar:Y$Elt)) = XVar:X$Elt .
+  op second : Tuple -> Y$Elt .
+  eq second((XVar:X$Elt, YVar:Y$Elt)) = YVar:Y$Elt .
+endfm
+
+view OclNat from TRIV to OCL-NAT is
+  sort Elt to Nat .
+endv
+
+fmod CARDINALITY is
+  pr TUPLE{OclNat, OclNat} .
+  
+  op * : -> Nat .
+endfm
+
+fmod MAYBE{X :: TRIV} is
+  sort Maybe{X} .
+  subsort X$Elt < Maybe{X} .
+  op null : -> Maybe{X} [ctor] .
+endfm
+
+mod CLASS_DEFINITIONS is
+  sort AttributeName OpName .
+endm
+
+view AttributeName from TRIV to CLASS_DEFINITIONS is
+  sort Elt to AttributeName .
+endv
+
+mod BASIC_DEFINITION_CONFIGURATION is
+  pr OCL-TYPE .
+  pr CARDINALITY .
+  pr CLASS_DEFINITIONS .
+  pr MAYBE{AttributeName} .
+
+  op _:_ : AttributeName OclType -> Attribute [ctor prec 20 gather (& &)] .
+
+  op isContainment : AttributeName -> Bool .
+  op isReference : AttributeName -> Bool .
+  op cardinality : AttributeName -> Tuple .
+  op opposite : AttributeName -> Maybe{AttributeName} .
+endm

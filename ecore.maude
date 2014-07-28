@@ -1,0 +1,20 @@
+---- 'Partial' definition of Ecore metamodel.
+---- Ecore metamodel: http://atenea.lcc.uma.es/index.php/Image:MMEcore.JPG
+
+mod ECORE is
+  pr CONFIGURATION .
+  
+  ---- Classes definition
+  sort EModelElement .
+  subsort EModelElement < Class .
+  
+  
+  
+  sort EAnnotation .
+  subsort EAnnotation < EModelElement .
+  op EAnnotation : -> EAnnotation [ctor] .
+  
+  
+  
+  
+endm

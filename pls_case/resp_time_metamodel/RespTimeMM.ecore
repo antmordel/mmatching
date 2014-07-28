@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="resptimemm" nsURI="http://resptimemm/1.0" nsPrefix="resptimemm">
+  <eClassifiers xsi:type="ecore:EClass" name="Server">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="out" eType="#//Queue"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="in" eType="#//Queue"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="rspTime" eType="#//ResponseTime"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Queue">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="reqsts" upperBound="-1"
+        eType="#//Request" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Request"/>
+  <eClassifiers xsi:type="ecore:EClass" name="ResponseTime">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="lastTime" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="lastStart" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+  </eClassifiers>
+</ecore:EPackage>
