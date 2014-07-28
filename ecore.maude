@@ -2,19 +2,60 @@
 ---- Ecore metamodel: http://atenea.lcc.uma.es/index.php/Image:MMEcore.JPG
 
 mod ECORE is
-  pr CONFIGURATION .
+  pr BASIC_DEFINITION_CONFIGURATION .
   
-  ---- Classes definition
+  ---------------------------------------------
+  ------------ Classes definition  ------------
+  ---------------------------------------------
   sort EModelElement .
-  subsort EModelElement < Class .
+  subsort EModelElement < Cid .
   
+  ---- Class ENamedElement
+  sort ENamedElement .
+  subsort ENamedElement < EModelElement .
   
+  op name : -> AttributeName [ctor] .
   
-  sort EAnnotation .
-  subsort EAnnotation < EModelElement .
-  op EAnnotation : -> EAnnotation [ctor] .
+  ---- Class ETypedElement
+  sort ETypedElement .
+  subsort ETypedElement < ENamedElement .
   
+  op eType : -> ReferenceName [ctor] .
+  eq cardinality(eType) = < 0, 1 > .
   
+  ops lowerBound upperBound : -> AttributeName [ctor] .
   
+  ---- Class EClassifier
+  sort EClassifier .
+  subsort EClassifier < ENamedElement .
   
+  ---- Class EClass
+  sort EClass .
+  subsort EClass < EClassifier .
+  op EClass : -> EClass [ctor] .
+  
+  op eSuperTypes : -> ReferenceName [ctor] .
+  eq cardinality(eSuperTypes) = < 0, * > .
+  
+  op eStructuralFeatures : -> ReferenceName [ctor] .
+  eq cardinality(eStructuralFeatures) = < 0, * > .
+  eq isContainment(eStructuralFeatures) = true .
+  
+  ---- Class EStructuralFeature
+  sort EStructuralFeature .
+  subsort EStructuralFeature < ETypedElement .
+    
+  ---- Class EReference
+  sort EReference .
+  subsort EReference < EStructuralFeature .
+  op EReference : -> EReference [ctor] .
+  
+  op containment : -> AttributeName [ctor] .
+  op eOpposite : -> ReferenceName [ctor] .
+  eq cardinality(eOpposite) = < 0, 1 > .
+  
+  ---- Class EAttribute
+  sort EAttribute .
+  subsort EAttribute < EStructuralFeature .
+  op EAttribute : -> EAttribute [ctor] .
 endm
