@@ -7,24 +7,27 @@ endm
 set trace off .
 
 ---- test-0
-match  < Server:Oid : EClass | eStructuralFeatures : (In@Server:Oid, Out@Server:Oid, Oids1:Set{Oid}), Atts1:AttributeSet >
+***(match  < Server:Oid : EClass | eStructuralFeatures : (In@Server:Oid, Out@Server:Oid, Oids1:Set{Oid}), Atts1:AttributeSet >
   <=?
        < machine@devsmm : EClass | name : "Machine", eSuperTypes : positionedEl@devsmm,
                                 eStructuralFeatures : (pt@machine@devsmm, 
                                                        defectiverate@machine@devsmm, 
                                                        in@machine@devsmm,
                                                        out@machine@devsmm) > .  
+)
+set trace off .
 
 ---- test-1
 red mmatch(
     'TEST-PLS-MATCHING,
+    < Server:Oid : EClass | eStructuralFeatures : (In@Server:Oid, Out@Server:Oid, Oids1:Set{Oid}), Atts1:AttributeSet >,
     < machine@devsmm : EClass | name : "Machine", eSuperTypes : positionedEl@devsmm,
                                 eStructuralFeatures : (pt@machine@devsmm, 
                                                        defectiverate@machine@devsmm, 
                                                        in@machine@devsmm,
-                                                       out@machine@devsmm) >,
-    < Server:Oid : EClass | eStructuralFeatures : (In@Server:Oid, Out@Server:Oid, Oids1:Set{Oid}), Atts1:AttributeSet >) .
-    
+                                                       out@machine@devsmm) >) .
+
+eof
 
 red metaMatch(mod 'TEST-PLS-MATCHING is
   nil

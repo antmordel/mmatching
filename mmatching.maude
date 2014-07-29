@@ -97,8 +97,8 @@ mod MMATCHING is
   
   var System Param : Configuration .
   var ModQid : Qid .
-  eq mmatch(ModQid, System, Param)
-    = metaMatch(upModule(ModQid, true), upTerm(System), upTerm(Param), nil, 0) .
+  eq mmatch(ModQid, Param, System)
+    = metaMatch(upModule(ModQid, true), upTerm(Param), upTerm(System), nil, 0) .
             
 endm
     

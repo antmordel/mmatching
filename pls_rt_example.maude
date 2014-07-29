@@ -1,9 +1,9 @@
 mod PLS-MM is
   pr MMATCHING .
   
-  ---pr MY-QID .
+  pr MY-QID .
   
-  ---subsort Qid < Oid .
+  subsort Qid < Oid .
   
   ops plant@devsmm positionedEl@devsmm machine@devsmm container@devsmm part@devsmm
       head@devsmm hammer@devsmm handle@devsmm limitedContainer@devsmm user@devsmm 
