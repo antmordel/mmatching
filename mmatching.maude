@@ -1,5 +1,5 @@
 
-mod MMATCHING is
+mod AUX-OPERATIONS is
   pr ECORE .
   pr BASIC_DEFINITION_CONFIGURATION .
   
@@ -18,60 +18,87 @@ mod MMATCHING is
   var Conf Conf1 Conf2 : Configuration .
   var Conf+ : ConfigurationBeingMixed .
   
-  eq hasSuperTypes((eSuperTypes : (O1, Oids1), Atts1), < O1 : C:Cid | Atts2 >) = true .
+  --------------- Auxiliar Operations
+  eq hasSuperTypes((eSuperTypes : (O1, Oids1), Atts1), < O1 : C:Cid | Atts2 > Conf) = true .
   eq hasSuperTypes((Atts1), Conf) = false [owise] .
   
   eq mixFeatures(O1, SFS1,
                  < O2 : EClass | eSuperTypes : (O1, Oids1), eStructuralFeatures : SFS2, Atts1 > 
                  Conf)
     = < O2 : EClass | eSuperTypes : (O1, Oids1), eStructuralFeatures : (SFS1, SFS2), Atts1 > 
-      mixFeatures(O1, SFS1, Conf) [print "mixing - " SFS1 " and " SFS2 " from object " O2].
+      mixFeatures(O1, SFS1, Conf) [print "mixing - " SFS1 " and " SFS2 " within object " O2].
   eq mixFeatures(O1, SFS1, Conf) = Conf [owise] .
+  --------------- /end Auxiliar Operations
   
   eq flatten(Conf) = flatten(Conf, none) .
   
   ---- 1st. We search those classes without ancestors
-  ceq flatten(< O1 : EClass | eStructuralFeatures : (O2, SFS1), Atts1 > ---- At least it has a StructuralFeature.
-              Conf1, Conf2) = 
-      flatten(mixFeatures(O1, (O2, SFS1), Conf1), 
+  ceq flatten(< O1 : EClass | eStructuralFeatures : (SFS1), Atts1 > ---- At least it has a StructuralFeature.
+              Conf1, Conf2) =
+    if SFS1 =/= empty then
+      ---- We mix the ancestor's features with its childs.
+      flatten(mixFeatures(O1, (SFS1), Conf1), 
               < O1 : EClass | eStructuralFeatures : SFS1, Atts1 > Conf2)
-    if not hasSuperTypes(Atts1, Conf1) [print O1 " --- " SFS1].
+    else
+      flatten(Conf1, < O1 : EClass | eStructuralFeatures : SFS1, Atts1 > Conf2)
+    fi
+  if not hasSuperTypes(Atts1, Conf1) [print O1 " --- " SFS1 "\n :: Configuration 1 is " Conf1 "\n :: Configuration 2 is " Conf2] .
   eq flatten(Conf1, Conf2) = Conf1 Conf2 [owise] .
-  
-  
-  ---- Test. Partial PLS definition.
-  ops plant@devsmm positionedEl@devsmm machine@devsmm container@devsmm part@devsmm
-      head@devsmm hammer@devsmm handle@devsmm limitedContainer@devsmm user@devsmm 
-      tray@devsmm conveyor@devsmm generator@devsmm assemble@devsmm genHead@devsmm genHandle@devsmm : -> Oid [ctor] .
-  ops els@plant@devsmm pt@machine@devsmm defectiverate@machine@devsmm parts@container@devsmm 
-      defective@part@devsmm capacity@limitedContainer@devsmm outParts@conveyor@devsmm
-      in@machine@devsmm out@machine@devsmm : -> Oid [ctor] .
-  
-  op plsmm : -> Model [ctor] .
-  eq plsmm =
-  < plant@devsmm : EClass | name : "Plant", eStructuralFeatures : els@plant@devsmm >
-  < positionedEl@devsmm : EClass | name : "PositionedEl", eStructuralFeatures : empty >
-  < els@plant@devsmm : EReference | name : "els", 
-                                    eType : positionedEl@devsmm,
-                                    containment : true, 
-                                    lowerBound : 0, 
-                                    upperBound : *,
-                                    eOpposite : null >
-  ---- Machine
-  < machine@devsmm : EClass | name : "Machine", eSuperTypes : positionedEl@devsmm,
-                              eStructuralFeatures : (pt@machine@devsmm, 
-                                                     defectiverate@machine@devsmm, 
-                                                     in@machine@devsmm,
-                                                     out@machine@devsmm) >
-  < pt@machine@devsmm : EAttribute | name : "pt", lowerBound : 1, upperBound : 1, eType : Int >
-  < defectiverate@machine@devsmm : EAttribute | name : "defectiverate", lowerBound : 1, upperBound : 1, eType : Int >
-  < in@machine@devsmm : EReference | name : "in", lowerBound : 0, upperBound : 1, eType : tray@devsmm, containment : false >
-  < out@machine@devsmm : EReference | name : "out", lowerBound : 1, upperBound : 1, eType : tray@devsmm, containment : false >
-  < generator@devsmm : EClass | name : "Generator", eSuperTypes : machine@devsmm, eStructuralFeatures : empty >
-  < assemble@devsmm : EClass | name : "Assemble", eSuperTypes : machine@devsmm, eStructuralFeatures : empty >
-  < genHead@devsmm : EClass | name : "GenHead", eSuperTypes : generator@devsmm, eStructuralFeatures : empty >
-  < genHandle@devsmm : EClass | name : "GenHandle", eSuperTypes : generator@devsmm, eStructuralFeatures : empty > .
+
 endm
 
-set print attribute off .
-red flatten(plsmm) .
+mod MMATCHING is
+  pr AUX-OPERATIONS .
+  pr META-LEVEL * (--- Renamings in FLOAT
+               op abs   : Float -> Float to absF,
+               op -_    : Float -> Float  to -F_,
+               op _+_   : Float Float -> Float to _+F_,
+               op _-_   : Float Float -> Float to _-F_,
+               op _/_   : Float Float -> Float to _/F_,
+               op _*_   : Float Float -> Float to _*F_,
+
+               op min   : Float Float -> Float to minF,
+               op max   : Float Float -> Float to maxF,
+               op _rem_ : Float Float -> Float to _remF_,
+               op _^_   : Float Float -> Float to _^F_,
+               op _<_   : Float Float -> Bool  to _<F_,
+               op _<=_  : Float Float -> Bool  to _<=F_,
+               op _>_   : Float Float -> Bool  to _>F_,
+               op _>=_  : Float Float -> Bool  to _>=F_,
+               op floor : Float -> Float to floorF,
+               op ceiling : Float -> Float to ceilingF,
+
+               --- Renamings in RAT
+               op _xor_ : Nat Nat -> Nat  to _nxor_,
+               op _|_   : Nat Nat -> Nat  to _|N_,
+               op _<_   : Nat Nat -> Bool to _<N_,
+               op _<=_  : Nat Nat -> Bool to _<=N_,
+               op _>_   : Nat Nat -> Bool to _>N_,
+               op _>=_  : Nat Nat -> Bool to _>=N_,
+               op _-_   : Nat Nat -> Nat  to _-N_,
+               op _*_   : Nat Nat -> Nat  to _*N_,
+               op _+_   : Nat Nat -> Nat  to _+N_,
+               op -_ : Int -> Int to -I_,
+               op _/_   : Rat Rat -> Rat  to _//_,
+               op floor : PosRat -> Nat to floorR,
+               op ceiling : PosRat -> Nat to ceilingR,
+               
+               --- Renamings in STRING
+               op _<_  : String String -> Bool to _lt_,
+               op _<=_ : String String -> Bool to _leq_,
+               op _>_  : String String -> Bool to _gt_,
+               op _>=_ : String String -> Bool to _geq_,
+               op _+_  : String String -> String to _++_,  
+               op float : Rat -> Float to rat2float,
+               op float : String ~> Float to string2float,
+               op rat : String NzNat ~> Rat to string2rat ) .
+  
+  op mmatch : Qid Configuration Configuration -> Substitution? .
+  
+  var System Param : Configuration .
+  var ModQid : Qid .
+  eq mmatch(ModQid, System, Param)
+    = metaMatch(upModule(ModQid, true), upTerm(System), upTerm(Param), nil, 0) .
+            
+endm
+    
