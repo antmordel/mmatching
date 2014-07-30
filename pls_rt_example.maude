@@ -1,9 +1,52 @@
 mod PLS-MM is
   pr MMATCHING .
   
-  ops plant@devsmm positionedEl@devsmm machine@devsmm container@devsmm part@devsmm
-      head@devsmm hammer@devsmm handle@devsmm limitedContainer@devsmm user@devsmm 
-      tray@devsmm conveyor@devsmm generator@devsmm assemble@devsmm genHead@devsmm genHandle@devsmm : -> Oid [ctor] .
+  ---- the following code is such as it should be automatically generated
+  sorts plant@devsmm positionedEl@devsmm machine@devsmm container@devsmm part@devsmm
+        head@devsmm hammer@devsmm handle@devsmm limitedContainer@devsmm user@devsmm 
+        tray@devsmm conveyor@devsmm generator@devsmm assemble@devsmm genHead@devsmm genHandle@devsmm .
+        
+  subsort plant@devsmm positionedEl@devsmm machine@devsmm container@devsmm part@devsmm
+          head@devsmm hammer@devsmm handle@devsmm limitedContainer@devsmm user@devsmm 
+          tray@devsmm conveyor@devsmm generator@devsmm assemble@devsmm genHead@devsmm genHandle@devsmm < Oid .
+  
+  subsort machine@devsmm < positionedEl@devsmm .
+  subsort container@devsmm < positionedEl@devsmm .
+  subsort part@devsmm < positionedEl@devsmm .
+  
+  subsort generator@devsmm < machine@devsmm .
+  subsort assemble@devsmm < machine@devsmm .
+  
+  subsort genHead@devsmm < generator@devsmm .
+  subsort genHandle@devsmm < generator@devsmm .
+  
+  subsort limitedContainer@devsmm < container@devsmm .
+  subsort user@devsmm < container@devsmm .
+  
+  subsort tray@devsmm < limitedContainer@devsmm .
+  subsort conveyor@devsmm < limitedContainer@devsmm .
+  
+  subsort head@devsmm < part@devsmm .
+  subsort hammer@devsmm < part@devsmm .
+  subsort handle@devsmm < part@devsmm .
+  
+  op plant@devsmm : -> plant@devsmm [ctor] .
+  op positionedEl@devsmm : -> positionedEl@devsmm [ctor] .
+  op machine@devsmm : -> machine@devsmm [ctor] .
+  op generator@devsmm : -> generator@devsmm [ctor] .
+  op assemble@devsmm : -> assemble@devsmm [ctor] .
+  op genHead@devsmm : -> genHead@devsmm [ctor] .
+  op genHandle@devsmm : -> genHandle@devsmm [ctor] .
+  op container@devsmm : -> container@devsmm [ctor] .
+  op limitedContainer@devsmm : -> limitedContainer@devsmm [ctor] .
+  op user@devsmm : -> user@devsmm [ctor] .
+  op tray@devsmm : -> tray@devsmm [ctor] .
+  op conveyor@devsmm : -> conveyor@devsmm [ctor] .
+  op part@devsmm : -> part@devsmm [ctor] .
+  op head@devsmm : -> head@devsmm [ctor] .
+  op hammer@devsmm : -> hammer@devsmm [ctor] .
+  op handle@devsmm : -> handle@devsmm [ctor] .
+      
   ops els@plant@devsmm pt@machine@devsmm defectiverate@machine@devsmm parts@container@devsmm 
       defective@part@devsmm capacity@limitedContainer@devsmm outParts@conveyor@devsmm
       in@machine@devsmm out@machine@devsmm : -> Oid [ctor] .
@@ -70,37 +113,6 @@ mod PLS-MM is
       < Reqsts@Queue : EReference | lowerBound : 0, upperBound : *, eType : Request, containment : true, Atts6 >
       < Request : EClass | Atts3 >
       C:Configuration [nonexec] .
-endm
-
-
-mod PLS-MM-SORTS is
-  pr PLS-MM .
-  
-  ---- following code is such as it should be automatically generated
-  sorts plant@devsmm positionedEl@devsmm machine@devsmm container@devsmm part@devsmm
-        head@devsmm hammer@devsmm handle@devsmm limitedContainer@devsmm user@devsmm 
-        tray@devsmm conveyor@devsmm generator@devsmm assemble@devsmm genHead@devsmm genHandle@devsmm .
-  
-  subsort machine@devsmm < positionedEl@devsmm .
-  subsort container@devsmm < positionedEl@devsmm .
-  subsort part@devsmm < positionedEl@devsmm .
-  
-  subsort generator@devsmm < machine@devsmm .
-  subsort assemble@devsmm < machine@devsmm .
-  
-  subsort genHead@devsmm < generator@devsmm .
-  subsort genHandle@devsmm < generator@devsmm .
-  
-  subsort limitedContainer@devsmm < container@devsmm .
-  subsort user@devsmm < container@devsmm .
-  
-  subsort tray@devsmm < limitedContainer@devsmm .
-  subsort conveyor@devsmm < limitedContainer@devsmm .
-  
-  subsort head@devsmm < part@devsmm .
-  subsort hammer@devsmm < part@devsmm .
-  subsort handle@devsmm < part@devsmm .
-  
 endm
 
 eof

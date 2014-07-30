@@ -149,27 +149,59 @@ mod MMATCHING is
   op mmatch : Qid Configuration Configuration TermList -> List{Substitution?} .
   op mmatch : Module Term Term Nat -> List{Substitution?} .
   
+  op moreqGeneric : Module Substitution Substitution QidList -> Bool .
+  op listMoreqGeneric : Module Substitution List{Substitution?} QidList -> Bool .
+  op filterMoreGeneric : Module QidList List{Substitution?} -> List{Substitution?} .
+  
   var System Param : Configuration .
   var ModQid : Qid .
   var CurrentMatch : Substitution? .
-  var TermSystem TermParam : Term .
+  var Sub1 Sub2 : Substitution .
+  var TermSystem TermParam TermSub1 TermSub2 : Term .
   var Mod : Module .
   var N : Nat .
-  var Classes : TermList .
+  var Classes : QidList .
+  var Var : Variable .
+  var Subs : List{Substitution?} .
   
   eq mmatch(ModQid, Param, System, Classes)
-    = mmatch(upModule(ModQid, true), 
-             upTerm(Param),
-             getTerm(metaReduce(upModule(ModQid, true), upTerm(flatten(System)))),
-             0) .
+    = filterMoreGeneric(
+        upModule(ModQid, true),
+        Classes,
+        mmatch(upModule(ModQid, true), 
+               upTerm(Param),
+               getTerm(metaReduce(upModule(ModQid, true), upTerm(flatten(System)))),
+               0)) .
   
   ceq mmatch(Mod, TermParam, TermSystem, N)
-   = if CurrentMatch =/= noMatch then
+    = if CurrentMatch =/= noMatch then
        CurrentMatch mmatch(Mod, TermParam, TermSystem, s N) 
      else
        nil
      fi
-   if CurrentMatch := metaMatch(Mod, TermParam, TermSystem, nil, N) [print TermSystem].
-
+    if CurrentMatch := metaMatch(Mod, TermParam, TermSystem, nil, N) .
+    
+  eq moreqGeneric(
+      Mod,
+      (Var <- TermSub1 ; Sub1),
+      (Var <- TermSub2 ; Sub2), (Var Classes)) 
+    = sortLeq(Mod, getType(TermSub2), getType(TermSub1)) and
+      moreqGeneric(Mod, Sub1, Sub2, (Classes)) .
+      
+  eq moreqGeneric(Mod, Sub1, Sub2, nil) 
+    = true .
+    
+  eq listMoreqGeneric(Mod, Sub1, Sub2 Subs, Classes) 
+    = moreqGeneric(Mod, Sub1, Sub2, Classes) and listMoreqGeneric(Mod, Sub1, Subs, Classes) .
+  eq listMoreqGeneric(Mod, Sub1, nil, Classes) = true .
+  
+  eq filterMoreGeneric(Mod, Classes, Sub1 Subs)
+    = if listMoreqGeneric(Mod, Sub1, Subs, Classes) then
+        Sub1
+      else
+        nil
+      fi filterMoreGeneric(Mod, Classes, Subs) .
+  eq filterMoreGeneric(Mod, Classes, nil) = nil .
+  
 endm
     

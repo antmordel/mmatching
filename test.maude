@@ -4,8 +4,6 @@ mod TEST-PLS-MATCHING is
   pr PLS-MM .
 endm
 
-set trace off .
-
 ***(
 ---- test-1
 red mmatch(
@@ -38,19 +36,8 @@ red mmatch(
     < generator@devsmm : EClass | name : "Generator", eSuperTypes : machine@devsmm, eStructuralFeatures : empty >) .
 --- end block comment )
 
----- final test
-red mmatch(
-    'TEST-PLS-MATCHING,
-    < Server:Oid : EClass | eStructuralFeatures : (In@Server:Oid, Out@Server:Oid, Oids1:Set{Oid}), Atts1:AttributeSet >
-    < In@Server:Oid : EReference | lowerBound : 0, upperBound : 1, eType : Queue:Oid, containment : false, Atts4:AttributeSet >
-    < Out@Server:Oid : EReference | lowerBound : 1, upperBound : 1, eType : Queue:Oid, containment : false, Atts5:AttributeSet >
-    < Queue:Oid : EClass | eStructuralFeatures : (Reqsts@Queue:Oid, Oids2:Set{Oid}), Atts2:AttributeSet >
-    < Reqsts@Queue:Oid : EReference | lowerBound : 0, upperBound : *, eType : Request:Oid, containment : true, Atts6:AttributeSet >
-    < Request:Oid : EClass | Atts3:AttributeSet >
-    C:Configuration,
-    plsmm,
-    upTerm(('Server:Oid 'Queue:Oid 'Request:Oid)) ) .
 
+***(
 red size(mmatch(
     'TEST-PLS-MATCHING,
     < Server:Oid : EClass | eStructuralFeatures : (In@Server:Oid, Out@Server:Oid, Oids1:Set{Oid}), Atts1:AttributeSet >
@@ -62,97 +49,221 @@ red size(mmatch(
     C:Configuration,
     plsmm,
     upTerm((Server:Oid Queue:Oid Request:Oid)))) .
-    
-eof 
-red metaMatch(upModule('TEST-PLS-MATCHING, true),
-    upTerm(< Server:Oid : EClass | eStructuralFeatures : (In@Server:Oid, Out@Server:Oid, Oids1:Set{Oid}), Atts1:AttributeSet >
+
+---- final test
+red mmatch(
+    'TEST-PLS-MATCHING,
+    < Server:Oid : EClass | eStructuralFeatures : (In@Server:Oid, Out@Server:Oid, Oids1:Set{Oid}), Atts1:AttributeSet >
     < In@Server:Oid : EReference | lowerBound : 0, upperBound : 1, eType : Queue:Oid, containment : false, Atts4:AttributeSet >
     < Out@Server:Oid : EReference | lowerBound : 1, upperBound : 1, eType : Queue:Oid, containment : false, Atts5:AttributeSet >
     < Queue:Oid : EClass | eStructuralFeatures : (Reqsts@Queue:Oid, Oids2:Set{Oid}), Atts2:AttributeSet >
     < Reqsts@Queue:Oid : EReference | lowerBound : 0, upperBound : *, eType : Request:Oid, containment : true, Atts6:AttributeSet >
     < Request:Oid : EClass | Atts3:AttributeSet >
-    C:Configuration),
-    '__['<_:_|_>['assemble@devsmm.Oid,'EClass.EClass,'_`,_['_:_[
-        'eStructuralFeatures.ReferenceName,'_`,_['defectiverate@machine@devsmm.Oid,
-        'in@machine@devsmm.Oid,'out@machine@devsmm.Oid,'pt@machine@devsmm.Oid]],'_:_[
-        'eSuperTypes.ReferenceName,'machine@devsmm.Oid],'_:_['name.AttributeName,
-        '"Assemble".String]]],'<_:_|_>['capacity@limitedContainer@devsmm.Oid,
-        'EAttribute.EAttribute,'_`,_['_:_['eType.ReferenceName,'Int.OclType],'_:_[
-        'lowerBound.AttributeName,'s_['0.Zero]],'_:_['name.AttributeName,'"capacity".String],
-        '_:_['upperBound.AttributeName,'s_['0.Zero]]]],'<_:_|_>['container@devsmm.Oid,
-        'EClass.EClass,'_`,_['_:_['eStructuralFeatures.ReferenceName,
-        'parts@container@devsmm.Oid],'_:_['eSuperTypes.ReferenceName,'positionedEl@devsmm.Oid],
-        '_:_['name.AttributeName,'"Container".String]]],'<_:_|_>['conveyor@devsmm.Oid,
-        'EClass.EClass,'_`,_['_:_['eStructuralFeatures.ReferenceName,'_`,_[
-        'capacity@limitedContainer@devsmm.Oid,'outParts@conveyor@devsmm.Oid,
-        'parts@container@devsmm.Oid]],'_:_['eSuperTypes.ReferenceName,
-        'limitedContainer@devsmm.Oid],'_:_['name.AttributeName,'"Conveyor".String]]],'<_:_|_>[
-        'defective@part@devsmm.Oid,'EAttribute.EAttribute,'_`,_['_:_['eType.ReferenceName,
-        'Boolean.OclType],'_:_['lowerBound.AttributeName,'s_['0.Zero]],'_:_['name.AttributeName,
-        '"deffective".String],'_:_['upperBound.AttributeName,'s_['0.Zero]]]],'<_:_|_>[
-        'defectiverate@machine@devsmm.Oid,'EAttribute.EAttribute,'_`,_['_:_['eType.ReferenceName,
-        'Int.OclType],'_:_['lowerBound.AttributeName,'s_['0.Zero]],'_:_['name.AttributeName,
-        '"defectiverate".String],'_:_['upperBound.AttributeName,'s_['0.Zero]]]],'<_:_|_>[
-        'els@plant@devsmm.Oid,'EReference.EReference,'_`,_['_:_['containment.AttributeName,
-        'true.Bool],'_:_['eOpposite.ReferenceName,'null.OclVoid],'_:_['eType.ReferenceName,
-        'positionedEl@devsmm.Oid],'_:_['lowerBound.AttributeName,'0.Zero],'_:_[
-        'name.AttributeName,'"els".String],'_:_['upperBound.AttributeName,'*.Nat]]],'<_:_|_>[
-        'genHandle@devsmm.Oid,'EClass.EClass,'_`,_['_:_['eStructuralFeatures.ReferenceName,'_`,_[
-        'defectiverate@machine@devsmm.Oid,'in@machine@devsmm.Oid,'out@machine@devsmm.Oid,
-        'pt@machine@devsmm.Oid]],'_:_['eSuperTypes.ReferenceName,'generator@devsmm.Oid],'_:_[
-        'name.AttributeName,'"GenHandle".String]]],'<_:_|_>['genHead@devsmm.Oid,'EClass.EClass,
-        '_`,_['_:_['eStructuralFeatures.ReferenceName,'_`,_['defectiverate@machine@devsmm.Oid,
-        'in@machine@devsmm.Oid,'out@machine@devsmm.Oid,'pt@machine@devsmm.Oid]],'_:_[
-        'eSuperTypes.ReferenceName,'generator@devsmm.Oid],'_:_['name.AttributeName,
-        '"GenHead".String]]],'<_:_|_>['generator@devsmm.Oid,'EClass.EClass,'_`,_['_:_[
-        'eStructuralFeatures.ReferenceName,'_`,_['defectiverate@machine@devsmm.Oid,
-        'in@machine@devsmm.Oid,'out@machine@devsmm.Oid,'pt@machine@devsmm.Oid]],'_:_[
-        'eSuperTypes.ReferenceName,'machine@devsmm.Oid],'_:_['name.AttributeName,
-        '"Generator".String]]],'<_:_|_>['hammer@devsmm.Oid,'EClass.EClass,'_`,_['_:_[
-        'eStructuralFeatures.ReferenceName,'defective@part@devsmm.Oid],'_:_[
-        'eSuperTypes.ReferenceName,'part@devsmm.Oid],'_:_['name.AttributeName,
-        '"Hammer".String]]],'<_:_|_>['handle@devsmm.Oid,'EClass.EClass,'_`,_['_:_[
-        'eStructuralFeatures.ReferenceName,'defective@part@devsmm.Oid],'_:_[
-        'eSuperTypes.ReferenceName,'part@devsmm.Oid],'_:_['name.AttributeName,
-        '"Handle".String]]],'<_:_|_>['head@devsmm.Oid,'EClass.EClass,'_`,_['_:_[
-        'eStructuralFeatures.ReferenceName,'defective@part@devsmm.Oid],'_:_[
-        'eSuperTypes.ReferenceName,'part@devsmm.Oid],'_:_['name.AttributeName,'"Head".String]]],
-        '<_:_|_>['in@machine@devsmm.Oid,'EReference.EReference,'_`,_['_:_[
-        'containment.AttributeName,'false.Bool],'_:_['eType.ReferenceName,
-        'limitedContainer@devsmm.Oid],'_:_['lowerBound.AttributeName,'0.Zero],'_:_[
-        'name.AttributeName,'"in".String],'_:_['upperBound.AttributeName,'s_['0.Zero]]]],
-        '<_:_|_>['limitedContainer@devsmm.Oid,'EClass.EClass,'_`,_['_:_[
-        'eStructuralFeatures.ReferenceName,'_`,_['capacity@limitedContainer@devsmm.Oid,
-        'parts@container@devsmm.Oid]],'_:_['eSuperTypes.ReferenceName,'container@devsmm.Oid],
-        '_:_['name.AttributeName,'"LimitedContainer".String]]],'<_:_|_>['machine@devsmm.Oid,
-        'EClass.EClass,'_`,_['_:_['eStructuralFeatures.ReferenceName,'_`,_[
-        'defectiverate@machine@devsmm.Oid,'in@machine@devsmm.Oid,'out@machine@devsmm.Oid,
-        'pt@machine@devsmm.Oid]],'_:_['eSuperTypes.ReferenceName,'positionedEl@devsmm.Oid],'_:_[
-        'name.AttributeName,'"Machine".String]]],'<_:_|_>['out@machine@devsmm.Oid,
-        'EReference.EReference,'_`,_['_:_['containment.AttributeName,'false.Bool],'_:_[
-        'eType.ReferenceName,'limitedContainer@devsmm.Oid],'_:_['lowerBound.AttributeName,'s_[
-        '0.Zero]],'_:_['name.AttributeName,'"out".String],'_:_['upperBound.AttributeName,'s_[
-        '0.Zero]]]],'<_:_|_>['outParts@conveyor@devsmm.Oid,'EReference.EReference,'_`,_['_:_[
-        'containment.AttributeName,'true.Bool],'_:_['eOpposite.ReferenceName,'null.OclVoid],'_:_[
-        'eType.ReferenceName,'part@devsmm.Oid],'_:_['lowerBound.AttributeName,'0.Zero],'_:_[
-        'name.AttributeName,'"outParts".String],'_:_['upperBound.AttributeName,'*.Nat]]],
-        '<_:_|_>['part@devsmm.Oid,'EClass.EClass,'_`,_['_:_['eStructuralFeatures.ReferenceName,
-        'defective@part@devsmm.Oid],'_:_['eSuperTypes.ReferenceName,'positionedEl@devsmm.Oid],
-        '_:_['name.AttributeName,'"Part".String]]],'<_:_|_>['parts@container@devsmm.Oid,
-        'EReference.EReference,'_`,_['_:_['containment.AttributeName,'true.Bool],'_:_[
-        'eOpposite.ReferenceName,'null.OclVoid],'_:_['eType.ReferenceName,'part@devsmm.Oid],'_:_[
-        'lowerBound.AttributeName,'0.Zero],'_:_['name.AttributeName,'"els".String],'_:_[
-        'upperBound.AttributeName,'*.Nat]]],'<_:_|_>['plant@devsmm.Oid,'EClass.EClass,'_`,_['_:_[
-        'eStructuralFeatures.ReferenceName,'els@plant@devsmm.Oid],'_:_['name.AttributeName,
-        '"Plant".String]]],'<_:_|_>['positionedEl@devsmm.Oid,'EClass.EClass,'_`,_['_:_[
-        'eStructuralFeatures.ReferenceName,'empty.Set`{Oid`}],'_:_['name.AttributeName,
-        '"PositionedEl".String]]],'<_:_|_>['pt@machine@devsmm.Oid,'EAttribute.EAttribute,'_`,_[
-        '_:_['eType.ReferenceName,'Int.OclType],'_:_['lowerBound.AttributeName,'s_['0.Zero]],
-        '_:_['name.AttributeName,'"pt".String],'_:_['upperBound.AttributeName,'s_['0.Zero]]]],
-        '<_:_|_>['tray@devsmm.Oid,'EClass.EClass,'_`,_['_:_['eStructuralFeatures.ReferenceName,
-        '_`,_['capacity@limitedContainer@devsmm.Oid,'parts@container@devsmm.Oid]],'_:_[
-        'eSuperTypes.ReferenceName,'limitedContainer@devsmm.Oid],'_:_['name.AttributeName,
-        '"Tray".String]]],'<_:_|_>['user@devsmm.Oid,'EClass.EClass,'_`,_['_:_[
-        'eStructuralFeatures.ReferenceName,'parts@container@devsmm.Oid],'_:_[
-        'eSuperTypes.ReferenceName,'container@devsmm.Oid],'_:_['name.AttributeName,
-        '"User".String]]]], nil, 0) .
+    C:Configuration,
+    plsmm,
+    upTerm((Server:Oid Queue:Oid Request:Oid)) ) .
+)
+    
+red sortLeq(upModule('TEST-PLS-MATCHING, false), getType('machine@devsmm.machine@devsmm), getType('generator@devsmm.generator@devsmm)) .
+red sortLeq(upModule('TEST-PLS-MATCHING, false), getType('generator@devsmm.generator@devsmm), getType('machine@devsmm.machine@devsmm)) .
+
+red moreqGeneric(
+  upModule('TEST-PLS-MATCHING, false),
+   ('In@Server:Oid <- 'in@machine@devsmm.Oid ; 
+    'Oids1:Set`{Oid`} <- '_`,_['defectiverate@machine@devsmm.Oid,
+    'pt@machine@devsmm.Oid] ; 
+    'Oids2:Set`{Oid`} <- 'capacity@limitedContainer@devsmm.Oid ; 
+    'Out@Server:Oid <- 'out@machine@devsmm.Oid ; 
+    'Queue:Oid <- 'limitedContainer@devsmm.limitedContainer@devsmm ; 
+    'Reqsts@Queue:Oid <- 'parts@container@devsmm.Oid ; 
+    'Request:Oid <- 'part@devsmm.part@devsmm ; 
+    'Server:Oid <- 'machine@devsmm.machine@devsmm ),
+   ('In@Server:Oid <- 'in@machine@devsmm.Oid ; 
+    'Oids1:Set`{Oid`} <- '_`,_['defectiverate@machine@devsmm.Oid,
+    'pt@machine@devsmm.Oid] ; 
+    'Oids2:Set`{Oid`} <- 'capacity@limitedContainer@devsmm.Oid ; 
+    'Out@Server:Oid <- 'out@machine@devsmm.Oid ; 
+    'Queue:Oid <- 'limitedContainer@devsmm.limitedContainer@devsmm ; 
+    'Reqsts@Queue:Oid <- 'parts@container@devsmm.Oid ; 
+    'Request:Oid <- 'part@devsmm.part@devsmm ; 
+    'Server:Oid <- 'generator@devsmm.generator@devsmm) ,
+    'Server:Oid 'Queue:Oid 'Request:Oid) .
+
+red mmatch(
+    'TEST-PLS-MATCHING,
+    < Server:Oid : EClass | eStructuralFeatures : (In@Server:Oid, Out@Server:Oid, Oids1:Set{Oid}), Atts1:AttributeSet >
+    < In@Server:Oid : EReference | lowerBound : 0, upperBound : 1, eType : Queue:Oid, containment : false, Atts4:AttributeSet >
+    < Out@Server:Oid : EReference | lowerBound : 1, upperBound : 1, eType : Queue:Oid, containment : false, Atts5:AttributeSet >
+    < Queue:Oid : EClass | eStructuralFeatures : (Reqsts@Queue:Oid, Oids2:Set{Oid}), Atts2:AttributeSet >
+    < Reqsts@Queue:Oid : EReference | lowerBound : 0, upperBound : *, eType : Request:Oid, containment : true, Atts6:AttributeSet >
+    < Request:Oid : EClass | Atts3:AttributeSet >
+    C:Configuration,
+    plsmm,
+    'Server:Oid 'Queue:Oid 'Request:Oid) .
+
+
+eof
+
+match V:Variable <- T:Term ; S:Substitution
+  <=?
+      'Server:Oid <- 'machine@devsmm.machine@devsmm .
+      
+match moreqGeneric(
+      Mod:Module,
+      (V:Variable <- T1:Term ; Sub1:Substitution),
+      (V:Variable <- T2:Term ; Sub2:Substitution), (V:Variable QL:NeQidList))
+  <=?
+      moreqGeneric(mod 'TEST-PLS-MATCHING is
+  including 'BOOL .
+  protecting 'MMATCHING .
+  protecting 'PLS-MM .
+  sorts none .
+  none
+  none
+  none
+  none
+  none
+endm, 
+    'In@Server:Oid <- 'in@machine@devsmm.Oid ; 
+    'Oids1:Set`{Oid`} <- '_`,_['defectiverate@machine@devsmm.Oid,
+    'pt@machine@devsmm.Oid] ; 
+    'Oids2:Set`{Oid`} <- 'capacity@limitedContainer@devsmm.Oid ; 
+    'Out@Server:Oid <- 'out@machine@devsmm.Oid ; 
+    'Queue:Oid <- 'limitedContainer@devsmm.limitedContainer@devsmm ; 
+    'Reqsts@Queue:Oid <- 'parts@container@devsmm.Oid ; 
+    'Request:Oid <- 'part@devsmm.part@devsmm ; 
+    'Server:Oid <- 'machine@devsmm.machine@devsmm, 
+    'In@Server:Oid <- 'in@machine@devsmm.Oid ; 
+    'Oids1:Set`{Oid`} <- '_`,_['defectiverate@machine@devsmm.Oid,
+    'pt@machine@devsmm.Oid] ; 
+    'Oids2:Set`{Oid`} <- 'capacity@limitedContainer@devsmm.Oid ; 
+    'Out@Server:Oid <- 'out@machine@devsmm.Oid ; 
+    'Queue:Oid <- 'limitedContainer@devsmm.limitedContainer@devsmm ; 
+    'Reqsts@Queue:Oid <- 'parts@container@devsmm.Oid ; 
+    'Request:Oid <- 'part@devsmm.part@devsmm ; 
+    'Server:Oid <- 'generator@devsmm.generator@devsmm, '__['Server:Oid,
+    'Queue:Oid,'Request:Oid]) .
+      
+eof
+
+match (V:Variable <- T1:Term ; Sub1:Substitution)
+    <=?
+      ('In@Server:Oid <- 'in@machine@devsmm.Oid ; 
+       'Oids1:Set`{Oid`} <- '_`,_['defectiverate@machine@devsmm.Oid,
+       'pt@machine@devsmm.Oid] ; 
+       'Oids2:Set`{Oid`} <- 'capacity@limitedContainer@devsmm.Oid ; 
+       'Out@Server:Oid <- 'out@machine@devsmm.Oid ; 
+       'Queue:Oid <- 'limitedContainer@devsmm.limitedContainer@devsmm ; 
+       'Reqsts@Queue:Oid <- 'parts@container@devsmm.Oid ; 
+       'Request:Oid <- 'part@devsmm.part@devsmm ; 
+       'Server:Oid <- 'machine@devsmm.machine@devsmm ) .
+       
+eof
+-----------------------------------------------
+result Substitution: 
+    'Atts1:AttributeSet <- '_`,_['_:_['eSuperTypes.ReferenceName,
+    'positionedEl@devsmm.positionedEl@devsmm],'_:_['name.AttributeName,
+    '"Machine".String]] ; 
+    'Atts2:AttributeSet <- '_`,_['_:_['eSuperTypes.ReferenceName,
+    'container@devsmm.container@devsmm],'_:_['name.AttributeName,
+    '"LimitedContainer".String]] ; 
+    'Atts3:AttributeSet <- '_`,_['_:_['eStructuralFeatures.ReferenceName,
+    'defective@part@devsmm.Oid],'_:_['eSuperTypes.ReferenceName,
+    'positionedEl@devsmm.positionedEl@devsmm],'_:_['name.AttributeName,
+    '"Part".String]] ; 
+    'Atts4:AttributeSet <- '_:_['name.AttributeName,'"in".String] ; 
+    'Atts5:AttributeSet <- '_:_['name.AttributeName,'"out".String] ; 
+    'Atts6:AttributeSet <- '_`,_['_:_['eOpposite.ReferenceName,
+    'null.OclVoid],'_:_['name.AttributeName,'"els".String]] ; 
+    'C:Configuration <- '__['<_:_|_>['assemble@devsmm.assemble@devsmm,
+    'EClass.EClass,'_`,_['_:_['eStructuralFeatures.ReferenceName,'_`,_[
+    'defectiverate@machine@devsmm.Oid,'in@machine@devsmm.Oid,
+    'out@machine@devsmm.Oid,'pt@machine@devsmm.Oid]],'_:_[
+    'eSuperTypes.ReferenceName,'machine@devsmm.machine@devsmm],'_:_[
+    'name.AttributeName,'"Assemble".String]]],'<_:_|_>[
+    'capacity@limitedContainer@devsmm.Oid,'EAttribute.EAttribute,'_`,_['_:_[
+    'eType.ReferenceName,'Int.OclType],'_:_['lowerBound.AttributeName,'s_[
+    '0.Zero]],'_:_['name.AttributeName,'"capacity".String],'_:_[
+    'upperBound.AttributeName,'s_['0.Zero]]]],'<_:_|_>[
+    'container@devsmm.container@devsmm,'EClass.EClass,'_`,_['_:_[
+    'eStructuralFeatures.ReferenceName,'parts@container@devsmm.Oid],'_:_[
+    'eSuperTypes.ReferenceName,'positionedEl@devsmm.positionedEl@devsmm],'_:_[
+    'name.AttributeName,'"Container".String]]],'<_:_|_>[
+    'conveyor@devsmm.conveyor@devsmm,'EClass.EClass,'_`,_['_:_[
+    'eStructuralFeatures.ReferenceName,'_`,_[
+    'capacity@limitedContainer@devsmm.Oid,'outParts@conveyor@devsmm.Oid,
+    'parts@container@devsmm.Oid]],'_:_['eSuperTypes.ReferenceName,
+    'limitedContainer@devsmm.limitedContainer@devsmm],'_:_['name.AttributeName,
+    '"Conveyor".String]]],'<_:_|_>['defective@part@devsmm.Oid,
+    'EAttribute.EAttribute,'_`,_['_:_['eType.ReferenceName,'Boolean.OclType],
+    '_:_['lowerBound.AttributeName,'s_['0.Zero]],'_:_['name.AttributeName,
+    '"deffective".String],'_:_['upperBound.AttributeName,'s_['0.Zero]]]],
+    '<_:_|_>['defectiverate@machine@devsmm.Oid,'EAttribute.EAttribute,'_`,_[
+    '_:_['eType.ReferenceName,'Int.OclType],'_:_['lowerBound.AttributeName,'s_[
+    '0.Zero]],'_:_['name.AttributeName,'"defectiverate".String],'_:_[
+    'upperBound.AttributeName,'s_['0.Zero]]]],'<_:_|_>['els@plant@devsmm.Oid,
+    'EReference.EReference,'_`,_['_:_['containment.AttributeName,'true.Bool],
+    '_:_['eOpposite.ReferenceName,'null.OclVoid],'_:_['eType.ReferenceName,
+    'positionedEl@devsmm.positionedEl@devsmm],'_:_['lowerBound.AttributeName,
+    '0.Zero],'_:_['name.AttributeName,'"els".String],'_:_[
+    'upperBound.AttributeName,'*.Nat]]],'<_:_|_>[
+    'genHandle@devsmm.genHandle@devsmm,'EClass.EClass,'_`,_['_:_[
+    'eStructuralFeatures.ReferenceName,'_`,_['defectiverate@machine@devsmm.Oid,
+    'in@machine@devsmm.Oid,'out@machine@devsmm.Oid,'pt@machine@devsmm.Oid]],
+    '_:_['eSuperTypes.ReferenceName,'generator@devsmm.generator@devsmm],'_:_[
+    'name.AttributeName,'"GenHandle".String]]],'<_:_|_>[
+    'genHead@devsmm.genHead@devsmm,'EClass.EClass,'_`,_['_:_[
+    'eStructuralFeatures.ReferenceName,'_`,_['defectiverate@machine@devsmm.Oid,
+    'in@machine@devsmm.Oid,'out@machine@devsmm.Oid,'pt@machine@devsmm.Oid]],
+    '_:_['eSuperTypes.ReferenceName,'generator@devsmm.generator@devsmm],'_:_[
+    'name.AttributeName,'"GenHead".String]]],'<_:_|_>[
+    'generator@devsmm.generator@devsmm,'EClass.EClass,'_`,_['_:_[
+    'eStructuralFeatures.ReferenceName,'_`,_['defectiverate@machine@devsmm.Oid,
+    'in@machine@devsmm.Oid,'out@machine@devsmm.Oid,'pt@machine@devsmm.Oid]],
+    '_:_['eSuperTypes.ReferenceName,'machine@devsmm.machine@devsmm],'_:_[
+    'name.AttributeName,'"Generator".String]]],'<_:_|_>[
+    'hammer@devsmm.hammer@devsmm,'EClass.EClass,'_`,_['_:_[
+    'eStructuralFeatures.ReferenceName,'defective@part@devsmm.Oid],'_:_[
+    'eSuperTypes.ReferenceName,'part@devsmm.part@devsmm],'_:_[
+    'name.AttributeName,'"Hammer".String]]],'<_:_|_>[
+    'handle@devsmm.handle@devsmm,'EClass.EClass,'_`,_['_:_[
+    'eStructuralFeatures.ReferenceName,'defective@part@devsmm.Oid],'_:_[
+    'eSuperTypes.ReferenceName,'part@devsmm.part@devsmm],'_:_[
+    'name.AttributeName,'"Handle".String]]],'<_:_|_>['head@devsmm.head@devsmm,
+    'EClass.EClass,'_`,_['_:_['eStructuralFeatures.ReferenceName,
+    'defective@part@devsmm.Oid],'_:_['eSuperTypes.ReferenceName,
+    'part@devsmm.part@devsmm],'_:_['name.AttributeName,'"Head".String]]],
+    '<_:_|_>['outParts@conveyor@devsmm.Oid,'EReference.EReference,'_`,_['_:_[
+    'containment.AttributeName,'true.Bool],'_:_['eOpposite.ReferenceName,
+    'null.OclVoid],'_:_['eType.ReferenceName,'part@devsmm.part@devsmm],'_:_[
+    'lowerBound.AttributeName,'0.Zero],'_:_['name.AttributeName,
+    '"outParts".String],'_:_['upperBound.AttributeName,'*.Nat]]],'<_:_|_>[
+    'plant@devsmm.plant@devsmm,'EClass.EClass,'_`,_['_:_[
+    'eStructuralFeatures.ReferenceName,'els@plant@devsmm.Oid],'_:_[
+    'name.AttributeName,'"Plant".String]]],'<_:_|_>[
+    'positionedEl@devsmm.positionedEl@devsmm,'EClass.EClass,'_`,_['_:_[
+    'eStructuralFeatures.ReferenceName,'empty.Set`{Oid`}],'_:_[
+    'name.AttributeName,'"PositionedEl".String]]],'<_:_|_>[
+    'pt@machine@devsmm.Oid,'EAttribute.EAttribute,'_`,_['_:_[
+    'eType.ReferenceName,'Int.OclType],'_:_['lowerBound.AttributeName,'s_[
+    '0.Zero]],'_:_['name.AttributeName,'"pt".String],'_:_[
+    'upperBound.AttributeName,'s_['0.Zero]]]],'<_:_|_>['tray@devsmm.tray@devsmm,
+    'EClass.EClass,'_`,_['_:_['eStructuralFeatures.ReferenceName,'_`,_[
+    'capacity@limitedContainer@devsmm.Oid,'parts@container@devsmm.Oid]],'_:_[
+    'eSuperTypes.ReferenceName,
+    'limitedContainer@devsmm.limitedContainer@devsmm],'_:_['name.AttributeName,
+    '"Tray".String]]],'<_:_|_>['user@devsmm.user@devsmm,'EClass.EClass,'_`,_[
+    '_:_['eStructuralFeatures.ReferenceName,'parts@container@devsmm.Oid],'_:_[
+    'eSuperTypes.ReferenceName,'container@devsmm.container@devsmm],'_:_[
+    'name.AttributeName,'"User".String]]]] ; 
+    'In@Server:Oid <- 'in@machine@devsmm.Oid ; 
+    'Oids1:Set`{Oid`} <- '_`,_['defectiverate@machine@devsmm.Oid,
+    'pt@machine@devsmm.Oid] ; 
+    'Oids2:Set`{Oid`} <- 'capacity@limitedContainer@devsmm.Oid ; 
+    'Out@Server:Oid <- 'out@machine@devsmm.Oid ; 
+    'Queue:Oid <- 'limitedContainer@devsmm.limitedContainer@devsmm ; 
+    'Reqsts@Queue:Oid <- 'parts@container@devsmm.Oid ; 
+    'Request:Oid <- 'part@devsmm.part@devsmm ; 
+    'Server:Oid <- 'machine@devsmm.machine@devsmm
+
+      
