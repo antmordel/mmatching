@@ -146,9 +146,10 @@ mod MMATCHING is
                op rat : String NzNat ~> Rat to string2rat ) .
   
   
-  op mmatch : Qid Configuration Configuration TermList -> List{Substitution?} .
+  op mmatch : Qid Configuration Configuration -> List{Substitution?} .
   op mmatch : Module Term Term Nat -> List{Substitution?} .
   
+  op extractClasses : Configuration -> QidList .
   op moreqGeneric : Module Substitution Substitution QidList -> Bool .
   op listMoreqGeneric : Module Substitution List{Substitution?} QidList -> Bool .
   op filterMoreGeneric : Module QidList List{Substitution?} -> List{Substitution?} .
@@ -164,10 +165,10 @@ mod MMATCHING is
   var Var : Variable .
   var Subs : List{Substitution?} .
   
-  eq mmatch(ModQid, Param, System, Classes)
+  eq mmatch(ModQid, Param, System)
     = filterMoreGeneric(
         upModule(ModQid, true),
-        Classes,
+        extractClasses(Param),
         mmatch(upModule(ModQid, true), 
                upTerm(Param),
                getTerm(metaReduce(upModule(ModQid, true), upTerm(flatten(System)))),
@@ -180,7 +181,11 @@ mod MMATCHING is
        nil
      fi
     if CurrentMatch := metaMatch(Mod, TermParam, TermSystem, nil, N) .
-    
+  
+  eq extractClasses(< O:Oid : EClass | A:AttributeSet > C:Configuration)
+    = upTerm(O:Oid) extractClasses(C:Configuration) .
+  eq extractClasses(C:Configuration) = nil [owise] .
+  
   eq moreqGeneric(
       Mod,
       (Var <- TermSub1 ; Sub1),
