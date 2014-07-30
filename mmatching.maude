@@ -47,6 +47,14 @@ mod AUX-OPERATIONS is
 
 endm
 
+view Substitution? from TRIV to META-LEVEL is
+  sort Elt to Substitution? .
+endv
+
+view Term from TRIV to META-LEVEL is
+  sort Elt to Term .
+endv
+
 mod MMATCHING is
   pr AUX-OPERATIONS .
   pr META-LEVEL * (--- Renamings in FLOAT
@@ -92,13 +100,76 @@ mod MMATCHING is
                op float : Rat -> Float to rat2float,
                op float : String ~> Float to string2float,
                op rat : String NzNat ~> Rat to string2rat ) .
+ 
+  pr LIST{Substitution?} * (--- Renamings in FLOAT
+               op abs   : Float -> Float to absF,
+               op -_    : Float -> Float  to -F_,
+               op _+_   : Float Float -> Float to _+F_,
+               op _-_   : Float Float -> Float to _-F_,
+               op _/_   : Float Float -> Float to _/F_,
+               op _*_   : Float Float -> Float to _*F_,
+
+               op min   : Float Float -> Float to minF,
+               op max   : Float Float -> Float to maxF,
+               op _rem_ : Float Float -> Float to _remF_,
+               op _^_   : Float Float -> Float to _^F_,
+               op _<_   : Float Float -> Bool  to _<F_,
+               op _<=_  : Float Float -> Bool  to _<=F_,
+               op _>_   : Float Float -> Bool  to _>F_,
+               op _>=_  : Float Float -> Bool  to _>=F_,
+               op floor : Float -> Float to floorF,
+               op ceiling : Float -> Float to ceilingF,
+
+               --- Renamings in RAT
+               op _xor_ : Nat Nat -> Nat  to _nxor_,
+               op _|_   : Nat Nat -> Nat  to _|N_,
+               op _<_   : Nat Nat -> Bool to _<N_,
+               op _<=_  : Nat Nat -> Bool to _<=N_,
+               op _>_   : Nat Nat -> Bool to _>N_,
+               op _>=_  : Nat Nat -> Bool to _>=N_,
+               op _-_   : Nat Nat -> Nat  to _-N_,
+               op _*_   : Nat Nat -> Nat  to _*N_,
+               op _+_   : Nat Nat -> Nat  to _+N_,
+               op -_ : Int -> Int to -I_,
+               op _/_   : Rat Rat -> Rat  to _//_,
+               op floor : PosRat -> Nat to floorR,
+               op ceiling : PosRat -> Nat to ceilingR,
+               
+               --- Renamings in STRING
+               op _<_  : String String -> Bool to _lt_,
+               op _<=_ : String String -> Bool to _leq_,
+               op _>_  : String String -> Bool to _gt_,
+               op _>=_ : String String -> Bool to _geq_,
+               op _+_  : String String -> String to _++_,  
+               op float : Rat -> Float to rat2float,
+               op float : String ~> Float to string2float,
+               op rat : String NzNat ~> Rat to string2rat ) .
   
-  op mmatch : Qid Configuration Configuration -> Substitution? .
+  
+  op mmatch : Qid Configuration Configuration TermList -> List{Substitution?} .
+  op mmatch : Module Term Term Nat -> List{Substitution?} .
   
   var System Param : Configuration .
   var ModQid : Qid .
-  eq mmatch(ModQid, Param, System)
-    = metaMatch(upModule(ModQid, true), upTerm(Param), upTerm(System), nil, 0) .
-            
+  var CurrentMatch : Substitution? .
+  var TermSystem TermParam : Term .
+  var Mod : Module .
+  var N : Nat .
+  var Classes : TermList .
+  
+  eq mmatch(ModQid, Param, System, Classes)
+    = mmatch(upModule(ModQid, true), 
+             upTerm(Param),
+             getTerm(metaReduce(upModule(ModQid, true), upTerm(flatten(System)))),
+             0) .
+  
+  ceq mmatch(Mod, TermParam, TermSystem, N)
+   = if CurrentMatch =/= noMatch then
+       CurrentMatch mmatch(Mod, TermParam, TermSystem, s N) 
+     else
+       nil
+     fi
+   if CurrentMatch := metaMatch(Mod, TermParam, TermSystem, nil, N) [print TermSystem].
+
 endm
     

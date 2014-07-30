@@ -1,10 +1,6 @@
 mod PLS-MM is
   pr MMATCHING .
   
-  pr MY-QID .
-  
-  subsort Qid < Oid .
-  
   ops plant@devsmm positionedEl@devsmm machine@devsmm container@devsmm part@devsmm
       head@devsmm hammer@devsmm handle@devsmm limitedContainer@devsmm user@devsmm 
       tray@devsmm conveyor@devsmm generator@devsmm assemble@devsmm genHead@devsmm genHandle@devsmm : -> Oid [ctor] .
@@ -74,6 +70,36 @@ mod PLS-MM is
       < Reqsts@Queue : EReference | lowerBound : 0, upperBound : *, eType : Request, containment : true, Atts6 >
       < Request : EClass | Atts3 >
       C:Configuration [nonexec] .
+endm
+
+
+mod PLS-MM-SORTS is
+  pr PLS-MM .
+  
+  ---- following code is such as it should be automatically generated
+  sorts plant@devsmm positionedEl@devsmm machine@devsmm container@devsmm part@devsmm
+        head@devsmm hammer@devsmm handle@devsmm limitedContainer@devsmm user@devsmm 
+        tray@devsmm conveyor@devsmm generator@devsmm assemble@devsmm genHead@devsmm genHandle@devsmm .
+  
+  subsort machine@devsmm < positionedEl@devsmm .
+  subsort container@devsmm < positionedEl@devsmm .
+  subsort part@devsmm < positionedEl@devsmm .
+  
+  subsort generator@devsmm < machine@devsmm .
+  subsort assemble@devsmm < machine@devsmm .
+  
+  subsort genHead@devsmm < generator@devsmm .
+  subsort genHandle@devsmm < generator@devsmm .
+  
+  subsort limitedContainer@devsmm < container@devsmm .
+  subsort user@devsmm < container@devsmm .
+  
+  subsort tray@devsmm < limitedContainer@devsmm .
+  subsort conveyor@devsmm < limitedContainer@devsmm .
+  
+  subsort head@devsmm < part@devsmm .
+  subsort hammer@devsmm < part@devsmm .
+  subsort handle@devsmm < part@devsmm .
   
 endm
 
@@ -88,7 +114,6 @@ match
     < Request : EClass | Atts3 >
     C:Configuration
   <=? 
-
 <  plant@devsmm : EClass | name : "Plant",eStructuralFeatures : els@plant@devsmm > 
 <  positionedEl@devsmm : EClass | name : "PositionedEl",eStructuralFeatures : empty > 
 <  machine@devsmm : EClass | name : "Machine",eSuperTypes : positionedEl@devsmm,
