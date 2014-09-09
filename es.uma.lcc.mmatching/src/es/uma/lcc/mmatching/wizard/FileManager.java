@@ -1,6 +1,17 @@
 package es.uma.lcc.mmatching.wizard;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.eclipse.core.resources.IFile;
+import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.impl.EClassImpl;
+import org.eclipse.emf.ecore.impl.EPackageImpl;
+import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
+import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
 
 /**
  * @author Antonio Moreno-Delgado <i>amoreno@lcc.uma.es</i>
@@ -56,6 +67,35 @@ public class FileManager {
 
 	public void setParameterizedMM(IFile parameterizedMM) {
 		this.parameterizedMM = parameterizedMM;
+	}
+	
+	public List<String> readParameterClasses() {
+		ArrayList<String> res = new ArrayList<>();
+		
+		if (parameterizedMM != null) {
+			
+			ResourceSetImpl resourceSet = new ResourceSetImpl();
+			resourceSet.getResourceFactoryRegistry().getExtensionToFactoryMap().put("ecore", new XMIResourceFactoryImpl());
+
+			URI uri = URI.createURI(parameterizedMM.getFullPath().toOSString());
+			Resource resource = resourceSet.createResource(uri);
+			try {
+				resource.load(null);
+			} catch (IOException e) {
+				System.out.println(e.getMessage());
+			}
+			for (EObject current : resource.getContents()){ 
+				if(current instanceof EPackageImpl) { // we search the package
+					for (EObject _class : current.eContents()){ // we loop searching all classes
+						if (_class instanceof EClassImpl) {
+							res.add(((EClassImpl) _class).getName());
+						}
+					}
+				}
+			}
+		}
+		
+		return res;
 	}
 
 }

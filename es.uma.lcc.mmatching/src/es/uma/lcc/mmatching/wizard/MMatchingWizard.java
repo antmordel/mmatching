@@ -27,6 +27,7 @@ import org.eclipse.jface.wizard.Wizard;
 public class MMatchingWizard extends Wizard {
 	
 	protected SelectMMWizardPage firstPage;
+	protected SetParameterWizardPage secondPage;
 	
 	public MMatchingWizard() {
 	  super();
@@ -42,7 +43,10 @@ public class MMatchingWizard extends Wizard {
 	@Override
   public void addPages() {
     firstPage = new SelectMMWizardPage("Select metamodels");
+    secondPage = new SetParameterWizardPage("Set parameter classes");
+    
     addPage(firstPage);
+    addPage(secondPage);
   }
 
 
@@ -51,5 +55,5 @@ public class MMatchingWizard extends Wizard {
 		// TODO Auto-generated method stub
 		return false;
 	}
-
+	
 }

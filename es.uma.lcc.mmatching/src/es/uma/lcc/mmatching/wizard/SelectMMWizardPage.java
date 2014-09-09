@@ -2,6 +2,7 @@ package es.uma.lcc.mmatching.wizard;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.jface.wizard.IWizardPage;
 import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Color;
@@ -48,9 +49,6 @@ public class SelectMMWizardPage extends WizardPage {
 	protected SelectMMWizardPage(String pageName) {
 		super(pageName);
 		setTitle(pageName);
-
-		emptyColumns = new Label[25];
-		numberEmptyColumn = 0;
 	}
 
 	@Override
@@ -183,4 +181,14 @@ public class SelectMMWizardPage extends WizardPage {
 
 		label.setLayoutData(_gridLabel);
 	}
+	
+	@Override
+	public IWizardPage getNextPage() {
+		SetParameterWizardPage nextPage = (SetParameterWizardPage) super.getNextPage();
+		nextPage.fillList();
+		
+	  return nextPage;
+	}
+	
+	
 }
