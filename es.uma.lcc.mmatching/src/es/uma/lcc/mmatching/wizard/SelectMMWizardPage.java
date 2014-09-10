@@ -58,7 +58,9 @@ public class SelectMMWizardPage extends WizardPage {
 		GridLayout containerLayout = new GridLayout();
 		containerLayout.numColumns = 4;
 		container.setLayout(containerLayout);
-
+		
+		checkIfFinished();
+		
 		/* Select System DSL MM */
 		selectSystemMM(parent);
 
@@ -70,14 +72,14 @@ public class SelectMMWizardPage extends WizardPage {
 	
 	private void checkIfFinished() {
 		if (FileManager.getDefault().getSystemMM() != null && FileManager.getDefault().getParameterizedMM() != null) {
-			setPageComplete(false);
+			setPageComplete(true);
 		} else {
 			setPageComplete(false);
 		}
 	}
-
+	
 	private void selectSystemMM(final Composite parent) {
-		createLabel("System DSL Metamodel:");
+		createLabel("Actual parameter DSL metamodel:");
 
 		final Text textSystemMM = new Text(container, SWT.SINGLE);
 		textSystemMM.setEditable(false);
@@ -103,7 +105,7 @@ public class SelectMMWizardPage extends WizardPage {
 
 				ElementTreeSelectionDialog dialog = new ElementTreeSelectionDialog(parent.getShell(),
 				    new WorkbenchLabelProvider(), new BaseWorkbenchContentProvider());
-				dialog.setTitle("System Metamodel");
+				dialog.setTitle("Actual Parameter Metamodel");
 				dialog.setMessage("Select Metamodel file");
 				dialog.setInput(ResourcesPlugin.getWorkspace());
 				dialog.open();
@@ -125,7 +127,7 @@ public class SelectMMWizardPage extends WizardPage {
 	}
 
 	private void selectParameterizedMM(final Composite parent) {
-		createLabel("Parameterized DSL Metamodel:");
+		createLabel("Parameterized DSL metamodel:");
 
 		final Text textParameterizedMM = new Text(container, SWT.SINGLE);
 		textParameterizedMM.setEditable(false);

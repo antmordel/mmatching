@@ -42,7 +42,6 @@ public class SetParameterWizardPage extends WizardPage {
 	
 	private List classesList;
 	private java.util.List<String> classes;
-	private SetParameterWizardPage self;
 
 	protected SetParameterWizardPage(String pageName) {
 		super(pageName);
@@ -51,7 +50,6 @@ public class SetParameterWizardPage extends WizardPage {
 		
 		emptyLabels = new Label[50];
 		emptyLabelsCounter = 0;
-		self = this;
 	}
 
 	@Override
@@ -101,19 +99,19 @@ public class SetParameterWizardPage extends WizardPage {
 	        System.out.println(classes.get(i)+"  ");
         }
 	      
-	      if (selection.length > 0) {
-	      	setComplete(true);
-	      } else {
-	      	setComplete(false);
-	      }
+	      checkIfFinished();
       }
     });
 	  
 	  return classesList;
   }
 	
-	private void setComplete(boolean complete){
-		setPageComplete(complete);
+	private void checkIfFinished() {
+		if(classes.size() > 0) {
+			setPageComplete(true);
+		} else {
+			setPageComplete(false);
+		}
 	}
 
 	private void setLabel() {

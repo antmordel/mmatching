@@ -4,14 +4,6 @@ mod TEST-PLS-MATCHING is
   pr PLS-MM .
 endm
 
-red extractClasses(< Server:Oid : EClass | eStructuralFeatures : (In@Server:Oid, Out@Server:Oid, Oids1:Set{Oid}), Atts1:AttributeSet >
-    < In@Server:Oid : EReference | lowerBound : 0, upperBound : 1, eType : Queue:Oid, containment : false, Atts4:AttributeSet >
-    < Out@Server:Oid : EReference | lowerBound : 1, upperBound : 1, eType : Queue:Oid, containment : false, Atts5:AttributeSet >
-    < Queue:Oid : EClass | eStructuralFeatures : (Reqsts@Queue:Oid, Oids2:Set{Oid}), Atts2:AttributeSet >
-    < Reqsts@Queue:Oid : EReference | lowerBound : 0, upperBound : *, eType : Request:Oid, containment : true, Atts6:AttributeSet >
-    < Request:Oid : EClass | Atts3:AttributeSet >
-    C:Configuration) .
-
 red mmatch(
     'TEST-PLS-MATCHING,
     < Server:Oid : EClass | eStructuralFeatures : (In@Server:Oid, Out@Server:Oid, Oids1:Set{Oid}), Atts1:AttributeSet >
@@ -22,7 +14,7 @@ red mmatch(
     < Request:Oid : EClass | Atts3:AttributeSet >
     C:Configuration,
     plsmm) .
-
+    
 
 eof
 
