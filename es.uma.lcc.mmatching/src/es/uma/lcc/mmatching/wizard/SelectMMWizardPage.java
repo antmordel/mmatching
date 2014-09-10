@@ -70,7 +70,7 @@ public class SelectMMWizardPage extends WizardPage {
 	
 	private void checkIfFinished() {
 		if (FileManager.getDefault().getSystemMM() != null && FileManager.getDefault().getParameterizedMM() != null) {
-			setPageComplete(true);
+			setPageComplete(false);
 		} else {
 			setPageComplete(false);
 		}
@@ -189,6 +189,8 @@ public class SelectMMWizardPage extends WizardPage {
 		
 	  return nextPage;
 	}
+	
+	
 	
 	
 }

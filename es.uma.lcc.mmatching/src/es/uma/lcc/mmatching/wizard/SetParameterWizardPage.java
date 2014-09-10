@@ -1,12 +1,16 @@
 package es.uma.lcc.mmatching.wizard;
 
+import java.util.ArrayList;
+
 import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.List;
+import org.eclipse.swt.widgets.Listener;
 
 /**
  * @author Antonio Moreno-Delgado <i>amoreno@lcc.uma.es</i>
@@ -37,6 +41,8 @@ public class SetParameterWizardPage extends WizardPage {
 	private int emptyLabelsCounter;
 	
 	private List classesList;
+	private java.util.List<String> classes;
+	private SetParameterWizardPage self;
 
 	protected SetParameterWizardPage(String pageName) {
 		super(pageName);
@@ -45,6 +51,7 @@ public class SetParameterWizardPage extends WizardPage {
 		
 		emptyLabels = new Label[50];
 		emptyLabelsCounter = 0;
+		self = this;
 	}
 
 	@Override
@@ -69,8 +76,10 @@ public class SetParameterWizardPage extends WizardPage {
 	public void fillList() {
 		if (classesList != null) {
 			classesList.removeAll();
+			classes = new ArrayList<String>();
 			for (String _class : FileManager.getDefault().readParameterClasses()) {
 				classesList.add(_class);
+				classes.add(_class);
 			}
 		}
 	}
@@ -83,9 +92,29 @@ public class SetParameterWizardPage extends WizardPage {
     gridData.widthHint = 200;
     gridData.heightHint = 300;
     classesList.setLayoutData(gridData);
+    
+    classesList.addListener(SWT.Selection, new Listener() {
+    	@Override
+      public void handleEvent(Event event) {
+				int[] selection = classesList.getSelectionIndices();
+	      for (int i = 0; i < selection.length; i++) {
+	        System.out.println(classes.get(i)+"  ");
+        }
+	      
+	      if (selection.length > 0) {
+	      	setComplete(true);
+	      } else {
+	      	setComplete(false);
+	      }
+      }
+    });
 	  
 	  return classesList;
   }
+	
+	private void setComplete(boolean complete){
+		setPageComplete(complete);
+	}
 
 	private void setLabel() {
 		Label label = new Label(container, SWT.HORIZONTAL);
