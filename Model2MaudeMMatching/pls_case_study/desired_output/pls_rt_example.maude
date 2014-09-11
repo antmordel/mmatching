@@ -99,20 +99,7 @@ mod PLS-MM is
     < head@devsmm : EClass | name : "Head", eSuperTypes : part@devsmm, eStructuralFeatures : empty > 
     < hammer@devsmm : EClass | name : "Hammer", eSuperTypes : part@devsmm, eStructuralFeatures : empty > 
     < handle@devsmm : EClass | name : "Handle", eSuperTypes : part@devsmm, eStructuralFeatures : empty > .
-    
-    
- ---(   var Server Queue Request In@Server Out@Server Reqsts@Queue : Oid .
-    var Oids1 Oids2 : Set{Oid} .
-    var Atts1 Atts2 Atts3 Atts4 Atts5 Atts6 : AttributeSet .
-    op rtmm#param : -> Model .
-    eq rtmm#param = 
-      < Server : EClass | eStructuralFeatures : (In@Server, Out@Server, Oids1), Atts1 >
-      < In@Server : EReference | lowerBound : 0, upperBound : 1, eType : Queue, containment : false, Atts4 >
-      < Out@Server : EReference | lowerBound : 1, upperBound : 1, eType : Queue, containment : false, Atts5 >
-      < Queue : EClass | eStructuralFeatures : (Reqsts@Queue, Oids2), Atts2 >
-      < Reqsts@Queue : EReference | lowerBound : 0, upperBound : *, eType : Request, containment : true, Atts6 >
-      < Request : EClass | Atts3 >
-      C:Configuration [nonexec] .)
+
 endm
 
 eof

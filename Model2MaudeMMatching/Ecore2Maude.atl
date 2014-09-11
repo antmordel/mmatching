@@ -1,0 +1,166 @@
+-- @path Maude=/MaudeMetamodel/Maude.ecore
+-- @nsURI Ecore=http://www.eclipse.org/emf/2002/Ecore
+
+
+-- This transformation works with models with one and only one EPackage instance.
+
+module Ecore2Maude;
+create OUT: Maude from IN: Ecore;
+
+helper def: mSpec: Maude!MaudeSpec =
+	OclUndefined;
+
+helper def: sMod: Maude!SModule =
+	OclUndefined;
+
+helper def: oidSort: Maude!Sort =
+	OclUndefined;
+
+helper def : objectSyntax : String = '<_:_|_>';
+helper def : classType : String = 'EClass';
+
+
+
+helper def: metamodelName(): String =
+	Ecore!EPackage.allInstances() -> first().name.toUpper();
+
+helper context Ecore!EClass def: className(): String =
+	self.name.toLower() + '@' + self.ePackage.name.toLower();
+
+helper context Ecore!EStructuralFeature def: sfName(): String =
+	self.name.toLower() + '@' + self.eContainingClass.name.toLower() + '@' + self.
+			eContainingClass.ePackage.name.toLower();
+
+helper context Ecore!EPackage def: modelName(): String =
+	self.name.toLower();
+
+entrypoint rule Initialize() {
+	to
+		mSpec: Maude!MaudeSpec (
+			els <- Sequence{},
+			printableEls <- Sequence{}
+		),
+		m: Maude!SModule (
+			name <- thisModule.metamodelName(),
+			els <- Sequence{}
+		),
+		-- Importation the MMATCHING module
+		modImportationClasses: Maude!ModImportation (
+			mode <- #protecting,
+			imports <- modMMatching,
+			"module" <- m
+		),
+		modMMatching: Maude!ModuleIdModExp (
+			"module" <- mmatchingModule
+		),
+		mmatchingModule: Maude!SModule (
+			name <- 'MMATCHING',
+			els <- Sequence{}
+		),
+		oidsort: Maude!Sort (
+			name <- 'Oid'
+		)
+	do {
+		thisModule.mSpec <- mSpec;		
+		thisModule.mSpec.els <- thisModule.mSpec.els -> including(m);
+    thisModule.sMod <- m;
+    thisModule.oidSort <- oidsort;
+	}
+}
+
+rule Class2Maude {
+	from
+		class: Ecore!EClass
+	using {
+		className: String = class.className();
+	}
+	to
+		sort: Maude!Sort (
+			name <- className,
+			"module" <- thisModule.sMod
+		),
+		ssort: Maude!SubsortRel (
+			"module" <- thisModule.sMod,
+			supersorts <- thisModule.oidSort,
+			subsorts <- Set{sort}
+		),
+		operation: Maude!Operation (
+			name <- className,
+			"module" <- thisModule.sMod,
+			coarity <- class,
+			atts <- Sequence{'ctor'}
+		)
+}
+
+rule InheritanceRelations {
+	from
+		classA: Ecore!EClass,
+		classB: Ecore!EClass
+			(classB.eSuperTypes -> includes(classA))
+	to
+		subsort: Maude!SubsortRel (
+			"module" <- thisModule.sMod,
+			supersorts <- classA,
+			subsorts <- classB
+		)
+}
+
+rule SFS2Op {
+	from
+		sf: Ecore!EStructuralFeature
+	to
+		op: Maude!Operation (
+			"module" <- thisModule.sMod,
+			name <- sf.sfName(),
+			coarity <- thisModule.oidSort,
+			atts <- Sequence{'ctor'}
+		)
+}
+
+rule GenerateTerm {
+	from
+		model: Ecore!EPackage
+	using {
+		modelName: String = model.modelName();
+	}
+	to
+		op: Maude!Operation (
+			"module" <- thisModule.sMod,
+			name <- modelName,
+			coarity <- thisModule.oidSort,
+			atts <- Sequence{'ctor'}
+		),
+		eq: Maude!Equation (
+			"module" <- thisModule.sMod,
+			lhs <- lhsConstant
+		),
+		lhsConstant: Maude!Constant (
+			"module" <- thisModule.sMod,
+			op <- modelName
+		),
+		rhs: Maude!RecTerm (
+			"module" <- thisModule.sMod,
+			op <- '__',
+			args <- model.eClassifiers -> select(ecl | ecl.oclIsTypeOf(Ecore!EClass)) ->
+					collect(class | thisModule.CreateTermFromClass(class)) -> flatten()
+		)
+}
+
+lazy rule CreateTermFromClass {
+	from
+	  class: Ecore!EClass
+	to 
+	  objectTerm: Maude!RecTerm (
+		  "module" <- thisModule.sMod,
+			op <- thisModule.objectSyntax,
+			args <- Sequence{className}
+    ),
+		className: Maude!Constant (
+			"module" <- thisModule.sMod,
+			op <- class.className()
+		),
+		classType: Maude!Constant (
+			"module" <- thisModule.sMod,
+			op <- thisModule.classType
+		)
+}

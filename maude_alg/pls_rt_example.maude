@@ -1,0 +1,178 @@
+mod PLS-MM is
+  pr MMATCHING .
+  
+  ---- the following code is such as it should be automatically generated
+  sorts plant@devsmm positionedEl@devsmm machine@devsmm container@devsmm part@devsmm
+        head@devsmm hammer@devsmm handle@devsmm limitedContainer@devsmm user@devsmm 
+        tray@devsmm conveyor@devsmm generator@devsmm assemble@devsmm genHead@devsmm genHandle@devsmm .
+        
+  subsort plant@devsmm positionedEl@devsmm machine@devsmm container@devsmm part@devsmm
+          head@devsmm hammer@devsmm handle@devsmm limitedContainer@devsmm user@devsmm 
+          tray@devsmm conveyor@devsmm generator@devsmm assemble@devsmm genHead@devsmm genHandle@devsmm < Oid .
+  
+  subsort machine@devsmm < positionedEl@devsmm .
+  subsort container@devsmm < positionedEl@devsmm .
+  subsort part@devsmm < positionedEl@devsmm .
+  
+  subsort generator@devsmm < machine@devsmm .
+  subsort assemble@devsmm < machine@devsmm .
+  
+  subsort genHead@devsmm < generator@devsmm .
+  subsort genHandle@devsmm < generator@devsmm .
+  
+  subsort limitedContainer@devsmm < container@devsmm .
+  subsort user@devsmm < container@devsmm .
+  
+  subsort tray@devsmm < limitedContainer@devsmm .
+  subsort conveyor@devsmm < limitedContainer@devsmm .
+  
+  subsort head@devsmm < part@devsmm .
+  subsort hammer@devsmm < part@devsmm .
+  subsort handle@devsmm < part@devsmm .
+  
+  op plant@devsmm : -> plant@devsmm [ctor] .
+  op positionedEl@devsmm : -> positionedEl@devsmm [ctor] .
+  op machine@devsmm : -> machine@devsmm [ctor] .
+  op generator@devsmm : -> generator@devsmm [ctor] .
+  op assemble@devsmm : -> assemble@devsmm [ctor] .
+  op genHead@devsmm : -> genHead@devsmm [ctor] .
+  op genHandle@devsmm : -> genHandle@devsmm [ctor] .
+  op container@devsmm : -> container@devsmm [ctor] .
+  op limitedContainer@devsmm : -> limitedContainer@devsmm [ctor] .
+  op user@devsmm : -> user@devsmm [ctor] .
+  op tray@devsmm : -> tray@devsmm [ctor] .
+  op conveyor@devsmm : -> conveyor@devsmm [ctor] .
+  op part@devsmm : -> part@devsmm [ctor] .
+  op head@devsmm : -> head@devsmm [ctor] .
+  op hammer@devsmm : -> hammer@devsmm [ctor] .
+  op handle@devsmm : -> handle@devsmm [ctor] .
+      
+  ops els@plant@devsmm pt@machine@devsmm defectiverate@machine@devsmm parts@container@devsmm 
+      defective@part@devsmm capacity@limitedContainer@devsmm outParts@conveyor@devsmm
+      in@machine@devsmm out@machine@devsmm : -> Oid [ctor] .
+  
+  op plsmm : -> Model [ctor] .
+  eq plsmm =
+    < plant@devsmm : EClass | name : "Plant", eStructuralFeatures : els@plant@devsmm >
+    < positionedEl@devsmm : EClass | name : "PositionedEl", eStructuralFeatures : empty >
+    < els@plant@devsmm : EReference | name : "els", 
+                                      eType : positionedEl@devsmm,
+                                      containment : true, 
+                                      lowerBound : 0, 
+                                      upperBound : *,
+                                      eOpposite : null >
+    ---- Machine
+    < machine@devsmm : EClass | name : "Machine", eSuperTypes : positionedEl@devsmm,
+                                eStructuralFeatures : (pt@machine@devsmm, 
+                                                       defectiverate@machine@devsmm, 
+                                                       in@machine@devsmm,
+                                                       out@machine@devsmm) >
+    < pt@machine@devsmm : EAttribute | name : "pt", lowerBound : 1, upperBound : 1, eType : Int >
+    < defectiverate@machine@devsmm : EAttribute | name : "defectiverate", lowerBound : 1, upperBound : 1, eType : Int >
+    < in@machine@devsmm : EReference | name : "in", lowerBound : 0, upperBound : 1, 
+                                       eType : limitedContainer@devsmm, containment : false >
+    < out@machine@devsmm : EReference | name : "out", lowerBound : 1, upperBound : 1,
+                                        eType : limitedContainer@devsmm, containment : false >
+    < generator@devsmm : EClass | name : "Generator", eSuperTypes : machine@devsmm, eStructuralFeatures : empty >
+    < assemble@devsmm : EClass | name : "Assemble", eSuperTypes : machine@devsmm, eStructuralFeatures : empty >
+    < genHead@devsmm : EClass | name : "GenHead", eSuperTypes : generator@devsmm, eStructuralFeatures : empty >
+    < genHandle@devsmm : EClass | name : "GenHandle", eSuperTypes : generator@devsmm, eStructuralFeatures : empty >
+    ---- Container
+    < container@devsmm : EClass | name : "Container", eSuperTypes : positionedEl@devsmm, eStructuralFeatures : parts@container@devsmm > 
+    < parts@container@devsmm : EReference | name : "els", eType : part@devsmm,
+                                            containment : true, 
+                                            lowerBound : 0, 
+                                            upperBound : *,
+                                            eOpposite : null >
+    < limitedContainer@devsmm : EClass | name : "LimitedContainer", eSuperTypes : container@devsmm,
+                                         eStructuralFeatures : capacity@limitedContainer@devsmm >
+    < capacity@limitedContainer@devsmm : EAttribute | name : "capacity", eType : Int, lowerBound : 1, upperBound : 1 >
+    < user@devsmm : EClass | name : "User", eSuperTypes : container@devsmm, eStructuralFeatures : empty >
+    < tray@devsmm : EClass | name : "Tray", eSuperTypes : limitedContainer@devsmm, eStructuralFeatures : empty >
+    < conveyor@devsmm : EClass | name : "Conveyor", eSuperTypes : limitedContainer@devsmm,
+                                 eStructuralFeatures : outParts@conveyor@devsmm >
+    < outParts@conveyor@devsmm : EReference | name : "outParts", eType : part@devsmm, lowerBound : 0, upperBound : *,
+                                              containment : true, eOpposite : null >
+    ---- Part
+    < part@devsmm : EClass | name : "Part", eSuperTypes : positionedEl@devsmm, eStructuralFeatures : defective@part@devsmm >
+    < defective@part@devsmm : EAttribute | name : "deffective", eType : Boolean, lowerBound : 1, upperBound : 1 >
+    < head@devsmm : EClass | name : "Head", eSuperTypes : part@devsmm, eStructuralFeatures : empty > 
+    < hammer@devsmm : EClass | name : "Hammer", eSuperTypes : part@devsmm, eStructuralFeatures : empty > 
+    < handle@devsmm : EClass | name : "Handle", eSuperTypes : part@devsmm, eStructuralFeatures : empty > .
+    
+    
+ ---(   var Server Queue Request In@Server Out@Server Reqsts@Queue : Oid .
+    var Oids1 Oids2 : Set{Oid} .
+    var Atts1 Atts2 Atts3 Atts4 Atts5 Atts6 : AttributeSet .
+    op rtmm#param : -> Model .
+    eq rtmm#param = 
+      < Server : EClass | eStructuralFeatures : (In@Server, Out@Server, Oids1), Atts1 >
+      < In@Server : EReference | lowerBound : 0, upperBound : 1, eType : Queue, containment : false, Atts4 >
+      < Out@Server : EReference | lowerBound : 1, upperBound : 1, eType : Queue, containment : false, Atts5 >
+      < Queue : EClass | eStructuralFeatures : (Reqsts@Queue, Oids2), Atts2 >
+      < Reqsts@Queue : EReference | lowerBound : 0, upperBound : *, eType : Request, containment : true, Atts6 >
+      < Request : EClass | Atts3 >
+      C:Configuration [nonexec] .)
+endm
+
+eof
+
+match
+    < Server : EClass | eStructuralFeatures : (In@Server, Out@Server, Oids1), Atts1 >
+    < In@Server : EReference | lowerBound : 0, upperBound : 1, eType : Queue, containment : false, Atts4 >
+    < Out@Server : EReference | lowerBound : 1, upperBound : 1, eType : Queue, containment : false, Atts5 >
+    < Queue : EClass | eStructuralFeatures : (Reqsts@Queue, Oids2), Atts2 >
+    < Reqsts@Queue : EReference | lowerBound : 0, upperBound : *, eType : Request, containment : true, Atts6 >
+    < Request : EClass | Atts3 >
+    C:Configuration
+  <=? 
+<  plant@devsmm : EClass | name : "Plant",eStructuralFeatures : els@plant@devsmm > 
+<  positionedEl@devsmm : EClass | name : "PositionedEl",eStructuralFeatures : empty > 
+<  machine@devsmm : EClass | name : "Machine",eSuperTypes : positionedEl@devsmm,
+    eStructuralFeatures : (pt@machine@devsmm, defectiverate@machine@devsmm, in@machine@devsmm,
+    out@machine@devsmm) > 
+<  container@devsmm : EClass | name : "Container",eSuperTypes : positionedEl@devsmm,
+    eStructuralFeatures : parts@container@devsmm > 
+<  part@devsmm : EClass | name : "Part",eSuperTypes : positionedEl@devsmm,eStructuralFeatures :
+    defective@part@devsmm > 
+<  head@devsmm : EClass | name : "Head",eSuperTypes : part@devsmm,eStructuralFeatures :
+    defective@part@devsmm > 
+<  hammer@devsmm : EClass | name : "Hammer",eSuperTypes : part@devsmm,eStructuralFeatures :
+    defective@part@devsmm > 
+<  handle@devsmm : EClass | name : "Handle",eSuperTypes : part@devsmm,eStructuralFeatures :
+    defective@part@devsmm > 
+<  limitedContainer@devsmm : EClass | name : "LimitedContainer",eSuperTypes : container@devsmm,
+    eStructuralFeatures : (parts@container@devsmm, capacity@limitedContainer@devsmm) > 
+<  user@devsmm : EClass | name : "User",eSuperTypes : container@devsmm,eStructuralFeatures :
+    parts@container@devsmm > 
+<  tray@devsmm : EClass | name : "Tray",eSuperTypes : limitedContainer@devsmm,eStructuralFeatures
+    : (parts@container@devsmm, capacity@limitedContainer@devsmm) > 
+<  conveyor@devsmm : EClass | name : "Conveyor",eSuperTypes : limitedContainer@devsmm,
+    eStructuralFeatures : (parts@container@devsmm, capacity@limitedContainer@devsmm,
+    outParts@conveyor@devsmm) > 
+<  generator@devsmm : EClass | name : "Generator",eSuperTypes : machine@devsmm,eStructuralFeatures
+    : (pt@machine@devsmm, defectiverate@machine@devsmm, in@machine@devsmm, out@machine@devsmm) > 
+<  assemble@devsmm : EClass | name : "Assemble",eSuperTypes : machine@devsmm,eStructuralFeatures :
+    (pt@machine@devsmm, defectiverate@machine@devsmm, in@machine@devsmm, out@machine@devsmm) > 
+<  genHead@devsmm : EClass | name : "GenHead",eSuperTypes : generator@devsmm,eStructuralFeatures :
+    (pt@machine@devsmm, defectiverate@machine@devsmm, in@machine@devsmm, out@machine@devsmm) > 
+<  genHandle@devsmm : EClass | name : "GenHandle",eSuperTypes : generator@devsmm,
+    eStructuralFeatures : (pt@machine@devsmm, defectiverate@machine@devsmm, in@machine@devsmm,
+    out@machine@devsmm) > 
+<  els@plant@devsmm : EReference | name : "els",eType : positionedEl@devsmm,lowerBound : 0,
+    upperBound : *,containment : true,eOpposite : null > 
+<  pt@machine@devsmm : EAttribute | name : "pt",eType : Int,lowerBound : 1,upperBound : 1 > 
+<  defectiverate@machine@devsmm : EAttribute | name : "defectiverate",eType : Int,lowerBound : 1,
+    upperBound : 1 > 
+<  parts@container@devsmm : EReference | name : "els",eType : part@devsmm,lowerBound : 0,upperBound : *,
+    containment : true,eOpposite : null > 
+<  defective@part@devsmm : EAttribute | name : "deffective",eType : Boolean,lowerBound : 1,
+    upperBound : 1 > 
+<  capacity@limitedContainer@devsmm : EAttribute | name : "capacity",eType : Int,lowerBound : 1,
+    upperBound : 1 > 
+<  outParts@conveyor@devsmm : EReference | name : "outParts",eType : part@devsmm,lowerBound : 0,
+    upperBound : *,containment : true,eOpposite : null > 
+<  in@machine@devsmm : EReference | name : "in",eType : limitedContainer@devsmm,lowerBound : 0,
+    upperBound : 1,containment : false > 
+<  out@machine@devsmm : EReference | name : "out",eType : limitedContainer@devsmm,lowerBound : 1,
+    upperBound : 1,containment : false > .
