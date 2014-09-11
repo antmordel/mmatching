@@ -141,6 +141,440 @@
       <els xsi:type="Maude:Operation" name="defective@part@devsmm" coarity="/2">
         <atts>ctor</atts>
       </els>
+      <els xsi:type="Maude:Operation" name="devsmm" coarity="/2">
+        <atts>ctor</atts>
+      </els>
+      <els xsi:type="Maude:Equation">
+        <lhs xsi:type="Maude:Constant" op="devsmm"/>
+        <rhs xsi:type="Maude:RecTerm" op="__">
+          <args xsi:type="Maude:RecTerm" op="&lt;_:_|_>">
+            <args xsi:type="Maude:Constant" op="plant@devsmm"/>
+            <args xsi:type="Maude:Constant" op="EClass"/>
+            <args xsi:type="Maude:RecTerm" op="__">
+              <args xsi:type="Maude:RecTerm" op="_:_">
+                <args xsi:type="Maude:Constant" op="name"/>
+                <args xsi:type="Maude:Constant" op="&quot;Plant&quot;"/>
+              </args>
+              <args xsi:type="Maude:RecTerm" op="_:_">
+                <args xsi:type="Maude:Constant" op="eStructuralFeatures"/>
+                <args xsi:type="Maude:RecTerm" op="(_)">
+                  <args xsi:type="Maude:Constant" op="els@plant@devsmm"/>
+                </args>
+              </args>
+            </args>
+          </args>
+          <args xsi:type="Maude:RecTerm" op="&lt;_:_|_>">
+            <args xsi:type="Maude:Constant" op="positionedel@devsmm"/>
+            <args xsi:type="Maude:Constant" op="EClass"/>
+            <args xsi:type="Maude:RecTerm" op="__">
+              <args xsi:type="Maude:RecTerm" op="_:_">
+                <args xsi:type="Maude:Constant" op="name"/>
+                <args xsi:type="Maude:Constant" op="&quot;PositionedEl&quot;"/>
+              </args>
+              <args xsi:type="Maude:RecTerm" op="_:_">
+                <args xsi:type="Maude:Constant" op="eStructuralFeatures"/>
+                <args xsi:type="Maude:RecTerm" op="(_ ,_)">
+                  <args xsi:type="Maude:Constant" op="xpos@positionedel@devsmm"/>
+                  <args xsi:type="Maude:Constant" op="ypos@positionedel@devsmm"/>
+                </args>
+              </args>
+            </args>
+          </args>
+          <args xsi:type="Maude:RecTerm" op="&lt;_:_|_>">
+            <args xsi:type="Maude:Constant" op="machine@devsmm"/>
+            <args xsi:type="Maude:Constant" op="EClass"/>
+            <args xsi:type="Maude:RecTerm" op="__">
+              <args xsi:type="Maude:RecTerm" op="_:_">
+                <args xsi:type="Maude:Constant" op="name"/>
+                <args xsi:type="Maude:Constant" op="&quot;Machine&quot;"/>
+              </args>
+              <args xsi:type="Maude:RecTerm" op="_:_">
+                <args xsi:type="Maude:Constant" op="eStructuralFeatures"/>
+                <args xsi:type="Maude:RecTerm" op="(_, _, _ ,_)">
+                  <args xsi:type="Maude:Constant" op="pt@machine@devsmm"/>
+                  <args xsi:type="Maude:Constant" op="defective_rate@machine@devsmm"/>
+                  <args xsi:type="Maude:Constant" op="in@machine@devsmm"/>
+                  <args xsi:type="Maude:Constant" op="out@machine@devsmm"/>
+                </args>
+              </args>
+            </args>
+          </args>
+          <args xsi:type="Maude:RecTerm" op="&lt;_:_|_>">
+            <args xsi:type="Maude:Constant" op="generator@devsmm"/>
+            <args xsi:type="Maude:Constant" op="EClass"/>
+            <args xsi:type="Maude:RecTerm" op="__">
+              <args xsi:type="Maude:RecTerm" op="_:_">
+                <args xsi:type="Maude:Constant" op="name"/>
+                <args xsi:type="Maude:Constant" op="&quot;Generator&quot;"/>
+              </args>
+              <args xsi:type="Maude:RecTerm" op="_:_">
+                <args xsi:type="Maude:Constant" op="eStructuralFeatures"/>
+                <args xsi:type="Maude:RecTerm" op="(_)">
+                  <args xsi:type="Maude:Constant" op="counter@generator@devsmm"/>
+                </args>
+              </args>
+            </args>
+          </args>
+          <args xsi:type="Maude:RecTerm" op="&lt;_:_|_>">
+            <args xsi:type="Maude:Constant" op="genhead@devsmm"/>
+            <args xsi:type="Maude:Constant" op="EClass"/>
+            <args xsi:type="Maude:RecTerm" op="__">
+              <args xsi:type="Maude:RecTerm" op="_:_">
+                <args xsi:type="Maude:Constant" op="name"/>
+                <args xsi:type="Maude:Constant" op="&quot;GenHead&quot;"/>
+              </args>
+              <args xsi:type="Maude:RecTerm" op="_:_">
+                <args xsi:type="Maude:Constant" op="eStructuralFeatures"/>
+                <args xsi:type="Maude:RecTerm" op="(_)"/>
+              </args>
+            </args>
+          </args>
+          <args xsi:type="Maude:RecTerm" op="&lt;_:_|_>">
+            <args xsi:type="Maude:Constant" op="genhandle@devsmm"/>
+            <args xsi:type="Maude:Constant" op="EClass"/>
+            <args xsi:type="Maude:RecTerm" op="__">
+              <args xsi:type="Maude:RecTerm" op="_:_">
+                <args xsi:type="Maude:Constant" op="name"/>
+                <args xsi:type="Maude:Constant" op="&quot;GenHandle&quot;"/>
+              </args>
+              <args xsi:type="Maude:RecTerm" op="_:_">
+                <args xsi:type="Maude:Constant" op="eStructuralFeatures"/>
+                <args xsi:type="Maude:RecTerm" op="(_)"/>
+              </args>
+            </args>
+          </args>
+          <args xsi:type="Maude:RecTerm" op="&lt;_:_|_>">
+            <args xsi:type="Maude:Constant" op="assemble@devsmm"/>
+            <args xsi:type="Maude:Constant" op="EClass"/>
+            <args xsi:type="Maude:RecTerm" op="__">
+              <args xsi:type="Maude:RecTerm" op="_:_">
+                <args xsi:type="Maude:Constant" op="name"/>
+                <args xsi:type="Maude:Constant" op="&quot;Assemble&quot;"/>
+              </args>
+              <args xsi:type="Maude:RecTerm" op="_:_">
+                <args xsi:type="Maude:Constant" op="eStructuralFeatures"/>
+                <args xsi:type="Maude:RecTerm" op="(_)"/>
+              </args>
+            </args>
+          </args>
+          <args xsi:type="Maude:RecTerm" op="&lt;_:_|_>">
+            <args xsi:type="Maude:Constant" op="container@devsmm"/>
+            <args xsi:type="Maude:Constant" op="EClass"/>
+            <args xsi:type="Maude:RecTerm" op="__">
+              <args xsi:type="Maude:RecTerm" op="_:_">
+                <args xsi:type="Maude:Constant" op="name"/>
+                <args xsi:type="Maude:Constant" op="&quot;Container&quot;"/>
+              </args>
+              <args xsi:type="Maude:RecTerm" op="_:_">
+                <args xsi:type="Maude:Constant" op="eStructuralFeatures"/>
+                <args xsi:type="Maude:RecTerm" op="(_)">
+                  <args xsi:type="Maude:Constant" op="parts@container@devsmm"/>
+                </args>
+              </args>
+            </args>
+          </args>
+          <args xsi:type="Maude:RecTerm" op="&lt;_:_|_>">
+            <args xsi:type="Maude:Constant" op="tray@devsmm"/>
+            <args xsi:type="Maude:Constant" op="EClass"/>
+            <args xsi:type="Maude:RecTerm" op="__">
+              <args xsi:type="Maude:RecTerm" op="_:_">
+                <args xsi:type="Maude:Constant" op="name"/>
+                <args xsi:type="Maude:Constant" op="&quot;Tray&quot;"/>
+              </args>
+              <args xsi:type="Maude:RecTerm" op="_:_">
+                <args xsi:type="Maude:Constant" op="eStructuralFeatures"/>
+                <args xsi:type="Maude:RecTerm" op="(_)"/>
+              </args>
+            </args>
+          </args>
+          <args xsi:type="Maude:RecTerm" op="&lt;_:_|_>">
+            <args xsi:type="Maude:Constant" op="user@devsmm"/>
+            <args xsi:type="Maude:Constant" op="EClass"/>
+            <args xsi:type="Maude:RecTerm" op="__">
+              <args xsi:type="Maude:RecTerm" op="_:_">
+                <args xsi:type="Maude:Constant" op="name"/>
+                <args xsi:type="Maude:Constant" op="&quot;User&quot;"/>
+              </args>
+              <args xsi:type="Maude:RecTerm" op="_:_">
+                <args xsi:type="Maude:Constant" op="eStructuralFeatures"/>
+                <args xsi:type="Maude:RecTerm" op="(_)"/>
+              </args>
+            </args>
+          </args>
+          <args xsi:type="Maude:RecTerm" op="&lt;_:_|_>">
+            <args xsi:type="Maude:Constant" op="conveyor@devsmm"/>
+            <args xsi:type="Maude:Constant" op="EClass"/>
+            <args xsi:type="Maude:RecTerm" op="__">
+              <args xsi:type="Maude:RecTerm" op="_:_">
+                <args xsi:type="Maude:Constant" op="name"/>
+                <args xsi:type="Maude:Constant" op="&quot;Conveyor&quot;"/>
+              </args>
+              <args xsi:type="Maude:RecTerm" op="_:_">
+                <args xsi:type="Maude:Constant" op="eStructuralFeatures"/>
+                <args xsi:type="Maude:RecTerm" op="(_, _ ,_)">
+                  <args xsi:type="Maude:Constant" op="speed@conveyor@devsmm"/>
+                  <args xsi:type="Maude:Constant" op="out@conveyor@devsmm"/>
+                  <args xsi:type="Maude:Constant" op="outparts@conveyor@devsmm"/>
+                </args>
+              </args>
+            </args>
+          </args>
+          <args xsi:type="Maude:RecTerm" op="&lt;_:_|_>">
+            <args xsi:type="Maude:Constant" op="limitedcontainer@devsmm"/>
+            <args xsi:type="Maude:Constant" op="EClass"/>
+            <args xsi:type="Maude:RecTerm" op="__">
+              <args xsi:type="Maude:RecTerm" op="_:_">
+                <args xsi:type="Maude:Constant" op="name"/>
+                <args xsi:type="Maude:Constant" op="&quot;LimitedContainer&quot;"/>
+              </args>
+              <args xsi:type="Maude:RecTerm" op="_:_">
+                <args xsi:type="Maude:Constant" op="eStructuralFeatures"/>
+                <args xsi:type="Maude:RecTerm" op="(_)">
+                  <args xsi:type="Maude:Constant" op="capacity@limitedcontainer@devsmm"/>
+                </args>
+              </args>
+            </args>
+          </args>
+          <args xsi:type="Maude:RecTerm" op="&lt;_:_|_>">
+            <args xsi:type="Maude:Constant" op="part@devsmm"/>
+            <args xsi:type="Maude:Constant" op="EClass"/>
+            <args xsi:type="Maude:RecTerm" op="__">
+              <args xsi:type="Maude:RecTerm" op="_:_">
+                <args xsi:type="Maude:Constant" op="name"/>
+                <args xsi:type="Maude:Constant" op="&quot;Part&quot;"/>
+              </args>
+              <args xsi:type="Maude:RecTerm" op="_:_">
+                <args xsi:type="Maude:Constant" op="eStructuralFeatures"/>
+                <args xsi:type="Maude:RecTerm" op="(_)">
+                  <args xsi:type="Maude:Constant" op="defective@part@devsmm"/>
+                </args>
+              </args>
+            </args>
+          </args>
+          <args xsi:type="Maude:RecTerm" op="&lt;_:_|_>">
+            <args xsi:type="Maude:Constant" op="head@devsmm"/>
+            <args xsi:type="Maude:Constant" op="EClass"/>
+            <args xsi:type="Maude:RecTerm" op="__">
+              <args xsi:type="Maude:RecTerm" op="_:_">
+                <args xsi:type="Maude:Constant" op="name"/>
+                <args xsi:type="Maude:Constant" op="&quot;Head&quot;"/>
+              </args>
+              <args xsi:type="Maude:RecTerm" op="_:_">
+                <args xsi:type="Maude:Constant" op="eStructuralFeatures"/>
+                <args xsi:type="Maude:RecTerm" op="(_)"/>
+              </args>
+            </args>
+          </args>
+          <args xsi:type="Maude:RecTerm" op="&lt;_:_|_>">
+            <args xsi:type="Maude:Constant" op="handle@devsmm"/>
+            <args xsi:type="Maude:Constant" op="EClass"/>
+            <args xsi:type="Maude:RecTerm" op="__">
+              <args xsi:type="Maude:RecTerm" op="_:_">
+                <args xsi:type="Maude:Constant" op="name"/>
+                <args xsi:type="Maude:Constant" op="&quot;Handle&quot;"/>
+              </args>
+              <args xsi:type="Maude:RecTerm" op="_:_">
+                <args xsi:type="Maude:Constant" op="eStructuralFeatures"/>
+                <args xsi:type="Maude:RecTerm" op="(_)"/>
+              </args>
+            </args>
+          </args>
+          <args xsi:type="Maude:RecTerm" op="&lt;_:_|_>">
+            <args xsi:type="Maude:Constant" op="hammer@devsmm"/>
+            <args xsi:type="Maude:Constant" op="EClass"/>
+            <args xsi:type="Maude:RecTerm" op="__">
+              <args xsi:type="Maude:RecTerm" op="_:_">
+                <args xsi:type="Maude:Constant" op="name"/>
+                <args xsi:type="Maude:Constant" op="&quot;Hammer&quot;"/>
+              </args>
+              <args xsi:type="Maude:RecTerm" op="_:_">
+                <args xsi:type="Maude:Constant" op="eStructuralFeatures"/>
+                <args xsi:type="Maude:RecTerm" op="(_)"/>
+              </args>
+            </args>
+          </args>
+          <args xsi:type="Maude:RecTerm" op="&lt;_:_|_>">
+            <args xsi:type="Maude:Constant" op="els@plant@devsmm"/>
+            <args xsi:type="Maude:Constant" op="EReference"/>
+            <args xsi:type="Maude:RecTerm" op="__">
+              <args xsi:type="Maude:RecTerm" op="_:_">
+                <args xsi:type="Maude:Constant" op="name"/>
+                <args xsi:type="Maude:Constant" op="&quot;els&quot;"/>
+              </args>
+              <args xsi:type="Maude:RecTerm" op="_:_">
+                <args xsi:type="Maude:Constant" op="eType"/>
+                <args xsi:type="Maude:Constant" op="plant@devsmm"/>
+              </args>
+              <args xsi:type="Maude:RecTerm" op="_:_">
+                <args xsi:type="Maude:Constant" op="containment"/>
+                <args xsi:type="Maude:Constant" op="true"/>
+              </args>
+              <args xsi:type="Maude:RecTerm" op="_:_">
+                <args xsi:type="Maude:Constant" op="lowerBound"/>
+                <args xsi:type="Maude:Constant" op="0"/>
+              </args>
+              <args xsi:type="Maude:RecTerm" op="_:_">
+                <args xsi:type="Maude:Constant" op="upperBound"/>
+                <args xsi:type="Maude:Constant" op="0"/>
+              </args>
+              <args xsi:type="Maude:RecTerm" op="_:_">
+                <args xsi:type="Maude:Constant" op="eOpposite"/>
+                <args xsi:type="Maude:Constant" op="null"/>
+              </args>
+            </args>
+          </args>
+          <args xsi:type="Maude:RecTerm" op="&lt;_:_|_>">
+            <args xsi:type="Maude:Constant" op="in@machine@devsmm"/>
+            <args xsi:type="Maude:Constant" op="EReference"/>
+            <args xsi:type="Maude:RecTerm" op="__">
+              <args xsi:type="Maude:RecTerm" op="_:_">
+                <args xsi:type="Maude:Constant" op="name"/>
+                <args xsi:type="Maude:Constant" op="&quot;in&quot;"/>
+              </args>
+              <args xsi:type="Maude:RecTerm" op="_:_">
+                <args xsi:type="Maude:Constant" op="eType"/>
+                <args xsi:type="Maude:Constant" op="machine@devsmm"/>
+              </args>
+              <args xsi:type="Maude:RecTerm" op="_:_">
+                <args xsi:type="Maude:Constant" op="containment"/>
+                <args xsi:type="Maude:Constant" op="false"/>
+              </args>
+              <args xsi:type="Maude:RecTerm" op="_:_">
+                <args xsi:type="Maude:Constant" op="lowerBound"/>
+                <args xsi:type="Maude:Constant" op="0"/>
+              </args>
+              <args xsi:type="Maude:RecTerm" op="_:_">
+                <args xsi:type="Maude:Constant" op="upperBound"/>
+                <args xsi:type="Maude:Constant" op="0"/>
+              </args>
+              <args xsi:type="Maude:RecTerm" op="_:_">
+                <args xsi:type="Maude:Constant" op="eOpposite"/>
+                <args xsi:type="Maude:Constant" op="null"/>
+              </args>
+            </args>
+          </args>
+          <args xsi:type="Maude:RecTerm" op="&lt;_:_|_>">
+            <args xsi:type="Maude:Constant" op="out@machine@devsmm"/>
+            <args xsi:type="Maude:Constant" op="EReference"/>
+            <args xsi:type="Maude:RecTerm" op="__">
+              <args xsi:type="Maude:RecTerm" op="_:_">
+                <args xsi:type="Maude:Constant" op="name"/>
+                <args xsi:type="Maude:Constant" op="&quot;out&quot;"/>
+              </args>
+              <args xsi:type="Maude:RecTerm" op="_:_">
+                <args xsi:type="Maude:Constant" op="eType"/>
+                <args xsi:type="Maude:Constant" op="machine@devsmm"/>
+              </args>
+              <args xsi:type="Maude:RecTerm" op="_:_">
+                <args xsi:type="Maude:Constant" op="containment"/>
+                <args xsi:type="Maude:Constant" op="false"/>
+              </args>
+              <args xsi:type="Maude:RecTerm" op="_:_">
+                <args xsi:type="Maude:Constant" op="lowerBound"/>
+                <args xsi:type="Maude:Constant" op="1"/>
+              </args>
+              <args xsi:type="Maude:RecTerm" op="_:_">
+                <args xsi:type="Maude:Constant" op="upperBound"/>
+                <args xsi:type="Maude:Constant" op="1"/>
+              </args>
+              <args xsi:type="Maude:RecTerm" op="_:_">
+                <args xsi:type="Maude:Constant" op="eOpposite"/>
+                <args xsi:type="Maude:Constant" op="null"/>
+              </args>
+            </args>
+          </args>
+          <args xsi:type="Maude:RecTerm" op="&lt;_:_|_>">
+            <args xsi:type="Maude:Constant" op="parts@container@devsmm"/>
+            <args xsi:type="Maude:Constant" op="EReference"/>
+            <args xsi:type="Maude:RecTerm" op="__">
+              <args xsi:type="Maude:RecTerm" op="_:_">
+                <args xsi:type="Maude:Constant" op="name"/>
+                <args xsi:type="Maude:Constant" op="&quot;parts&quot;"/>
+              </args>
+              <args xsi:type="Maude:RecTerm" op="_:_">
+                <args xsi:type="Maude:Constant" op="eType"/>
+                <args xsi:type="Maude:Constant" op="container@devsmm"/>
+              </args>
+              <args xsi:type="Maude:RecTerm" op="_:_">
+                <args xsi:type="Maude:Constant" op="containment"/>
+                <args xsi:type="Maude:Constant" op="true"/>
+              </args>
+              <args xsi:type="Maude:RecTerm" op="_:_">
+                <args xsi:type="Maude:Constant" op="lowerBound"/>
+                <args xsi:type="Maude:Constant" op="0"/>
+              </args>
+              <args xsi:type="Maude:RecTerm" op="_:_">
+                <args xsi:type="Maude:Constant" op="upperBound"/>
+                <args xsi:type="Maude:Constant" op="0"/>
+              </args>
+              <args xsi:type="Maude:RecTerm" op="_:_">
+                <args xsi:type="Maude:Constant" op="eOpposite"/>
+                <args xsi:type="Maude:Constant" op="null"/>
+              </args>
+            </args>
+          </args>
+          <args xsi:type="Maude:RecTerm" op="&lt;_:_|_>">
+            <args xsi:type="Maude:Constant" op="out@conveyor@devsmm"/>
+            <args xsi:type="Maude:Constant" op="EReference"/>
+            <args xsi:type="Maude:RecTerm" op="__">
+              <args xsi:type="Maude:RecTerm" op="_:_">
+                <args xsi:type="Maude:Constant" op="name"/>
+                <args xsi:type="Maude:Constant" op="&quot;out&quot;"/>
+              </args>
+              <args xsi:type="Maude:RecTerm" op="_:_">
+                <args xsi:type="Maude:Constant" op="eType"/>
+                <args xsi:type="Maude:Constant" op="conveyor@devsmm"/>
+              </args>
+              <args xsi:type="Maude:RecTerm" op="_:_">
+                <args xsi:type="Maude:Constant" op="containment"/>
+                <args xsi:type="Maude:Constant" op="false"/>
+              </args>
+              <args xsi:type="Maude:RecTerm" op="_:_">
+                <args xsi:type="Maude:Constant" op="lowerBound"/>
+                <args xsi:type="Maude:Constant" op="1"/>
+              </args>
+              <args xsi:type="Maude:RecTerm" op="_:_">
+                <args xsi:type="Maude:Constant" op="upperBound"/>
+                <args xsi:type="Maude:Constant" op="1"/>
+              </args>
+              <args xsi:type="Maude:RecTerm" op="_:_">
+                <args xsi:type="Maude:Constant" op="eOpposite"/>
+                <args xsi:type="Maude:Constant" op="null"/>
+              </args>
+            </args>
+          </args>
+          <args xsi:type="Maude:RecTerm" op="&lt;_:_|_>">
+            <args xsi:type="Maude:Constant" op="outparts@conveyor@devsmm"/>
+            <args xsi:type="Maude:Constant" op="EReference"/>
+            <args xsi:type="Maude:RecTerm" op="__">
+              <args xsi:type="Maude:RecTerm" op="_:_">
+                <args xsi:type="Maude:Constant" op="name"/>
+                <args xsi:type="Maude:Constant" op="&quot;outParts&quot;"/>
+              </args>
+              <args xsi:type="Maude:RecTerm" op="_:_">
+                <args xsi:type="Maude:Constant" op="eType"/>
+                <args xsi:type="Maude:Constant" op="conveyor@devsmm"/>
+              </args>
+              <args xsi:type="Maude:RecTerm" op="_:_">
+                <args xsi:type="Maude:Constant" op="containment"/>
+                <args xsi:type="Maude:Constant" op="true"/>
+              </args>
+              <args xsi:type="Maude:RecTerm" op="_:_">
+                <args xsi:type="Maude:Constant" op="lowerBound"/>
+                <args xsi:type="Maude:Constant" op="0"/>
+              </args>
+              <args xsi:type="Maude:RecTerm" op="_:_">
+                <args xsi:type="Maude:Constant" op="upperBound"/>
+                <args xsi:type="Maude:Constant" op="0"/>
+              </args>
+              <args xsi:type="Maude:RecTerm" op="_:_">
+                <args xsi:type="Maude:Constant" op="eOpposite"/>
+                <args xsi:type="Maude:Constant" op="null"/>
+              </args>
+            </args>
+          </args>
+        </rhs>
+      </els>
     </els>
   </Maude:MaudeSpec>
   <Maude:SModule name="MMATCHING"/>

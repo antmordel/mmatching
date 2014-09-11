@@ -1,7 +1,25 @@
 -- @path Maude=/MaudeMetamodel/Maude.ecore
 -- @nsURI Ecore=http://www.eclipse.org/emf/2002/Ecore
 
-
+-- @author Antonio Moreno-Delgado <i>amoreno@lcc.uma.es</i>
+-- @date Sep 11th 2014
+-- 
+-- 
+--   This file is part of MMatching.
+--
+--   MMatching is free software: you can redistribute it and/or modify it
+--   under the terms of the GNU General Public License as published by the
+--   Free Software Foundation, either version 3 of the License, or (at your
+--   option) any later version.
+-- 
+--   MMatching is distributed in the hope that it will be useful, but
+--   WITHOUT ANY WARRANTY; without even the implied warranty of
+--   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+--   General Public License for more details.
+--
+--   You should have received a copy of the GNU General Public License along
+--   with MMatching. If not, see <http://www.gnu.org/licenses/>.
+ 
 -- This transformation works with models with one and only one EPackage instance.
 
 module Ecore2Maude;
@@ -16,10 +34,20 @@ helper def: sMod: Maude!SModule =
 helper def: oidSort: Maude!Sort =
 	OclUndefined;
 
-helper def : objectSyntax : String = '<_:_|_>';
-helper def : classType : String = 'EClass';
+helper def: objectSyntax: String =
+	'<_:_|_>';
 
+helper def: classType: String =
+	'EClass';
 
+helper def: refType: String =
+	'EReference';
+
+helper def: emptySyntax: String =
+	'__';
+
+helper def: sfsSyntax: String =
+	'_:_';
 
 helper def: metamodelName(): String =
 	Ecore!EPackage.allInstances() -> first().name.toUpper();
@@ -33,6 +61,27 @@ helper context Ecore!EStructuralFeature def: sfName(): String =
 
 helper context Ecore!EPackage def: modelName(): String =
 	self.name.toLower();
+
+--- This helper returns a string operator with so many
+--- '_' as arguments the term has.
+helper context Maude!RecTerm def: getSetSyntaxOperation(): String =
+	if self.args -> size() > 1 then
+		'('.concat(self.getEmptySyntaxOperation()).concat(')')
+	else
+		'(_)'
+	endif;
+
+helper context Maude!RecTerm def: getEmptySyntaxOperation(): String =
+	if self.args -> size() > 1 then
+		''.concat(self.args -> subSequence(1, self.args -> size() - 1) -> collect(aux | '_')).
+				concat(',_').replaceAll('[', ' ').replaceAll(']', ' ').trim()
+	else
+		if self.args -> size() = 1 then
+			'_'
+		else
+			' '
+		endif
+	endif;
 
 entrypoint rule Initialize() {
 	to
@@ -122,6 +171,8 @@ rule GenerateTerm {
 		model: Ecore!EPackage
 	using {
 		modelName: String = model.modelName();
+		allClasses: Sequence(Ecore!EClass) = model.eClassifiers -> select(ecl | ecl.
+				oclIsTypeOf(Ecore!EClass));
 	}
 	to
 		op: Maude!Operation (
@@ -132,35 +183,196 @@ rule GenerateTerm {
 		),
 		eq: Maude!Equation (
 			"module" <- thisModule.sMod,
-			lhs <- lhsConstant
+			lhs <- lhsConstant,
+			rhs <- rhs
 		),
 		lhsConstant: Maude!Constant (
-			"module" <- thisModule.sMod,
 			op <- modelName
 		),
 		rhs: Maude!RecTerm (
-			"module" <- thisModule.sMod,
-			op <- '__',
-			args <- model.eClassifiers -> select(ecl | ecl.oclIsTypeOf(Ecore!EClass)) ->
-					collect(class | thisModule.CreateTermFromClass(class)) -> flatten()
+			op <- thisModule.emptySyntax,
+			args <- allClasses -> collect(class | thisModule.CreateObjectTermFromClass(class))
+					-> append(allClasses -> collect(cl | cl.eStructuralFeatures) -> flatten() ->
+					select(esfs | esfs.oclIsTypeOf(Ecore!EReference)) -> collect(ref | thisModule.
+					CreateObjectTermFromReference(ref))) -> flatten()
 		)
 }
 
-lazy rule CreateTermFromClass {
+lazy rule CreateObjectTermFromClass {
 	from
-	  class: Ecore!EClass
-	to 
-	  objectTerm: Maude!RecTerm (
-		  "module" <- thisModule.sMod,
+		class: Ecore!EClass
+	to
+		objectTerm: Maude!RecTerm (
 			op <- thisModule.objectSyntax,
-			args <- Sequence{className}
-    ),
+			args <- Sequence{className,
+						classType,
+						thisModule.CreateSFSFromClass(class)}
+		),
 		className: Maude!Constant (
-			"module" <- thisModule.sMod,
 			op <- class.className()
 		),
 		classType: Maude!Constant (
-			"module" <- thisModule.sMod,
 			op <- thisModule.classType
+		)
+}
+
+lazy rule CreateSFSFromClass {
+	from
+		class: Ecore!EClass
+	to
+		emptySyntax: Maude!RecTerm (
+			op <- thisModule.emptySyntax,
+			args <- Sequence{nameSFS,
+						SFSTerm}
+		),
+		-- name
+		nameSFS: Maude!RecTerm (
+			op <- thisModule.sfsSyntax,
+			args <- Sequence{nameConstant,
+						nameArg}
+		),
+		nameConstant: Maude!Constant (
+			op <- 'name'
+		),
+		nameArg: Maude!Constant (
+			op <- '"' + class.name + '"'
+		),
+		-- eStructuralFeatures
+		SFSTerm: Maude!RecTerm (
+			op <- thisModule.sfsSyntax,
+			args <- Sequence{SFSName,
+						SFSAllFeatures}
+		),
+		SFSName: Maude!Constant (
+			op <- 'eStructuralFeatures'
+		),
+		SFSAllFeatures: Maude!RecTerm (
+			args <- class.eStructuralFeatures -> collect(esf | thisModule.CreateESF(esf))
+		)
+	do {
+		SFSAllFeatures.op <- SFSAllFeatures.getSetSyntaxOperation();
+	}
+}
+
+lazy rule CreateESF {
+	from
+		sf: Ecore!EStructuralFeature
+	to
+		sfMaude: Maude!Constant (
+			op <- sf.sfName()
+		)
+}
+
+lazy rule CreateObjectTermFromReference {
+	from
+		r: Ecore!EReference
+	to
+		objectTerm: Maude!RecTerm (
+			op <- thisModule.objectSyntax,
+			args <- Sequence{refName,
+						refType,
+						thisModule.CreateSFSFromReference(r)}
+		),
+		refName: Maude!Constant (
+			op <- r.sfName()
+		),
+		refType: Maude!Constant (
+			op <- thisModule.refType
+		)
+}
+
+lazy rule CreateSFSFromReference {
+	from
+		r: Ecore!EReference
+	to
+		emptySyntax: Maude!RecTerm (
+			op <- thisModule.emptySyntax,
+			args <- Sequence{nameSFS,typeTerm,containmentTerm,
+						lowerBoundTerm,upperBoundTerm,oppositeTerm}
+		),
+		-- name
+		nameSFS: Maude!RecTerm (
+			op <- thisModule.sfsSyntax,
+			args <- Sequence{nameConstant,
+						nameArg}
+		),
+		nameConstant: Maude!Constant (
+			op <- 'name'
+		),
+		nameArg: Maude!Constant (
+			op <- '"' + r.name + '"'
+		),
+		-- type
+		typeTerm: Maude!RecTerm (
+			op <- thisModule.sfsSyntax,
+			args <- Sequence{typeConstant,
+						typeArg}
+		),
+		typeConstant: Maude!Constant (
+			op <- 'eType'
+		),
+		typeArg: Maude!Constant (
+			op <- r.eContainingClass.className()
+		),
+		-- containment
+		containmentTerm: Maude!RecTerm (
+			op <- thisModule.sfsSyntax,
+			args <- Sequence{containmentConstant,
+						containmentValue}
+		),
+		containmentConstant: Maude!Constant (
+			op <- 'containment'
+		),
+		containmentValue: Maude!Constant (
+			op <- if r.containment then
+					'true'
+				else
+					'false'
+				endif
+		),
+		-- lowerBound
+		lowerBoundTerm: Maude!RecTerm (
+			op <- thisModule.sfsSyntax,
+			args <- Sequence{lowerBoundConstant,
+						lowerBoundValue}
+		),
+		lowerBoundConstant: Maude!Constant (
+			op <- 'lowerBound'
+		),
+		lowerBoundValue: Maude!Constant (
+			op <- if r.lowerBound = -1
+			      then '*'
+				    else r.lowerBound.toString()
+				    endif
+		),
+		-- upperBound
+		upperBoundTerm: Maude!RecTerm (
+			op <- thisModule.sfsSyntax,
+			args <- Sequence{upperBoundConstant,upperBoundValue}
+		),
+		upperBoundConstant: Maude!Constant (
+			op <- 'upperBound'
+		),
+		upperBoundValue: Maude!Constant (
+			op <- if r.lowerBound = -1 then
+					'*'
+				else
+					r.lowerBound.toString()
+				endif
+		),
+		-- eOpposite
+		oppositeTerm: Maude!RecTerm (
+			op <- thisModule.sfsSyntax,
+			args <- Sequence{oppositeConstant,oppositeValue}
+		),
+		oppositeConstant: Maude!Constant (
+			op <- 'eOpposite'
+		),
+		oppositeValue: Maude!Constant (
+			op <- if r.eOpposite.oclIsUndefined() then
+					'null'
+				else
+					r.eOpposite.sfName()
+				endif
 		)
 }
