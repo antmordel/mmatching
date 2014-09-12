@@ -1,0 +1,123 @@
+---- ----------------------------------------------- ----
+---- Generated code programmatically using MMatching ----
+---- @date   Fri Sep 12 13:11:35 CEST 2014           ----
+---- ----------------------------------------------- ----
+
+mod DEVSMM is
+  pr MMATCHING .
+    
+  sort plant@devsmm .
+  sort positionedel@devsmm .
+  sort machine@devsmm .
+  sort generator@devsmm .
+  sort genhead@devsmm .
+  sort genhandle@devsmm .
+  sort assemble@devsmm .
+  sort container@devsmm .
+  sort tray@devsmm .
+  sort user@devsmm .
+  sort conveyor@devsmm .
+  sort limitedcontainer@devsmm .
+  sort part@devsmm .
+  sort head@devsmm .
+  sort handle@devsmm .
+  sort hammer@devsmm .
+    
+  subsort plant@devsmm < Oid .
+  subsort positionedel@devsmm < Oid .
+  subsort machine@devsmm < Oid .
+  subsort generator@devsmm < Oid .
+  subsort genhead@devsmm < Oid .
+  subsort genhandle@devsmm < Oid .
+  subsort assemble@devsmm < Oid .
+  subsort container@devsmm < Oid .
+  subsort tray@devsmm < Oid .
+  subsort user@devsmm < Oid .
+  subsort conveyor@devsmm < Oid .
+  subsort limitedcontainer@devsmm < Oid .
+  subsort part@devsmm < Oid .
+  subsort head@devsmm < Oid .
+  subsort handle@devsmm < Oid .
+  subsort hammer@devsmm < Oid .
+  subsort machine@devsmm < positionedel@devsmm .
+  subsort container@devsmm < positionedel@devsmm .
+  subsort part@devsmm < positionedel@devsmm .
+  subsort generator@devsmm < machine@devsmm .
+  subsort assemble@devsmm < machine@devsmm .
+  subsort genhead@devsmm < generator@devsmm .
+  subsort genhandle@devsmm < generator@devsmm .
+  subsort user@devsmm < container@devsmm .
+  subsort limitedcontainer@devsmm < container@devsmm .
+  subsort tray@devsmm < limitedcontainer@devsmm .
+  subsort conveyor@devsmm < limitedcontainer@devsmm .
+  subsort head@devsmm < part@devsmm .
+  subsort handle@devsmm < part@devsmm .
+  subsort hammer@devsmm < part@devsmm .
+    
+  op plant@devsmm : -> plant@devsmm [ctor] .
+  op positionedel@devsmm : -> positionedel@devsmm [ctor] .
+  op machine@devsmm : -> machine@devsmm [ctor] .
+  op generator@devsmm : -> generator@devsmm [ctor] .
+  op genhead@devsmm : -> genhead@devsmm [ctor] .
+  op genhandle@devsmm : -> genhandle@devsmm [ctor] .
+  op assemble@devsmm : -> assemble@devsmm [ctor] .
+  op container@devsmm : -> container@devsmm [ctor] .
+  op tray@devsmm : -> tray@devsmm [ctor] .
+  op user@devsmm : -> user@devsmm [ctor] .
+  op conveyor@devsmm : -> conveyor@devsmm [ctor] .
+  op limitedcontainer@devsmm : -> limitedcontainer@devsmm [ctor] .
+  op part@devsmm : -> part@devsmm [ctor] .
+  op head@devsmm : -> head@devsmm [ctor] .
+  op handle@devsmm : -> handle@devsmm [ctor] .
+  op hammer@devsmm : -> hammer@devsmm [ctor] .
+  op els@plant@devsmm : -> Oid [ctor] .
+  op xpos@positionedel@devsmm : -> Oid [ctor] .
+  op ypos@positionedel@devsmm : -> Oid [ctor] .
+  op pt@machine@devsmm : -> Oid [ctor] .
+  op defective@-@rate@machine@devsmm : -> Oid [ctor] .
+  op in@machine@devsmm : -> Oid [ctor] .
+  op out@machine@devsmm : -> Oid [ctor] .
+  op counter@generator@devsmm : -> Oid [ctor] .
+  op parts@container@devsmm : -> Oid [ctor] .
+  op speed@conveyor@devsmm : -> Oid [ctor] .
+  op out@conveyor@devsmm : -> Oid [ctor] .
+  op capacity@limitedcontainer@devsmm : -> Oid [ctor] .
+  op outparts@limitedcontainer@devsmm : -> Oid [ctor] .
+  op defective@part@devsmm : -> Oid [ctor] .
+  op devsmm : -> Model [ctor] .
+    
+  eq devsmm
+    =  < plant@devsmm : EClass | name : "Plant" , eStructuralFeatures : ( els@plant@devsmm ) >
+       < positionedel@devsmm : EClass | name : "PositionedEl" , eStructuralFeatures : ( xpos@positionedel@devsmm , ypos@positionedel@devsmm ) >
+       < machine@devsmm : EClass | name : "Machine" , eStructuralFeatures : ( pt@machine@devsmm , defective@-@rate@machine@devsmm
+          , in@machine@devsmm , out@machine@devsmm ) , eSuperTypes : ( positionedel@devsmm ) >
+           < generator@devsmm : EClass | name : "Generator" , eStructuralFeatures : ( counter@generator@devsmm ) , eSuperTypes : ( machine@devsmm ) >
+           < genhead@devsmm : EClass | name : "GenHead" , eStructuralFeatures : empty , eSuperTypes : ( generator@devsmm ) >
+           < genhandle@devsmm : EClass | name : "GenHandle" , eStructuralFeatures : empty , eSuperTypes : ( generator@devsmm ) >
+           < assemble@devsmm : EClass | name : "Assemble" , eStructuralFeatures : empty , eSuperTypes : ( machine@devsmm ) >
+           < container@devsmm : EClass | name : "Container" , eStructuralFeatures : ( parts@container@devsmm
+          ) , eSuperTypes : ( positionedel@devsmm ) >
+           < tray@devsmm : EClass | name : "Tray" , eStructuralFeatures : empty , eSuperTypes : ( limitedcontainer@devsmm ) >
+           < user@devsmm : EClass | name : "User" , eStructuralFeatures : empty , eSuperTypes : ( container@devsmm ) >
+           < conveyor@devsmm : EClass | name : "Conveyor" , eStructuralFeatures : ( speed@conveyor@devsmm
+          , out@conveyor@devsmm ) , eSuperTypes : ( limitedcontainer@devsmm ) >
+           < limitedcontainer@devsmm : EClass | name : "LimitedContainer" , eStructuralFeatures : ( capacity@limitedcontainer@devsmm
+          , outparts@limitedcontainer@devsmm ) , eSuperTypes : ( container@devsmm ) >
+           < part@devsmm : EClass | name : "Part" , eStructuralFeatures : ( defective@part@devsmm ) , eSuperTypes : ( positionedel@devsmm ) >
+           < head@devsmm : EClass | name : "Head" , eStructuralFeatures : empty , eSuperTypes : ( part@devsmm ) >
+           < handle@devsmm : EClass | name : "Handle" , eStructuralFeatures : empty , eSuperTypes : ( part@devsmm ) >
+           < hammer@devsmm : EClass | name : "Hammer" , eStructuralFeatures : empty , eSuperTypes : ( part@devsmm ) >
+           < els@plant@devsmm : EReference | name : "els" , eType : positionedel@devsmm , containment
+          : true , lowerBound : 0 , upperBound : * , eOpposite : null >
+           < in@machine@devsmm : EReference | name : "in" , eType : limitedcontainer@devsmm , containment
+          : false , lowerBound : 0 , upperBound : 1 , eOpposite : null >
+           < out@machine@devsmm : EReference | name : "out" , eType : limitedcontainer@devsmm , containment
+          : false , lowerBound : 1 , upperBound : 1 , eOpposite : null >
+           < parts@container@devsmm : EReference | name : "parts" , eType : part@devsmm , containment
+          : true , lowerBound : 0 , upperBound : * , eOpposite : null >
+           < out@conveyor@devsmm : EReference | name : "out" , eType : tray@devsmm , containment : false
+          , lowerBound : 1 , upperBound : 1 , eOpposite : null >
+           < outparts@limitedcontainer@devsmm : EReference | name : "outParts" , eType : part@devsmm
+          , containment : true , lowerBound : 0 , upperBound : * , eOpposite : null >  .
+endm ---- system module DEVSMM
+

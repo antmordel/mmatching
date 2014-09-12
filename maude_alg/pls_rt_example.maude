@@ -101,7 +101,7 @@ mod PLS-MM is
     < handle@devsmm : EClass | name : "Handle", eSuperTypes : part@devsmm, eStructuralFeatures : empty > .
     
     
- ---(   var Server Queue Request In@Server Out@Server Reqsts@Queue : Oid .
+ var Server Queue Request In@Server Out@Server Reqsts@Queue : Oid .
     var Oids1 Oids2 : Set{Oid} .
     var Atts1 Atts2 Atts3 Atts4 Atts5 Atts6 : AttributeSet .
     op rtmm#param : -> Model .
@@ -112,7 +112,7 @@ mod PLS-MM is
       < Queue : EClass | eStructuralFeatures : (Reqsts@Queue, Oids2), Atts2 >
       < Reqsts@Queue : EReference | lowerBound : 0, upperBound : *, eType : Request, containment : true, Atts6 >
       < Request : EClass | Atts3 >
-      C:Configuration [nonexec] .)
+      C:Configuration [nonexec] .
 endm
 
 eof

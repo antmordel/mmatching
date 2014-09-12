@@ -1,7 +1,7 @@
 
 mod TEST-PLS-MATCHING is
   pr MMATCHING .
-  pr PLS-MM .
+  pr DEVSMM .
 endm
 
 red mmatch(
@@ -13,64 +13,4 @@ red mmatch(
     < Reqsts@Queue:Oid : EReference | lowerBound : 0, upperBound : *, eType : Request:Oid, containment : true, Atts6:AttributeSet >
     < Request:Oid : EClass | Atts3:AttributeSet >
     C:Configuration,
-    plsmm) .
-    
-
-eof
-
-match V:Variable <- T:Term ; S:Substitution
-  <=?
-      'Server:Oid <- 'machine@devsmm.machine@devsmm .
-      
-match moreqGeneric(
-      Mod:Module,
-      (V:Variable <- T1:Term ; Sub1:Substitution),
-      (V:Variable <- T2:Term ; Sub2:Substitution), (V:Variable QL:NeQidList))
-  <=?
-      moreqGeneric(mod 'TEST-PLS-MATCHING is
-  including 'BOOL .
-  protecting 'MMATCHING .
-  protecting 'PLS-MM .
-  sorts none .
-  none
-  none
-  none
-  none
-  none
-endm, 
-    'In@Server:Oid <- 'in@machine@devsmm.Oid ; 
-    'Oids1:Set`{Oid`} <- '_`,_['defectiverate@machine@devsmm.Oid,
-    'pt@machine@devsmm.Oid] ; 
-    'Oids2:Set`{Oid`} <- 'capacity@limitedContainer@devsmm.Oid ; 
-    'Out@Server:Oid <- 'out@machine@devsmm.Oid ; 
-    'Queue:Oid <- 'limitedContainer@devsmm.limitedContainer@devsmm ; 
-    'Reqsts@Queue:Oid <- 'parts@container@devsmm.Oid ; 
-    'Request:Oid <- 'part@devsmm.part@devsmm ; 
-    'Server:Oid <- 'machine@devsmm.machine@devsmm, 
-    'In@Server:Oid <- 'in@machine@devsmm.Oid ; 
-    'Oids1:Set`{Oid`} <- '_`,_['defectiverate@machine@devsmm.Oid,
-    'pt@machine@devsmm.Oid] ; 
-    'Oids2:Set`{Oid`} <- 'capacity@limitedContainer@devsmm.Oid ; 
-    'Out@Server:Oid <- 'out@machine@devsmm.Oid ; 
-    'Queue:Oid <- 'limitedContainer@devsmm.limitedContainer@devsmm ; 
-    'Reqsts@Queue:Oid <- 'parts@container@devsmm.Oid ; 
-    'Request:Oid <- 'part@devsmm.part@devsmm ; 
-    'Server:Oid <- 'generator@devsmm.generator@devsmm, '__['Server:Oid,
-    'Queue:Oid,'Request:Oid]) .
-      
-eof
-
-match (V:Variable <- T1:Term ; Sub1:Substitution)
-    <=?
-      ('In@Server:Oid <- 'in@machine@devsmm.Oid ; 
-       'Oids1:Set`{Oid`} <- '_`,_['defectiverate@machine@devsmm.Oid,
-       'pt@machine@devsmm.Oid] ; 
-       'Oids2:Set`{Oid`} <- 'capacity@limitedContainer@devsmm.Oid ; 
-       'Out@Server:Oid <- 'out@machine@devsmm.Oid ; 
-       'Queue:Oid <- 'limitedContainer@devsmm.limitedContainer@devsmm ; 
-       'Reqsts@Queue:Oid <- 'parts@container@devsmm.Oid ; 
-       'Request:Oid <- 'part@devsmm.part@devsmm ; 
-       'Server:Oid <- 'machine@devsmm.machine@devsmm ) .
-       
-
-      
+    devsmm) .

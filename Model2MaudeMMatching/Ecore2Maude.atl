@@ -34,6 +34,9 @@ helper def: sMod: Maude!SModule =
 helper def: oidSort: Maude!Sort =
 	OclUndefined;
 
+helper def: modelSort: Maude!Sort =
+	OclUndefined;
+
 helper def: objectSyntax: String =
 	'<_:_|_>';
 
@@ -49,15 +52,18 @@ helper def: emptySyntax: String =
 helper def: sfsSyntax: String =
 	'_:_';
 
+helper def: sfsSetSyntax: String =
+	'_,_';
+
 helper def: metamodelName(): String =
-	Ecore!EPackage.allInstances() -> first().name.toUpper();
+	Ecore!EPackage.allInstancesFrom('IN') -> first().name.toUpper();
 
 helper context Ecore!EClass def: className(): String =
-	self.name.toLower() + '@' + self.ePackage.name.toLower();
+	(self.name.toLower() + '@' + self.ePackage.name.toLower()).regexReplaceAll('_', '@-@');
 
 helper context Ecore!EStructuralFeature def: sfName(): String =
-	self.name.toLower() + '@' + self.eContainingClass.name.toLower() + '@' + self.
-			eContainingClass.ePackage.name.toLower();
+	(self.name.toLower() + '@' + self.eContainingClass.name.toLower() + '@' + 
+			self.eContainingClass.ePackage.name.toLower()).regexReplaceAll('_', '@-@');
 
 helper context Ecore!EPackage def: modelName(): String =
 	self.name.toLower();
@@ -108,12 +114,16 @@ entrypoint rule Initialize() {
 		),
 		oidsort: Maude!Sort (
 			name <- 'Oid'
+		),
+		modelSort: Maude!Sort (
+			name <- 'Model'
 		)
 	do {
 		thisModule.mSpec <- mSpec;		
 		thisModule.mSpec.els <- thisModule.mSpec.els -> including(m);
     thisModule.sMod <- m;
     thisModule.oidSort <- oidsort;
+    thisModule.modelSort <- modelSort;
 	}
 }
 
@@ -178,7 +188,7 @@ rule GenerateTerm {
 		op: Maude!Operation (
 			"module" <- thisModule.sMod,
 			name <- modelName,
-			coarity <- thisModule.oidSort,
+			coarity <- thisModule.modelSort,
 			atts <- Sequence{'ctor'}
 		),
 		eq: Maude!Equation (
@@ -190,12 +200,14 @@ rule GenerateTerm {
 			op <- modelName
 		),
 		rhs: Maude!RecTerm (
-			op <- thisModule.emptySyntax,
 			args <- allClasses -> collect(class | thisModule.CreateObjectTermFromClass(class))
 					-> append(allClasses -> collect(cl | cl.eStructuralFeatures) -> flatten() ->
 					select(esfs | esfs.oclIsTypeOf(Ecore!EReference)) -> collect(ref | thisModule.
 					CreateObjectTermFromReference(ref))) -> flatten()
 		)
+	do {
+		rhs.op <- rhs.getEmptySyntaxOperation().regexReplaceAll(',', '');
+	}
 }
 
 lazy rule CreateObjectTermFromClass {
@@ -221,9 +233,15 @@ lazy rule CreateSFSFromClass {
 		class: Ecore!EClass
 	to
 		emptySyntax: Maude!RecTerm (
-			op <- thisModule.emptySyntax,
 			args <- Sequence{nameSFS,
-						SFSTerm}
+				if class.eStructuralFeatures->size() > 0
+				then thisModule.CreateNoEmptyEStructuralFeatures(class)
+				else thisModule.CreateEmptyEStructuralFeatures(class)
+				endif,
+				if class.eSuperTypes->size()>0
+				then thisModule.CreateESuperTypesSFS(class)
+				else OclUndefined
+				endif}
 		),
 		-- name
 		nameSFS: Maude!RecTerm (
@@ -236,12 +254,63 @@ lazy rule CreateSFSFromClass {
 		),
 		nameArg: Maude!Constant (
 			op <- '"' + class.name + '"'
+		)
+	do {
+		emptySyntax.op <- emptySyntax.getEmptySyntaxOperation();
+	}
+}
+
+lazy rule CreateEmptyEStructuralFeatures {
+	from
+		class: Ecore!EClass
+	to
+	  SFSTerm: Maude!RecTerm (
+			op <- thisModule.sfsSyntax,
+			args <- Sequence{SFSName,SFSemtpy}
 		),
-		-- eStructuralFeatures
+	  SFSName: Maude!Constant (
+			op <- 'eStructuralFeatures'
+		),
+		SFSemtpy: Maude!Constant (
+			op <- 'empty'
+		)
+}
+
+lazy rule CreateESuperTypesSFS {
+	from
+	  class: Ecore!EClass
+	to
+		estTerm: Maude!RecTerm (
+			op <- thisModule.sfsSyntax,
+			args <- Sequence{SFSName,SFSsuperTypes}
+		),
+		SFSName: Maude!Constant (
+			op <- 'eSuperTypes'
+		),
+		SFSsuperTypes: Maude!RecTerm (
+			args <- class.eSuperTypes -> collect(est | thisModule.CreateSupertype(est))
+		)
+	do {
+		SFSsuperTypes.op <- SFSsuperTypes.getSetSyntaxOperation();
+	}
+}
+
+lazy rule CreateSupertype {
+	from
+	  stype: Ecore!EClass
+	to
+		constant: Maude!Constant (
+			op <- stype.className()
+		)	
+}
+
+lazy rule CreateNoEmptyEStructuralFeatures {
+	from
+	  class: Ecore!EClass
+	to
 		SFSTerm: Maude!RecTerm (
 			op <- thisModule.sfsSyntax,
-			args <- Sequence{SFSName,
-						SFSAllFeatures}
+			args <- Sequence{SFSName,SFSAllFeatures}
 		),
 		SFSName: Maude!Constant (
 			op <- 'eStructuralFeatures'
@@ -286,7 +355,6 @@ lazy rule CreateSFSFromReference {
 		r: Ecore!EReference
 	to
 		emptySyntax: Maude!RecTerm (
-			op <- thisModule.emptySyntax,
 			args <- Sequence{nameSFS,typeTerm,containmentTerm,
 						lowerBoundTerm,upperBoundTerm,oppositeTerm}
 		),
@@ -312,7 +380,7 @@ lazy rule CreateSFSFromReference {
 			op <- 'eType'
 		),
 		typeArg: Maude!Constant (
-			op <- r.eContainingClass.className()
+			op <- if r.eType.oclIsTypeOf(Ecore!EClass) then r.eType.className() else 'error' endif
 		),
 		-- containment
 		containmentTerm: Maude!RecTerm (
@@ -354,10 +422,10 @@ lazy rule CreateSFSFromReference {
 			op <- 'upperBound'
 		),
 		upperBoundValue: Maude!Constant (
-			op <- if r.lowerBound = -1 then
+			op <- if r.upperBound = -1 then
 					'*'
 				else
-					r.lowerBound.toString()
+					r.upperBound.toString()
 				endif
 		),
 		-- eOpposite
@@ -375,4 +443,7 @@ lazy rule CreateSFSFromReference {
 					r.eOpposite.sfName()
 				endif
 		)
+	do {
+		emptySyntax.op <- emptySyntax.getEmptySyntaxOperation();
+	}
 }
