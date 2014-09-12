@@ -71,7 +71,7 @@ public class SelectMMWizardPage extends WizardPage {
 	}
 	
 	private void checkIfFinished() {
-		if (FileManager.getDefault().getSystemMM() != null && FileManager.getDefault().getParameterizedMM() != null) {
+		if (FileManager.getDefault().getActualMM() != null && FileManager.getDefault().getParameterizedMM() != null) {
 			setPageComplete(true);
 		} else {
 			setPageComplete(false);
@@ -91,8 +91,8 @@ public class SelectMMWizardPage extends WizardPage {
 		_gridTextSystemDSL.widthHint = 350;
 		textSystemMM.setLayoutData(_gridTextSystemDSL);
 
-		if (FileManager.getDefault().getSystemMM() != null) {
-			textSystemMM.setText(FileManager.getDefault().getSystemMM().getFullPath().toOSString());
+		if (FileManager.getDefault().getActualMM() != null) {
+			textSystemMM.setText(FileManager.getDefault().getActualMM().getFullPath().toOSString());
 		} else {
 			textSystemMM.setText("");
 		}
@@ -112,7 +112,7 @@ public class SelectMMWizardPage extends WizardPage {
 
 				IFile result = (IFile) dialog.getResult()[0];
 				if (result != null) {
-					FileManager.getDefault().setSystemMM(result);
+					FileManager.getDefault().setActualMM(result);
 					textSystemMM.setText(result.getFullPath().toOSString());
 					
 					if(!result.getFileExtension().equals(FileManager.METAMODEL_EXTENSION)){

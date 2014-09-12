@@ -5,6 +5,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IFolder;
+import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.impl.EClassImpl;
@@ -40,8 +44,10 @@ public class FileManager {
 
 	private static FileManager self;
 	
-	private IFile systemMM,
+	private IFile actualMM,
 			          parameterizedMM;
+
+	private IFolder tmp;
 
 	private FileManager() {
 	}
@@ -53,12 +59,12 @@ public class FileManager {
 		return self;
 	}
 
-	public IFile getSystemMM() {
-		return systemMM;
+	public IFile getActualMM() {
+		return actualMM;
 	}
 
-	public void setSystemMM(IFile systemMM) {
-		this.systemMM = systemMM;
+	public void setActualMM(IFile actualMM) {
+		this.actualMM = actualMM;
 	}
 
 	public IFile getParameterizedMM() {
@@ -97,5 +103,14 @@ public class FileManager {
 		
 		return res;
 	}
-
+	
+	public IFolder getFolderTmp() throws CoreException{
+		String project = this.getActualMM().getProject().getName();
+		IProject currentProject = ResourcesPlugin.getWorkspace().getRoot().getProject(project);
+		tmp = currentProject.getFolder(".tmp");
+		if (!tmp.exists()) {
+			tmp.create(true, true, null);
+		}
+		return tmp;
+	}
 }
