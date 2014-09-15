@@ -1,15 +1,3 @@
-package es.uma.lcc.mmatching.handlers;
-
-import org.eclipse.core.commands.AbstractHandler;
-import org.eclipse.core.commands.ExecutionEvent;
-import org.eclipse.core.commands.ExecutionException;
-import org.eclipse.jface.window.Window;
-import org.eclipse.jface.wizard.WizardDialog;
-import org.eclipse.ui.IWorkbenchWindow;
-import org.eclipse.ui.handlers.HandlerUtil;
-
-import es.uma.lcc.mmatching.wizard.MMatchingWizard;
-
 /**
  * @author Antonio Moreno-Delgado <i>amoreno@lcc.uma.es</i>
  * @date Sep 9th 2014
@@ -31,6 +19,18 @@ import es.uma.lcc.mmatching.wizard.MMatchingWizard;
  *       with MMatching. If not, see <http://www.gnu.org/licenses/>.
  * 
  */
+package es.uma.lcc.mmatching.handlers;
+
+import org.eclipse.core.commands.AbstractHandler;
+import org.eclipse.core.commands.ExecutionEvent;
+import org.eclipse.core.commands.ExecutionException;
+import org.eclipse.jface.window.Window;
+import org.eclipse.jface.wizard.WizardDialog;
+import org.eclipse.ui.IWorkbenchWindow;
+import org.eclipse.ui.handlers.HandlerUtil;
+
+import es.uma.lcc.mmatching.wizard.MMatchingWizard;
+
 public class MMatchingHandler extends AbstractHandler {
 	/**
 	 * The constructor.

@@ -8,21 +8,21 @@ Bundle-Vendor: Lcc UMA
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
  org.eclipse.core.resources,
+ org.eclipse.xtend.lib;bundle-version="2.7.0",
  org.eclipse.emf.ecore.xmi,
  org.eclipse.m2m.atl.common;bundle-version="3.5.0",
  es.uma.lcc.maude_mm;bundle-version="1.0.0",
- org.eclipse.xtend.lib;bundle-version="2.7.0",
- org.junit
+ org.junit,
+ es.uma.lcc.ama.maudedaemon;bundle-version="1.3.4",
+ org.eclipse.wb.core.lib
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
-Import-Package: org.eclipse.m2m.atl.core,
+Import-Package: es.uma.lcc.ama.maudedaemon.maude,
+ org.eclipse.m2m.atl.core,
  org.eclipse.m2m.atl.core.emf,
  org.eclipse.m2m.atl.core.launch,
  org.eclipse.m2m.atl.engine.emfvm.launch
 Bundle-ActivationPolicy: lazy
-Export-Package: es,
- es.uma,
- es.uma.lcc,
- es.uma.lcc.mmatching,
+Export-Package: es.uma.lcc.mmatching,
  es.uma.lcc.mmatching.codegeneration,
  es.uma.lcc.mmatching.handlers,
  es.uma.lcc.mmatching.resources,

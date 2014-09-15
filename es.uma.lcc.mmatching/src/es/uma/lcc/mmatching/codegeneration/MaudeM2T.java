@@ -62,9 +62,9 @@ import org.eclipse.xtext.xbase.lib.CollectionLiterals;
 import org.eclipse.xtext.xbase.lib.Exceptions;
 import org.eclipse.xtext.xbase.lib.InputOutput;
 import org.eclipse.xtext.xbase.lib.IntegerRange;
-import org.eclipse.xtext.xbase.lib.IterableExtensions;
 
 import com.google.common.collect.Iterables;
+
 
 @SuppressWarnings("all")
 public class MaudeM2T {
@@ -266,7 +266,7 @@ public class MaudeM2T {
 		{
 			EList<ModElement> _els = mod.getEls();
 			Iterable<ModImportation> _filter = Iterables.<ModImportation> filter(_els, ModImportation.class);
-			int _size = IterableExtensions.size(_filter);
+			int _size = Iterables.size(_filter);
 			boolean _greaterThan = (_size > 0);
 			if (_greaterThan) {
 				_builder.append("  ");
@@ -279,7 +279,7 @@ public class MaudeM2T {
 		{
 			EList<ModElement> _els_1 = mod.getEls();
 			Iterable<Sort> _filter_1 = Iterables.<Sort> filter(_els_1, Sort.class);
-			int _size_1 = IterableExtensions.size(_filter_1);
+			int _size_1 = Iterables.size(_filter_1);
 			boolean _greaterThan_1 = (_size_1 > 0);
 			if (_greaterThan_1) {
 				_builder.append("  ");
@@ -292,7 +292,7 @@ public class MaudeM2T {
 		{
 			EList<ModElement> _els_2 = mod.getEls();
 			Iterable<SubsortRel> _filter_2 = Iterables.<SubsortRel> filter(_els_2, SubsortRel.class);
-			int _size_2 = IterableExtensions.size(_filter_2);
+			int _size_2 = Iterables.size(_filter_2);
 			boolean _greaterThan_2 = (_size_2 > 0);
 			if (_greaterThan_2) {
 				_builder.append("  ");
@@ -305,7 +305,7 @@ public class MaudeM2T {
 		{
 			EList<ModElement> _els_3 = mod.getEls();
 			Iterable<Operation> _filter_3 = Iterables.<Operation> filter(_els_3, Operation.class);
-			int _size_3 = IterableExtensions.size(_filter_3);
+			int _size_3 = Iterables.size(_filter_3);
 			boolean _greaterThan_3 = (_size_3 > 0);
 			if (_greaterThan_3) {
 				_builder.append("  ");
