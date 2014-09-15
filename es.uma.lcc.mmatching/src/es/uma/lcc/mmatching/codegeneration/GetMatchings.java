@@ -1,25 +1,3 @@
-package es.uma.lcc.mmatching.codegeneration;
-
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
-
-import org.eclipse.m2m.atl.core.ATLCoreException;
-import org.eclipse.m2m.atl.core.IExtractor;
-import org.eclipse.m2m.atl.core.IInjector;
-import org.eclipse.m2m.atl.core.IModel;
-import org.eclipse.m2m.atl.core.IReferenceModel;
-import org.eclipse.m2m.atl.core.ModelFactory;
-import org.eclipse.m2m.atl.core.emf.EMFExtractor;
-import org.eclipse.m2m.atl.core.emf.EMFInjector;
-import org.eclipse.m2m.atl.core.emf.EMFModelFactory;
-import org.eclipse.m2m.atl.core.launch.ILauncher;
-import org.eclipse.m2m.atl.engine.emfvm.launch.EMFVMLauncher;
-
-import es.uma.lcc.mmatching.resources.Resources;
-import es.uma.lcc.mmatching.test.TestResources;
-import es.uma.lcc.mmatching.wizard.FileManager;
-
 /**
  * @author Antonio Moreno-Delgado <i>amoreno@lcc.uma.es</i>
  * @date Sep 12th 2014
@@ -41,14 +19,65 @@ import es.uma.lcc.mmatching.wizard.FileManager;
  *       with MMatching. If not, see <http://www.gnu.org/licenses/>.
  * 
  */
+package es.uma.lcc.mmatching.codegeneration;
+
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+
+import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IFolder;
+import org.eclipse.core.runtime.CoreException;
+import org.eclipse.m2m.atl.core.ATLCoreException;
+import org.eclipse.m2m.atl.core.IExtractor;
+import org.eclipse.m2m.atl.core.IInjector;
+import org.eclipse.m2m.atl.core.IModel;
+import org.eclipse.m2m.atl.core.IReferenceModel;
+import org.eclipse.m2m.atl.core.ModelFactory;
+import org.eclipse.m2m.atl.core.emf.EMFExtractor;
+import org.eclipse.m2m.atl.core.emf.EMFInjector;
+import org.eclipse.m2m.atl.core.emf.EMFModelFactory;
+import org.eclipse.m2m.atl.core.launch.ILauncher;
+import org.eclipse.m2m.atl.engine.emfvm.launch.EMFVMLauncher;
+
+import es.uma.lcc.mmatching.resources.Resources;
+import es.uma.lcc.mmatching.test.TestResources;
+import es.uma.lcc.mmatching.wizard.FileManager;
+
 public class GetMatchings {
 
 	public GetMatchings() {
 	}
 
-	public void generateMatchings() {
+	private void generateMatchings() {
 		/* Generate Maude module with 'Actual parameter Metamodel' */
-
+		FileManager _fm = FileManager.getDefault();
+		IFolder tmpFolder = null;
+		try {
+	        tmpFolder = _fm.getTmpFolder();
+        } catch (CoreException e) {
+	        System.out.println("[error] Error creating tmp folder.");
+        }
+		/* Create file if it does not exist */
+		IFile tmpFile = tmpFolder.getFile(FileManager.MAUDE_MODEL_TMP);
+		
+		/* Generate Maude model (XMI) */
+		try {
+	        this.generateMaudeModel(_fm.getActualMM().getFullPath().toOSString(),
+	        		tmpFile.getFullPath().toOSString());
+        } catch (ATLCoreException | IOException e) {
+        	System.out.println("[error] Error creating Maude model.");
+        }
+		
+		/* Generate Maude code (String) */
+		String outputModule = null;
+		try {
+	        outputModule = this.generateMaudeCode(_fm.getTmpFolder().getFullPath().toOSString());
+        } catch (CoreException e) {
+        	System.out.println("[error] Error creating Maude module (code).");
+        }
+		
+		
 	}
 
 	/**
@@ -58,7 +87,7 @@ public class GetMatchings {
 	 * @throws ATLCoreException
 	 * @throws IOException
 	 */
-	private void generateMaudeModel(String inModelPath, String outModelPath) throws ATLCoreException, IOException {
+	public void generateMaudeModel(String inModelPath, String outModelPath) throws ATLCoreException, IOException {
 		/* Create infrastructure */
 		ModelFactory mF = new EMFModelFactory();
 		IInjector injector = new EMFInjector();
@@ -67,7 +96,6 @@ public class GetMatchings {
 		/* Loading Ecore MM */
 		IReferenceModel ecoreMM = mF.newReferenceModel();
 		injector.inject(ecoreMM, "http://www.eclipse.org/emf/2002/Ecore");
-		System.out.println("EcoreMM loaded");
 
 		/* Loading Maude Metamodel */
 		IReferenceModel maudeMM = mF.newReferenceModel();
@@ -76,7 +104,6 @@ public class GetMatchings {
 		/* Loading Ecore Model */
 		IModel ecoreModel = mF.newModel(ecoreMM);
 		injector.inject(ecoreModel, inModelPath);
-		System.out.println("Ecore Model loaded.");
 		
 		/* Creating Maude model */
 		IModel maudeModel = mF.newModel(maudeMM);
@@ -97,15 +124,19 @@ public class GetMatchings {
 		extractor.extract(maudeModel, outModelPath);
 	}
 
-	private void generateMaudeCode(String inModelPath, String outCodePath) {
+	public String generateMaudeCode(String inModelPath) {
 		
+		/* Call a Maude code serializer */
+		MaudeM2T trans = new MaudeM2T();
+		return trans.generate(inModelPath);
 	}
 	
 	public static void main(String[] args) {
 		GetMatchings gm = new GetMatchings();
 		try {
 			gm.generateMaudeModel(TestResources.class.getResource("DEVSMM.ecore").toExternalForm(),
-					"file:/home/amoreno/Documents/mmatching/es.uma.lcc.mmatching/bin/es/uma/lcc/mmatching/test/outTest.xmi");
+					"file:/Users/amoreno/Documents/mmatching/es.uma.lcc.mmatching/src/es/uma/lcc/mmatching/test/outTest.xmi");
+			System.out.println(gm.generateMaudeCode("file:/Users/amoreno/Documents/mmatching/es.uma.lcc.mmatching/src/es/uma/lcc/mmatching/test/outTest.xmi"));
 		} catch (ATLCoreException | IOException e) {
 			e.printStackTrace();
 		}

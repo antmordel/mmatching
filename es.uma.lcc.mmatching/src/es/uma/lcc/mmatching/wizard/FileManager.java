@@ -40,7 +40,8 @@ import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
  */
 public class FileManager {
 	
-	public static String METAMODEL_EXTENSION = "ecore";
+	public static String METAMODEL_EXTENSION = "ecore",
+						 MAUDE_MODEL_TMP = "maude_model.xmi";
 
 	private static FileManager self;
 	
@@ -104,7 +105,7 @@ public class FileManager {
 		return res;
 	}
 	
-	public IFolder getFolderTmp() throws CoreException{
+	public IFolder getTmpFolder() throws CoreException{
 		String project = this.getActualMM().getProject().getName();
 		IProject currentProject = ResourcesPlugin.getWorkspace().getRoot().getProject(project);
 		tmp = currentProject.getFolder(".tmp");
