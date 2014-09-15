@@ -19,6 +19,8 @@ import org.eclipse.ui.dialogs.ElementTreeSelectionDialog;
 import org.eclipse.ui.model.BaseWorkbenchContentProvider;
 import org.eclipse.ui.model.WorkbenchLabelProvider;
 
+import es.uma.lcc.mmatching.handlers.FileManager;
+
 /**
  * @author Antonio Moreno-Delgado <i>amoreno@lcc.uma.es</i>
  * @date Sep 9th 2014

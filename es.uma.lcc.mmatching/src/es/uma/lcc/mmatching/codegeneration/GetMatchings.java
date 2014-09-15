@@ -42,11 +42,10 @@ import org.eclipse.m2m.atl.core.launch.ILauncher;
 import org.eclipse.m2m.atl.engine.emfvm.launch.EMFVMLauncher;
 import org.osgi.framework.Bundle;
 
-import es.uma.lcc.mmatching.maude.MaudeProcess;
+import es.uma.lcc.mmatching.handlers.FileManager;
 import es.uma.lcc.mmatching.maude.exceptions.MaudeErrorException;
 import es.uma.lcc.mmatching.maude.exceptions.MaudePrefsException;
 import es.uma.lcc.mmatching.resources.Resources;
-import es.uma.lcc.mmatching.wizard.FileManager;
 
 public class GetMatchings {
 
@@ -54,13 +53,13 @@ public class GetMatchings {
 	}
 	
 	public void createMaudeProcess() {
-		MaudeProcess mp = new MaudeProcess();
-		try {
-	    mp.initMaudeProcess();
-	    System.out.println("Maude initialized.");
-    } catch (MaudePrefsException | MaudeErrorException | NullPointerException e) {
-	    System.out.println("[error] error initializing Maude process. Maybe it has not been configured.\n"+e.getMessage());
-    }
+//		MaudeProcess mp = new MaudeProcess();
+//		try {
+//	    mp.initMaudeProcess();
+//	    System.out.println("Maude initialized.");
+//    } catch (MaudePrefsException | MaudeErrorException | NullPointerException e) {
+//	    System.out.println("[error] error initializing Maude process. Maybe it has not been configured.\n"+e.getMessage());
+//    }
 	}
 
 	private String generateActualMMMaude() {

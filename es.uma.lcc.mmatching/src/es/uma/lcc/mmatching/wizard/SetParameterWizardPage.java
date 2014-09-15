@@ -12,6 +12,8 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.List;
 import org.eclipse.swt.widgets.Listener;
 
+import es.uma.lcc.mmatching.handlers.FileManager;
+
 /**
  * @author Antonio Moreno-Delgado <i>amoreno@lcc.uma.es</i>
  * @date Sep 9th 2014

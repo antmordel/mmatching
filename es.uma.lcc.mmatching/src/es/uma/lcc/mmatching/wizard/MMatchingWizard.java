@@ -28,6 +28,7 @@ public class MMatchingWizard extends Wizard {
 	
 	protected SelectMMWizardPage firstPage;
 	protected SetParameterWizardPage secondPage;
+	private GettingMatchingsWizardPage thirdPage;
 	
 	public MMatchingWizard() {
 	  super();
@@ -44,9 +45,11 @@ public class MMatchingWizard extends Wizard {
   public void addPages() {
     firstPage = new SelectMMWizardPage("Select metamodels");
     secondPage = new SetParameterWizardPage("Set parameter classes");
+    thirdPage = new GettingMatchingsWizardPage("Searching matchings");
     
     addPage(firstPage);
     addPage(secondPage);
+    addPage(thirdPage);
   }
 
 

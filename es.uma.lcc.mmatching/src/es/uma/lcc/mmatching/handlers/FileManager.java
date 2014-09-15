@@ -1,4 +1,4 @@
-package es.uma.lcc.mmatching.wizard;
+package es.uma.lcc.mmatching.handlers;
 
 import java.io.IOException;
 import java.util.ArrayList;
