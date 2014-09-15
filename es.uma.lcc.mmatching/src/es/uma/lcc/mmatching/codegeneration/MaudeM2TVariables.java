@@ -65,21 +65,7 @@ public class MaudeM2TVariables {
   
   private final int PRETTY_LINE_LIMIT = 150;
   
-  public static void main(final String[] args) {
-    final long iniTime = System.currentTimeMillis();
-    MaudeM2TVariables _maudeM2TVariables = new MaudeM2TVariables();
-    ArrayList<String> _newArrayList = CollectionLiterals.<String>newArrayList("outCode.maude");
-    String _generate = _maudeM2TVariables.generate("outMaude.xmi", _newArrayList, "DEVSMM");
-    InputOutput.<String>println(_generate);
-    long _currentTimeMillis = System.currentTimeMillis();
-    long _minus = (_currentTimeMillis - iniTime);
-    double _divide = (_minus / 1000.0);
-    String _plus = ("Code generation time: " + Double.valueOf(_divide));
-    String _plus_1 = (_plus + "s.");
-    InputOutput.<String>println(_plus_1);
-  }
-  
-  public String generate(final String model, final List<String> output, final String moduleName) {
+  public String generate(final String model, final String moduleName) {
     this.doEMFSetup();
     final ResourceSetImpl resourceSet = new ResourceSetImpl();
     EPackage.Registry _packageRegistry = resourceSet.getPackageRegistry();

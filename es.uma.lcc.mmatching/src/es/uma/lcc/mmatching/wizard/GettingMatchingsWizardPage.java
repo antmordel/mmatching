@@ -38,6 +38,7 @@ import org.eclipse.swt.widgets.Listener;
 
 import es.uma.lcc.ama.maudedaemon.parser.ParseException;
 import es.uma.lcc.mmatching.codegeneration.GenerateActualMMMaudeModule;
+import es.uma.lcc.mmatching.codegeneration.GenerateTerm2Reduce;
 import es.uma.lcc.mmatching.maude.MaudeProcess;
 import es.uma.lcc.mmatching.maude.exceptions.JobFailedException;
 import es.uma.lcc.mmatching.maude.exceptions.MaudeErrorException;
@@ -91,7 +92,10 @@ public class GettingMatchingsWizardPage extends WizardPage {
 				GenerateActualMMMaudeModule _gm = new GenerateActualMMMaudeModule();
 				String maudeModule = _gm.generateActualMMMaude();
 				
-				printToconsole("- Maude code generated.\n");
+				printToconsole("- Maude code <ActualParameter> generated.\n");
+				
+				GenerateTerm2Reduce _term2reduce = new GenerateTerm2Reduce();
+				continuar por aquí
 				
 				MaudeProcess mp = new MaudeProcess();
 				try {

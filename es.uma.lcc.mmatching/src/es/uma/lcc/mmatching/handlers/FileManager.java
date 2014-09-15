@@ -46,7 +46,9 @@ import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
 public class FileManager {
 	
 	public static String METAMODEL_EXTENSION = "ecore",
-						 MAUDE_MODEL_TMP = "maude_model.xmi";
+						 MAUDE_MODEL_TMP = "maude_model.xmi",
+						 MAUDE_RED_MODEL_TMP = "maude_red.xmi",
+						 CLASSES_LIST_MODEL = "classesList.xmi";
 
 	private static FileManager self;
 	
