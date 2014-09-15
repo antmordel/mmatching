@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Maude="http://MaudeMM/1.0">
+  <Maude:MaudeSpec>
+    <els xsi:type="Maude:SModule" name="RED-TERM-MODULE">
+      <els xsi:type="Maude:Equation">
+        <lhs xsi:type="Maude:Constant" op="term2red"/>
+        <rhs xsi:type="Maude:RecTerm" op="_ _ _ _ _ _ _ _">
+          <args xsi:type="Maude:RecTerm" op="&lt;_:_|_>">
+            <args xsi:type="Maude:Variable" type="/1" name="Server"/>
+            <args xsi:type="Maude:Constant" op="EClass"/>
+            <args xsi:type="Maude:RecTerm" op="_ ,_">
+              <args xsi:type="Maude:RecTerm" op="_:_">
+                <args xsi:type="Maude:Constant" op="eStructuralFeatures"/>
+                <args xsi:type="Maude:RecTerm" op="(_, _, _ ,_)">
+                  <args xsi:type="Maude:Variable" type="/1" name="Out@Server"/>
+                  <args xsi:type="Maude:Variable" type="/1" name="In@Server"/>
+                  <args xsi:type="Maude:Variable" type="/1" name="RspTime@Server"/>
+                  <args xsi:type="Maude:Variable" type="/3" name="Oids1"/>
+                </args>
+              </args>
+              <args xsi:type="Maude:Variable" type="/2" name="Atts1"/>
+            </args>
+          </args>
+          <args xsi:type="Maude:RecTerm" op="&lt;_:_|_>">
+            <args xsi:type="Maude:Variable" type="/1" name="Queue"/>
+            <args xsi:type="Maude:Constant" op="EClass"/>
+            <args xsi:type="Maude:RecTerm" op="_ ,_">
+              <args xsi:type="Maude:RecTerm" op="_:_">
+                <args xsi:type="Maude:Constant" op="eStructuralFeatures"/>
+                <args xsi:type="Maude:RecTerm" op="(_ ,_)">
+                  <args xsi:type="Maude:Variable" type="/1" name="Reqsts@Queue"/>
+                  <args xsi:type="Maude:Variable" type="/3" name="Oids2"/>
+                </args>
+              </args>
+              <args xsi:type="Maude:Variable" type="/2" name="Atts2"/>
+            </args>
+          </args>
+          <args xsi:type="Maude:RecTerm" op="&lt;_:_|_>">
+            <args xsi:type="Maude:Variable" type="/1" name="Request"/>
+            <args xsi:type="Maude:Constant" op="EClass"/>
+            <args xsi:type="Maude:RecTerm" op="_ ,_">
+              <args xsi:type="Maude:RecTerm" op="_:_">
+                <args xsi:type="Maude:Constant" op="eStructuralFeatures"/>
+                <args xsi:type="Maude:RecTerm" op="(_)">
+                  <args xsi:type="Maude:Variable" type="/3" name="Oids3"/>
+                </args>
+              </args>
+              <args xsi:type="Maude:Variable" type="/2" name="Atts3"/>
+            </args>
+          </args>
+          <args xsi:type="Maude:RecTerm" op="&lt;_:_|_>">
+            <args xsi:type="Maude:Variable" type="/1" name="Out@Server"/>
+            <args xsi:type="Maude:Constant" op="EReference"/>
+            <args xsi:type="Maude:RecTerm" op="_, _, _, _ ,_">
+              <args xsi:type="Maude:RecTerm" op="_:_">
+                <args xsi:type="Maude:Constant" op="eType"/>
+                <args xsi:type="Maude:Variable" type="/1" name="Queue"/>
+              </args>
+              <args xsi:type="Maude:RecTerm" op="_:_">
+                <args xsi:type="Maude:Constant" op="containment"/>
+                <args xsi:type="Maude:Constant" op="false"/>
+              </args>
+              <args xsi:type="Maude:RecTerm" op="_:_">
+                <args xsi:type="Maude:Constant" op="upperBound"/>
+                <args xsi:type="Maude:Constant" op="1"/>
+              </args>
+              <args xsi:type="Maude:RecTerm" op="_:_">
+                <args xsi:type="Maude:Constant" op="lowerBound"/>
+                <args xsi:type="Maude:Constant" op="0"/>
+              </args>
+              <args xsi:type="Maude:Variable" type="/3" name="Atts4"/>
+            </args>
+          </args>
+          <args xsi:type="Maude:RecTerm" op="&lt;_:_|_>">
+            <args xsi:type="Maude:Variable" type="/1" name="In@Server"/>
+            <args xsi:type="Maude:Constant" op="EReference"/>
+            <args xsi:type="Maude:RecTerm" op="_, _, _, _ ,_">
+              <args xsi:type="Maude:RecTerm" op="_:_">
+                <args xsi:type="Maude:Constant" op="eType"/>
+                <args xsi:type="Maude:Variable" type="/1" name="Queue"/>
+              </args>
+              <args xsi:type="Maude:RecTerm" op="_:_">
+                <args xsi:type="Maude:Constant" op="containment"/>
+                <args xsi:type="Maude:Constant" op="false"/>
+              </args>
+              <args xsi:type="Maude:RecTerm" op="_:_">
+                <args xsi:type="Maude:Constant" op="upperBound"/>
+                <args xsi:type="Maude:Constant" op="1"/>
+              </args>
+              <args xsi:type="Maude:RecTerm" op="_:_">
+                <args xsi:type="Maude:Constant" op="lowerBound"/>
+                <args xsi:type="Maude:Constant" op="0"/>
+              </args>
+              <args xsi:type="Maude:Variable" type="/3" name="Atts5"/>
+            </args>
+          </args>
+          <args xsi:type="Maude:RecTerm" op="&lt;_:_|_>">
+            <args xsi:type="Maude:Variable" type="/1" name="RspTime@Server"/>
+            <args xsi:type="Maude:Constant" op="EReference"/>
+            <args xsi:type="Maude:RecTerm" op="_, _, _, _ ,_">
+              <args xsi:type="Maude:RecTerm" op="_:_">
+                <args xsi:type="Maude:Constant" op="eType"/>
+                <args xsi:type="Maude:Variable" type="/1" name="ResponseTime"/>
+              </args>
+              <args xsi:type="Maude:RecTerm" op="_:_">
+                <args xsi:type="Maude:Constant" op="containment"/>
+                <args xsi:type="Maude:Constant" op="false"/>
+              </args>
+              <args xsi:type="Maude:RecTerm" op="_:_">
+                <args xsi:type="Maude:Constant" op="upperBound"/>
+                <args xsi:type="Maude:Constant" op="1"/>
+              </args>
+              <args xsi:type="Maude:RecTerm" op="_:_">
+                <args xsi:type="Maude:Constant" op="lowerBound"/>
+                <args xsi:type="Maude:Constant" op="0"/>
+              </args>
+              <args xsi:type="Maude:Variable" type="/3" name="Atts6"/>
+            </args>
+          </args>
+          <args xsi:type="Maude:RecTerm" op="&lt;_:_|_>">
+            <args xsi:type="Maude:Variable" type="/1" name="Reqsts@Queue"/>
+            <args xsi:type="Maude:Constant" op="EReference"/>
+            <args xsi:type="Maude:RecTerm" op="_, _, _, _ ,_">
+              <args xsi:type="Maude:RecTerm" op="_:_">
+                <args xsi:type="Maude:Constant" op="eType"/>
+                <args xsi:type="Maude:Variable" type="/1" name="Request"/>
+              </args>
+              <args xsi:type="Maude:RecTerm" op="_:_">
+                <args xsi:type="Maude:Constant" op="containment"/>
+                <args xsi:type="Maude:Constant" op="true"/>
+              </args>
+              <args xsi:type="Maude:RecTerm" op="_:_">
+                <args xsi:type="Maude:Constant" op="upperBound"/>
+                <args xsi:type="Maude:Constant" op="*"/>
+              </args>
+              <args xsi:type="Maude:RecTerm" op="_:_">
+                <args xsi:type="Maude:Constant" op="lowerBound"/>
+                <args xsi:type="Maude:Constant" op="0"/>
+              </args>
+              <args xsi:type="Maude:Variable" type="/3" name="Atts7"/>
+            </args>
+          </args>
+          <args xsi:type="Maude:Variable" type="/4" name="C"/>
+        </rhs>
+      </els>
+    </els>
+  </Maude:MaudeSpec>
+  <Maude:Sort name="Oid"/>
+  <Maude:Sort name="AttributeSet"/>
+  <Maude:Sort name="Set{Oid}"/>
+  <Maude:Sort name="Configuration"/>
+</xmi:XMI>

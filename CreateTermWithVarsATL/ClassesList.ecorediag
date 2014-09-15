@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<notation:Diagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:notation="http://www.eclipse.org/gmf/runtime/1.0.2/notation" xmi:id="_VDcq0Dy7EeSJwbHnW1-UdQ" type="EcoreTools" name="ClassesList" measurementUnit="Pixel">
+  <children xmi:type="notation:Node" xmi:id="_WiA6kDy7EeSJwbHnW1-UdQ" type="1001">
+    <children xmi:type="notation:Node" xmi:id="_WiEk8Dy7EeSJwbHnW1-UdQ" type="4001"/>
+    <children xmi:type="notation:Node" xmi:id="_WiKrkDy7EeSJwbHnW1-UdQ" type="5001">
+      <children xmi:type="notation:Node" xmi:id="_ZM5zgDy7EeSJwbHnW1-UdQ" type="2001">
+        <element xmi:type="ecore:EAttribute" href="ClassesList.ecore#//ClassesList/list"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_ZM5zgTy7EeSJwbHnW1-UdQ"/>
+      </children>
+      <styles xmi:type="notation:DrawerStyle" xmi:id="_WiKrkTy7EeSJwbHnW1-UdQ"/>
+      <styles xmi:type="notation:SortingStyle" xmi:id="_WiKrkjy7EeSJwbHnW1-UdQ"/>
+      <styles xmi:type="notation:FilteringStyle" xmi:id="_WiKrkzy7EeSJwbHnW1-UdQ"/>
+    </children>
+    <children xmi:type="notation:Node" xmi:id="_WiMgwDy7EeSJwbHnW1-UdQ" type="5002">
+      <styles xmi:type="notation:DrawerStyle" xmi:id="_WiMgwTy7EeSJwbHnW1-UdQ"/>
+      <styles xmi:type="notation:SortingStyle" xmi:id="_WiMgwjy7EeSJwbHnW1-UdQ"/>
+      <styles xmi:type="notation:FilteringStyle" xmi:id="_WiMgwzy7EeSJwbHnW1-UdQ"/>
+    </children>
+    <styles xmi:type="notation:ShapeStyle" xmi:id="_WiA6kTy7EeSJwbHnW1-UdQ" fontColor="4210752" fontName="Lucida Grande" fontHeight="10" fillColor="13761016" lineColor="8421504"/>
+    <element xmi:type="ecore:EClass" href="ClassesList.ecore#//ClassesList"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_WiBhoDy7EeSJwbHnW1-UdQ" x="134" y="97"/>
+  </children>
+  <styles xmi:type="notation:DiagramStyle" xmi:id="_VDcq0Ty7EeSJwbHnW1-UdQ"/>
+  <element xmi:type="ecore:EPackage" href="ClassesList.ecore#/"/>
+</notation:Diagram>

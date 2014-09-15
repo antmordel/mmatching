@@ -1,7 +1,3 @@
-package codeGeneration
-
-import java.io.BufferedWriter
-import java.io.FileWriter
 import Maude.Condition
 import Maude.Constant
 import Maude.Equation
@@ -14,12 +10,13 @@ import Maude.Module
 import Maude.ModuleIdModExp
 import Maude.Operation
 import Maude.RecTerm
-import Maude.Rule
 import Maude.SModule
 import Maude.Sort
 import Maude.SubsortRel
 import Maude.Term
 import Maude.Variable
+import java.io.BufferedWriter
+import java.io.FileWriter
 import java.util.Date
 import java.util.List
 import org.eclipse.emf.common.util.EList
@@ -27,22 +24,20 @@ import org.eclipse.emf.common.util.URI
 import org.eclipse.emf.ecore.resource.Resource
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl
 import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl
-import Maude.MatchingCond
-import Maude.BooleanCond
 
-class MaudeM2T {
-  private val PRETTY_PRINT = true
+class MaudeM2TVariables {
+  
+ private val PRETTY_PRINT = true
   private val PRETTY_LINE_LIMIT = 150
   
-  public def MaudeM2T(){}
   
   def static void main(String[] args) {
     val iniTime = System.currentTimeMillis
-    new MaudeM2T().generate("out_maude.xmi", newArrayList("outCode.maude"))
+    println(new MaudeM2TVariables().generate("outMaude.xmi", newArrayList("outCode.maude"), 'DEVSMM'))
     println("Code generation time: " + (System.currentTimeMillis - iniTime) / 1000.0 + "s.")
   }
   
-  def void generate(String model, List<String> output) {
+  def String generate(String model, List<String> output, String moduleName) {
     doEMFSetup
     val resourceSet = new ResourceSetImpl
 
@@ -51,19 +46,12 @@ class MaudeM2T {
 
     // Load model
     val resource = resourceSet.getResource(URI.createURI(model), true)
-    val cont = 0
+    var out = ''
     for (maudespec : resource.contents.filter(typeof(MaudeSpec))) {
-
       // A file is created for each Maude Specification
-      val fw = new FileWriter(output.get(cont))
-      val bw = new BufferedWriter(fw)
-      bw.write(prettyPrint(generateCode(maudespec).toString))
-
-      // TODO remove
-      println(prettyPrint(generateCode(maudespec).toString))
-      bw.close
-      fw.close
+      out += prettyPrint(generateCode(maudespec, moduleName).toString)
      }
+     return out
   }
   
   def prettyPrint(String string) {
@@ -128,36 +116,19 @@ class MaudeM2T {
     );
   }
 
-  def generateCode(MaudeSpec spec) '''
+  def generateCode(MaudeSpec spec, String moduleName) '''
     «header()»
-    «FOR smod : spec.els.filter(typeof(SModule))»
-      mod «smod.name» is
-        «printModule(smod)»
-      endm ---- system module «smod.name»
-
-    «ENDFOR»
+    mod RUN-MMATCHING is
+      pr MMATCHING .
+      pr «moduleName» .
+    endm
+    
+    red mmatch('RUN-MMATCHING
+      «printTerm(((spec.els.filter(typeof(SModule)).get(0).els.filter(typeof(Equation)).get(0) as Equation).rhs))»,
+      «moduleName.toLowerCase») .
   '''
   
-  def printModule(Module mod) '''
-    «printModuleImportations(mod)»
-    «IF mod.els.filter(typeof(ModImportation)).size > 0»
-      
-    «ENDIF»
-    «printSorts(mod)»
-    «IF mod.els.filter(typeof(Sort)).size > 0»
-      
-    «ENDIF»
-    «printSubSorts(mod)»
-    «IF mod.els.filter(typeof(SubsortRel)).size > 0»
-      
-    «ENDIF»
-    «printOps(mod)»
-    «IF mod.els.filter(typeof(Operation)).size > 0»
-      
-    «ENDIF»
-    «printEqs(mod)»
-  '''
-
+ 
   def header() '''
     ---- ----------------------------------------------- ----
     ---- Generated code programmatically using MMatching ----

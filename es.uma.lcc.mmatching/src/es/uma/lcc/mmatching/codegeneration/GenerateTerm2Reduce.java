@@ -44,9 +44,9 @@ import es.uma.lcc.mmatching.handlers.FileManager;
 import es.uma.lcc.mmatching.resources.Resources;
 import es.uma.lcc.mmatching.wizard.GettingMatchingsWizardPage;
 
-public class GenerateActualMMMaudeModule {
+public class GenerateTerm2Reduce {
 
-	public GenerateActualMMMaudeModule() {
+	public GenerateTerm2Reduce() {
 	}
 	
 	public String generateActualMMMaude() {
