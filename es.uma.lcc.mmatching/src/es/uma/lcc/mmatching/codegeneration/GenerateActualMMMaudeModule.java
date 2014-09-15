@@ -28,7 +28,6 @@ import java.util.Map;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.runtime.CoreException;
-import org.eclipse.core.runtime.Platform;
 import org.eclipse.m2m.atl.core.ATLCoreException;
 import org.eclipse.m2m.atl.core.IExtractor;
 import org.eclipse.m2m.atl.core.IInjector;
@@ -40,36 +39,27 @@ import org.eclipse.m2m.atl.core.emf.EMFInjector;
 import org.eclipse.m2m.atl.core.emf.EMFModelFactory;
 import org.eclipse.m2m.atl.core.launch.ILauncher;
 import org.eclipse.m2m.atl.engine.emfvm.launch.EMFVMLauncher;
-import org.osgi.framework.Bundle;
 
 import es.uma.lcc.mmatching.handlers.FileManager;
+import es.uma.lcc.mmatching.maude.MaudeProcess;
 import es.uma.lcc.mmatching.maude.exceptions.MaudeErrorException;
 import es.uma.lcc.mmatching.maude.exceptions.MaudePrefsException;
 import es.uma.lcc.mmatching.resources.Resources;
+import es.uma.lcc.mmatching.wizard.GettingMatchingsWizardPage;
 
-public class GetMatchings {
+public class GenerateActualMMMaudeModule {
 
-	public GetMatchings() {
+	public GenerateActualMMMaudeModule() {
 	}
 	
-	public void createMaudeProcess() {
-//		MaudeProcess mp = new MaudeProcess();
-//		try {
-//	    mp.initMaudeProcess();
-//	    System.out.println("Maude initialized.");
-//    } catch (MaudePrefsException | MaudeErrorException | NullPointerException e) {
-//	    System.out.println("[error] error initializing Maude process. Maybe it has not been configured.\n"+e.getMessage());
-//    }
-	}
-
-	private String generateActualMMMaude() {
+	public String generateActualMMMaude() {
 		/* Generate Maude module with 'Actual parameter Metamodel' */
 		FileManager _fm = FileManager.getDefault();
 		IFolder tmpFolder = null;
 		try {
 			tmpFolder = _fm.getTmpFolder();
 		} catch (CoreException e) {
-			System.out.println("[error] Error creating tmp folder.");
+			GettingMatchingsWizardPage.printToconsole("[error] Error creating tmp folder.");
 		}
 		/* Create file if it does not exist */
 		IFile tmpFile = tmpFolder.getFile(FileManager.MAUDE_MODEL_TMP);
@@ -78,16 +68,12 @@ public class GetMatchings {
 		try {
 			this.generateMaudeModel(_fm.getActualMM().getFullPath().toOSString(), tmpFile.getFullPath().toOSString());
 		} catch (ATLCoreException | IOException e) {
-			System.out.println("[error] Error creating Maude model.");
+			GettingMatchingsWizardPage.printToconsole("[error] Error creating Maude model.");
 		}
 
 		/* Generate Maude code (String) */
 		String outputModule = null;
-		try {
-			outputModule = this.generateMaudeCode(_fm.getTmpFolder().getFullPath().toOSString());
-		} catch (CoreException e) {
-			System.out.println("[error] Error creating Maude module (code).");
-		}
+		outputModule = this.generateMaudeCode(tmpFile.getFullPath().toOSString());
 		
 		return outputModule;
 	}
@@ -144,7 +130,7 @@ public class GetMatchings {
 	}
 
 	public static void main(String[] args) {
-		GetMatchings gm = new GetMatchings();
+		GenerateActualMMMaudeModule gm = new GenerateActualMMMaudeModule();
 //		try {
 //			gm.generateMaudeModel(TestResources.class.getResource("DEVSMM.ecore").toExternalForm(),
 //			    "file:/Users/amoreno/Documents/mmatching/es.uma.lcc.mmatching/src/es/uma/lcc/mmatching/test/outTest.xmi");
