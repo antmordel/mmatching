@@ -128,7 +128,7 @@
 <path d="M187 22 L199 22 L199 43 L187 43 L187 22 Z"/>
 </clipPath>
 <clipPath clipPathUnits="userSpaceOnUse" id="clipPath37">
-<path d="M213 41 L223 41 L223 62 L213 62 L213 41 Z"/>
+<path d="M205 41 L231 41 L231 62 L205 62 L205 41 Z"/>
 </clipPath>
 <clipPath clipPathUnits="userSpaceOnUse" id="clipPath38">
 <path d="M59 146 L68 146 L68 156 L59 156 L59 146 Z"/>
@@ -208,7 +208,7 @@
 <line clip-path="url(#clipPath35)" fill="none" x1="203" x2="206" y1="60" y2="67" stroke="rgb(64,64,64)"/>
 <line clip-path="url(#clipPath35)" fill="none" x1="206" x2="209" y1="67" y2="60" stroke="rgb(64,64,64)"/>
 <text x="188" y="37" clip-path="url(#clipPath36)" fill="rgb(64,64,64)" stroke="none" xml:space="preserve">in</text>
-<text x="214" y="56" clip-path="url(#clipPath37)" fill="rgb(64,64,64)" stroke="none" xml:space="preserve">1</text>
+<text x="206" y="56" clip-path="url(#clipPath37)" fill="rgb(64,64,64)" stroke="none" xml:space="preserve">0..1</text>
 <line clip-path="url(#clipPath6)" fill="none" x1="63" x2="63" y1="109" y2="154" stroke="rgb(64,64,64)"/>
 <line clip-path="url(#clipPath38)" fill="none" x1="60" x2="63" y1="147" y2="154" stroke="rgb(64,64,64)"/>
 <line clip-path="url(#clipPath38)" fill="none" x1="63" x2="66" y1="154" y2="147" stroke="rgb(64,64,64)"/>

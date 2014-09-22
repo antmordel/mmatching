@@ -3,7 +3,7 @@
     xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="failurerate" nsURI="http://failurerate/1.0" nsPrefix="failurerate">
   <eClassifiers xsi:type="ecore:EClass" name="Server">
     <eStructuralFeatures xsi:type="ecore:EReference" name="out" lowerBound="1" eType="#//Queue"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="in" lowerBound="1" eType="#//Queue"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="in" eType="#//Queue"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="flRt" eType="#//FailureRate"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Queue">
