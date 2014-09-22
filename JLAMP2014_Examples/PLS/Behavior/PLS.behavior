@@ -18,6 +18,9 @@
     </patterns>
     <patterns name="RHS">
       <els xsi:type="behavior:Object" id="hg" outLinks="//@rules.0/@patterns.1/@els.2">
+        <sfs oclValue="hg.counter - 1">
+          <sf href="../Metamodel/DEVSMM.ecore#//Generator/counter"/>
+        </sfs>
         <classGD href="PLS.gcs#//@packagesGD.0/@classesGD.5"/>
       </els>
       <els xsi:type="behavior:Object" id="c" outLinks="//@rules.0/@patterns.1/@els.4" inLinks="//@rules.0/@patterns.1/@els.2">
@@ -37,7 +40,7 @@
       </els>
     </patterns>
   </rules>
-  <rules xsi:type="behavior:AtomicRule" name="GenHead" lhs="//@rules.1/@patterns.0" rhs="//@rules.1/@patterns.1" maxDuration="0">
+  <rules xsi:type="behavior:AtomicRule" name="GenHead" lhs="//@rules.1/@patterns.0" rhs="//@rules.1/@patterns.1" maxDuration="prodTime" minDuration="prodTime">
     <vbles name="prodTime" type="Int" value="hg.prodTime - 3 + eMotions.random(6)"/>
     <vbles name="rdm" type="Int" value="eMotions.random(100)"/>
     <patterns name="LHS">
@@ -54,6 +57,9 @@
     </patterns>
     <patterns name="RHS">
       <els xsi:type="behavior:Object" id="hg" outLinks="//@rules.1/@patterns.1/@els.4">
+        <sfs oclValue="hg.counter - 1">
+          <sf href="../Metamodel/DEVSMM.ecore#//Generator/counter"/>
+        </sfs>
         <classGD href="PLS.gcs#//@packagesGD.0/@classesGD.4"/>
       </els>
       <els xsi:type="behavior:Object" id="c" outLinks="//@rules.1/@patterns.1/@els.3" inLinks="//@rules.1/@patterns.1/@els.4">
@@ -67,6 +73,168 @@
       </els>
       <els xsi:type="behavior:Link" src="//@rules.1/@patterns.1/@els.0" target="//@rules.1/@patterns.1/@els.1">
         <ref href="../Metamodel/DEVSMM.ecore#//Machine/out"/>
+      </els>
+    </patterns>
+  </rules>
+  <rules xsi:type="behavior:AtomicRule" name="Carry" lhs="//@rules.2/@patterns.0" rhs="//@rules.2/@patterns.1" maxDuration="c.speed" minDuration="c.speed">
+    <patterns name="LHS">
+      <els xsi:type="behavior:Object" id="p" inLinks="//@rules.2/@patterns.0/@els.2">
+        <classGD href="PLS.gcs#//@packagesGD.0/@classesGD.12"/>
+      </els>
+      <els xsi:type="behavior:Object" id="c" outLinks="//@rules.2/@patterns.0/@els.2">
+        <classGD href="PLS.gcs#//@packagesGD.0/@classesGD.10"/>
+      </els>
+      <els xsi:type="behavior:Link" src="//@rules.2/@patterns.0/@els.1" target="//@rules.2/@patterns.0/@els.0">
+        <ref href="../Metamodel/DEVSMM.ecore#//Container/parts"/>
+      </els>
+    </patterns>
+    <patterns name="RHS">
+      <els xsi:type="behavior:Object" id="p" inLinks="//@rules.2/@patterns.1/@els.2">
+        <classGD href="PLS.gcs#//@packagesGD.0/@classesGD.12"/>
+      </els>
+      <els xsi:type="behavior:Object" id="c" outLinks="//@rules.2/@patterns.1/@els.2">
+        <classGD href="PLS.gcs#//@packagesGD.0/@classesGD.10"/>
+      </els>
+      <els xsi:type="behavior:Link" src="//@rules.2/@patterns.1/@els.1" target="//@rules.2/@patterns.1/@els.0">
+        <ref href="../Metamodel/DEVSMM.ecore#//Conveyor/outParts"/>
+      </els>
+    </patterns>
+  </rules>
+  <rules xsi:type="behavior:AtomicRule" name="Transfer" lhs="//@rules.3/@patterns.0" rhs="//@rules.3/@patterns.1" maxDuration="0">
+    <patterns name="LHS">
+      <els xsi:type="behavior:Object" id="c" outLinks="//@rules.3/@patterns.0/@els.2 //@rules.3/@patterns.0/@els.4">
+        <classGD href="PLS.gcs#//@packagesGD.0/@classesGD.10"/>
+      </els>
+      <els xsi:type="behavior:Object" id="t" inLinks="//@rules.3/@patterns.0/@els.2">
+        <classGD href="PLS.gcs#//@packagesGD.0/@classesGD.8"/>
+      </els>
+      <els xsi:type="behavior:Link" src="//@rules.3/@patterns.0/@els.0" target="//@rules.3/@patterns.0/@els.1">
+        <ref href="../Metamodel/DEVSMM.ecore#//Conveyor/out"/>
+      </els>
+      <els xsi:type="behavior:Object" id="p" inLinks="//@rules.3/@patterns.0/@els.4">
+        <classGD href="PLS.gcs#//@packagesGD.0/@classesGD.12"/>
+      </els>
+      <els xsi:type="behavior:Link" src="//@rules.3/@patterns.0/@els.0" target="//@rules.3/@patterns.0/@els.3">
+        <ref href="../Metamodel/DEVSMM.ecore#//Conveyor/outParts"/>
+      </els>
+      <els xsi:type="behavior:Condition" oclValue="(t.parts->size() &lt; t.capacity) and (not((t.parts -> size() = (t.capacity - 1)) and ( (t.parts -> forAll(e|e.oclIsKindOf(Handle)) and p.oclIsKindOf(Handle)) or (t.parts -> forAll(e|e.oclIsKindOf(Head)) and p.oclIsKindOf(Head)) or (t.parts -> forAll(e|e.oclIsKindOf(Hammer))and p.oclIsKindOf(Hammer))))"/>
+    </patterns>
+    <patterns name="RHS">
+      <els xsi:type="behavior:Object" id="c" outLinks="//@rules.3/@patterns.1/@els.2">
+        <classGD href="PLS.gcs#//@packagesGD.0/@classesGD.10"/>
+      </els>
+      <els xsi:type="behavior:Object" id="t" outLinks="//@rules.3/@patterns.1/@els.4" inLinks="//@rules.3/@patterns.1/@els.2">
+        <classGD href="PLS.gcs#//@packagesGD.0/@classesGD.8"/>
+      </els>
+      <els xsi:type="behavior:Link" src="//@rules.3/@patterns.1/@els.0" target="//@rules.3/@patterns.1/@els.1">
+        <ref href="../Metamodel/DEVSMM.ecore#//Conveyor/out"/>
+      </els>
+      <els xsi:type="behavior:Object" id="p" inLinks="//@rules.3/@patterns.1/@els.4">
+        <classGD href="PLS.gcs#//@packagesGD.0/@classesGD.12"/>
+      </els>
+      <els xsi:type="behavior:Link" src="//@rules.3/@patterns.1/@els.1" target="//@rules.3/@patterns.1/@els.3">
+        <ref href="../Metamodel/DEVSMM.ecore#//Container/parts"/>
+      </els>
+    </patterns>
+  </rules>
+  <rules xsi:type="behavior:AtomicRule" name="Assemble" lhs="//@rules.4/@patterns.0" rhs="//@rules.4/@patterns.1" nacs="//@rules.4/@patterns.2" maxDuration="prodTime" minDuration="prodTime">
+    <vbles name="rdm" type="Int" value="eMotions.random(100)"/>
+    <vbles name="prodTime" type="Int" value="a.prodTime - 3 + eMotions.random(6)"/>
+    <patterns name="LHS">
+      <els xsi:type="behavior:Object" id="he" inLinks="//@rules.4/@patterns.0/@els.3">
+        <classGD href="PLS.gcs#//@packagesGD.0/@classesGD.13"/>
+      </els>
+      <els xsi:type="behavior:Object" id="ha" inLinks="//@rules.4/@patterns.0/@els.4">
+        <classGD href="PLS.gcs#//@packagesGD.0/@classesGD.14"/>
+      </els>
+      <els xsi:type="behavior:Object" id="t" outLinks="//@rules.4/@patterns.0/@els.3 //@rules.4/@patterns.0/@els.4" inLinks="//@rules.4/@patterns.0/@els.7">
+        <classGD href="PLS.gcs#//@packagesGD.0/@classesGD.8"/>
+      </els>
+      <els xsi:type="behavior:Link" src="//@rules.4/@patterns.0/@els.2" target="//@rules.4/@patterns.0/@els.0">
+        <ref href="../Metamodel/DEVSMM.ecore#//Container/parts"/>
+      </els>
+      <els xsi:type="behavior:Link" src="//@rules.4/@patterns.0/@els.2" target="//@rules.4/@patterns.0/@els.1">
+        <ref href="../Metamodel/DEVSMM.ecore#//Container/parts"/>
+      </els>
+      <els xsi:type="behavior:Object" id="a" outLinks="//@rules.4/@patterns.0/@els.7 //@rules.4/@patterns.0/@els.8">
+        <classGD href="PLS.gcs#//@packagesGD.0/@classesGD.6"/>
+      </els>
+      <els xsi:type="behavior:Object" id="c" inLinks="//@rules.4/@patterns.0/@els.8">
+        <classGD href="PLS.gcs#//@packagesGD.0/@classesGD.10"/>
+      </els>
+      <els xsi:type="behavior:Link" src="//@rules.4/@patterns.0/@els.5" target="//@rules.4/@patterns.0/@els.2">
+        <ref href="../Metamodel/DEVSMM.ecore#//Machine/in"/>
+      </els>
+      <els xsi:type="behavior:Link" src="//@rules.4/@patterns.0/@els.5" target="//@rules.4/@patterns.0/@els.6">
+        <ref href="../Metamodel/DEVSMM.ecore#//Machine/out"/>
+      </els>
+      <els xsi:type="behavior:Condition" oclValue="(c.parts->size() + c.outParts->size()) &lt; c.capacity"/>
+    </patterns>
+    <patterns name="RHS">
+      <els xsi:type="behavior:Object" id="ham" inLinks="//@rules.4/@patterns.1/@els.6">
+        <sfs oclValue="ha.defective or he.defective or rdm &lt; a.defRate">
+          <sf href="../Metamodel/DEVSMM.ecore#//Part/defective"/>
+        </sfs>
+        <classGD href="PLS.gcs#//@packagesGD.0/@classesGD.15"/>
+      </els>
+      <els xsi:type="behavior:Object" id="t" inLinks="//@rules.4/@patterns.1/@els.4">
+        <classGD href="PLS.gcs#//@packagesGD.0/@classesGD.8"/>
+      </els>
+      <els xsi:type="behavior:Object" id="a" outLinks="//@rules.4/@patterns.1/@els.4 //@rules.4/@patterns.1/@els.5">
+        <classGD href="PLS.gcs#//@packagesGD.0/@classesGD.6"/>
+      </els>
+      <els xsi:type="behavior:Object" id="c" outLinks="//@rules.4/@patterns.1/@els.6" inLinks="//@rules.4/@patterns.1/@els.5">
+        <classGD href="PLS.gcs#//@packagesGD.0/@classesGD.10"/>
+      </els>
+      <els xsi:type="behavior:Link" src="//@rules.4/@patterns.1/@els.2" target="//@rules.4/@patterns.1/@els.1">
+        <ref href="../Metamodel/DEVSMM.ecore#//Machine/in"/>
+      </els>
+      <els xsi:type="behavior:Link" src="//@rules.4/@patterns.1/@els.2" target="//@rules.4/@patterns.1/@els.3">
+        <ref href="../Metamodel/DEVSMM.ecore#//Machine/out"/>
+      </els>
+      <els xsi:type="behavior:Link" src="//@rules.4/@patterns.1/@els.3" target="//@rules.4/@patterns.1/@els.0">
+        <ref href="../Metamodel/DEVSMM.ecore#//Container/parts"/>
+      </els>
+    </patterns>
+    <patterns name="NotConcurrentAssembles">
+      <els xsi:type="behavior:ActionExec" action="Assemble" id="asse">
+        <participants actualObject="//@rules.4/@patterns.0/@els.5"/>
+      </els>
+    </patterns>
+  </rules>
+  <rules xsi:type="behavior:AtomicRule" name="Collect" lhs="//@rules.5/@patterns.0" rhs="//@rules.5/@patterns.1" nacs="//@rules.5/@patterns.2" maxDuration="0">
+    <vbles name="collectTime" type="Int" value="eMotions.random(5)"/>
+    <patterns name="LHS">
+      <els xsi:type="behavior:Object" id="h" inLinks="//@rules.5/@patterns.0/@els.2">
+        <classGD href="PLS.gcs#//@packagesGD.0/@classesGD.15"/>
+      </els>
+      <els xsi:type="behavior:Object" id="t" outLinks="//@rules.5/@patterns.0/@els.2">
+        <classGD href="PLS.gcs#//@packagesGD.0/@classesGD.8"/>
+      </els>
+      <els xsi:type="behavior:Link" src="//@rules.5/@patterns.0/@els.1" target="//@rules.5/@patterns.0/@els.0">
+        <ref href="../Metamodel/DEVSMM.ecore#//Container/parts"/>
+      </els>
+      <els xsi:type="behavior:Object" id="u">
+        <classGD href="PLS.gcs#//@packagesGD.0/@classesGD.9"/>
+      </els>
+    </patterns>
+    <patterns name="RHS">
+      <els xsi:type="behavior:Object" id="h" inLinks="//@rules.5/@patterns.1/@els.3">
+        <classGD href="PLS.gcs#//@packagesGD.0/@classesGD.15"/>
+      </els>
+      <els xsi:type="behavior:Object" id="t">
+        <classGD href="PLS.gcs#//@packagesGD.0/@classesGD.8"/>
+      </els>
+      <els xsi:type="behavior:Object" id="u" outLinks="//@rules.5/@patterns.1/@els.3">
+        <classGD href="PLS.gcs#//@packagesGD.0/@classesGD.9"/>
+      </els>
+      <els xsi:type="behavior:Link" src="//@rules.5/@patterns.1/@els.2" target="//@rules.5/@patterns.1/@els.0">
+        <ref href="../Metamodel/DEVSMM.ecore#//Container/parts"/>
+      </els>
+    </patterns>
+    <patterns name="NoConc">
+      <els xsi:type="behavior:ActionExec" id="co">
+        <participants actualObject="//@rules.5/@patterns.0/@els.3"/>
       </els>
     </patterns>
   </rules>

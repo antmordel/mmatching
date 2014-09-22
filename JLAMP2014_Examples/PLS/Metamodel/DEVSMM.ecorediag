@@ -278,7 +278,7 @@
     </children>
     <styles xmi:type="notation:ShapeStyle" xmi:id="_W4DcwbqGEd-EX9zv7W02iQ" fontHeight="10" fillColor="13761016" lineColor="0"/>
     <element xmi:type="ecore:EClass" href="DEVSMM.ecore#//Hammer"/>
-    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_W4DcwrqGEd-EX9zv7W02iQ" x="675" y="490"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_W4DcwrqGEd-EX9zv7W02iQ" x="672" y="480"/>
   </children>
   <styles xmi:type="notation:DiagramStyle" xmi:id="_PVs34rqBEd-Fcrq4-FXrrA"/>
   <element xmi:type="ecore:EPackage" href="DEVSMM.ecore#/"/>

@@ -1,6 +1,6 @@
 ---- ----------------------------------------------- ----
 ---- Programmatically generated code using e-Motions ----
----- @date Mon Sep 22 15:19:46 CEST 2014             ----
+---- @date Mon Sep 22 16:16:59 CEST 2014             ----
 ---- ----------------------------------------------- ----
 
 mod @DEVSMM@BEHAVIOR@ is
@@ -21,6 +21,12 @@ mod @DEVSMM@BEHAVIOR@ is
   op capacity@OCLSf : -> @StructuralFeature  .
   op defective@OCLSf : -> @StructuralFeature  .
   op currentExec@GenHandle : Set @Model -> Bool  .
+  op currentExec@GenHead : Set @Model -> Bool  .
+  op currentExec@Carry : Set @Model -> Bool  .
+  op notconcurrentassembles@Assemble : Set Set{@Object} @Model -> Bool  .
+  op currentExec@Assemble : Set @Model -> Bool  .
+  op e : -> Vid  .
+  op noconc@Collect : Set Set{@Object} @Model -> Bool  .
     
   eq name(els@OCLSf)
     = "els" .
@@ -59,6 +65,34 @@ mod @DEVSMM@BEHAVIOR@ is
         <_:_|_>('Rule0:OCL-Type, AtomicRule@MGBehavior, 
           _#_(
             _:_(name@Rule@MGBehavior, "GenHead"), 
+            _:_(lowerBound@Rule@MGBehavior, null), 
+            _:_(upperBound@Rule@MGBehavior, null), 
+            _:_(soft@Rule@MGBehavior, false), 
+            _:_(periodicity@AtomicRule@MGBehavior, null))), 
+        <_:_|_>('Rule0:OCL-Type, AtomicRule@MGBehavior, 
+          _#_(
+            _:_(name@Rule@MGBehavior, "Carry"), 
+            _:_(lowerBound@Rule@MGBehavior, null), 
+            _:_(upperBound@Rule@MGBehavior, null), 
+            _:_(soft@Rule@MGBehavior, false), 
+            _:_(periodicity@AtomicRule@MGBehavior, null))), 
+        <_:_|_>('Rule0:OCL-Type, AtomicRule@MGBehavior, 
+          _#_(
+            _:_(name@Rule@MGBehavior, "Transfer"), 
+            _:_(lowerBound@Rule@MGBehavior, null), 
+            _:_(upperBound@Rule@MGBehavior, null), 
+            _:_(soft@Rule@MGBehavior, false), 
+            _:_(periodicity@AtomicRule@MGBehavior, null))), 
+        <_:_|_>('Rule0:OCL-Type, AtomicRule@MGBehavior, 
+          _#_(
+            _:_(name@Rule@MGBehavior, "Assemble"), 
+            _:_(lowerBound@Rule@MGBehavior, null), 
+            _:_(upperBound@Rule@MGBehavior, null), 
+            _:_(soft@Rule@MGBehavior, false), 
+            _:_(periodicity@AtomicRule@MGBehavior, null))), 
+        <_:_|_>('Rule0:OCL-Type, AtomicRule@MGBehavior, 
+          _#_(
+            _:_(name@Rule@MGBehavior, "Collect"), 
             _:_(lowerBound@Rule@MGBehavior, null), 
             _:_(upperBound@Rule@MGBehavior, null), 
             _:_(soft@Rule@MGBehavior, false), 
@@ -114,14 +148,30 @@ mod @DEVSMM@BEHAVIOR@ is
     /\ rdm:OCL-Type := eval(_rem_(random(_+_(VALUE@rdm@:Int, 3)), eval(100, env(empty), MODEL@:@Model)), env(empty), MODEL@:@Model)
     /\ eval(_and_(_>_(__(hg:OCL-Type, ._(counter@OCLSf)), 0), _<_(_+_(_->`size`(`)(__(c:OCL-Type, ._(parts@OCLSf))), _->`size`(`)(__(c:OCL-Type, ._(outParts@OCLSf)))), __(c:OCL-Type, ._(capacity@OCLSf)))), env(empty), MODEL@:@Model)
     /\ not_(currentExec@GenHandle(Set`{_`}(_;_(hg:OCL-Type, c:OCL-Type)), MODEL@:@Model)) .
+  eq currentExec@GenHead(Set`{_`}(_;_(hg:OCL-Type, c:OCL-Type)), _`{_`}(MM@:@Metamodel, 
+    __(
+      <_:_|_>(ACTEXEC@:Oid, AtomicActionExec@MGBehavior, 
+        _#_(
+          _:_(action@ActionExec@MGBehavior, "GenHead"), 
+          _:_(endingTime@ActionExec@MGBehavior, null), 
+          _:_(participants@ActionExec@MGBehavior, Set`{_`}(_;_(L@ACTEXEC@:MSet{OCL-Exp}, OR1@:Oid, OR2@:Oid))), ACTEXEC@@SFS:Set{@StructuralFeatureInstance})), OBJSET@:Set{@Object}, 
+      <_:_|_>(OR1@:Oid, ObjectRole@MGBehavior, 
+        _#_(
+          _:_(actualObject@ObjectRole@MGBehavior, hg:OCL-Type), 
+          _:_(role@ObjectRole@MGBehavior, "hg"))), 
+      <_:_|_>(OR2@:Oid, ObjectRole@MGBehavior, 
+        _#_(
+          _:_(actualObject@ObjectRole@MGBehavior, c:OCL-Type), 
+          _:_(role@ObjectRole@MGBehavior, "c"))))))
+    = true .
+  eq currentExec@GenHead(OIDSET@:Set, MODEL@:@Model)
+    = false [owise] .
   ceq mte(_`{_`}(MM@:@Metamodel, 
     __(
       <_:_|_>(hg:OCL-Type, GENHEAD@DEVSMM@hg@CLASS:GenHead@devsmm, 
         _#_(
           _:_(out@Machine@devsmm, OUT@hg@ATT:OCL-Type), hg@SFS:Set{@StructuralFeatureInstance})), 
-      <_:_|_>(c:OCL-Type, CONVEYOR@DEVSMM@c@CLASS:Conveyor@devsmm, 
-        _#_(
-          _:_(parts@Container@devsmm, PARTS@c@ATT:OCL-Type), c@SFS:Set{@StructuralFeatureInstance})), 
+      <_:_|_>(c:OCL-Type, CONVEYOR@DEVSMM@c@CLASS:Conveyor@devsmm, c@SFS:Set{@StructuralFeatureInstance}), 
       <_:_|_>(CLK@:Oid, Clock@MGBehavior, 
           _:_(time@Clock@MGBehavior, TIME@CLK@:Time)), 
       <_:_|_>('ids@, Counter@MGBehavior, 
@@ -134,9 +184,7 @@ mod @DEVSMM@BEHAVIOR@ is
         <_:_|_>(hg:OCL-Type, GENHEAD@DEVSMM@hg@CLASS:GenHead@devsmm, 
           _#_(
             _:_(out@Machine@devsmm, OUT@hg@ATT:OCL-Type), hg@SFS:Set{@StructuralFeatureInstance})), 
-        <_:_|_>(c:OCL-Type, CONVEYOR@DEVSMM@c@CLASS:Conveyor@devsmm, 
-          _#_(
-            _:_(parts@Container@devsmm, PARTS@c@ATT:OCL-Type), c@SFS:Set{@StructuralFeatureInstance})), 
+        <_:_|_>(c:OCL-Type, CONVEYOR@DEVSMM@c@CLASS:Conveyor@devsmm, c@SFS:Set{@StructuralFeatureInstance}), 
         <_:_|_>(CLK@:Oid, Clock@MGBehavior, 
             _:_(time@Clock@MGBehavior, TIME@CLK@:Time)), 
         <_:_|_>('ids@, Counter@MGBehavior, 
@@ -149,7 +197,249 @@ mod @DEVSMM@BEHAVIOR@ is
     /\ prodTime:OCL-Type := eval(_+_(_-_(
       __(hg:OCL-Type, ._(prodTime@OCLSf)), 3), _rem_(random(_+_(VALUE@rdm@:Int, 6)), eval(6, env(empty), MODEL@:@Model))), env(empty), MODEL@:@Model)
     /\ rdm:OCL-Type := eval(_rem_(random(_+_(VALUE@rdm@:Int, 7)), eval(100, env(empty), MODEL@:@Model)), env(empty), MODEL@:@Model)
-    /\ eval(_and_(_>_(__(hg:OCL-Type, ._(counter@OCLSf)), 0), _<_(_+_(_->`size`(`)(__(c:OCL-Type, ._(parts@OCLSf))), _->`size`(`)(__(c:OCL-Type, ._(outParts@OCLSf)))), __(c:OCL-Type, ._(capacity@OCLSf)))), env(empty), MODEL@:@Model) .
+    /\ eval(_and_(_>_(__(hg:OCL-Type, ._(counter@OCLSf)), 0), _<_(_+_(_->`size`(`)(__(c:OCL-Type, ._(parts@OCLSf))), _->`size`(`)(__(c:OCL-Type, ._(outParts@OCLSf)))), __(c:OCL-Type, ._(capacity@OCLSf)))), env(empty), MODEL@:@Model)
+    /\ not_(currentExec@GenHead(Set`{_`}(_;_(hg:OCL-Type, c:OCL-Type)), MODEL@:@Model)) .
+  eq currentExec@Carry(Set`{_`}(_;_(p:OCL-Type, c:OCL-Type)), _`{_`}(MM@:@Metamodel, 
+    __(
+      <_:_|_>(ACTEXEC@:Oid, AtomicActionExec@MGBehavior, 
+        _#_(
+          _:_(action@ActionExec@MGBehavior, "Carry"), 
+          _:_(endingTime@ActionExec@MGBehavior, null), 
+          _:_(participants@ActionExec@MGBehavior, Set`{_`}(_;_(L@ACTEXEC@:MSet{OCL-Exp}, OR1@:Oid, OR2@:Oid))), ACTEXEC@@SFS:Set{@StructuralFeatureInstance})), OBJSET@:Set{@Object}, 
+      <_:_|_>(OR1@:Oid, ObjectRole@MGBehavior, 
+        _#_(
+          _:_(actualObject@ObjectRole@MGBehavior, p:OCL-Type), 
+          _:_(role@ObjectRole@MGBehavior, "p"))), 
+      <_:_|_>(OR2@:Oid, ObjectRole@MGBehavior, 
+        _#_(
+          _:_(actualObject@ObjectRole@MGBehavior, c:OCL-Type), 
+          _:_(role@ObjectRole@MGBehavior, "c"))))))
+    = true .
+  eq currentExec@Carry(OIDSET@:Set, MODEL@:@Model)
+    = false [owise] .
+  ceq mte(_`{_`}(MM@:@Metamodel, 
+    __(
+      <_:_|_>(p:OCL-Type, PART@DEVSMM@p@CLASS:Part@devsmm, p@SFS:Set{@StructuralFeatureInstance}), 
+      <_:_|_>(c:OCL-Type, CONVEYOR@DEVSMM@c@CLASS:Conveyor@devsmm, 
+        _#_(
+          _:_(parts@Container@devsmm, PARTS@c@ATT:OCL-Type), c@SFS:Set{@StructuralFeatureInstance})), 
+      <_:_|_>(CLK@:Oid, Clock@MGBehavior, 
+          _:_(time@Clock@MGBehavior, TIME@CLK@:Time)), 
+      <_:_|_>('ids@, Counter@MGBehavior, 
+          _:_(value@Counter@MGBehavior, VALUE@ids@:Int)), 
+      <_:_|_>('rdm@, Counter@MGBehavior, 
+          _:_(value@Counter@MGBehavior, VALUE@rdm@:Int)), OBJSET@:Set{@Object})))
+    = 0
+    if MODEL@:@Model := _`{_`}(MM@:@Metamodel, 
+      __(
+        <_:_|_>(p:OCL-Type, PART@DEVSMM@p@CLASS:Part@devsmm, p@SFS:Set{@StructuralFeatureInstance}), 
+        <_:_|_>(c:OCL-Type, CONVEYOR@DEVSMM@c@CLASS:Conveyor@devsmm, 
+          _#_(
+            _:_(parts@Container@devsmm, PARTS@c@ATT:OCL-Type), c@SFS:Set{@StructuralFeatureInstance})), 
+        <_:_|_>(CLK@:Oid, Clock@MGBehavior, 
+            _:_(time@Clock@MGBehavior, TIME@CLK@:Time)), 
+        <_:_|_>('ids@, Counter@MGBehavior, 
+            _:_(value@Counter@MGBehavior, VALUE@ids@:Int)), 
+        <_:_|_>('rdm@, Counter@MGBehavior, 
+            _:_(value@Counter@MGBehavior, VALUE@rdm@:Int)), OBJSET@:Set{@Object}))
+    /\ _in_(p:OCL-Type, PARTS@c@ATT:OCL-Type)
+    /\ not_(currentExec@Carry(Set`{_`}(_;_(p:OCL-Type, c:OCL-Type)), MODEL@:@Model)) .
+  ceq notconcurrentassembles@Assemble(Set`{_`}(_;_(he:OCL-Type, ha:OCL-Type, t:OCL-Type, a:OCL-Type, c:OCL-Type)), __(<_:_|_>(VAR1@:Oid, Variable@MGBehavior, _#_(_:_(name@Variable@MGBehavior, "rdm"), _:_(value@Variable@MGBehavior, rdm:OCL-Type))), <_:_|_>(VAR2@:Oid, Variable@MGBehavior, _#_(_:_(name@Variable@MGBehavior, "prodTime"), _:_(value@Variable@MGBehavior, prodTime:OCL-Type)))), _`{_`}(MM@:@Metamodel, 
+    __(
+      <_:_|_>(asse:OCL-Type, AtomicActionExec@MGBehavior, 
+        _#_(
+          _:_(action@ActionExec@MGBehavior, "Assemble"), 
+          _:_(status@AtomicActionExec@MGBehavior, unfinished@ActionStatus@MGBehavior), 
+          _:_(participants@ActionExec@MGBehavior, Set`{_`}(_;_(L@asse:MSet{OCL-Exp}, OR1@asse:Oid))), asse@SFS:Set{@StructuralFeatureInstance})), OBJSET@:Set{@Object}, 
+      <_:_|_>(OR1@asse:Oid, ObjectRole@MGBehavior, 
+        _#_(
+          _:_(actualObject@ObjectRole@MGBehavior, a:OCL-Type), OR1@asse@SFS:Set{@StructuralFeatureInstance})))))
+    = true
+    if MODEL@:@Model := _`{_`}(MM@:@Metamodel, 
+      __(
+        <_:_|_>(asse:OCL-Type, AtomicActionExec@MGBehavior, 
+          _#_(
+            _:_(action@ActionExec@MGBehavior, "Assemble"), 
+            _:_(status@AtomicActionExec@MGBehavior, unfinished@ActionStatus@MGBehavior), 
+            _:_(participants@ActionExec@MGBehavior, Set`{_`}(_;_(L@asse:MSet{OCL-Exp}, OR1@asse:Oid))), asse@SFS:Set{@StructuralFeatureInstance})), OBJSET@:Set{@Object}, 
+        <_:_|_>(OR1@asse:Oid, ObjectRole@MGBehavior, 
+          _#_(
+            _:_(actualObject@ObjectRole@MGBehavior, a:OCL-Type), OR1@asse@SFS:Set{@StructuralFeatureInstance})))) .
+  eq notconcurrentassembles@Assemble(OIDSET@:Set, OBJSET@:Set{@Object}, MODEL@:@Model)
+    = false [owise] .
+  eq currentExec@Assemble(Set`{_`}(_;_(he:OCL-Type, ha:OCL-Type, t:OCL-Type, a:OCL-Type, c:OCL-Type)), _`{_`}(MM@:@Metamodel, 
+    __(
+      <_:_|_>(ACTEXEC@:Oid, AtomicActionExec@MGBehavior, 
+        _#_(
+          _:_(action@ActionExec@MGBehavior, "Assemble"), 
+          _:_(endingTime@ActionExec@MGBehavior, null), 
+          _:_(participants@ActionExec@MGBehavior, Set`{_`}(_;_(L@ACTEXEC@:MSet{OCL-Exp}, OR1@:Oid, OR2@:Oid, OR3@:Oid, OR4@:Oid, OR5@:Oid))), ACTEXEC@@SFS:Set{@StructuralFeatureInstance})), OBJSET@:Set{@Object}, 
+      <_:_|_>(OR1@:Oid, ObjectRole@MGBehavior, 
+        _#_(
+          _:_(actualObject@ObjectRole@MGBehavior, he:OCL-Type), 
+          _:_(role@ObjectRole@MGBehavior, "he"))), 
+      <_:_|_>(OR2@:Oid, ObjectRole@MGBehavior, 
+        _#_(
+          _:_(actualObject@ObjectRole@MGBehavior, ha:OCL-Type), 
+          _:_(role@ObjectRole@MGBehavior, "ha"))), 
+      <_:_|_>(OR3@:Oid, ObjectRole@MGBehavior, 
+        _#_(
+          _:_(actualObject@ObjectRole@MGBehavior, t:OCL-Type), 
+          _:_(role@ObjectRole@MGBehavior, "t"))), 
+      <_:_|_>(OR4@:Oid, ObjectRole@MGBehavior, 
+        _#_(
+          _:_(actualObject@ObjectRole@MGBehavior, a:OCL-Type), 
+          _:_(role@ObjectRole@MGBehavior, "a"))), 
+      <_:_|_>(OR5@:Oid, ObjectRole@MGBehavior, 
+        _#_(
+          _:_(actualObject@ObjectRole@MGBehavior, c:OCL-Type), 
+          _:_(role@ObjectRole@MGBehavior, "c"))))))
+    = true .
+  eq currentExec@Assemble(OIDSET@:Set, MODEL@:@Model)
+    = false [owise] .
+  ceq mte(_`{_`}(MM@:@Metamodel, 
+    __(
+      <_:_|_>(he:OCL-Type, HEAD@DEVSMM@he@CLASS:Head@devsmm, he@SFS:Set{@StructuralFeatureInstance}), 
+      <_:_|_>(ha:OCL-Type, HANDLE@DEVSMM@ha@CLASS:Handle@devsmm, ha@SFS:Set{@StructuralFeatureInstance}), 
+      <_:_|_>(t:OCL-Type, TRAY@DEVSMM@t@CLASS:Tray@devsmm, 
+        _#_(
+          _:_(parts@Container@devsmm, PARTS@t@ATT:OCL-Type), t@SFS:Set{@StructuralFeatureInstance})), 
+      <_:_|_>(a:OCL-Type, ASSEMBLE@DEVSMM@a@CLASS:Assemble@devsmm, 
+        _#_(
+          _:_(out@Machine@devsmm, OUT@a@ATT:OCL-Type), 
+          _:_(in@Machine@devsmm, IN@a@ATT:OCL-Type), a@SFS:Set{@StructuralFeatureInstance})), 
+      <_:_|_>(c:OCL-Type, CONVEYOR@DEVSMM@c@CLASS:Conveyor@devsmm, c@SFS:Set{@StructuralFeatureInstance}), 
+      <_:_|_>(CLK@:Oid, Clock@MGBehavior, 
+          _:_(time@Clock@MGBehavior, TIME@CLK@:Time)), 
+      <_:_|_>('ids@, Counter@MGBehavior, 
+          _:_(value@Counter@MGBehavior, VALUE@ids@:Int)), 
+      <_:_|_>('rdm@, Counter@MGBehavior, 
+          _:_(value@Counter@MGBehavior, VALUE@rdm@:Int)), OBJSET@:Set{@Object})))
+    = 0
+    if MODEL@:@Model := _`{_`}(MM@:@Metamodel, 
+      __(
+        <_:_|_>(he:OCL-Type, HEAD@DEVSMM@he@CLASS:Head@devsmm, he@SFS:Set{@StructuralFeatureInstance}), 
+        <_:_|_>(ha:OCL-Type, HANDLE@DEVSMM@ha@CLASS:Handle@devsmm, ha@SFS:Set{@StructuralFeatureInstance}), 
+        <_:_|_>(t:OCL-Type, TRAY@DEVSMM@t@CLASS:Tray@devsmm, 
+          _#_(
+            _:_(parts@Container@devsmm, PARTS@t@ATT:OCL-Type), t@SFS:Set{@StructuralFeatureInstance})), 
+        <_:_|_>(a:OCL-Type, ASSEMBLE@DEVSMM@a@CLASS:Assemble@devsmm, 
+          _#_(
+            _:_(out@Machine@devsmm, OUT@a@ATT:OCL-Type), 
+            _:_(in@Machine@devsmm, IN@a@ATT:OCL-Type), a@SFS:Set{@StructuralFeatureInstance})), 
+        <_:_|_>(c:OCL-Type, CONVEYOR@DEVSMM@c@CLASS:Conveyor@devsmm, c@SFS:Set{@StructuralFeatureInstance}), 
+        <_:_|_>(CLK@:Oid, Clock@MGBehavior, 
+            _:_(time@Clock@MGBehavior, TIME@CLK@:Time)), 
+        <_:_|_>('ids@, Counter@MGBehavior, 
+            _:_(value@Counter@MGBehavior, VALUE@ids@:Int)), 
+        <_:_|_>('rdm@, Counter@MGBehavior, 
+            _:_(value@Counter@MGBehavior, VALUE@rdm@:Int)), OBJSET@:Set{@Object}))
+    /\ _in_(he:OCL-Type, PARTS@t@ATT:OCL-Type)
+    /\ _in_(ha:OCL-Type, PARTS@t@ATT:OCL-Type)
+    /\ _in_(t:OCL-Type, IN@a@ATT:OCL-Type)
+    /\ _in_(c:OCL-Type, OUT@a@ATT:OCL-Type)
+    /\ VAR1@:Oid := newId(_+_(VALUE@ids@:Int, 6))
+    /\ VAR2@:Oid := newId(_+_(VALUE@ids@:Int, 7))
+    /\ rdm:OCL-Type := eval(_rem_(random(_+_(VALUE@rdm@:Int, 10)), eval(100, env(empty), MODEL@:@Model)), env(empty), MODEL@:@Model)
+    /\ prodTime:OCL-Type := eval(_+_(_-_(
+      __(a:OCL-Type, ._(prodTime@OCLSf)), 3), _rem_(random(_+_(VALUE@rdm@:Int, 11)), eval(6, env(empty), MODEL@:@Model))), env(empty), MODEL@:@Model)
+    /\ eval(_<_(_+_(_->`size`(`)(__(c:OCL-Type, ._(parts@OCLSf))), _->`size`(`)(__(c:OCL-Type, ._(outParts@OCLSf)))), __(c:OCL-Type, ._(capacity@OCLSf))), env(empty), MODEL@:@Model)
+    /\ not_(notconcurrentassembles@Assemble(Set`{_`}(_;_(he:OCL-Type, ha:OCL-Type, t:OCL-Type, a:OCL-Type, c:OCL-Type)), __(<_:_|_>(VAR1@:Oid, Variable@MGBehavior, _#_(_:_(name@Variable@MGBehavior, "rdm"), _:_(value@Variable@MGBehavior, rdm:OCL-Type))), <_:_|_>(VAR2@:Oid, Variable@MGBehavior, _#_(_:_(name@Variable@MGBehavior, "prodTime"), _:_(value@Variable@MGBehavior, prodTime:OCL-Type)))), MODEL@:@Model))
+    /\ not_(currentExec@Assemble(Set`{_`}(_;_(he:OCL-Type, ha:OCL-Type, t:OCL-Type, a:OCL-Type, c:OCL-Type)), MODEL@:@Model)) .
+  ceq mte(_`{_`}(MM@:@Metamodel, 
+    __(
+      <_:_|_>(c:OCL-Type, CONVEYOR@DEVSMM@c@CLASS:Conveyor@devsmm, 
+        _#_(
+          _:_(outParts@Conveyor@devsmm, OUTPARTS@c@ATT:OCL-Type), 
+          _:_(out@Conveyor@devsmm, OUT@c@ATT:OCL-Type), c@SFS:Set{@StructuralFeatureInstance})), 
+      <_:_|_>(t:OCL-Type, TRAY@DEVSMM@t@CLASS:Tray@devsmm, 
+        _#_(
+          _:_(parts@Container@devsmm, PARTS@t@ATT:OCL-Type), t@SFS:Set{@StructuralFeatureInstance})), 
+      <_:_|_>(p:OCL-Type, PART@DEVSMM@p@CLASS:Part@devsmm, p@SFS:Set{@StructuralFeatureInstance}), 
+      <_:_|_>(CLK@:Oid, Clock@MGBehavior, 
+          _:_(time@Clock@MGBehavior, TIME@CLK@:Time)), 
+      <_:_|_>('ids@, Counter@MGBehavior, 
+          _:_(value@Counter@MGBehavior, VALUE@ids@:Int)), 
+      <_:_|_>('rdm@, Counter@MGBehavior, 
+          _:_(value@Counter@MGBehavior, VALUE@rdm@:Int)), OBJSET@:Set{@Object})))
+    = 0
+    if MODEL@:@Model := _`{_`}(MM@:@Metamodel, 
+      __(
+        <_:_|_>(c:OCL-Type, CONVEYOR@DEVSMM@c@CLASS:Conveyor@devsmm, 
+          _#_(
+            _:_(outParts@Conveyor@devsmm, OUTPARTS@c@ATT:OCL-Type), 
+            _:_(out@Conveyor@devsmm, OUT@c@ATT:OCL-Type), c@SFS:Set{@StructuralFeatureInstance})), 
+        <_:_|_>(t:OCL-Type, TRAY@DEVSMM@t@CLASS:Tray@devsmm, 
+          _#_(
+            _:_(parts@Container@devsmm, PARTS@t@ATT:OCL-Type), t@SFS:Set{@StructuralFeatureInstance})), 
+        <_:_|_>(p:OCL-Type, PART@DEVSMM@p@CLASS:Part@devsmm, p@SFS:Set{@StructuralFeatureInstance}), 
+        <_:_|_>(CLK@:Oid, Clock@MGBehavior, 
+            _:_(time@Clock@MGBehavior, TIME@CLK@:Time)), 
+        <_:_|_>('ids@, Counter@MGBehavior, 
+            _:_(value@Counter@MGBehavior, VALUE@ids@:Int)), 
+        <_:_|_>('rdm@, Counter@MGBehavior, 
+            _:_(value@Counter@MGBehavior, VALUE@rdm@:Int)), OBJSET@:Set{@Object}))
+    /\ _in_(t:OCL-Type, OUT@c@ATT:OCL-Type)
+    /\ _in_(p:OCL-Type, OUTPARTS@c@ATT:OCL-Type)
+    /\ eval(_and_(_<_(_->`size`(`)(__(t:OCL-Type, ._(parts@OCLSf))), __(t:OCL-Type, ._(capacity@OCLSf))), not_(_and_(_.=._(_->`size`(`)(__(t:OCL-Type, ._(parts@OCLSf))), _-_(__(t:OCL-Type, ._(capacity@OCLSf)), 1)), _or_(_or_(_and_(_->`forAll_(__(t:OCL-Type, ._(parts@OCLSf)), _|_(e, _.`oclIsKindOf`(_`)(e, Handle@devsmm))), _.`oclIsKindOf`(_`)(p:OCL-Type, Handle@devsmm)), _and_(_->`forAll_(__(t:OCL-Type, ._(parts@OCLSf)), _|_(e, _.`oclIsKindOf`(_`)(e, Head@devsmm))), _.`oclIsKindOf`(_`)(p:OCL-Type, Head@devsmm))), _and_(_->`forAll_(__(t:OCL-Type, ._(parts@OCLSf)), _|_(e, _.`oclIsKindOf`(_`)(e, Hammer@devsmm))), _.`oclIsKindOf`(_`)(p:OCL-Type, Hammer@devsmm)))))), env(empty), MODEL@:@Model) .
+  ceq noconc@Collect(Set`{_`}(_;_(h:OCL-Type, t:OCL-Type, u:OCL-Type)), <_:_|_>(VAR1@:Oid, Variable@MGBehavior, _#_(_:_(name@Variable@MGBehavior, "collectTime"), _:_(value@Variable@MGBehavior, collectTime:OCL-Type))), _`{_`}(MM@:@Metamodel, 
+    __(
+      <_:_|_>(co:OCL-Type, AtomicActionExec@MGBehavior, 
+        _#_(
+          _:_(action@ActionExec@MGBehavior, ACTION@co@ATT:String), 
+          _:_(status@AtomicActionExec@MGBehavior, unfinished@ActionStatus@MGBehavior), 
+          _:_(participants@ActionExec@MGBehavior, Set`{_`}(_;_(L@co:MSet{OCL-Exp}, OR1@co:Oid))), co@SFS:Set{@StructuralFeatureInstance})), OBJSET@:Set{@Object}, 
+      <_:_|_>(OR1@co:Oid, ObjectRole@MGBehavior, 
+        _#_(
+          _:_(actualObject@ObjectRole@MGBehavior, u:OCL-Type), OR1@co@SFS:Set{@StructuralFeatureInstance})))))
+    = true
+    if MODEL@:@Model := _`{_`}(MM@:@Metamodel, 
+      __(
+        <_:_|_>(co:OCL-Type, AtomicActionExec@MGBehavior, 
+          _#_(
+            _:_(action@ActionExec@MGBehavior, ACTION@co@ATT:String), 
+            _:_(status@AtomicActionExec@MGBehavior, unfinished@ActionStatus@MGBehavior), 
+            _:_(participants@ActionExec@MGBehavior, Set`{_`}(_;_(L@co:MSet{OCL-Exp}, OR1@co:Oid))), co@SFS:Set{@StructuralFeatureInstance})), OBJSET@:Set{@Object}, 
+        <_:_|_>(OR1@co:Oid, ObjectRole@MGBehavior, 
+          _#_(
+            _:_(actualObject@ObjectRole@MGBehavior, u:OCL-Type), OR1@co@SFS:Set{@StructuralFeatureInstance})))) .
+  eq noconc@Collect(OIDSET@:Set, OBJSET@:Set{@Object}, MODEL@:@Model)
+    = false [owise] .
+  ceq mte(_`{_`}(MM@:@Metamodel, 
+    __(
+      <_:_|_>(h:OCL-Type, HAMMER@DEVSMM@h@CLASS:Hammer@devsmm, h@SFS:Set{@StructuralFeatureInstance}), 
+      <_:_|_>(t:OCL-Type, TRAY@DEVSMM@t@CLASS:Tray@devsmm, 
+        _#_(
+          _:_(parts@Container@devsmm, PARTS@t@ATT:OCL-Type), t@SFS:Set{@StructuralFeatureInstance})), 
+      <_:_|_>(u:OCL-Type, USER@DEVSMM@u@CLASS:User@devsmm, 
+        _#_(
+          _:_(parts@Container@devsmm, PARTS@u@ATT:OCL-Type), u@SFS:Set{@StructuralFeatureInstance})), 
+      <_:_|_>(CLK@:Oid, Clock@MGBehavior, 
+          _:_(time@Clock@MGBehavior, TIME@CLK@:Time)), 
+      <_:_|_>('ids@, Counter@MGBehavior, 
+          _:_(value@Counter@MGBehavior, VALUE@ids@:Int)), 
+      <_:_|_>('rdm@, Counter@MGBehavior, 
+          _:_(value@Counter@MGBehavior, VALUE@rdm@:Int)), OBJSET@:Set{@Object})))
+    = 0
+    if MODEL@:@Model := _`{_`}(MM@:@Metamodel, 
+      __(
+        <_:_|_>(h:OCL-Type, HAMMER@DEVSMM@h@CLASS:Hammer@devsmm, h@SFS:Set{@StructuralFeatureInstance}), 
+        <_:_|_>(t:OCL-Type, TRAY@DEVSMM@t@CLASS:Tray@devsmm, 
+          _#_(
+            _:_(parts@Container@devsmm, PARTS@t@ATT:OCL-Type), t@SFS:Set{@StructuralFeatureInstance})), 
+        <_:_|_>(u:OCL-Type, USER@DEVSMM@u@CLASS:User@devsmm, 
+          _#_(
+            _:_(parts@Container@devsmm, PARTS@u@ATT:OCL-Type), u@SFS:Set{@StructuralFeatureInstance})), 
+        <_:_|_>(CLK@:Oid, Clock@MGBehavior, 
+            _:_(time@Clock@MGBehavior, TIME@CLK@:Time)), 
+        <_:_|_>('ids@, Counter@MGBehavior, 
+            _:_(value@Counter@MGBehavior, VALUE@ids@:Int)), 
+        <_:_|_>('rdm@, Counter@MGBehavior, 
+            _:_(value@Counter@MGBehavior, VALUE@rdm@:Int)), OBJSET@:Set{@Object}))
+    /\ _in_(h:OCL-Type, PARTS@t@ATT:OCL-Type)
+    /\ VAR1@:Oid := newId(_+_(VALUE@ids@:Int, 4))
+    /\ collectTime:OCL-Type := eval(_rem_(random(_+_(VALUE@rdm@:Int, 13)), eval(5, env(empty), MODEL@:@Model)), env(empty), MODEL@:@Model)
+    /\ not_(noconc@Collect(Set`{_`}(_;_(h:OCL-Type, t:OCL-Type, u:OCL-Type)), <_:_|_>(VAR1@:Oid, Variable@MGBehavior, _#_(_:_(name@Variable@MGBehavior, "collectTime"), _:_(value@Variable@MGBehavior, collectTime:OCL-Type))), MODEL@:@Model)) .
     
   crl [GenHandle@Triggering] :
     _`{_`}(MM@:@Metamodel, 
@@ -187,7 +477,7 @@ mod @DEVSMM@BEHAVIOR@ is
         <_:_|_>('ids@, Counter@MGBehavior, 
             _:_(value@Counter@MGBehavior, _+_(VALUE@ids@:Int, 5))), 
         <_:_|_>('rdm@, Counter@MGBehavior, 
-            _:_(value@Counter@MGBehavior, _+_(VALUE@rdm@:Int, 4))), OBJSET@:Set{@Object}, 
+            _:_(value@Counter@MGBehavior, _+_(VALUE@rdm@:Int, 7))), OBJSET@:Set{@Object}, 
         <_:_|_>(OR1@:Oid, ObjectRole@MGBehavior, 
           _#_(
             _:_(actualObject@ObjectRole@MGBehavior, hg:OCL-Type), 
@@ -235,6 +525,7 @@ mod @DEVSMM@BEHAVIOR@ is
       __(
         <_:_|_>(hg:OCL-Type, GENHANDLE@DEVSMM@hg@CLASS:GenHandle@devsmm, 
           _#_(
+            _:_(counter@Generator@devsmm, COUNTER@hg@ATT:OCL-Type), 
             _:_(out@Machine@devsmm, OUT@hg@ATT:OCL-Type), hg@SFS:Set{@StructuralFeatureInstance})), 
         <_:_|_>(c:OCL-Type, CONVEYOR@DEVSMM@c@CLASS:Conveyor@devsmm, 
           _#_(
@@ -275,7 +566,9 @@ mod @DEVSMM@BEHAVIOR@ is
       __(
         <_:_|_>(hg:OCL-Type, GENHANDLE@DEVSMM@hg@CLASS:GenHandle@devsmm, 
           _#_(
-            _:_(out@Machine@devsmm, update(out@Machine@devsmm, OUT@hg@ATT:OCL-Type, nil, link(c:OCL-Type, null))), hg@SFS:Set{@StructuralFeatureInstance})), 
+            _:_(out@Machine@devsmm, update(out@Machine@devsmm, OUT@hg@ATT:OCL-Type, nil, link(c:OCL-Type, null))), 
+            _:_(counter@Generator@devsmm, eval(_-_(
+      __(hg:OCL-Type, ._(counter@OCLSf)), 1), env(_<-_(self, hg:OCL-Type)), MODEL@:@Model)), hg@SFS:Set{@StructuralFeatureInstance})), 
         <_:_|_>(c:OCL-Type, CONVEYOR@DEVSMM@c@CLASS:Conveyor@devsmm, 
           _#_(
             _:_(parts@Container@devsmm, update(parts@Container@devsmm, PARTS@c@ATT:OCL-Type, nil, link(h:OCL-Type, null))), c@SFS:Set{@StructuralFeatureInstance})), complete(
@@ -285,13 +578,14 @@ mod @DEVSMM@BEHAVIOR@ is
         <_:_|_>(CLK@:Oid, Clock@MGBehavior, 
             _:_(time@Clock@MGBehavior, TIME@CLK@:Time)), 
         <_:_|_>('rdm@, Counter@MGBehavior, 
-            _:_(value@Counter@MGBehavior, _+_(VALUE@rdm@:Int, 4))), OBJSET@:Set{@Object}, 
+            _:_(value@Counter@MGBehavior, _+_(VALUE@rdm@:Int, 7))), OBJSET@:Set{@Object}, 
         <_:_|_>('ids@, Counter@MGBehavior, 
             _:_(value@Counter@MGBehavior, _+_(VALUE@ids@:Int, 1))))))
   if MODEL@:@Model := _`{_`}(MM@:@Metamodel, 
     __(
       <_:_|_>(hg:OCL-Type, GENHANDLE@DEVSMM@hg@CLASS:GenHandle@devsmm, 
         _#_(
+          _:_(counter@Generator@devsmm, COUNTER@hg@ATT:OCL-Type), 
           _:_(out@Machine@devsmm, OUT@hg@ATT:OCL-Type), hg@SFS:Set{@StructuralFeatureInstance})), 
       <_:_|_>(c:OCL-Type, CONVEYOR@DEVSMM@c@CLASS:Conveyor@devsmm, 
         _#_(
@@ -329,15 +623,13 @@ mod @DEVSMM@BEHAVIOR@ is
           _:_(value@Variable@MGBehavior, rdm:OCL-Type)))))
   /\ h:OCL-Type := newId(_+_(VALUE@ids@:Int, 0)) [print " -> GenHandle@Realization \tin time " TIME@CLK@:Time] .
   
-  crl [GenHead@Instantaneous] :
+  crl [GenHead@Triggering] :
     _`{_`}(MM@:@Metamodel, 
       __(
         <_:_|_>(hg:OCL-Type, GENHEAD@DEVSMM@hg@CLASS:GenHead@devsmm, 
           _#_(
             _:_(out@Machine@devsmm, OUT@hg@ATT:OCL-Type), hg@SFS:Set{@StructuralFeatureInstance})), 
-        <_:_|_>(c:OCL-Type, CONVEYOR@DEVSMM@c@CLASS:Conveyor@devsmm, 
-          _#_(
-            _:_(parts@Container@devsmm, PARTS@c@ATT:OCL-Type), c@SFS:Set{@StructuralFeatureInstance})), 
+        <_:_|_>(c:OCL-Type, CONVEYOR@DEVSMM@c@CLASS:Conveyor@devsmm, c@SFS:Set{@StructuralFeatureInstance}), 
         <_:_|_>(CLK@:Oid, Clock@MGBehavior, 
             _:_(time@Clock@MGBehavior, TIME@CLK@:Time)), 
         <_:_|_>('ids@, Counter@MGBehavior, 
@@ -345,30 +637,52 @@ mod @DEVSMM@BEHAVIOR@ is
         <_:_|_>('rdm@, Counter@MGBehavior, 
             _:_(value@Counter@MGBehavior, VALUE@rdm@:Int)), OBJSET@:Set{@Object}))
   =>
-    readjust(Set`{_`}(mt), nil, _`{_`}(MM@:@Metamodel, 
+    _`{_`}(MM@:@Metamodel, 
       __(
         <_:_|_>(hg:OCL-Type, GENHEAD@DEVSMM@hg@CLASS:GenHead@devsmm, 
           _#_(
-            _:_(out@Machine@devsmm, update(out@Machine@devsmm, OUT@hg@ATT:OCL-Type, nil, link(c:OCL-Type, null))), hg@SFS:Set{@StructuralFeatureInstance})), 
-        <_:_|_>(c:OCL-Type, CONVEYOR@DEVSMM@c@CLASS:Conveyor@devsmm, 
+            _:_(out@Machine@devsmm, OUT@hg@ATT:OCL-Type), hg@SFS:Set{@StructuralFeatureInstance})), 
+        <_:_|_>(c:OCL-Type, CONVEYOR@DEVSMM@c@CLASS:Conveyor@devsmm, c@SFS:Set{@StructuralFeatureInstance}), 
+        <_:_|_>(ACTEXEC@:Oid, AtomicActionExec@MGBehavior, 
           _#_(
-            _:_(parts@Container@devsmm, update(parts@Container@devsmm, PARTS@c@ATT:OCL-Type, nil, link(h:OCL-Type, null))), c@SFS:Set{@StructuralFeatureInstance})), complete(
-        <_:_|_>(h:OCL-Type, Head@devsmm, empty)), 
+            _:_(action@ActionExec@MGBehavior, "GenHead"), 
+            _:_(minTimer@AtomicActionExec@MGBehavior, MINDURATION@:Time), 
+            _:_(maxTimer@ActionExec@MGBehavior, MAXDURATION@:Time), 
+            _:_(executionTime@AtomicActionExec@MGBehavior, 0), 
+            _:_(status@AtomicActionExec@MGBehavior, unfinished@ActionStatus@MGBehavior), 
+            _:_(startingTime@ActionExec@MGBehavior, TIME@CLK@:Time), 
+            _:_(endingTime@ActionExec@MGBehavior, null), 
+            _:_(participants@ActionExec@MGBehavior, Set`{_`}(_;_(OR1@:Oid, OR2@:Oid))), 
+            _:_(variables@ActionExec@MGBehavior, Set`{_`}(_;_(VAR1@:Oid, VAR2@:Oid))))), 
         <_:_|_>(CLK@:Oid, Clock@MGBehavior, 
             _:_(time@Clock@MGBehavior, TIME@CLK@:Time)), 
-        <_:_|_>('rdm@, Counter@MGBehavior, 
-            _:_(value@Counter@MGBehavior, _+_(VALUE@rdm@:Int, 4))), OBJSET@:Set{@Object}, 
         <_:_|_>('ids@, Counter@MGBehavior, 
-            _:_(value@Counter@MGBehavior, _+_(VALUE@ids@:Int, 6))))))
+            _:_(value@Counter@MGBehavior, _+_(VALUE@ids@:Int, 5))), 
+        <_:_|_>('rdm@, Counter@MGBehavior, 
+            _:_(value@Counter@MGBehavior, _+_(VALUE@rdm@:Int, 7))), OBJSET@:Set{@Object}, 
+        <_:_|_>(OR1@:Oid, ObjectRole@MGBehavior, 
+          _#_(
+            _:_(actualObject@ObjectRole@MGBehavior, hg:OCL-Type), 
+            _:_(role@ObjectRole@MGBehavior, "hg"))), 
+        <_:_|_>(OR2@:Oid, ObjectRole@MGBehavior, 
+          _#_(
+            _:_(actualObject@ObjectRole@MGBehavior, c:OCL-Type), 
+            _:_(role@ObjectRole@MGBehavior, "c"))), 
+        <_:_|_>(VAR1@:Oid, Variable@MGBehavior, 
+          _#_(
+            _:_(name@Variable@MGBehavior, "prodTime"), 
+            _:_(value@Variable@MGBehavior, prodTime:OCL-Type))), 
+        <_:_|_>(VAR2@:Oid, Variable@MGBehavior, 
+          _#_(
+            _:_(name@Variable@MGBehavior, "rdm"), 
+            _:_(value@Variable@MGBehavior, rdm:OCL-Type)))))
   if ACTEXEC@:Oid := newId(VALUE@ids@:Int)
   /\ MODEL@:@Model := _`{_`}(MM@:@Metamodel, 
     __(
       <_:_|_>(hg:OCL-Type, GENHEAD@DEVSMM@hg@CLASS:GenHead@devsmm, 
         _#_(
           _:_(out@Machine@devsmm, OUT@hg@ATT:OCL-Type), hg@SFS:Set{@StructuralFeatureInstance})), 
-      <_:_|_>(c:OCL-Type, CONVEYOR@DEVSMM@c@CLASS:Conveyor@devsmm, 
-        _#_(
-          _:_(parts@Container@devsmm, PARTS@c@ATT:OCL-Type), c@SFS:Set{@StructuralFeatureInstance})), 
+      <_:_|_>(c:OCL-Type, CONVEYOR@DEVSMM@c@CLASS:Conveyor@devsmm, c@SFS:Set{@StructuralFeatureInstance}), 
       <_:_|_>(CLK@:Oid, Clock@MGBehavior, 
           _:_(time@Clock@MGBehavior, TIME@CLK@:Time)), 
       <_:_|_>('ids@, Counter@MGBehavior, 
@@ -379,12 +693,633 @@ mod @DEVSMM@BEHAVIOR@ is
     __(hg:OCL-Type, ._(prodTime@OCLSf)), 3), _rem_(random(_+_(VALUE@rdm@:Int, 4)), eval(6, env(empty), MODEL@:@Model))), env(empty), MODEL@:@Model)
   /\ rdm:OCL-Type := eval(_rem_(random(_+_(VALUE@rdm@:Int, 5)), eval(100, env(empty), MODEL@:@Model)), env(empty), MODEL@:@Model)
   /\ eval(_and_(_>_(__(hg:OCL-Type, ._(counter@OCLSf)), 0), _<_(_+_(_->`size`(`)(__(c:OCL-Type, ._(parts@OCLSf))), _->`size`(`)(__(c:OCL-Type, ._(outParts@OCLSf)))), __(c:OCL-Type, ._(capacity@OCLSf)))), env(empty), MODEL@:@Model)
-  /\ T:OCL-Type := eval(0, env(empty), MODEL@:@Model)
+  /\ MINDURATION@:Time := toRat(eval(prodTime:OCL-Type, env(empty), MODEL@:@Model))
   /\ _in_(c:OCL-Type, OUT@hg@ATT:OCL-Type)
   /\ OR1@:Oid := newId(_+_(VALUE@ids@:Int, 1))
   /\ OR2@:Oid := newId(_+_(VALUE@ids@:Int, 2))
   /\ VAR1@:Oid := newId(_+_(VALUE@ids@:Int, 3))
   /\ VAR2@:Oid := newId(_+_(VALUE@ids@:Int, 4))
-  /\ h:OCL-Type := newId(_+_(VALUE@ids@:Int, 5)) [print " -> GenHead@Instantaneous \tin time " TIME@CLK@:Time] .
+  /\ MAXDURATION@:Time := toRat(eval(prodTime:OCL-Type, env(empty), MODEL@:@Model))
+  /\ not_(currentExec@GenHead(Set`{_`}(_;_(hg:OCL-Type, c:OCL-Type)), MODEL@:@Model)) [print " -> GenHead@Triggering \tin time " TIME@CLK@:Time] .
+  
+  crl [GenHead@Realization] :
+    _`{_`}(MM@:@Metamodel, 
+      __(
+        <_:_|_>(hg:OCL-Type, GENHEAD@DEVSMM@hg@CLASS:GenHead@devsmm, 
+          _#_(
+            _:_(counter@Generator@devsmm, COUNTER@hg@ATT:OCL-Type), 
+            _:_(out@Machine@devsmm, OUT@hg@ATT:OCL-Type), hg@SFS:Set{@StructuralFeatureInstance})), 
+        <_:_|_>(c:OCL-Type, CONVEYOR@DEVSMM@c@CLASS:Conveyor@devsmm, 
+          _#_(
+            _:_(parts@Container@devsmm, PARTS@c@ATT:OCL-Type), c@SFS:Set{@StructuralFeatureInstance})), 
+        <_:_|_>(ACTEXEC@:Oid, AtomicActionExec@MGBehavior, 
+          _#_(
+            _:_(action@ActionExec@MGBehavior, "GenHead"), 
+            _:_(status@AtomicActionExec@MGBehavior, unfinished@ActionStatus@MGBehavior), 
+            _:_(minTimer@AtomicActionExec@MGBehavior, 0), 
+            _:_(endingTime@ActionExec@MGBehavior, null), 
+            _:_(executionTime@AtomicActionExec@MGBehavior, T:OCL-Type), 
+            _:_(participants@ActionExec@MGBehavior, Set`{_`}(_;_(OR1@:Oid, OR2@:Oid))), 
+            _:_(variables@ActionExec@MGBehavior, Set`{_`}(_;_(VAR1@:Oid, VAR2@:Oid))), ACTEXEC@@SFS:Set{@StructuralFeatureInstance})), 
+        <_:_|_>(CLK@:Oid, Clock@MGBehavior, 
+            _:_(time@Clock@MGBehavior, TIME@CLK@:Time)), 
+        <_:_|_>('ids@, Counter@MGBehavior, 
+            _:_(value@Counter@MGBehavior, VALUE@ids@:Int)), 
+        <_:_|_>('rdm@, Counter@MGBehavior, 
+            _:_(value@Counter@MGBehavior, VALUE@rdm@:Int)), OBJSET@:Set{@Object}, 
+        <_:_|_>(OR1@:Oid, ObjectRole@MGBehavior, 
+          _#_(
+            _:_(actualObject@ObjectRole@MGBehavior, hg:OCL-Type), 
+            _:_(role@ObjectRole@MGBehavior, "hg"))), 
+        <_:_|_>(OR2@:Oid, ObjectRole@MGBehavior, 
+          _#_(
+            _:_(actualObject@ObjectRole@MGBehavior, c:OCL-Type), 
+            _:_(role@ObjectRole@MGBehavior, "c"))), 
+        <_:_|_>(VAR1@:Oid, Variable@MGBehavior, 
+          _#_(
+            _:_(name@Variable@MGBehavior, "prodTime"), 
+            _:_(value@Variable@MGBehavior, prodTime:OCL-Type))), 
+        <_:_|_>(VAR2@:Oid, Variable@MGBehavior, 
+          _#_(
+            _:_(name@Variable@MGBehavior, "rdm"), 
+            _:_(value@Variable@MGBehavior, rdm:OCL-Type)))))
+  =>
+    readjust(ACTEXEC@:Oid, Set`{_`}(mt), nil, _`{_`}(MM@:@Metamodel, 
+      __(
+        <_:_|_>(hg:OCL-Type, GENHEAD@DEVSMM@hg@CLASS:GenHead@devsmm, 
+          _#_(
+            _:_(out@Machine@devsmm, update(out@Machine@devsmm, OUT@hg@ATT:OCL-Type, nil, link(c:OCL-Type, null))), 
+            _:_(counter@Generator@devsmm, eval(_-_(
+      __(hg:OCL-Type, ._(counter@OCLSf)), 1), env(_<-_(self, hg:OCL-Type)), MODEL@:@Model)), hg@SFS:Set{@StructuralFeatureInstance})), 
+        <_:_|_>(c:OCL-Type, CONVEYOR@DEVSMM@c@CLASS:Conveyor@devsmm, 
+          _#_(
+            _:_(parts@Container@devsmm, update(parts@Container@devsmm, PARTS@c@ATT:OCL-Type, nil, link(h:OCL-Type, null))), c@SFS:Set{@StructuralFeatureInstance})), complete(
+        <_:_|_>(h:OCL-Type, Head@devsmm, empty)), 
+        <_:_|_>(CLK@:Oid, Clock@MGBehavior, 
+            _:_(time@Clock@MGBehavior, TIME@CLK@:Time)), 
+        <_:_|_>('rdm@, Counter@MGBehavior, 
+            _:_(value@Counter@MGBehavior, _+_(VALUE@rdm@:Int, 7))), OBJSET@:Set{@Object}, 
+        <_:_|_>('ids@, Counter@MGBehavior, 
+            _:_(value@Counter@MGBehavior, _+_(VALUE@ids@:Int, 1))))))
+  if MODEL@:@Model := _`{_`}(MM@:@Metamodel, 
+    __(
+      <_:_|_>(hg:OCL-Type, GENHEAD@DEVSMM@hg@CLASS:GenHead@devsmm, 
+        _#_(
+          _:_(counter@Generator@devsmm, COUNTER@hg@ATT:OCL-Type), 
+          _:_(out@Machine@devsmm, OUT@hg@ATT:OCL-Type), hg@SFS:Set{@StructuralFeatureInstance})), 
+      <_:_|_>(c:OCL-Type, CONVEYOR@DEVSMM@c@CLASS:Conveyor@devsmm, 
+        _#_(
+          _:_(parts@Container@devsmm, PARTS@c@ATT:OCL-Type), c@SFS:Set{@StructuralFeatureInstance})), 
+      <_:_|_>(ACTEXEC@:Oid, AtomicActionExec@MGBehavior, 
+        _#_(
+          _:_(action@ActionExec@MGBehavior, "GenHead"), 
+          _:_(status@AtomicActionExec@MGBehavior, unfinished@ActionStatus@MGBehavior), 
+          _:_(minTimer@AtomicActionExec@MGBehavior, 0), 
+          _:_(endingTime@ActionExec@MGBehavior, null), 
+          _:_(executionTime@AtomicActionExec@MGBehavior, T:OCL-Type), 
+          _:_(participants@ActionExec@MGBehavior, Set`{_`}(_;_(OR1@:Oid, OR2@:Oid))), 
+          _:_(variables@ActionExec@MGBehavior, Set`{_`}(_;_(VAR1@:Oid, VAR2@:Oid))), ACTEXEC@@SFS:Set{@StructuralFeatureInstance})), 
+      <_:_|_>(CLK@:Oid, Clock@MGBehavior, 
+          _:_(time@Clock@MGBehavior, TIME@CLK@:Time)), 
+      <_:_|_>('ids@, Counter@MGBehavior, 
+          _:_(value@Counter@MGBehavior, VALUE@ids@:Int)), 
+      <_:_|_>('rdm@, Counter@MGBehavior, 
+          _:_(value@Counter@MGBehavior, VALUE@rdm@:Int)), OBJSET@:Set{@Object}, 
+      <_:_|_>(OR1@:Oid, ObjectRole@MGBehavior, 
+        _#_(
+          _:_(actualObject@ObjectRole@MGBehavior, hg:OCL-Type), 
+          _:_(role@ObjectRole@MGBehavior, "hg"))), 
+      <_:_|_>(OR2@:Oid, ObjectRole@MGBehavior, 
+        _#_(
+          _:_(actualObject@ObjectRole@MGBehavior, c:OCL-Type), 
+          _:_(role@ObjectRole@MGBehavior, "c"))), 
+      <_:_|_>(VAR1@:Oid, Variable@MGBehavior, 
+        _#_(
+          _:_(name@Variable@MGBehavior, "prodTime"), 
+          _:_(value@Variable@MGBehavior, prodTime:OCL-Type))), 
+      <_:_|_>(VAR2@:Oid, Variable@MGBehavior, 
+        _#_(
+          _:_(name@Variable@MGBehavior, "rdm"), 
+          _:_(value@Variable@MGBehavior, rdm:OCL-Type)))))
+  /\ h:OCL-Type := newId(_+_(VALUE@ids@:Int, 0)) [print " -> GenHead@Realization \tin time " TIME@CLK@:Time] .
+  
+  crl [Carry@Triggering] :
+    _`{_`}(MM@:@Metamodel, 
+      __(
+        <_:_|_>(p:OCL-Type, PART@DEVSMM@p@CLASS:Part@devsmm, p@SFS:Set{@StructuralFeatureInstance}), 
+        <_:_|_>(c:OCL-Type, CONVEYOR@DEVSMM@c@CLASS:Conveyor@devsmm, 
+          _#_(
+            _:_(parts@Container@devsmm, PARTS@c@ATT:OCL-Type), c@SFS:Set{@StructuralFeatureInstance})), 
+        <_:_|_>(CLK@:Oid, Clock@MGBehavior, 
+            _:_(time@Clock@MGBehavior, TIME@CLK@:Time)), 
+        <_:_|_>('ids@, Counter@MGBehavior, 
+            _:_(value@Counter@MGBehavior, VALUE@ids@:Int)), 
+        <_:_|_>('rdm@, Counter@MGBehavior, 
+            _:_(value@Counter@MGBehavior, VALUE@rdm@:Int)), OBJSET@:Set{@Object}))
+  =>
+    _`{_`}(MM@:@Metamodel, 
+      __(
+        <_:_|_>(p:OCL-Type, PART@DEVSMM@p@CLASS:Part@devsmm, p@SFS:Set{@StructuralFeatureInstance}), 
+        <_:_|_>(c:OCL-Type, CONVEYOR@DEVSMM@c@CLASS:Conveyor@devsmm, 
+          _#_(
+            _:_(parts@Container@devsmm, PARTS@c@ATT:OCL-Type), c@SFS:Set{@StructuralFeatureInstance})), 
+        <_:_|_>(ACTEXEC@:Oid, AtomicActionExec@MGBehavior, 
+          _#_(
+            _:_(action@ActionExec@MGBehavior, "Carry"), 
+            _:_(minTimer@AtomicActionExec@MGBehavior, MINDURATION@:Time), 
+            _:_(maxTimer@ActionExec@MGBehavior, MAXDURATION@:Time), 
+            _:_(executionTime@AtomicActionExec@MGBehavior, 0), 
+            _:_(status@AtomicActionExec@MGBehavior, unfinished@ActionStatus@MGBehavior), 
+            _:_(startingTime@ActionExec@MGBehavior, TIME@CLK@:Time), 
+            _:_(endingTime@ActionExec@MGBehavior, null), 
+            _:_(participants@ActionExec@MGBehavior, Set`{_`}(_;_(OR1@:Oid, OR2@:Oid))), 
+            _:_(variables@ActionExec@MGBehavior, Set`{_`}(mt)))), 
+        <_:_|_>(CLK@:Oid, Clock@MGBehavior, 
+            _:_(time@Clock@MGBehavior, TIME@CLK@:Time)), 
+        <_:_|_>('ids@, Counter@MGBehavior, 
+            _:_(value@Counter@MGBehavior, _+_(VALUE@ids@:Int, 3))), 
+        <_:_|_>('rdm@, Counter@MGBehavior, 
+            _:_(value@Counter@MGBehavior, _+_(VALUE@rdm@:Int, 7))), OBJSET@:Set{@Object}, 
+        <_:_|_>(OR1@:Oid, ObjectRole@MGBehavior, 
+          _#_(
+            _:_(actualObject@ObjectRole@MGBehavior, p:OCL-Type), 
+            _:_(role@ObjectRole@MGBehavior, "p"))), 
+        <_:_|_>(OR2@:Oid, ObjectRole@MGBehavior, 
+          _#_(
+            _:_(actualObject@ObjectRole@MGBehavior, c:OCL-Type), 
+            _:_(role@ObjectRole@MGBehavior, "c")))))
+  if ACTEXEC@:Oid := newId(VALUE@ids@:Int)
+  /\ MODEL@:@Model := _`{_`}(MM@:@Metamodel, 
+    __(
+      <_:_|_>(p:OCL-Type, PART@DEVSMM@p@CLASS:Part@devsmm, p@SFS:Set{@StructuralFeatureInstance}), 
+      <_:_|_>(c:OCL-Type, CONVEYOR@DEVSMM@c@CLASS:Conveyor@devsmm, 
+        _#_(
+          _:_(parts@Container@devsmm, PARTS@c@ATT:OCL-Type), c@SFS:Set{@StructuralFeatureInstance})), 
+      <_:_|_>(CLK@:Oid, Clock@MGBehavior, 
+          _:_(time@Clock@MGBehavior, TIME@CLK@:Time)), 
+      <_:_|_>('ids@, Counter@MGBehavior, 
+          _:_(value@Counter@MGBehavior, VALUE@ids@:Int)), 
+      <_:_|_>('rdm@, Counter@MGBehavior, 
+          _:_(value@Counter@MGBehavior, VALUE@rdm@:Int)), OBJSET@:Set{@Object}))
+  /\ MINDURATION@:Time := toRat(eval(
+    __(c:OCL-Type, ._(speed@OCLSf)), env(empty), MODEL@:@Model))
+  /\ _in_(p:OCL-Type, PARTS@c@ATT:OCL-Type)
+  /\ OR1@:Oid := newId(_+_(VALUE@ids@:Int, 1))
+  /\ OR2@:Oid := newId(_+_(VALUE@ids@:Int, 2))
+  /\ MAXDURATION@:Time := toRat(eval(
+    __(c:OCL-Type, ._(speed@OCLSf)), env(empty), MODEL@:@Model))
+  /\ not_(currentExec@Carry(Set`{_`}(_;_(p:OCL-Type, c:OCL-Type)), MODEL@:@Model)) [print " -> Carry@Triggering \tin time " TIME@CLK@:Time] .
+  
+  crl [Carry@Realization] :
+    _`{_`}(MM@:@Metamodel, 
+      __(
+        <_:_|_>(p:OCL-Type, PART@DEVSMM@p@CLASS:Part@devsmm, p@SFS:Set{@StructuralFeatureInstance}), 
+        <_:_|_>(c:OCL-Type, CONVEYOR@DEVSMM@c@CLASS:Conveyor@devsmm, 
+          _#_(
+            _:_(outParts@Conveyor@devsmm, OUTPARTS@c@ATT:OCL-Type), 
+            _:_(parts@Container@devsmm, PARTS@c@ATT:OCL-Type), c@SFS:Set{@StructuralFeatureInstance})), 
+        <_:_|_>(ACTEXEC@:Oid, AtomicActionExec@MGBehavior, 
+          _#_(
+            _:_(action@ActionExec@MGBehavior, "Carry"), 
+            _:_(status@AtomicActionExec@MGBehavior, unfinished@ActionStatus@MGBehavior), 
+            _:_(minTimer@AtomicActionExec@MGBehavior, 0), 
+            _:_(endingTime@ActionExec@MGBehavior, null), 
+            _:_(executionTime@AtomicActionExec@MGBehavior, T:OCL-Type), 
+            _:_(participants@ActionExec@MGBehavior, Set`{_`}(_;_(OR1@:Oid, OR2@:Oid))), 
+            _:_(variables@ActionExec@MGBehavior, Set`{_`}(mt)), ACTEXEC@@SFS:Set{@StructuralFeatureInstance})), 
+        <_:_|_>(CLK@:Oid, Clock@MGBehavior, 
+            _:_(time@Clock@MGBehavior, TIME@CLK@:Time)), 
+        <_:_|_>('ids@, Counter@MGBehavior, 
+            _:_(value@Counter@MGBehavior, VALUE@ids@:Int)), 
+        <_:_|_>('rdm@, Counter@MGBehavior, 
+            _:_(value@Counter@MGBehavior, VALUE@rdm@:Int)), OBJSET@:Set{@Object}, 
+        <_:_|_>(OR1@:Oid, ObjectRole@MGBehavior, 
+          _#_(
+            _:_(actualObject@ObjectRole@MGBehavior, p:OCL-Type), 
+            _:_(role@ObjectRole@MGBehavior, "p"))), 
+        <_:_|_>(OR2@:Oid, ObjectRole@MGBehavior, 
+          _#_(
+            _:_(actualObject@ObjectRole@MGBehavior, c:OCL-Type), 
+            _:_(role@ObjectRole@MGBehavior, "c")))))
+  =>
+    readjust(ACTEXEC@:Oid, Set`{_`}(mt), nil, _`{_`}(MM@:@Metamodel, 
+      __(
+        <_:_|_>(p:OCL-Type, PART@DEVSMM@p@CLASS:Part@devsmm, p@SFS:Set{@StructuralFeatureInstance}), 
+        <_:_|_>(c:OCL-Type, CONVEYOR@DEVSMM@c@CLASS:Conveyor@devsmm, 
+          _#_(
+            _:_(outParts@Conveyor@devsmm, update(outParts@Conveyor@devsmm, OUTPARTS@c@ATT:OCL-Type, nil, link(p:OCL-Type, null))), 
+            _:_(parts@Container@devsmm, update(parts@Container@devsmm, PARTS@c@ATT:OCL-Type, link(p:OCL-Type, null), nil)), c@SFS:Set{@StructuralFeatureInstance})), 
+        <_:_|_>(CLK@:Oid, Clock@MGBehavior, 
+            _:_(time@Clock@MGBehavior, TIME@CLK@:Time)), 
+        <_:_|_>('rdm@, Counter@MGBehavior, 
+            _:_(value@Counter@MGBehavior, _+_(VALUE@rdm@:Int, 7))), OBJSET@:Set{@Object}, 
+        <_:_|_>('ids@, Counter@MGBehavior, 
+            _:_(value@Counter@MGBehavior, VALUE@ids@:Int)))))
+  if MODEL@:@Model := _`{_`}(MM@:@Metamodel, 
+    __(
+      <_:_|_>(p:OCL-Type, PART@DEVSMM@p@CLASS:Part@devsmm, p@SFS:Set{@StructuralFeatureInstance}), 
+      <_:_|_>(c:OCL-Type, CONVEYOR@DEVSMM@c@CLASS:Conveyor@devsmm, 
+        _#_(
+          _:_(outParts@Conveyor@devsmm, OUTPARTS@c@ATT:OCL-Type), 
+          _:_(parts@Container@devsmm, PARTS@c@ATT:OCL-Type), c@SFS:Set{@StructuralFeatureInstance})), 
+      <_:_|_>(ACTEXEC@:Oid, AtomicActionExec@MGBehavior, 
+        _#_(
+          _:_(action@ActionExec@MGBehavior, "Carry"), 
+          _:_(status@AtomicActionExec@MGBehavior, unfinished@ActionStatus@MGBehavior), 
+          _:_(minTimer@AtomicActionExec@MGBehavior, 0), 
+          _:_(endingTime@ActionExec@MGBehavior, null), 
+          _:_(executionTime@AtomicActionExec@MGBehavior, T:OCL-Type), 
+          _:_(participants@ActionExec@MGBehavior, Set`{_`}(_;_(OR1@:Oid, OR2@:Oid))), 
+          _:_(variables@ActionExec@MGBehavior, Set`{_`}(mt)), ACTEXEC@@SFS:Set{@StructuralFeatureInstance})), 
+      <_:_|_>(CLK@:Oid, Clock@MGBehavior, 
+          _:_(time@Clock@MGBehavior, TIME@CLK@:Time)), 
+      <_:_|_>('ids@, Counter@MGBehavior, 
+          _:_(value@Counter@MGBehavior, VALUE@ids@:Int)), 
+      <_:_|_>('rdm@, Counter@MGBehavior, 
+          _:_(value@Counter@MGBehavior, VALUE@rdm@:Int)), OBJSET@:Set{@Object}, 
+      <_:_|_>(OR1@:Oid, ObjectRole@MGBehavior, 
+        _#_(
+          _:_(actualObject@ObjectRole@MGBehavior, p:OCL-Type), 
+          _:_(role@ObjectRole@MGBehavior, "p"))), 
+      <_:_|_>(OR2@:Oid, ObjectRole@MGBehavior, 
+        _#_(
+          _:_(actualObject@ObjectRole@MGBehavior, c:OCL-Type), 
+          _:_(role@ObjectRole@MGBehavior, "c"))))) [print " -> Carry@Realization \tin time " TIME@CLK@:Time] .
+  
+  crl [Assemble@Triggering] :
+    _`{_`}(MM@:@Metamodel, 
+      __(
+        <_:_|_>(he:OCL-Type, HEAD@DEVSMM@he@CLASS:Head@devsmm, he@SFS:Set{@StructuralFeatureInstance}), 
+        <_:_|_>(ha:OCL-Type, HANDLE@DEVSMM@ha@CLASS:Handle@devsmm, ha@SFS:Set{@StructuralFeatureInstance}), 
+        <_:_|_>(t:OCL-Type, TRAY@DEVSMM@t@CLASS:Tray@devsmm, 
+          _#_(
+            _:_(parts@Container@devsmm, PARTS@t@ATT:OCL-Type), t@SFS:Set{@StructuralFeatureInstance})), 
+        <_:_|_>(a:OCL-Type, ASSEMBLE@DEVSMM@a@CLASS:Assemble@devsmm, 
+          _#_(
+            _:_(out@Machine@devsmm, OUT@a@ATT:OCL-Type), 
+            _:_(in@Machine@devsmm, IN@a@ATT:OCL-Type), a@SFS:Set{@StructuralFeatureInstance})), 
+        <_:_|_>(c:OCL-Type, CONVEYOR@DEVSMM@c@CLASS:Conveyor@devsmm, c@SFS:Set{@StructuralFeatureInstance}), 
+        <_:_|_>(CLK@:Oid, Clock@MGBehavior, 
+            _:_(time@Clock@MGBehavior, TIME@CLK@:Time)), 
+        <_:_|_>('ids@, Counter@MGBehavior, 
+            _:_(value@Counter@MGBehavior, VALUE@ids@:Int)), 
+        <_:_|_>('rdm@, Counter@MGBehavior, 
+            _:_(value@Counter@MGBehavior, VALUE@rdm@:Int)), OBJSET@:Set{@Object}))
+  =>
+    _`{_`}(MM@:@Metamodel, 
+      __(
+        <_:_|_>(he:OCL-Type, HEAD@DEVSMM@he@CLASS:Head@devsmm, he@SFS:Set{@StructuralFeatureInstance}), 
+        <_:_|_>(ha:OCL-Type, HANDLE@DEVSMM@ha@CLASS:Handle@devsmm, ha@SFS:Set{@StructuralFeatureInstance}), 
+        <_:_|_>(t:OCL-Type, TRAY@DEVSMM@t@CLASS:Tray@devsmm, 
+          _#_(
+            _:_(parts@Container@devsmm, PARTS@t@ATT:OCL-Type), t@SFS:Set{@StructuralFeatureInstance})), 
+        <_:_|_>(a:OCL-Type, ASSEMBLE@DEVSMM@a@CLASS:Assemble@devsmm, 
+          _#_(
+            _:_(out@Machine@devsmm, OUT@a@ATT:OCL-Type), 
+            _:_(in@Machine@devsmm, IN@a@ATT:OCL-Type), a@SFS:Set{@StructuralFeatureInstance})), 
+        <_:_|_>(c:OCL-Type, CONVEYOR@DEVSMM@c@CLASS:Conveyor@devsmm, c@SFS:Set{@StructuralFeatureInstance}), 
+        <_:_|_>(ACTEXEC@:Oid, AtomicActionExec@MGBehavior, 
+          _#_(
+            _:_(action@ActionExec@MGBehavior, "Assemble"), 
+            _:_(minTimer@AtomicActionExec@MGBehavior, MINDURATION@:Time), 
+            _:_(maxTimer@ActionExec@MGBehavior, MAXDURATION@:Time), 
+            _:_(executionTime@AtomicActionExec@MGBehavior, 0), 
+            _:_(status@AtomicActionExec@MGBehavior, unfinished@ActionStatus@MGBehavior), 
+            _:_(startingTime@ActionExec@MGBehavior, TIME@CLK@:Time), 
+            _:_(endingTime@ActionExec@MGBehavior, null), 
+            _:_(participants@ActionExec@MGBehavior, Set`{_`}(_;_(OR1@:Oid, OR2@:Oid, OR3@:Oid, OR4@:Oid, OR5@:Oid))), 
+            _:_(variables@ActionExec@MGBehavior, Set`{_`}(_;_(VAR1@:Oid, VAR2@:Oid))))), 
+        <_:_|_>(CLK@:Oid, Clock@MGBehavior, 
+            _:_(time@Clock@MGBehavior, TIME@CLK@:Time)), 
+        <_:_|_>('ids@, Counter@MGBehavior, 
+            _:_(value@Counter@MGBehavior, _+_(VALUE@ids@:Int, 8))), 
+        <_:_|_>('rdm@, Counter@MGBehavior, 
+            _:_(value@Counter@MGBehavior, _+_(VALUE@rdm@:Int, 7))), OBJSET@:Set{@Object}, 
+        <_:_|_>(OR1@:Oid, ObjectRole@MGBehavior, 
+          _#_(
+            _:_(actualObject@ObjectRole@MGBehavior, he:OCL-Type), 
+            _:_(role@ObjectRole@MGBehavior, "he"))), 
+        <_:_|_>(OR2@:Oid, ObjectRole@MGBehavior, 
+          _#_(
+            _:_(actualObject@ObjectRole@MGBehavior, ha:OCL-Type), 
+            _:_(role@ObjectRole@MGBehavior, "ha"))), 
+        <_:_|_>(OR3@:Oid, ObjectRole@MGBehavior, 
+          _#_(
+            _:_(actualObject@ObjectRole@MGBehavior, t:OCL-Type), 
+            _:_(role@ObjectRole@MGBehavior, "t"))), 
+        <_:_|_>(OR4@:Oid, ObjectRole@MGBehavior, 
+          _#_(
+            _:_(actualObject@ObjectRole@MGBehavior, a:OCL-Type), 
+            _:_(role@ObjectRole@MGBehavior, "a"))), 
+        <_:_|_>(OR5@:Oid, ObjectRole@MGBehavior, 
+          _#_(
+            _:_(actualObject@ObjectRole@MGBehavior, c:OCL-Type), 
+            _:_(role@ObjectRole@MGBehavior, "c"))), 
+        <_:_|_>(VAR1@:Oid, Variable@MGBehavior, 
+          _#_(
+            _:_(name@Variable@MGBehavior, "rdm"), 
+            _:_(value@Variable@MGBehavior, rdm:OCL-Type))), 
+        <_:_|_>(VAR2@:Oid, Variable@MGBehavior, 
+          _#_(
+            _:_(name@Variable@MGBehavior, "prodTime"), 
+            _:_(value@Variable@MGBehavior, prodTime:OCL-Type)))))
+  if ACTEXEC@:Oid := newId(VALUE@ids@:Int)
+  /\ MODEL@:@Model := _`{_`}(MM@:@Metamodel, 
+    __(
+      <_:_|_>(he:OCL-Type, HEAD@DEVSMM@he@CLASS:Head@devsmm, he@SFS:Set{@StructuralFeatureInstance}), 
+      <_:_|_>(ha:OCL-Type, HANDLE@DEVSMM@ha@CLASS:Handle@devsmm, ha@SFS:Set{@StructuralFeatureInstance}), 
+      <_:_|_>(t:OCL-Type, TRAY@DEVSMM@t@CLASS:Tray@devsmm, 
+        _#_(
+          _:_(parts@Container@devsmm, PARTS@t@ATT:OCL-Type), t@SFS:Set{@StructuralFeatureInstance})), 
+      <_:_|_>(a:OCL-Type, ASSEMBLE@DEVSMM@a@CLASS:Assemble@devsmm, 
+        _#_(
+          _:_(out@Machine@devsmm, OUT@a@ATT:OCL-Type), 
+          _:_(in@Machine@devsmm, IN@a@ATT:OCL-Type), a@SFS:Set{@StructuralFeatureInstance})), 
+      <_:_|_>(c:OCL-Type, CONVEYOR@DEVSMM@c@CLASS:Conveyor@devsmm, c@SFS:Set{@StructuralFeatureInstance}), 
+      <_:_|_>(CLK@:Oid, Clock@MGBehavior, 
+          _:_(time@Clock@MGBehavior, TIME@CLK@:Time)), 
+      <_:_|_>('ids@, Counter@MGBehavior, 
+          _:_(value@Counter@MGBehavior, VALUE@ids@:Int)), 
+      <_:_|_>('rdm@, Counter@MGBehavior, 
+          _:_(value@Counter@MGBehavior, VALUE@rdm@:Int)), OBJSET@:Set{@Object}))
+  /\ rdm:OCL-Type := eval(_rem_(random(_+_(VALUE@rdm@:Int, 8)), eval(100, env(empty), MODEL@:@Model)), env(empty), MODEL@:@Model)
+  /\ prodTime:OCL-Type := eval(_+_(_-_(
+    __(a:OCL-Type, ._(prodTime@OCLSf)), 3), _rem_(random(_+_(VALUE@rdm@:Int, 9)), eval(6, env(empty), MODEL@:@Model))), env(empty), MODEL@:@Model)
+  /\ eval(_<_(_+_(_->`size`(`)(__(c:OCL-Type, ._(parts@OCLSf))), _->`size`(`)(__(c:OCL-Type, ._(outParts@OCLSf)))), __(c:OCL-Type, ._(capacity@OCLSf))), env(empty), MODEL@:@Model)
+  /\ MINDURATION@:Time := toRat(eval(prodTime:OCL-Type, env(empty), MODEL@:@Model))
+  /\ _in_(he:OCL-Type, PARTS@t@ATT:OCL-Type)
+  /\ _in_(ha:OCL-Type, PARTS@t@ATT:OCL-Type)
+  /\ _in_(t:OCL-Type, IN@a@ATT:OCL-Type)
+  /\ _in_(c:OCL-Type, OUT@a@ATT:OCL-Type)
+  /\ OR1@:Oid := newId(_+_(VALUE@ids@:Int, 1))
+  /\ OR2@:Oid := newId(_+_(VALUE@ids@:Int, 2))
+  /\ OR3@:Oid := newId(_+_(VALUE@ids@:Int, 3))
+  /\ OR4@:Oid := newId(_+_(VALUE@ids@:Int, 4))
+  /\ OR5@:Oid := newId(_+_(VALUE@ids@:Int, 5))
+  /\ VAR1@:Oid := newId(_+_(VALUE@ids@:Int, 6))
+  /\ VAR2@:Oid := newId(_+_(VALUE@ids@:Int, 7))
+  /\ MAXDURATION@:Time := toRat(eval(prodTime:OCL-Type, env(empty), MODEL@:@Model))
+  /\ not_(currentExec@Assemble(Set`{_`}(_;_(he:OCL-Type, ha:OCL-Type, t:OCL-Type, a:OCL-Type, c:OCL-Type)), MODEL@:@Model))
+  /\ not_(notconcurrentassembles@Assemble(Set`{_`}(_;_(he:OCL-Type, ha:OCL-Type, t:OCL-Type, a:OCL-Type, c:OCL-Type)), __(<_:_|_>(VAR1@:Oid, Variable@MGBehavior, _#_(_:_(name@Variable@MGBehavior, "rdm"), _:_(value@Variable@MGBehavior, rdm:OCL-Type))), <_:_|_>(VAR2@:Oid, Variable@MGBehavior, _#_(_:_(name@Variable@MGBehavior, "prodTime"), _:_(value@Variable@MGBehavior, prodTime:OCL-Type)))), MODEL@:@Model)) [print " -> Assemble@Triggering \tin time " TIME@CLK@:Time] .
+  
+  crl [Assemble@Realization] :
+    _`{_`}(MM@:@Metamodel, 
+      __(
+        <_:_|_>(he:OCL-Type, HEAD@DEVSMM@he@CLASS:Head@devsmm, he@SFS:Set{@StructuralFeatureInstance}), 
+        <_:_|_>(ha:OCL-Type, HANDLE@DEVSMM@ha@CLASS:Handle@devsmm, ha@SFS:Set{@StructuralFeatureInstance}), 
+        <_:_|_>(t:OCL-Type, TRAY@DEVSMM@t@CLASS:Tray@devsmm, 
+          _#_(
+            _:_(parts@Container@devsmm, PARTS@t@ATT:OCL-Type), t@SFS:Set{@StructuralFeatureInstance})), 
+        <_:_|_>(a:OCL-Type, ASSEMBLE@DEVSMM@a@CLASS:Assemble@devsmm, 
+          _#_(
+            _:_(out@Machine@devsmm, OUT@a@ATT:OCL-Type), 
+            _:_(in@Machine@devsmm, IN@a@ATT:OCL-Type), a@SFS:Set{@StructuralFeatureInstance})), 
+        <_:_|_>(c:OCL-Type, CONVEYOR@DEVSMM@c@CLASS:Conveyor@devsmm, 
+          _#_(
+            _:_(parts@Container@devsmm, PARTS@c@ATT:OCL-Type), c@SFS:Set{@StructuralFeatureInstance})), 
+        <_:_|_>(ACTEXEC@:Oid, AtomicActionExec@MGBehavior, 
+          _#_(
+            _:_(action@ActionExec@MGBehavior, "Assemble"), 
+            _:_(status@AtomicActionExec@MGBehavior, unfinished@ActionStatus@MGBehavior), 
+            _:_(minTimer@AtomicActionExec@MGBehavior, 0), 
+            _:_(endingTime@ActionExec@MGBehavior, null), 
+            _:_(executionTime@AtomicActionExec@MGBehavior, T:OCL-Type), 
+            _:_(participants@ActionExec@MGBehavior, Set`{_`}(_;_(OR1@:Oid, OR2@:Oid, OR3@:Oid, OR4@:Oid, OR5@:Oid))), 
+            _:_(variables@ActionExec@MGBehavior, Set`{_`}(_;_(VAR1@:Oid, VAR2@:Oid))), ACTEXEC@@SFS:Set{@StructuralFeatureInstance})), 
+        <_:_|_>(CLK@:Oid, Clock@MGBehavior, 
+            _:_(time@Clock@MGBehavior, TIME@CLK@:Time)), 
+        <_:_|_>('ids@, Counter@MGBehavior, 
+            _:_(value@Counter@MGBehavior, VALUE@ids@:Int)), 
+        <_:_|_>('rdm@, Counter@MGBehavior, 
+            _:_(value@Counter@MGBehavior, VALUE@rdm@:Int)), OBJSET@:Set{@Object}, 
+        <_:_|_>(OR1@:Oid, ObjectRole@MGBehavior, 
+          _#_(
+            _:_(actualObject@ObjectRole@MGBehavior, he:OCL-Type), 
+            _:_(role@ObjectRole@MGBehavior, "he"))), 
+        <_:_|_>(OR2@:Oid, ObjectRole@MGBehavior, 
+          _#_(
+            _:_(actualObject@ObjectRole@MGBehavior, ha:OCL-Type), 
+            _:_(role@ObjectRole@MGBehavior, "ha"))), 
+        <_:_|_>(OR3@:Oid, ObjectRole@MGBehavior, 
+          _#_(
+            _:_(actualObject@ObjectRole@MGBehavior, t:OCL-Type), 
+            _:_(role@ObjectRole@MGBehavior, "t"))), 
+        <_:_|_>(OR4@:Oid, ObjectRole@MGBehavior, 
+          _#_(
+            _:_(actualObject@ObjectRole@MGBehavior, a:OCL-Type), 
+            _:_(role@ObjectRole@MGBehavior, "a"))), 
+        <_:_|_>(OR5@:Oid, ObjectRole@MGBehavior, 
+          _#_(
+            _:_(actualObject@ObjectRole@MGBehavior, c:OCL-Type), 
+            _:_(role@ObjectRole@MGBehavior, "c"))), 
+        <_:_|_>(VAR1@:Oid, Variable@MGBehavior, 
+          _#_(
+            _:_(name@Variable@MGBehavior, "rdm"), 
+            _:_(value@Variable@MGBehavior, rdm:OCL-Type))), 
+        <_:_|_>(VAR2@:Oid, Variable@MGBehavior, 
+          _#_(
+            _:_(name@Variable@MGBehavior, "prodTime"), 
+            _:_(value@Variable@MGBehavior, prodTime:OCL-Type)))))
+  =>
+    readjust(ACTEXEC@:Oid, Set`{_`}(_;_(he:OCL-Type, ha:OCL-Type)), nil, _`{_`}(MM@:@Metamodel, 
+      __(complete(
+        <_:_|_>(ham:OCL-Type, Hammer@devsmm, 
+            _:_(defective@Part@devsmm, eval(_or_(_or_(
+      __(ha:OCL-Type, ._(defective@OCLSf)), 
+      __(he:OCL-Type, ._(defective@OCLSf))), _<_(rdm:OCL-Type, 
+      __(a:OCL-Type, ._(defRate@OCLSf)))), env(_<-_(self, ham:OCL-Type)), MODEL@:@Model)))), 
+        <_:_|_>(t:OCL-Type, TRAY@DEVSMM@t@CLASS:Tray@devsmm, 
+          _#_(
+            _:_(parts@Container@devsmm, update(parts@Container@devsmm, PARTS@t@ATT:OCL-Type, 
+      __(link(he:OCL-Type, null), link(ha:OCL-Type, null)), nil)), t@SFS:Set{@StructuralFeatureInstance})), 
+        <_:_|_>(a:OCL-Type, ASSEMBLE@DEVSMM@a@CLASS:Assemble@devsmm, 
+          _#_(
+            _:_(out@Machine@devsmm, update(out@Machine@devsmm, OUT@a@ATT:OCL-Type, nil, link(c:OCL-Type, null))), 
+            _:_(in@Machine@devsmm, update(in@Machine@devsmm, IN@a@ATT:OCL-Type, nil, link(t:OCL-Type, null))), a@SFS:Set{@StructuralFeatureInstance})), 
+        <_:_|_>(c:OCL-Type, CONVEYOR@DEVSMM@c@CLASS:Conveyor@devsmm, 
+          _#_(
+            _:_(parts@Container@devsmm, update(parts@Container@devsmm, PARTS@c@ATT:OCL-Type, nil, link(ham:OCL-Type, null))), c@SFS:Set{@StructuralFeatureInstance})), 
+        <_:_|_>(CLK@:Oid, Clock@MGBehavior, 
+            _:_(time@Clock@MGBehavior, TIME@CLK@:Time)), 
+        <_:_|_>('rdm@, Counter@MGBehavior, 
+            _:_(value@Counter@MGBehavior, _+_(VALUE@rdm@:Int, 7))), OBJSET@:Set{@Object}, 
+        <_:_|_>('ids@, Counter@MGBehavior, 
+            _:_(value@Counter@MGBehavior, _+_(VALUE@ids@:Int, 1))), 
+        <_:_|_>(he:OCL-Type, HEAD@DEVSMM@he@CLASS:Head@devsmm, he@SFS:Set{@StructuralFeatureInstance}), 
+        <_:_|_>(ha:OCL-Type, HANDLE@DEVSMM@ha@CLASS:Handle@devsmm, ha@SFS:Set{@StructuralFeatureInstance}))))
+  if MODEL@:@Model := _`{_`}(MM@:@Metamodel, 
+    __(
+      <_:_|_>(he:OCL-Type, HEAD@DEVSMM@he@CLASS:Head@devsmm, he@SFS:Set{@StructuralFeatureInstance}), 
+      <_:_|_>(ha:OCL-Type, HANDLE@DEVSMM@ha@CLASS:Handle@devsmm, ha@SFS:Set{@StructuralFeatureInstance}), 
+      <_:_|_>(t:OCL-Type, TRAY@DEVSMM@t@CLASS:Tray@devsmm, 
+        _#_(
+          _:_(parts@Container@devsmm, PARTS@t@ATT:OCL-Type), t@SFS:Set{@StructuralFeatureInstance})), 
+      <_:_|_>(a:OCL-Type, ASSEMBLE@DEVSMM@a@CLASS:Assemble@devsmm, 
+        _#_(
+          _:_(out@Machine@devsmm, OUT@a@ATT:OCL-Type), 
+          _:_(in@Machine@devsmm, IN@a@ATT:OCL-Type), a@SFS:Set{@StructuralFeatureInstance})), 
+      <_:_|_>(c:OCL-Type, CONVEYOR@DEVSMM@c@CLASS:Conveyor@devsmm, 
+        _#_(
+          _:_(parts@Container@devsmm, PARTS@c@ATT:OCL-Type), c@SFS:Set{@StructuralFeatureInstance})), 
+      <_:_|_>(ACTEXEC@:Oid, AtomicActionExec@MGBehavior, 
+        _#_(
+          _:_(action@ActionExec@MGBehavior, "Assemble"), 
+          _:_(status@AtomicActionExec@MGBehavior, unfinished@ActionStatus@MGBehavior), 
+          _:_(minTimer@AtomicActionExec@MGBehavior, 0), 
+          _:_(endingTime@ActionExec@MGBehavior, null), 
+          _:_(executionTime@AtomicActionExec@MGBehavior, T:OCL-Type), 
+          _:_(participants@ActionExec@MGBehavior, Set`{_`}(_;_(OR1@:Oid, OR2@:Oid, OR3@:Oid, OR4@:Oid, OR5@:Oid))), 
+          _:_(variables@ActionExec@MGBehavior, Set`{_`}(_;_(VAR1@:Oid, VAR2@:Oid))), ACTEXEC@@SFS:Set{@StructuralFeatureInstance})), 
+      <_:_|_>(CLK@:Oid, Clock@MGBehavior, 
+          _:_(time@Clock@MGBehavior, TIME@CLK@:Time)), 
+      <_:_|_>('ids@, Counter@MGBehavior, 
+          _:_(value@Counter@MGBehavior, VALUE@ids@:Int)), 
+      <_:_|_>('rdm@, Counter@MGBehavior, 
+          _:_(value@Counter@MGBehavior, VALUE@rdm@:Int)), OBJSET@:Set{@Object}, 
+      <_:_|_>(OR1@:Oid, ObjectRole@MGBehavior, 
+        _#_(
+          _:_(actualObject@ObjectRole@MGBehavior, he:OCL-Type), 
+          _:_(role@ObjectRole@MGBehavior, "he"))), 
+      <_:_|_>(OR2@:Oid, ObjectRole@MGBehavior, 
+        _#_(
+          _:_(actualObject@ObjectRole@MGBehavior, ha:OCL-Type), 
+          _:_(role@ObjectRole@MGBehavior, "ha"))), 
+      <_:_|_>(OR3@:Oid, ObjectRole@MGBehavior, 
+        _#_(
+          _:_(actualObject@ObjectRole@MGBehavior, t:OCL-Type), 
+          _:_(role@ObjectRole@MGBehavior, "t"))), 
+      <_:_|_>(OR4@:Oid, ObjectRole@MGBehavior, 
+        _#_(
+          _:_(actualObject@ObjectRole@MGBehavior, a:OCL-Type), 
+          _:_(role@ObjectRole@MGBehavior, "a"))), 
+      <_:_|_>(OR5@:Oid, ObjectRole@MGBehavior, 
+        _#_(
+          _:_(actualObject@ObjectRole@MGBehavior, c:OCL-Type), 
+          _:_(role@ObjectRole@MGBehavior, "c"))), 
+      <_:_|_>(VAR1@:Oid, Variable@MGBehavior, 
+        _#_(
+          _:_(name@Variable@MGBehavior, "rdm"), 
+          _:_(value@Variable@MGBehavior, rdm:OCL-Type))), 
+      <_:_|_>(VAR2@:Oid, Variable@MGBehavior, 
+        _#_(
+          _:_(name@Variable@MGBehavior, "prodTime"), 
+          _:_(value@Variable@MGBehavior, prodTime:OCL-Type)))))
+  /\ ham:OCL-Type := newId(_+_(VALUE@ids@:Int, 0)) [print " -> Assemble@Realization \tin time " TIME@CLK@:Time] .
+  
+  crl [Transfer@Instantaneous] :
+    _`{_`}(MM@:@Metamodel, 
+      __(
+        <_:_|_>(c:OCL-Type, CONVEYOR@DEVSMM@c@CLASS:Conveyor@devsmm, 
+          _#_(
+            _:_(outParts@Conveyor@devsmm, OUTPARTS@c@ATT:OCL-Type), 
+            _:_(out@Conveyor@devsmm, OUT@c@ATT:OCL-Type), c@SFS:Set{@StructuralFeatureInstance})), 
+        <_:_|_>(t:OCL-Type, TRAY@DEVSMM@t@CLASS:Tray@devsmm, 
+          _#_(
+            _:_(parts@Container@devsmm, PARTS@t@ATT:OCL-Type), t@SFS:Set{@StructuralFeatureInstance})), 
+        <_:_|_>(p:OCL-Type, PART@DEVSMM@p@CLASS:Part@devsmm, p@SFS:Set{@StructuralFeatureInstance}), 
+        <_:_|_>(CLK@:Oid, Clock@MGBehavior, 
+            _:_(time@Clock@MGBehavior, TIME@CLK@:Time)), 
+        <_:_|_>('ids@, Counter@MGBehavior, 
+            _:_(value@Counter@MGBehavior, VALUE@ids@:Int)), 
+        <_:_|_>('rdm@, Counter@MGBehavior, 
+            _:_(value@Counter@MGBehavior, VALUE@rdm@:Int)), OBJSET@:Set{@Object}))
+  =>
+    readjust(Set`{_`}(mt), nil, _`{_`}(MM@:@Metamodel, 
+      __(
+        <_:_|_>(c:OCL-Type, CONVEYOR@DEVSMM@c@CLASS:Conveyor@devsmm, 
+          _#_(
+            _:_(out@Conveyor@devsmm, update(out@Conveyor@devsmm, OUT@c@ATT:OCL-Type, nil, link(t:OCL-Type, null))), 
+            _:_(outParts@Conveyor@devsmm, update(outParts@Conveyor@devsmm, OUTPARTS@c@ATT:OCL-Type, link(p:OCL-Type, null), nil)), c@SFS:Set{@StructuralFeatureInstance})), 
+        <_:_|_>(t:OCL-Type, TRAY@DEVSMM@t@CLASS:Tray@devsmm, 
+          _#_(
+            _:_(parts@Container@devsmm, update(parts@Container@devsmm, PARTS@t@ATT:OCL-Type, nil, link(p:OCL-Type, null))), t@SFS:Set{@StructuralFeatureInstance})), 
+        <_:_|_>(p:OCL-Type, PART@DEVSMM@p@CLASS:Part@devsmm, p@SFS:Set{@StructuralFeatureInstance}), 
+        <_:_|_>(CLK@:Oid, Clock@MGBehavior, 
+            _:_(time@Clock@MGBehavior, TIME@CLK@:Time)), 
+        <_:_|_>('rdm@, Counter@MGBehavior, 
+            _:_(value@Counter@MGBehavior, _+_(VALUE@rdm@:Int, 7))), OBJSET@:Set{@Object}, 
+        <_:_|_>('ids@, Counter@MGBehavior, 
+            _:_(value@Counter@MGBehavior, _+_(VALUE@ids@:Int, 4))))))
+  if ACTEXEC@:Oid := newId(VALUE@ids@:Int)
+  /\ MODEL@:@Model := _`{_`}(MM@:@Metamodel, 
+    __(
+      <_:_|_>(c:OCL-Type, CONVEYOR@DEVSMM@c@CLASS:Conveyor@devsmm, 
+        _#_(
+          _:_(outParts@Conveyor@devsmm, OUTPARTS@c@ATT:OCL-Type), 
+          _:_(out@Conveyor@devsmm, OUT@c@ATT:OCL-Type), c@SFS:Set{@StructuralFeatureInstance})), 
+      <_:_|_>(t:OCL-Type, TRAY@DEVSMM@t@CLASS:Tray@devsmm, 
+        _#_(
+          _:_(parts@Container@devsmm, PARTS@t@ATT:OCL-Type), t@SFS:Set{@StructuralFeatureInstance})), 
+      <_:_|_>(p:OCL-Type, PART@DEVSMM@p@CLASS:Part@devsmm, p@SFS:Set{@StructuralFeatureInstance}), 
+      <_:_|_>(CLK@:Oid, Clock@MGBehavior, 
+          _:_(time@Clock@MGBehavior, TIME@CLK@:Time)), 
+      <_:_|_>('ids@, Counter@MGBehavior, 
+          _:_(value@Counter@MGBehavior, VALUE@ids@:Int)), 
+      <_:_|_>('rdm@, Counter@MGBehavior, 
+          _:_(value@Counter@MGBehavior, VALUE@rdm@:Int)), OBJSET@:Set{@Object}))
+  /\ eval(_and_(_<_(_->`size`(`)(__(t:OCL-Type, ._(parts@OCLSf))), __(t:OCL-Type, ._(capacity@OCLSf))), not_(_and_(_.=._(_->`size`(`)(__(t:OCL-Type, ._(parts@OCLSf))), _-_(__(t:OCL-Type, ._(capacity@OCLSf)), 1)), _or_(_or_(_and_(_->`forAll_(__(t:OCL-Type, ._(parts@OCLSf)), _|_(e, _.`oclIsKindOf`(_`)(e, Handle@devsmm))), _.`oclIsKindOf`(_`)(p:OCL-Type, Handle@devsmm)), _and_(_->`forAll_(__(t:OCL-Type, ._(parts@OCLSf)), _|_(e, _.`oclIsKindOf`(_`)(e, Head@devsmm))), _.`oclIsKindOf`(_`)(p:OCL-Type, Head@devsmm))), _and_(_->`forAll_(__(t:OCL-Type, ._(parts@OCLSf)), _|_(e, _.`oclIsKindOf`(_`)(e, Hammer@devsmm))), _.`oclIsKindOf`(_`)(p:OCL-Type, Hammer@devsmm)))))), env(empty), MODEL@:@Model)
+  /\ T:OCL-Type := eval(0, env(empty), MODEL@:@Model)
+  /\ _in_(t:OCL-Type, OUT@c@ATT:OCL-Type)
+  /\ _in_(p:OCL-Type, OUTPARTS@c@ATT:OCL-Type)
+  /\ OR1@:Oid := newId(_+_(VALUE@ids@:Int, 1))
+  /\ OR2@:Oid := newId(_+_(VALUE@ids@:Int, 2))
+  /\ OR3@:Oid := newId(_+_(VALUE@ids@:Int, 3)) [print " -> Transfer@Instantaneous \tin time " TIME@CLK@:Time] .
+  
+  crl [Collect@Instantaneous] :
+    _`{_`}(MM@:@Metamodel, 
+      __(
+        <_:_|_>(h:OCL-Type, HAMMER@DEVSMM@h@CLASS:Hammer@devsmm, h@SFS:Set{@StructuralFeatureInstance}), 
+        <_:_|_>(t:OCL-Type, TRAY@DEVSMM@t@CLASS:Tray@devsmm, 
+          _#_(
+            _:_(parts@Container@devsmm, PARTS@t@ATT:OCL-Type), t@SFS:Set{@StructuralFeatureInstance})), 
+        <_:_|_>(u:OCL-Type, USER@DEVSMM@u@CLASS:User@devsmm, 
+          _#_(
+            _:_(parts@Container@devsmm, PARTS@u@ATT:OCL-Type), u@SFS:Set{@StructuralFeatureInstance})), 
+        <_:_|_>(CLK@:Oid, Clock@MGBehavior, 
+            _:_(time@Clock@MGBehavior, TIME@CLK@:Time)), 
+        <_:_|_>('ids@, Counter@MGBehavior, 
+            _:_(value@Counter@MGBehavior, VALUE@ids@:Int)), 
+        <_:_|_>('rdm@, Counter@MGBehavior, 
+            _:_(value@Counter@MGBehavior, VALUE@rdm@:Int)), OBJSET@:Set{@Object}))
+  =>
+    readjust(Set`{_`}(mt), nil, _`{_`}(MM@:@Metamodel, 
+      __(
+        <_:_|_>(h:OCL-Type, HAMMER@DEVSMM@h@CLASS:Hammer@devsmm, h@SFS:Set{@StructuralFeatureInstance}), 
+        <_:_|_>(t:OCL-Type, TRAY@DEVSMM@t@CLASS:Tray@devsmm, 
+          _#_(
+            _:_(parts@Container@devsmm, update(parts@Container@devsmm, PARTS@t@ATT:OCL-Type, link(h:OCL-Type, null), nil)), t@SFS:Set{@StructuralFeatureInstance})), 
+        <_:_|_>(u:OCL-Type, USER@DEVSMM@u@CLASS:User@devsmm, 
+          _#_(
+            _:_(parts@Container@devsmm, update(parts@Container@devsmm, PARTS@u@ATT:OCL-Type, nil, link(h:OCL-Type, null))), u@SFS:Set{@StructuralFeatureInstance})), 
+        <_:_|_>(CLK@:Oid, Clock@MGBehavior, 
+            _:_(time@Clock@MGBehavior, TIME@CLK@:Time)), 
+        <_:_|_>('rdm@, Counter@MGBehavior, 
+            _:_(value@Counter@MGBehavior, _+_(VALUE@rdm@:Int, 7))), OBJSET@:Set{@Object}, 
+        <_:_|_>('ids@, Counter@MGBehavior, 
+            _:_(value@Counter@MGBehavior, _+_(VALUE@ids@:Int, 5))))))
+  if ACTEXEC@:Oid := newId(VALUE@ids@:Int)
+  /\ MODEL@:@Model := _`{_`}(MM@:@Metamodel, 
+    __(
+      <_:_|_>(h:OCL-Type, HAMMER@DEVSMM@h@CLASS:Hammer@devsmm, h@SFS:Set{@StructuralFeatureInstance}), 
+      <_:_|_>(t:OCL-Type, TRAY@DEVSMM@t@CLASS:Tray@devsmm, 
+        _#_(
+          _:_(parts@Container@devsmm, PARTS@t@ATT:OCL-Type), t@SFS:Set{@StructuralFeatureInstance})), 
+      <_:_|_>(u:OCL-Type, USER@DEVSMM@u@CLASS:User@devsmm, 
+        _#_(
+          _:_(parts@Container@devsmm, PARTS@u@ATT:OCL-Type), u@SFS:Set{@StructuralFeatureInstance})), 
+      <_:_|_>(CLK@:Oid, Clock@MGBehavior, 
+          _:_(time@Clock@MGBehavior, TIME@CLK@:Time)), 
+      <_:_|_>('ids@, Counter@MGBehavior, 
+          _:_(value@Counter@MGBehavior, VALUE@ids@:Int)), 
+      <_:_|_>('rdm@, Counter@MGBehavior, 
+          _:_(value@Counter@MGBehavior, VALUE@rdm@:Int)), OBJSET@:Set{@Object}))
+  /\ collectTime:OCL-Type := eval(_rem_(random(_+_(VALUE@rdm@:Int, 12)), eval(5, env(empty), MODEL@:@Model)), env(empty), MODEL@:@Model)
+  /\ T:OCL-Type := eval(0, env(empty), MODEL@:@Model)
+  /\ _in_(h:OCL-Type, PARTS@t@ATT:OCL-Type)
+  /\ OR1@:Oid := newId(_+_(VALUE@ids@:Int, 1))
+  /\ OR2@:Oid := newId(_+_(VALUE@ids@:Int, 2))
+  /\ OR3@:Oid := newId(_+_(VALUE@ids@:Int, 3))
+  /\ VAR1@:Oid := newId(_+_(VALUE@ids@:Int, 4))
+  /\ not_(noconc@Collect(Set`{_`}(_;_(h:OCL-Type, t:OCL-Type, u:OCL-Type)), <_:_|_>(VAR1@:Oid, Variable@MGBehavior, _#_(_:_(name@Variable@MGBehavior, "collectTime"), _:_(value@Variable@MGBehavior, collectTime:OCL-Type))), MODEL@:@Model)) [print " -> Collect@Instantaneous \tin time " TIME@CLK@:Time] .
   
 endm ---- end system module @DEVSMM@BEHAVIOR@

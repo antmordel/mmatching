@@ -1,6 +1,6 @@
 ---- ----------------------------------------------- ----
 ---- Programmatically generated code using e-Motions ----
----- @date Mon Sep 22 15:19:47 CEST 2014             ----
+---- @date Mon Sep 22 16:16:59 CEST 2014             ----
 ---- ----------------------------------------------- ----
 set print attribute on .
 load mOdCL.maude
