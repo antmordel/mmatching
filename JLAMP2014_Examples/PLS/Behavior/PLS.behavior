@@ -37,4 +37,37 @@
       </els>
     </patterns>
   </rules>
+  <rules xsi:type="behavior:AtomicRule" name="GenHead" lhs="//@rules.1/@patterns.0" rhs="//@rules.1/@patterns.1" maxDuration="0">
+    <vbles name="prodTime" type="Int" value="hg.prodTime - 3 + eMotions.random(6)"/>
+    <vbles name="rdm" type="Int" value="eMotions.random(100)"/>
+    <patterns name="LHS">
+      <els xsi:type="behavior:Object" id="hg" outLinks="//@rules.1/@patterns.0/@els.2">
+        <classGD href="PLS.gcs#//@packagesGD.0/@classesGD.4"/>
+      </els>
+      <els xsi:type="behavior:Object" id="c" inLinks="//@rules.1/@patterns.0/@els.2">
+        <classGD href="PLS.gcs#//@packagesGD.0/@classesGD.10"/>
+      </els>
+      <els xsi:type="behavior:Link" src="//@rules.1/@patterns.0/@els.0" target="//@rules.1/@patterns.0/@els.1">
+        <ref href="../Metamodel/DEVSMM.ecore#//Machine/out"/>
+      </els>
+      <els xsi:type="behavior:Condition" oclValue="hg.counter>0 and (c.parts->size() + c.outParts->size()) &lt; c.capacity"/>
+    </patterns>
+    <patterns name="RHS">
+      <els xsi:type="behavior:Object" id="hg" outLinks="//@rules.1/@patterns.1/@els.4">
+        <classGD href="PLS.gcs#//@packagesGD.0/@classesGD.4"/>
+      </els>
+      <els xsi:type="behavior:Object" id="c" outLinks="//@rules.1/@patterns.1/@els.3" inLinks="//@rules.1/@patterns.1/@els.4">
+        <classGD href="PLS.gcs#//@packagesGD.0/@classesGD.10"/>
+      </els>
+      <els xsi:type="behavior:Object" id="h" inLinks="//@rules.1/@patterns.1/@els.3">
+        <classGD href="PLS.gcs#//@packagesGD.0/@classesGD.13"/>
+      </els>
+      <els xsi:type="behavior:Link" src="//@rules.1/@patterns.1/@els.1" target="//@rules.1/@patterns.1/@els.2">
+        <ref href="../Metamodel/DEVSMM.ecore#//Container/parts"/>
+      </els>
+      <els xsi:type="behavior:Link" src="//@rules.1/@patterns.1/@els.0" target="//@rules.1/@patterns.1/@els.1">
+        <ref href="../Metamodel/DEVSMM.ecore#//Machine/out"/>
+      </els>
+    </patterns>
+  </rules>
 </behavior:Behavior>
