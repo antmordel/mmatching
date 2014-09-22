@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gcs:MetamodelGD xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:gcs="http://www.lcc.uma.es/GCS/1.0" name="@FAILURERATE@">
+  <packagesGD name="failurerate">
+    <classesGD name="Server">
+      <class href="../Metamodel/FailureRate.ecore#//Server"/>
+    </classesGD>
+    <classesGD name="Queue">
+      <class href="../Metamodel/FailureRate.ecore#//Queue"/>
+    </classesGD>
+    <classesGD name="Request">
+      <class href="../Metamodel/FailureRate.ecore#//Request"/>
+    </classesGD>
+    <classesGD name="FailureRate">
+      <class href="../Metamodel/FailureRate.ecore#//FailureRate"/>
+    </classesGD>
+    <package href="../Metamodel/FailureRate.ecore#/"/>
+  </packagesGD>
+</gcs:MetamodelGD>
