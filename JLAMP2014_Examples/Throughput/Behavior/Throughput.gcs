@@ -10,7 +10,7 @@
     <classesGD name="Request">
       <class href="../Metamodel/Throughput.ecore#//Request"/>
     </classesGD>
-    <classesGD name="Throughput" figurePath="/JLAMP2014/Throughput/Behavior/ObserverThroughput.jpg">
+    <classesGD name="Throughput" figurePath="">
       <class href="../Metamodel/Throughput.ecore#//Throughput"/>
     </classesGD>
     <package href="../Metamodel/Throughput.ecore#/"/>
