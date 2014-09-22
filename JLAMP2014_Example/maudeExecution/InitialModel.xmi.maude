@@ -1,0 +1,80 @@
+---- ----------------------------------------------- ----
+---- Programmatically generated code using e-Motions ----
+---- @date Mon Sep 22 16:16:59 CEST 2014             ----
+---- ----------------------------------------------- ----
+
+mod INITIALMODEL is
+  pr @DEVSMM@ .
+    
+  op INITIALMODEL : -> @Model  .
+    
+  eq INITIALMODEL
+    = _`{_`}(@devsmm@, 
+      __(none, none, 
+        <_:_|_>('/, Plant@devsmm, 
+          _#_(
+            _:_(els@Plant@devsmm, OrderedSet`{_`}(
+          _#_('//@els.0, '//@els.1, '//@els.2, '//@els.3, '//@els.4, '//@els.5, '//@els.6, '//@els.7, '//@els.8, mt-ord, mt-ord))), empty, empty)), 
+        <_:_|_>('//@els.0, GenHead@devsmm, 
+          _#_(
+            _:_(prodTime@Machine@devsmm, 40), 
+            _:_(defRate@Machine@devsmm, 2), 
+            _:_(counter@Generator@devsmm, 40), 
+            _:_(in@Machine@devsmm, null), 
+            _:_(out@Machine@devsmm, '//@els.2), empty, empty)), 
+        <_:_|_>('//@els.1, Tray@devsmm, 
+          _#_(
+            _:_(capacity@LimitedContainer@devsmm, 4), 
+            _:_(parts@Container@devsmm, Sequence`{_`}(
+          _#_(mt-ord, mt-ord))), empty, empty)), 
+        <_:_|_>('//@els.2, Conveyor@devsmm, 
+          _#_(
+            _:_(capacity@LimitedContainer@devsmm, 4), 
+            _:_(speed@Conveyor@devsmm, 15), 
+            _:_(parts@Container@devsmm, Sequence`{_`}(
+          _#_(mt-ord, mt-ord))), 
+            _:_(out@Conveyor@devsmm, '//@els.1), 
+            _:_(outParts@Conveyor@devsmm, OrderedSet`{_`}(
+          _#_(mt-ord, mt-ord))), empty, empty)), 
+        <_:_|_>('//@els.3, GenHandle@devsmm, 
+          _#_(
+            _:_(prodTime@Machine@devsmm, 40), 
+            _:_(defRate@Machine@devsmm, 2), 
+            _:_(counter@Generator@devsmm, 40), 
+            _:_(in@Machine@devsmm, null), 
+            _:_(out@Machine@devsmm, '//@els.4), empty, empty)), 
+        <_:_|_>('//@els.4, Conveyor@devsmm, 
+          _#_(
+            _:_(capacity@LimitedContainer@devsmm, 4), 
+            _:_(speed@Conveyor@devsmm, 15), 
+            _:_(parts@Container@devsmm, Sequence`{_`}(
+          _#_(mt-ord, mt-ord))), 
+            _:_(out@Conveyor@devsmm, '//@els.1), 
+            _:_(outParts@Conveyor@devsmm, OrderedSet`{_`}(
+          _#_(mt-ord, mt-ord))), empty, empty)), 
+        <_:_|_>('//@els.5, Assemble@devsmm, 
+          _#_(
+            _:_(prodTime@Machine@devsmm, 40), 
+            _:_(defRate@Machine@devsmm, 1), 
+            _:_(in@Machine@devsmm, '//@els.1), 
+            _:_(out@Machine@devsmm, '//@els.6), empty, empty)), 
+        <_:_|_>('//@els.6, Conveyor@devsmm, 
+          _#_(
+            _:_(capacity@LimitedContainer@devsmm, 4), 
+            _:_(speed@Conveyor@devsmm, 15), 
+            _:_(parts@Container@devsmm, Sequence`{_`}(
+          _#_(mt-ord, mt-ord))), 
+            _:_(out@Conveyor@devsmm, '//@els.7), 
+            _:_(outParts@Conveyor@devsmm, OrderedSet`{_`}(
+          _#_(mt-ord, mt-ord))), empty, empty)), 
+        <_:_|_>('//@els.7, Tray@devsmm, 
+          _#_(
+            _:_(capacity@LimitedContainer@devsmm, 4), 
+            _:_(parts@Container@devsmm, Sequence`{_`}(
+          _#_(mt-ord, mt-ord))), empty, empty)), 
+        <_:_|_>('//@els.8, User@devsmm, 
+          _#_(
+            _:_(parts@Container@devsmm, Sequence`{_`}(
+          _#_(mt-ord, mt-ord))), empty, empty)))) .
+    
+endm ---- end system module INITIALMODEL

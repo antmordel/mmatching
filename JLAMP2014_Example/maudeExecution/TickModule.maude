@@ -1,0 +1,30 @@
+---- ----------------------------------------------- ----
+---- Programmatically generated code using e-Motions ----
+---- @date Mon Sep 22 16:16:59 CEST 2014             ----
+---- ----------------------------------------------- ----
+set print attribute on .
+load mOdCL.maude
+load model-checker.maude
+load MGDefinitions.maude
+load MGRealTimeMaude24.maude
+load EcoreMM.maude
+load e-Motions.maude
+
+load DEVSMM.ecore.maude
+load PLS.behavior.maude
+load InitialModel.xmi.maude
+
+mod TICKRULE is
+  pr INITIALMODEL .
+  pr @DEVSMM@BEHAVIOR@ .
+  var T TE : Time .
+  var MODEL : @Model .
+
+  crl [tick] :
+     { MODEL } in time T
+  =>
+    { delta(MODEL, TE) } in time (T plus TE)
+  if TE := mte(MODEL) /\ TE =/= zero .
+endm
+
+rewrite init(INITIALMODEL) .

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<notation:Diagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:gcs="http://www.lcc.uma.es/GCS/1.0" xmlns:notation="http://www.eclipse.org/gmf/runtime/1.0.2/notation" xmi:id="_WNo0gEI2EeSckt0yyZ_PRg" type="GCS" name="Throughput.gcs_diagram" measurementUnit="Pixel">
+  <children xmi:type="notation:Node" xmi:id="_WPl8UEI2EeSckt0yyZ_PRg" type="2001">
+    <children xmi:type="notation:Node" xmi:id="_WPmjYEI2EeSckt0yyZ_PRg" type="5002"/>
+    <children xmi:type="notation:Node" xmi:id="_WPnKcEI2EeSckt0yyZ_PRg" type="7001">
+      <children xmi:type="notation:Node" xmi:id="_WPrb4EI2EeSckt0yyZ_PRg" type="3001">
+        <children xmi:type="notation:Node" xmi:id="_WPsC8EI2EeSckt0yyZ_PRg" type="5001"/>
+        <styles xmi:type="notation:ShapeStyle" xmi:id="_WPrb4UI2EeSckt0yyZ_PRg" fontName="Cantarell"/>
+        <element xmi:type="gcs:ClassGD" href="Throughput.gcs#//@packagesGD.0/@classesGD.0"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_WPrb4kI2EeSckt0yyZ_PRg" x="7" y="11"/>
+      </children>
+      <children xmi:type="notation:Node" xmi:id="_WPsqAEI2EeSckt0yyZ_PRg" type="3001">
+        <children xmi:type="notation:Node" xmi:id="_WPsqA0I2EeSckt0yyZ_PRg" type="5001"/>
+        <styles xmi:type="notation:ShapeStyle" xmi:id="_WPsqAUI2EeSckt0yyZ_PRg" fontName="Cantarell"/>
+        <element xmi:type="gcs:ClassGD" href="Throughput.gcs#//@packagesGD.0/@classesGD.1"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_WPsqAkI2EeSckt0yyZ_PRg" x="79" y="11"/>
+      </children>
+      <children xmi:type="notation:Node" xmi:id="_WPtREEI2EeSckt0yyZ_PRg" type="3001">
+        <children xmi:type="notation:Node" xmi:id="_WPtRE0I2EeSckt0yyZ_PRg" type="5001"/>
+        <styles xmi:type="notation:ShapeStyle" xmi:id="_WPtREUI2EeSckt0yyZ_PRg" fontName="Cantarell"/>
+        <element xmi:type="gcs:ClassGD" href="Throughput.gcs#//@packagesGD.0/@classesGD.2"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_WPtREkI2EeSckt0yyZ_PRg" x="163" y="11"/>
+      </children>
+      <children xmi:type="notation:Node" xmi:id="_WPt4IEI2EeSckt0yyZ_PRg" type="3001">
+        <children xmi:type="notation:Node" xmi:id="_WPt4I0I2EeSckt0yyZ_PRg" type="5001"/>
+        <styles xmi:type="notation:ShapeStyle" xmi:id="_WPt4IUI2EeSckt0yyZ_PRg" fontName="Cantarell"/>
+        <element xmi:type="gcs:ClassGD" href="Throughput.gcs#//@packagesGD.0/@classesGD.3"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_WPt4IkI2EeSckt0yyZ_PRg" x="235" y="10" width="73" height="65"/>
+      </children>
+      <styles xmi:type="notation:DrawerStyle" xmi:id="_WPnKcUI2EeSckt0yyZ_PRg"/>
+      <styles xmi:type="notation:SortingStyle" xmi:id="_WPnKckI2EeSckt0yyZ_PRg"/>
+      <styles xmi:type="notation:FilteringStyle" xmi:id="_WPnKc0I2EeSckt0yyZ_PRg"/>
+    </children>
+    <children xmi:type="notation:Node" xmi:id="_WPnxgEI2EeSckt0yyZ_PRg" type="7002">
+      <styles xmi:type="notation:DrawerStyle" xmi:id="_WPnxgUI2EeSckt0yyZ_PRg"/>
+      <styles xmi:type="notation:SortingStyle" xmi:id="_WPnxgkI2EeSckt0yyZ_PRg"/>
+      <styles xmi:type="notation:FilteringStyle" xmi:id="_WPnxg0I2EeSckt0yyZ_PRg"/>
+    </children>
+    <styles xmi:type="notation:ShapeStyle" xmi:id="_WPl8UUI2EeSckt0yyZ_PRg" fontName="Cantarell"/>
+    <element xmi:type="gcs:PackageGD" href="Throughput.gcs#//@packagesGD.0"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_WPl8UkI2EeSckt0yyZ_PRg" x="288" y="36" width="361" height="157"/>
+  </children>
+  <styles xmi:type="notation:DiagramStyle" xmi:id="_WNo0gUI2EeSckt0yyZ_PRg"/>
+  <element xmi:type="gcs:MetamodelGD" href="Throughput.gcs#/"/>
+</notation:Diagram>

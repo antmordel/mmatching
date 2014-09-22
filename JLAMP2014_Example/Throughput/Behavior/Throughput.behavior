@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<behavior:Behavior xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:behavior="http://www.lcc.uma.es/Behavior/1.0">
+  <metamodelGD href="Throughput.gcs#/"/>
+  <rules xsi:type="behavior:AtomicRule" name="RecordLeave" lhs="//@rules.0/@patterns.0" rhs="//@rules.0/@patterns.1" maxDuration="M" minDuration="N">
+    <patterns name="LHS">
+      <els xsi:type="behavior:Object" id="s" outLinks="//@rules.0/@patterns.0/@els.3 //@rules.0/@patterns.0/@els.6">
+        <classGD href="Throughput.gcs#//@packagesGD.0/@classesGD.0"/>
+      </els>
+      <els xsi:type="behavior:Object" id="q" outLinks="//@rules.0/@patterns.0/@els.4" inLinks="//@rules.0/@patterns.0/@els.3">
+        <classGD href="Throughput.gcs#//@packagesGD.0/@classesGD.1"/>
+      </els>
+      <els xsi:type="behavior:Object" id="r" inLinks="//@rules.0/@patterns.0/@els.4">
+        <classGD href="Throughput.gcs#//@packagesGD.0/@classesGD.2"/>
+      </els>
+      <els xsi:type="behavior:Link" src="//@rules.0/@patterns.0/@els.0" target="//@rules.0/@patterns.0/@els.1">
+        <ref href="../Metamodel/Throughput.ecore#//System/out"/>
+      </els>
+      <els xsi:type="behavior:Link" src="//@rules.0/@patterns.0/@els.1" target="//@rules.0/@patterns.0/@els.2">
+        <ref href="../Metamodel/Throughput.ecore#//Queue/reqsts"/>
+      </els>
+      <els xsi:type="behavior:Object" id="t" inLinks="//@rules.0/@patterns.0/@els.6">
+        <classGD href="Throughput.gcs#//@packagesGD.0/@classesGD.3"/>
+      </els>
+      <els xsi:type="behavior:Link" src="//@rules.0/@patterns.0/@els.0" target="//@rules.0/@patterns.0/@els.5">
+        <ref href="../Metamodel/Throughput.ecore#//System/thp"/>
+      </els>
+    </patterns>
+    <patterns name="RHS">
+      <els xsi:type="behavior:Object" id="s" outLinks="//@rules.0/@patterns.1/@els.2 //@rules.0/@patterns.1/@els.4">
+        <classGD href="Throughput.gcs#//@packagesGD.0/@classesGD.0"/>
+      </els>
+      <els xsi:type="behavior:Object" id="q" inLinks="//@rules.0/@patterns.1/@els.2">
+        <classGD href="Throughput.gcs#//@packagesGD.0/@classesGD.1"/>
+      </els>
+      <els xsi:type="behavior:Link" src="//@rules.0/@patterns.1/@els.0" target="//@rules.0/@patterns.1/@els.1">
+        <ref href="../Metamodel/Throughput.ecore#//System/out"/>
+      </els>
+      <els xsi:type="behavior:Object" id="t" inLinks="//@rules.0/@patterns.1/@els.4">
+        <sfs oclValue="t.counter + 1">
+          <sf href="../Metamodel/Throughput.ecore#//Throughput/counter"/>
+        </sfs>
+        <classGD href="Throughput.gcs#//@packagesGD.0/@classesGD.3"/>
+      </els>
+      <els xsi:type="behavior:Link" src="//@rules.0/@patterns.1/@els.0" target="//@rules.0/@patterns.1/@els.3">
+        <ref href="../Metamodel/Throughput.ecore#//System/thp"/>
+      </els>
+    </patterns>
+  </rules>
+  <rules xsi:type="behavior:OngoingRule" name="ContinuousThpUpdate" lhs="//@rules.1/@patterns.0" rhs="//@rules.1/@patterns.1">
+    <patterns name="LHS">
+      <els xsi:type="behavior:Clock" id="clk"/>
+      <els xsi:type="behavior:Object" id="t">
+        <classGD href="Throughput.gcs#//@packagesGD.0/@classesGD.3"/>
+      </els>
+    </patterns>
+    <patterns name="RHS">
+      <els xsi:type="behavior:Clock" id="clk"/>
+      <els xsi:type="behavior:Object" id="t">
+        <sfs oclValue="thp.counter / clk.time">
+          <sf href="../Metamodel/Throughput.ecore#//Throughput/thp"/>
+        </sfs>
+        <classGD href="Throughput.gcs#//@packagesGD.0/@classesGD.3"/>
+      </els>
+    </patterns>
+  </rules>
+  <rules xsi:type="behavior:AtomicRule" name="CreateThroughput" lhs="//@rules.2/@patterns.0" rhs="//@rules.2/@patterns.1" maxDuration="0">
+    <patterns name="LHS">
+      <els xsi:type="behavior:Object" id="s">
+        <classGD href="Throughput.gcs#//@packagesGD.0/@classesGD.0"/>
+      </els>
+      <els xsi:type="behavior:Condition" oclValue="s.thp.oclIsUndefined()"/>
+    </patterns>
+    <patterns name="RHS">
+      <els xsi:type="behavior:Object" id="s" outLinks="//@rules.2/@patterns.1/@els.2">
+        <classGD href="Throughput.gcs#//@packagesGD.0/@classesGD.0"/>
+      </els>
+      <els xsi:type="behavior:Object" id="t" inLinks="//@rules.2/@patterns.1/@els.2">
+        <classGD href="Throughput.gcs#//@packagesGD.0/@classesGD.3"/>
+      </els>
+      <els xsi:type="behavior:Link" src="//@rules.2/@patterns.1/@els.0" target="//@rules.2/@patterns.1/@els.1">
+        <ref href="../Metamodel/Throughput.ecore#//System/thp"/>
+      </els>
+    </patterns>
+  </rules>
+</behavior:Behavior>

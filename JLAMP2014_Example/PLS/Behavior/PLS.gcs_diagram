@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<notation:Diagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:gcs="http://www.lcc.uma.es/GCS/1.0" xmlns:notation="http://www.eclipse.org/gmf/runtime/1.0.2/notation" xmi:id="_F523cEJLEeSYvdWyR0Mo0Q" type="GCS" name="PLS.gcs_diagram" measurementUnit="Pixel">
+  <children xmi:type="notation:Node" xmi:id="_UnjtEEJuEeSYvdWyR0Mo0Q" type="2001">
+    <children xmi:type="notation:Node" xmi:id="_UnjtE0JuEeSYvdWyR0Mo0Q" type="5002"/>
+    <children xmi:type="notation:Node" xmi:id="_UnkUIEJuEeSYvdWyR0Mo0Q" type="7001">
+      <children xmi:type="notation:Node" xmi:id="_gKQ7QEJuEeSYvdWyR0Mo0Q" type="3001">
+        <children xmi:type="notation:Node" xmi:id="_gKRiUEJuEeSYvdWyR0Mo0Q" type="5001"/>
+        <styles xmi:type="notation:ShapeStyle" xmi:id="_gKQ7QUJuEeSYvdWyR0Mo0Q" fontName="Cantarell"/>
+        <element xmi:type="gcs:ClassGD" href="PLS.gcs#//@packagesGD.0/@classesGD.0"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_gKQ7QkJuEeSYvdWyR0Mo0Q" x="15" y="17"/>
+      </children>
+      <children xmi:type="notation:Node" xmi:id="_gKRiUUJuEeSYvdWyR0Mo0Q" type="3001">
+        <children xmi:type="notation:Node" xmi:id="_gKRiVEJuEeSYvdWyR0Mo0Q" type="5001"/>
+        <styles xmi:type="notation:ShapeStyle" xmi:id="_gKRiUkJuEeSYvdWyR0Mo0Q" fontName="Cantarell"/>
+        <element xmi:type="gcs:ClassGD" href="PLS.gcs#//@packagesGD.0/@classesGD.1"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_gKRiU0JuEeSYvdWyR0Mo0Q" x="583" y="129"/>
+      </children>
+      <children xmi:type="notation:Node" xmi:id="_gKSJYEJuEeSYvdWyR0Mo0Q" type="3001">
+        <children xmi:type="notation:Node" xmi:id="_gKSJY0JuEeSYvdWyR0Mo0Q" type="5001"/>
+        <styles xmi:type="notation:ShapeStyle" xmi:id="_gKSJYUJuEeSYvdWyR0Mo0Q" fontName="Cantarell"/>
+        <element xmi:type="gcs:ClassGD" href="PLS.gcs#//@packagesGD.0/@classesGD.2"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_gKSJYkJuEeSYvdWyR0Mo0Q" x="667" y="129"/>
+      </children>
+      <children xmi:type="notation:Node" xmi:id="_gKSJZEJuEeSYvdWyR0Mo0Q" type="3001">
+        <children xmi:type="notation:Node" xmi:id="_gKSwcEJuEeSYvdWyR0Mo0Q" type="5001"/>
+        <styles xmi:type="notation:ShapeStyle" xmi:id="_gKSJZUJuEeSYvdWyR0Mo0Q" fontName="Cantarell"/>
+        <element xmi:type="gcs:ClassGD" href="PLS.gcs#//@packagesGD.0/@classesGD.3"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_gKSJZkJuEeSYvdWyR0Mo0Q" x="763" y="129"/>
+      </children>
+      <children xmi:type="notation:Node" xmi:id="_gKSwcUJuEeSYvdWyR0Mo0Q" type="3001">
+        <children xmi:type="notation:Node" xmi:id="_gKSwdEJuEeSYvdWyR0Mo0Q" type="5001"/>
+        <styles xmi:type="notation:ShapeStyle" xmi:id="_gKSwckJuEeSYvdWyR0Mo0Q" fontName="Cantarell"/>
+        <element xmi:type="gcs:ClassGD" href="PLS.gcs#//@packagesGD.0/@classesGD.4"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_gKSwc0JuEeSYvdWyR0Mo0Q" x="847" y="119"/>
+      </children>
+      <children xmi:type="notation:Node" xmi:id="_gKTXgEJuEeSYvdWyR0Mo0Q" type="3001">
+        <children xmi:type="notation:Node" xmi:id="_gKTXg0JuEeSYvdWyR0Mo0Q" type="5001"/>
+        <styles xmi:type="notation:ShapeStyle" xmi:id="_gKTXgUJuEeSYvdWyR0Mo0Q" fontName="Cantarell"/>
+        <element xmi:type="gcs:ClassGD" href="PLS.gcs#//@packagesGD.0/@classesGD.5"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_gKTXgkJuEeSYvdWyR0Mo0Q" x="939" y="107"/>
+      </children>
+      <children xmi:type="notation:Node" xmi:id="_gKTXhEJuEeSYvdWyR0Mo0Q" type="3001">
+        <children xmi:type="notation:Node" xmi:id="_gKT-kEJuEeSYvdWyR0Mo0Q" type="5001"/>
+        <styles xmi:type="notation:ShapeStyle" xmi:id="_gKTXhUJuEeSYvdWyR0Mo0Q" fontName="Cantarell"/>
+        <element xmi:type="gcs:ClassGD" href="PLS.gcs#//@packagesGD.0/@classesGD.6"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_gKTXhkJuEeSYvdWyR0Mo0Q" x="127" y="31"/>
+      </children>
+      <children xmi:type="notation:Node" xmi:id="_gKT-kUJuEeSYvdWyR0Mo0Q" type="3001">
+        <children xmi:type="notation:Node" xmi:id="_gKT-lEJuEeSYvdWyR0Mo0Q" type="5001"/>
+        <styles xmi:type="notation:ShapeStyle" xmi:id="_gKT-kkJuEeSYvdWyR0Mo0Q" fontName="Cantarell"/>
+        <element xmi:type="gcs:ClassGD" href="PLS.gcs#//@packagesGD.0/@classesGD.7"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_gKT-k0JuEeSYvdWyR0Mo0Q" x="229" y="38"/>
+      </children>
+      <children xmi:type="notation:Node" xmi:id="_gKUloEJuEeSYvdWyR0Mo0Q" type="3001">
+        <children xmi:type="notation:Node" xmi:id="_gKUlo0JuEeSYvdWyR0Mo0Q" type="5001"/>
+        <styles xmi:type="notation:ShapeStyle" xmi:id="_gKUloUJuEeSYvdWyR0Mo0Q" fontName="Cantarell"/>
+        <element xmi:type="gcs:ClassGD" href="PLS.gcs#//@packagesGD.0/@classesGD.8"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_gKUlokJuEeSYvdWyR0Mo0Q" x="305" y="40"/>
+      </children>
+      <children xmi:type="notation:Node" xmi:id="_gKUlpEJuEeSYvdWyR0Mo0Q" type="3001">
+        <children xmi:type="notation:Node" xmi:id="_gKVMsEJuEeSYvdWyR0Mo0Q" type="5001"/>
+        <styles xmi:type="notation:ShapeStyle" xmi:id="_gKUlpUJuEeSYvdWyR0Mo0Q" fontName="Cantarell"/>
+        <element xmi:type="gcs:ClassGD" href="PLS.gcs#//@packagesGD.0/@classesGD.9"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_gKUlpkJuEeSYvdWyR0Mo0Q" x="391" y="19"/>
+      </children>
+      <children xmi:type="notation:Node" xmi:id="_gKVMsUJuEeSYvdWyR0Mo0Q" type="3001">
+        <children xmi:type="notation:Node" xmi:id="_gKVMtEJuEeSYvdWyR0Mo0Q" type="5001"/>
+        <styles xmi:type="notation:ShapeStyle" xmi:id="_gKVMskJuEeSYvdWyR0Mo0Q" fontName="Cantarell"/>
+        <element xmi:type="gcs:ClassGD" href="PLS.gcs#//@packagesGD.0/@classesGD.10"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_gKVMs0JuEeSYvdWyR0Mo0Q" x="463" y="19"/>
+      </children>
+      <children xmi:type="notation:Node" xmi:id="_gKVMtUJuEeSYvdWyR0Mo0Q" type="3001">
+        <children xmi:type="notation:Node" xmi:id="_gKVzwEJuEeSYvdWyR0Mo0Q" type="5001"/>
+        <styles xmi:type="notation:ShapeStyle" xmi:id="_gKVMtkJuEeSYvdWyR0Mo0Q" fontName="Cantarell"/>
+        <element xmi:type="gcs:ClassGD" href="PLS.gcs#//@packagesGD.0/@classesGD.11"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_gKVMt0JuEeSYvdWyR0Mo0Q" x="583" y="19"/>
+      </children>
+      <children xmi:type="notation:Node" xmi:id="_gKVzwUJuEeSYvdWyR0Mo0Q" type="3001">
+        <children xmi:type="notation:Node" xmi:id="_gKVzxEJuEeSYvdWyR0Mo0Q" type="5001"/>
+        <styles xmi:type="notation:ShapeStyle" xmi:id="_gKVzwkJuEeSYvdWyR0Mo0Q" fontName="Cantarell"/>
+        <element xmi:type="gcs:ClassGD" href="PLS.gcs#//@packagesGD.0/@classesGD.12"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_gKVzw0JuEeSYvdWyR0Mo0Q" x="739" y="19"/>
+      </children>
+      <children xmi:type="notation:Node" xmi:id="_gKWa0EJuEeSYvdWyR0Mo0Q" type="3001">
+        <children xmi:type="notation:Node" xmi:id="_gKWa00JuEeSYvdWyR0Mo0Q" type="5001"/>
+        <styles xmi:type="notation:ShapeStyle" xmi:id="_gKWa0UJuEeSYvdWyR0Mo0Q" fontName="Cantarell"/>
+        <element xmi:type="gcs:ClassGD" href="PLS.gcs#//@packagesGD.0/@classesGD.13"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_gKWa0kJuEeSYvdWyR0Mo0Q" x="799" y="19"/>
+      </children>
+      <children xmi:type="notation:Node" xmi:id="_gKWa1EJuEeSYvdWyR0Mo0Q" type="3001">
+        <children xmi:type="notation:Node" xmi:id="_gKXB4EJuEeSYvdWyR0Mo0Q" type="5001"/>
+        <styles xmi:type="notation:ShapeStyle" xmi:id="_gKWa1UJuEeSYvdWyR0Mo0Q" fontName="Cantarell"/>
+        <element xmi:type="gcs:ClassGD" href="PLS.gcs#//@packagesGD.0/@classesGD.14"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_gKWa1kJuEeSYvdWyR0Mo0Q" x="867" y="15"/>
+      </children>
+      <children xmi:type="notation:Node" xmi:id="_gKXB4UJuEeSYvdWyR0Mo0Q" type="3001">
+        <children xmi:type="notation:Node" xmi:id="_gKXB5EJuEeSYvdWyR0Mo0Q" type="5001"/>
+        <styles xmi:type="notation:ShapeStyle" xmi:id="_gKXB4kJuEeSYvdWyR0Mo0Q" fontName="Cantarell"/>
+        <element xmi:type="gcs:ClassGD" href="PLS.gcs#//@packagesGD.0/@classesGD.15"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_gKXB40JuEeSYvdWyR0Mo0Q" x="943" y="7"/>
+      </children>
+      <styles xmi:type="notation:DrawerStyle" xmi:id="_UnkUIUJuEeSYvdWyR0Mo0Q"/>
+      <styles xmi:type="notation:SortingStyle" xmi:id="_UnkUIkJuEeSYvdWyR0Mo0Q"/>
+      <styles xmi:type="notation:FilteringStyle" xmi:id="_UnkUI0JuEeSYvdWyR0Mo0Q"/>
+    </children>
+    <children xmi:type="notation:Node" xmi:id="_UnkUJEJuEeSYvdWyR0Mo0Q" type="7002">
+      <styles xmi:type="notation:DrawerStyle" xmi:id="_UnkUJUJuEeSYvdWyR0Mo0Q"/>
+      <styles xmi:type="notation:SortingStyle" xmi:id="_UnkUJkJuEeSYvdWyR0Mo0Q"/>
+      <styles xmi:type="notation:FilteringStyle" xmi:id="_UnkUJ0JuEeSYvdWyR0Mo0Q"/>
+    </children>
+    <styles xmi:type="notation:ShapeStyle" xmi:id="_UnjtEUJuEeSYvdWyR0Mo0Q" fontName="Cantarell"/>
+    <element xmi:type="gcs:PackageGD" href="PLS.gcs#//@packagesGD.0"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_UnjtEkJuEeSYvdWyR0Mo0Q" width="1033" height="397"/>
+  </children>
+  <styles xmi:type="notation:DiagramStyle" xmi:id="_F523cUJLEeSYvdWyR0Mo0Q"/>
+  <element xmi:type="gcs:MetamodelGD" href="PLS.gcs#/"/>
+</notation:Diagram>

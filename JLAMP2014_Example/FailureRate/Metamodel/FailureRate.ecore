@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="failurerate" nsURI="http://failurerate/1.0" nsPrefix="failurerate">
+  <eClassifiers xsi:type="ecore:EClass" name="Server">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="out" lowerBound="1" eType="#//Queue"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="in" lowerBound="1" eType="#//Queue"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="flRt" eType="#//FailureRate"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Queue">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="reqsts" upperBound="-1"
+        eType="#//Request" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Request"/>
+  <eClassifiers xsi:type="ecore:EClass" name="FailureRate">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="reqResults" upperBound="-1"
+        eType="#//Request"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="numFailures" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="numTotal" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="rate" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
+  </eClassifiers>
+</ecore:EPackage>

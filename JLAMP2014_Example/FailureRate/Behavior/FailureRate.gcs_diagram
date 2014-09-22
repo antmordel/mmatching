@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<notation:Diagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:gcs="http://www.lcc.uma.es/GCS/1.0" xmlns:notation="http://www.eclipse.org/gmf/runtime/1.0.2/notation" xmi:id="_ttjpUEI7EeSckt0yyZ_PRg" type="GCS" name="FailureRate.gcs_diagram" measurementUnit="Pixel">
+  <styles xmi:type="notation:DiagramStyle" xmi:id="_ttjpUUI7EeSckt0yyZ_PRg"/>
+  <element xmi:type="gcs:MetamodelGD" href="FailureRate.gcs#/"/>
+</notation:Diagram>
