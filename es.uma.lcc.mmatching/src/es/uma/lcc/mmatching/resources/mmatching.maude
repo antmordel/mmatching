@@ -1,0 +1,212 @@
+
+mod AUX-OPERATIONS is
+  pr ECORE .
+  pr BASIC_DEFINITION_CONFIGURATION .
+  
+  sort ConfigurationBeingMixed .
+  subsort Configuration < ConfigurationBeingMixed .
+  
+  op flatten : Model -> Model .
+  op flatten : Model Model -> Model .
+  
+  op hasSuperTypes : AttributeSet Configuration -> Bool .
+  op mixFeatures : Oid Set{Oid} Configuration -> ConfigurationBeingMixed .
+  
+  var O1 O2 O3 : Oid .
+  var Atts1 Atts2 Atts3 : AttributeSet .
+  var SFS1 SFS2 Oids1 : Set{Oid} .
+  var Conf Conf1 Conf2 : Configuration .
+  var Conf+ : ConfigurationBeingMixed .
+  
+  --------------- Auxiliar Operations
+  eq hasSuperTypes((eSuperTypes : (O1, Oids1), Atts1), < O1 : C:Cid | Atts2 > Conf) = true .
+  eq hasSuperTypes((Atts1), Conf) = false [owise] .
+  
+  eq mixFeatures(O1, SFS1,
+                 < O2 : EClass | eSuperTypes : (O1, Oids1), eStructuralFeatures : SFS2, Atts1 > 
+                 Conf)
+    = < O2 : EClass | eSuperTypes : (O1, Oids1), eStructuralFeatures : (SFS1, SFS2), Atts1 > 
+      mixFeatures(O1, SFS1, Conf) [print "mixing - " SFS1 " and " SFS2 " within object " O2].
+  eq mixFeatures(O1, SFS1, Conf) = Conf [owise] .
+  --------------- /end Auxiliar Operations
+  
+  eq flatten(Conf) = flatten(Conf, none) .
+  
+  ---- 1st. We search those classes without ancestors
+  ceq flatten(< O1 : EClass | eStructuralFeatures : (SFS1), Atts1 > ---- At least it has a StructuralFeature.
+              Conf1, Conf2) =
+    if SFS1 =/= empty then
+      ---- We mix the ancestor's features with its childs.
+      flatten(mixFeatures(O1, (SFS1), Conf1), 
+              < O1 : EClass | eStructuralFeatures : SFS1, Atts1 > Conf2)
+    else
+      flatten(Conf1, < O1 : EClass | eStructuralFeatures : SFS1, Atts1 > Conf2)
+    fi
+  if not hasSuperTypes(Atts1, Conf1) [print O1 " --- " SFS1 "\n :: Configuration 1 is " Conf1 "\n :: Configuration 2 is " Conf2] .
+  eq flatten(Conf1, Conf2) = Conf1 Conf2 [owise] .
+
+endm
+
+view Substitution? from TRIV to META-LEVEL is
+  sort Elt to Substitution? .
+endv
+
+view Term from TRIV to META-LEVEL is
+  sort Elt to Term .
+endv
+
+mod MMATCHING is
+  pr AUX-OPERATIONS .
+  pr META-LEVEL * (--- Renamings in FLOAT
+               op abs   : Float -> Float to absF,
+               op -_    : Float -> Float  to -F_,
+               op _+_   : Float Float -> Float to _+F_,
+               op _-_   : Float Float -> Float to _-F_,
+               op _/_   : Float Float -> Float to _/F_,
+               op _*_   : Float Float -> Float to _*F_,
+
+               op min   : Float Float -> Float to minF,
+               op max   : Float Float -> Float to maxF,
+               op _rem_ : Float Float -> Float to _remF_,
+               op _^_   : Float Float -> Float to _^F_,
+               op _<_   : Float Float -> Bool  to _<F_,
+               op _<=_  : Float Float -> Bool  to _<=F_,
+               op _>_   : Float Float -> Bool  to _>F_,
+               op _>=_  : Float Float -> Bool  to _>=F_,
+               op floor : Float -> Float to floorF,
+               op ceiling : Float -> Float to ceilingF,
+
+               --- Renamings in RAT
+               op _xor_ : Nat Nat -> Nat  to _nxor_,
+               op _|_   : Nat Nat -> Nat  to _|N_,
+               op _<_   : Nat Nat -> Bool to _<N_,
+               op _<=_  : Nat Nat -> Bool to _<=N_,
+               op _>_   : Nat Nat -> Bool to _>N_,
+               op _>=_  : Nat Nat -> Bool to _>=N_,
+               op _-_   : Nat Nat -> Nat  to _-N_,
+               op _*_   : Nat Nat -> Nat  to _*N_,
+               op _+_   : Nat Nat -> Nat  to _+N_,
+               op -_ : Int -> Int to -I_,
+               op _/_   : Rat Rat -> Rat  to _//_,
+               op floor : PosRat -> Nat to floorR,
+               op ceiling : PosRat -> Nat to ceilingR,
+               
+               --- Renamings in STRING
+               op _<_  : String String -> Bool to _lt_,
+               op _<=_ : String String -> Bool to _leq_,
+               op _>_  : String String -> Bool to _gt_,
+               op _>=_ : String String -> Bool to _geq_,
+               op _+_  : String String -> String to _++_,  
+               op float : Rat -> Float to rat2float,
+               op float : String ~> Float to string2float,
+               op rat : String NzNat ~> Rat to string2rat ) .
+ 
+  pr LIST{Substitution?} * (--- Renamings in FLOAT
+               op abs   : Float -> Float to absF,
+               op -_    : Float -> Float  to -F_,
+               op _+_   : Float Float -> Float to _+F_,
+               op _-_   : Float Float -> Float to _-F_,
+               op _/_   : Float Float -> Float to _/F_,
+               op _*_   : Float Float -> Float to _*F_,
+
+               op min   : Float Float -> Float to minF,
+               op max   : Float Float -> Float to maxF,
+               op _rem_ : Float Float -> Float to _remF_,
+               op _^_   : Float Float -> Float to _^F_,
+               op _<_   : Float Float -> Bool  to _<F_,
+               op _<=_  : Float Float -> Bool  to _<=F_,
+               op _>_   : Float Float -> Bool  to _>F_,
+               op _>=_  : Float Float -> Bool  to _>=F_,
+               op floor : Float -> Float to floorF,
+               op ceiling : Float -> Float to ceilingF,
+
+               --- Renamings in RAT
+               op _xor_ : Nat Nat -> Nat  to _nxor_,
+               op _|_   : Nat Nat -> Nat  to _|N_,
+               op _<_   : Nat Nat -> Bool to _<N_,
+               op _<=_  : Nat Nat -> Bool to _<=N_,
+               op _>_   : Nat Nat -> Bool to _>N_,
+               op _>=_  : Nat Nat -> Bool to _>=N_,
+               op _-_   : Nat Nat -> Nat  to _-N_,
+               op _*_   : Nat Nat -> Nat  to _*N_,
+               op _+_   : Nat Nat -> Nat  to _+N_,
+               op -_ : Int -> Int to -I_,
+               op _/_   : Rat Rat -> Rat  to _//_,
+               op floor : PosRat -> Nat to floorR,
+               op ceiling : PosRat -> Nat to ceilingR,
+               
+               --- Renamings in STRING
+               op _<_  : String String -> Bool to _lt_,
+               op _<=_ : String String -> Bool to _leq_,
+               op _>_  : String String -> Bool to _gt_,
+               op _>=_ : String String -> Bool to _geq_,
+               op _+_  : String String -> String to _++_,  
+               op float : Rat -> Float to rat2float,
+               op float : String ~> Float to string2float,
+               op rat : String NzNat ~> Rat to string2rat ) .
+  
+  
+  op mmatch : Qid Configuration Configuration -> List{Substitution?} .
+  op mmatch : Module Term Term Nat -> List{Substitution?} .
+  
+  op extractClasses : Configuration -> QidList .
+  op moreqGeneric : Module Substitution Substitution QidList -> Bool .
+  op listMoreqGeneric : Module Substitution List{Substitution?} QidList -> Bool .
+  op filterMoreGeneric : Module QidList List{Substitution?} -> List{Substitution?} .
+  
+  var System Param : Configuration .
+  var ModQid : Qid .
+  var CurrentMatch : Substitution? .
+  var Sub1 Sub2 : Substitution .
+  var TermSystem TermParam TermSub1 TermSub2 : Term .
+  var Mod : Module .
+  var N : Nat .
+  var Classes : QidList .
+  var Var : Variable .
+  var Subs : List{Substitution?} .
+  
+  eq mmatch(ModQid, Param, System)
+    = filterMoreGeneric(
+        upModule(ModQid, true),
+        extractClasses(Param),
+        mmatch(upModule(ModQid, true), 
+               upTerm(Param),
+               getTerm(metaReduce(upModule(ModQid, true), upTerm(flatten(System)))),
+               0)) .
+  
+  ceq mmatch(Mod, TermParam, TermSystem, N)
+    = if CurrentMatch =/= noMatch then
+       CurrentMatch mmatch(Mod, TermParam, TermSystem, s N) 
+     else
+       nil
+     fi
+    if CurrentMatch := metaMatch(Mod, TermParam, TermSystem, nil, N) .
+  
+  eq extractClasses(< O:Oid : EClass | A:AttributeSet > C:Configuration)
+    = upTerm(O:Oid) extractClasses(C:Configuration) .
+  eq extractClasses(C:Configuration) = nil [owise] .
+  
+  eq moreqGeneric(
+      Mod,
+      (Var <- TermSub1 ; Sub1),
+      (Var <- TermSub2 ; Sub2), (Var Classes)) 
+    = sortLeq(Mod, getType(TermSub2), getType(TermSub1)) and
+      moreqGeneric(Mod, Sub1, Sub2, (Classes)) .
+      
+  eq moreqGeneric(Mod, Sub1, Sub2, nil) 
+    = true .
+    
+  eq listMoreqGeneric(Mod, Sub1, Sub2 Subs, Classes) 
+    = moreqGeneric(Mod, Sub1, Sub2, Classes) and listMoreqGeneric(Mod, Sub1, Subs, Classes) .
+  eq listMoreqGeneric(Mod, Sub1, nil, Classes) = true .
+  
+  eq filterMoreGeneric(Mod, Classes, Sub1 Subs)
+    = if listMoreqGeneric(Mod, Sub1, Subs, Classes) then
+        Sub1
+      else
+        nil
+      fi filterMoreGeneric(Mod, Classes, Subs) .
+  eq filterMoreGeneric(Mod, Classes, nil) = nil .
+  
+endm
+    

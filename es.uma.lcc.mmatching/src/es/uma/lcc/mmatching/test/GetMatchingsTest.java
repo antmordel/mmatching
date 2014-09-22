@@ -29,17 +29,17 @@ import org.eclipse.m2m.atl.core.ATLCoreException;
 import org.junit.Before;
 import org.junit.Test;
 
-import es.uma.lcc.mmatching.codegeneration.GetMatchings;
+import es.uma.lcc.mmatching.codegeneration.GenerateActualMMMaudeModule;
 
-public class GetMatchingsTest extends GetMatchings {
+public class GetMatchingsTest extends GenerateActualMMMaudeModule {
 
-	private GetMatchings gm;
+	private GenerateActualMMMaudeModule gm;
 	private static String OUTPUT_TEST_FILE =
 			"file:/Users/amoreno/Documents/mmatching/es.uma.lcc.mmatching/src/es/uma/lcc/mmatching/test/outTest.xmi";
 
 	@Before
 	public void setUp() throws Exception {
-		gm = new GetMatchings();
+		gm = new GenerateActualMMMaudeModule();
 	}
 
 	@Test

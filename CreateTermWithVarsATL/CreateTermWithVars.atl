@@ -1,0 +1,283 @@
+-- @nsURI Ecore=http://www.eclipse.org/emf/2002/Ecore
+-- @nsURI Maude=http://MaudeMM/1.0
+-- @nsURI ClassesList=http://classeslist/1.0
+-- @author Antonio Moreno-Delgado <i>amoreno@lcc.uma.es</i>
+-- @date Sep 15th 2014
+
+
+-- 
+-- 
+--   This file is part of MMatching.
+--
+--   MMatching is free software: you can redistribute it and/or modify it
+--   under the terms of the GNU General Public License as published by the
+--   Free Software Foundation, either version 3 of the License, or (at your
+--   option) any later version.
+-- 
+--   MMatching is distributed in the hope that it will be useful, but
+--   WITHOUT ANY WARRANTY; without even the implied warranty of
+--   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+--   General Public License for more details.
+--
+--   You should have received a copy of the GNU General Public License along
+--   with MMatching. If not, see <http://www.gnu.org/licenses/>.
+
+module CreateTermWithVars;
+create OUT: Maude from IN: Ecore, INLIST: ClassesList;
+
+helper def: mSpec: Maude!MaudeSpec =
+	OclUndefined;
+
+helper def: sMod: Maude!SModule =
+	OclUndefined;
+
+helper def: eq: Maude!Equation =
+	OclUndefined;
+
+helper def: oidSort: Maude!Sort =
+	OclUndefined;
+
+helper def: setOidSort: Maude!Sort =
+	OclUndefined;
+
+helper def: attributeSetSort: Maude!Sort =
+	OclUndefined;
+
+helper def: freshIds: Integer =
+	1;
+
+helper context Maude!RecTerm def: getSetSyntaxOperation(): String =
+	if self.args -> size() > 1 then
+		'('.concat(self.getEmptySyntaxOperation()).concat(')')
+	else
+		'(_)'
+	endif;
+
+helper context Maude!RecTerm def: getEmptySyntaxOperation(): String =
+	if self.args -> size() > 1 then
+		''.concat(self.args -> subSequence(1, self.args -> size() - 1) -> collect(aux | '_')).
+				concat(',_').replaceAll('[', ' ').replaceAll(']', ' ').trim()
+	else
+		if self.args -> size() = 1 then
+			'_'
+		else
+			' '
+		endif
+	endif;
+
+helper context Ecore!EReference def: referenceName(): String =
+	self.name.capitalize() + '@' + self.eContainingClass.name.capitalize();
+
+helper context String def: capitalize(): String =
+	self.substring(1, 1).toUpper() + self.substring(2, self.size());
+
+entrypoint rule Initialize() {
+	to
+		mSpec: Maude!MaudeSpec (
+			els <- Sequence{},
+			printableEls <- Sequence{}
+		),
+		m: Maude!SModule (
+			name <- 'RED-TERM-MODULE',
+			els <- Sequence{}
+		),
+		eq: Maude!Equation (
+			"module" <- m,
+			lhs <- nameEqLHS,
+			rhs <- rhsTerm
+		),
+		nameEqLHS: Maude!Constant (
+			op <- 'term2red'
+		),
+		rhsTerm: Maude!RecTerm (
+		),
+		oidSort: Maude!Sort (
+			name <- 'Oid'
+		),
+		attrSetSort: Maude!Sort (
+			name <- 'AttributeSet'
+		),
+		setOidSort: Maude!Sort (
+			name <- 'Set{Oid}'
+		)
+	do {
+		thisModule.mSpec <- mSpec;		
+		thisModule.mSpec.els <- thisModule.mSpec.els -> including(m);
+		thisModule.sMod <- m;
+		thisModule.eq <- eq;
+		thisModule.oidSort <- oidSort;
+		thisModule.attributeSetSort <- attrSetSort;
+		thisModule.setOidSort <- setOidSort;
+	}
+}
+
+rule Class2Object {
+	from
+		class: Ecore!EClass (
+			ClassesList!ClassesList.allInstances() -> first().list -> includes(class.name)
+		)
+	to
+		object: Maude!RecTerm (
+			op <- '<_:_|_>',
+			args <- Sequence{nameOid,
+						eclass,
+						esfsSet}
+		),
+		nameOid: Maude!Variable (
+			name <- class.name.capitalize(),
+			type <- thisModule.oidSort
+		),
+		eclass: Maude!Constant (
+			op <- 'EClass'
+		),
+		esfsSet: Maude!RecTerm (
+			args <- Sequence{eStructuralFeaturesSFS,
+						attsVar}
+		),
+		eStructuralFeaturesSFS: Maude!RecTerm (
+			op <- '_:_',
+			args <- Sequence{nameeSFS,
+						esfsRecTermSet}
+		),
+		nameeSFS: Maude!Constant (
+			op <- 'eStructuralFeatures'
+		),
+		esfsRecTermSet: Maude!RecTerm (
+			args <- class.eStructuralFeatures -> select(esf | esf.
+					oclIsTypeOf(Ecore!EReference)) -> collect(eref | thisModule.
+					CreateVarFromEReference(eref)) -> append(setOidVariable)
+		),
+		setOidVariable: Maude!Variable (
+			name <- 'Oids' + thisModule.freshIds.toString(),
+			type <- thisModule.setOidSort
+		),
+		attsVar: Maude!Variable (
+			name <- 'Atts' + thisModule.freshIds.toString(),
+			type <- thisModule.attributeSetSort
+		)
+	do {
+		thisModule.eq.rhs.args <- thisModule.eq.rhs.args -> append(object);
+		esfsSet.op <- esfsSet.getEmptySyntaxOperation();
+		esfsRecTermSet.op <- esfsRecTermSet.getSetSyntaxOperation();
+		thisModule.freshIds <- thisModule.freshIds + 1;
+	}
+}
+
+lazy rule CreateVarFromEReference {
+	from
+		r: Ecore!EReference
+	to
+		var: Maude!Variable (
+			name <- r.referenceName(),
+			type <- thisModule.oidSort
+		)
+}
+
+rule Reference2Object {
+	from
+		r: Ecore!EReference,
+		class: Ecore!EClass
+			(ClassesList!ClassesList.allInstances() -> first().list -> includes(class.name) and
+					r.eContainingClass = class)
+	to
+		object: Maude!RecTerm (
+			op <- '<_:_|_>',
+			args <- Sequence{nameOid,
+						eref,
+						esfsSet}
+		),
+		nameOid: Maude!Variable (
+			name <- r.referenceName(),
+			type <- thisModule.oidSort
+		),
+		eref: Maude!Constant (
+			op <- 'EReference'
+		),
+		esfsSet: Maude!RecTerm (
+			args <- Sequence{typeTerm,containmentTerm,upperBoundTerm,
+				lowerBoundTerm,attsSetVar}
+		),
+		-- type
+		typeTerm: Maude!RecTerm (
+			op <- '_:_',
+			args <- Sequence{typeConstant,
+						typeArg}
+		),
+		typeConstant: Maude!Constant (
+			op <- 'eType'
+		),
+		typeArg: Maude!Variable (
+			name <- if r.eType.oclIsTypeOf(Ecore!EClass) then r.eType.name.capitalize() else 'error' endif,
+			type <- thisModule.oidSort
+		),
+		-- containment
+		containmentTerm: Maude!RecTerm (
+			op <- '_:_',
+			args <- Sequence{containmentConstant,
+						containmentValue}
+		),
+		containmentConstant: Maude!Constant (
+			op <- 'containment'
+		),
+		containmentValue: Maude!Constant (
+			op <- if r.containment then
+					'true'
+				else
+					'false'
+				endif
+		),
+		-- lowerBound
+		lowerBoundTerm: Maude!RecTerm (
+			op <- '_:_',
+			args <- Sequence{lowerBoundConstant,
+						lowerBoundValue}
+		),
+		lowerBoundConstant: Maude!Constant (
+			op <- 'lowerBound'
+		),
+		lowerBoundValue: Maude!Constant (
+			op <- if r.lowerBound = -1
+			      then '*'
+				    else r.lowerBound.toString()
+				    endif
+		),
+		-- upperBound
+		upperBoundTerm: Maude!RecTerm (
+			op <- '_:_',
+			args <- Sequence{upperBoundConstant,upperBoundValue}
+		),
+		upperBoundConstant: Maude!Constant (
+			op <- 'upperBound'
+		),
+		upperBoundValue: Maude!Constant (
+			op <- if r.upperBound = -1 then
+					'*'
+				else
+					r.upperBound.toString()
+				endif
+		),
+		attsSetVar: Maude!Variable (
+			name <- 'Atts'+thisModule.freshIds.toString(),
+			type <- thisModule.setOidSort
+		)
+	do {
+		thisModule.eq.rhs.args <- thisModule.eq.rhs.args -> append(object);
+		esfsSet.op <- esfsSet.getEmptySyntaxOperation();
+		thisModule.freshIds <- thisModule.freshIds + 1;
+	}
+}
+
+endpoint rule LastRule() {
+	to 
+		sortConfiguration: Maude!Sort (
+			name <- 'Configuration'
+		),
+		var: Maude!Variable (
+			name <- 'C',
+			type <- sortConfiguration
+		)
+	do {
+		thisModule.eq.rhs.args <- thisModule.eq.rhs.args->append(var);
+		thisModule.eq.rhs.op <- thisModule.eq.rhs.getEmptySyntaxOperation().regexReplaceAll(',', '');
+	}
+}

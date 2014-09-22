@@ -21,15 +21,28 @@
  */
 package es.uma.lcc.mmatching.wizard;
 
+import java.io.IOException;
+
 import org.eclipse.jface.text.Document;
 import org.eclipse.jface.text.TextViewer;
 import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
+import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.List;
+import org.eclipse.swt.widgets.Listener;
+
+import es.uma.lcc.ama.maudedaemon.parser.ParseException;
+import es.uma.lcc.mmatching.codegeneration.GenerateActualMMMaudeModule;
+import es.uma.lcc.mmatching.codegeneration.GenerateTerm2Reduce;
+import es.uma.lcc.mmatching.maude.MaudeProcess;
+import es.uma.lcc.mmatching.maude.exceptions.JobFailedException;
+import es.uma.lcc.mmatching.maude.exceptions.MaudeErrorException;
+import es.uma.lcc.mmatching.maude.exceptions.MaudePrefsException;
 
 public class GettingMatchingsWizardPage extends WizardPage {
 
@@ -41,13 +54,12 @@ public class GettingMatchingsWizardPage extends WizardPage {
 	private List classesList;
 	private java.util.List<String> classes;
 	
-	private Document document;
-	private TextViewer viewer;
+	private static Document document;
+	private static TextViewer viewer;
 
 	protected GettingMatchingsWizardPage(String pageName) {
 		super(pageName);
 		setTitle(pageName);
-		setDescription("Searching initial matchings...");
 		
 		emptyLabels = new Label[50];
 		emptyLabelsCounter = 0;
@@ -61,14 +73,58 @@ public class GettingMatchingsWizardPage extends WizardPage {
 		containerLayout.numColumns = 1;
 		container.setLayout(containerLayout);
 		
+		createButton();
 		createConsole();
-		
-		printToconsole("prueba\n");
-		printToconsole("prueba2");
 		
 		setControl(container);
 	}
 	
+	private void createButton() {
+		Button buttonSearch = new Button(container, SWT.PUSH);
+		buttonSearch.setText("Start");
+		
+		buttonSearch.addListener(SWT.Selection, new Listener() {
+
+			@Override
+            public void handleEvent(Event event) {
+				clearConsole();
+				
+				GenerateActualMMMaudeModule _gm = new GenerateActualMMMaudeModule();
+				String maudeModule = _gm.generateActualMMMaude();
+				
+				printToconsole("- Maude code <ActualParameter> generated.\n");
+				
+				GenerateTerm2Reduce _term2reduce = new GenerateTerm2Reduce();
+				continuar por aquí
+				
+				MaudeProcess mp = new MaudeProcess();
+				try {
+					mp.initMaudeProcess();
+					printToconsole("- Maude process initialized.\n");
+				} catch (MaudePrefsException | MaudeErrorException | NullPointerException e) {
+					printToconsole("[error] error initializing Maude process. Maybe it has not been configured.\n"
+					        + e.getMessage());
+				}
+				
+				try {
+	                mp.loadInfrastructure();
+	                printToconsole("- MMatching infrastructure loaded.\n");
+                } catch (JobFailedException | MaudeErrorException | MaudePrefsException | ParseException | IOException e) {
+                	printToconsole("[error] error loading MMatching infrastructure.\n"
+					        + e.getMessage());
+                }
+				
+				try {
+	                mp.load(maudeModule);
+	                printToconsole("- ActualMM loaded.\n");
+                } catch (JobFailedException | MaudeErrorException | MaudePrefsException | ParseException | IOException e) {
+                	printToconsole("[error] error loading Actual Metamodel Maude module.\n"
+					        + e.getMessage());
+                }
+            }
+		});
+    }
+
 	private void createConsole() {
 		Label label = new Label(container, SWT.HORIZONTAL);
 		label.setText("Console:");
@@ -78,21 +134,30 @@ public class GettingMatchingsWizardPage extends WizardPage {
 		_gridLabel.horizontalSpan = 1;
 
 		label.setLayoutData(_gridLabel);
-		
-		/* Creating console text viewer */		
+
+		/* Creating console text viewer */
 		viewer = new TextViewer(container, SWT.WRAP | SWT.V_SCROLL);
 		GridData viewerData = new GridData(GridData.FILL_BOTH);
 		viewerData.horizontalSpan = 2;
-	  viewer.getControl().setLayoutData(viewerData);
-	  
-	  viewer.setEditable(false);
-	  document = new Document();
-	  viewer.setDocument(document);
+		viewer.getControl().setLayoutData(viewerData);
+
+		viewer.setEditable(false);
+		document = new Document();
+		viewer.setDocument(document);
 	}
 	
-	private void printToconsole(String output) {
-		document.set(document.get()+output);
-	  viewer.setTopIndex(document.getNumberOfLines());
+	public static void printToconsole(String output) {
+		if(document != null && viewer != null) {
+			document.set(document.get() + output);
+			viewer.setTopIndex(document.getNumberOfLines());
+		}
+	}
+	
+	private void clearConsole() {
+		if (document != null && viewer != null) {
+			document.set("");
+			viewer.setTopIndex(document.getNumberOfLines());
+		}
 	}
 
 	private void createEmptyLabel() {
