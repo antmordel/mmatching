@@ -1,0 +1,5 @@
+#!/bin/bash
+git rm -rf JLAMP2014_Example;
+cp -r ../../Eclipse/workspaceModelling/JLAMP2014_workspace_project/ .;
+git add JLAMP2014_workspace_project/;
+git mv JLAMP2014_workspace_project JLAMP2014_Example;
