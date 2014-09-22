@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gcs:MetamodelGD xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:gcs="http://www.lcc.uma.es/GCS/1.0" name="@THROUGHPUT@">
+  <packagesGD name="throughput">
+    <classesGD name="System">
+      <class href="../Metamodel/Throughput.ecore#//System"/>
+    </classesGD>
+    <classesGD name="Queue">
+      <class href="../Metamodel/Throughput.ecore#//Queue"/>
+    </classesGD>
+    <classesGD name="Request">
+      <class href="../Metamodel/Throughput.ecore#//Request"/>
+    </classesGD>
+    <classesGD name="Throughput" figurePath="/JLAMP2014/Throughput/Behavior/ObserverThroughput.jpg">
+      <class href="../Metamodel/Throughput.ecore#//Throughput"/>
+    </classesGD>
+    <package href="../Metamodel/Throughput.ecore#/"/>
+  </packagesGD>
+</gcs:MetamodelGD>
