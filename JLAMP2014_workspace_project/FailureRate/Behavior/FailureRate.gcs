@@ -10,7 +10,7 @@
     <classesGD name="Request">
       <class href="../Metamodel/FailureRate.ecore#//Request"/>
     </classesGD>
-    <classesGD name="FailureRate">
+    <classesGD name="FailureRate" figurePath="/JLAMP2014_workspace_project/FailureRate/Behavior/ObserverFailure.png">
       <class href="../Metamodel/FailureRate.ecore#//FailureRate"/>
     </classesGD>
     <package href="../Metamodel/FailureRate.ecore#/"/>

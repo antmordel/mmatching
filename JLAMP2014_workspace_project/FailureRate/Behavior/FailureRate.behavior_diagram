@@ -10,7 +10,7 @@
       <styles xmi:type="notation:ShapeStyle" xmi:id="_zmz7sUI7EeSckt0yyZ_PRg" fontName="Cantarell"/>
       <styles xmi:type="notation:HintedDiagramLinkStyle" xmi:id="_zmz7skI7EeSckt0yyZ_PRg" diagramLink="_1HFboEI7EeSckt0yyZ_PRg" hint="Rule"/>
       <element xmi:type="behavior:AtomicRule" href="FailureRate.behavior#FailureRateSeq"/>
-      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_zmz7s0I7EeSckt0yyZ_PRg" x="494" y="89"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_zmz7s0I7EeSckt0yyZ_PRg" x="492" y="96"/>
     </children>
     <children xmi:type="notation:Node" xmi:id="_iFSSwEJIEeSYvdWyR0Mo0Q" type="2006">
       <children xmi:type="notation:Node" xmi:id="_iFTg4EJIEeSYvdWyR0Mo0Q" type="5018"/>
@@ -21,7 +21,7 @@
       <styles xmi:type="notation:ShapeStyle" xmi:id="_iFSSwUJIEeSYvdWyR0Mo0Q" fontName="Cantarell"/>
       <styles xmi:type="notation:HintedDiagramLinkStyle" xmi:id="_iFSSwkJIEeSYvdWyR0Mo0Q" diagramLink="_i21EcEJIEeSYvdWyR0Mo0Q" hint="Rule"/>
       <element xmi:type="behavior:OngoingRule" href="FailureRate.behavior#FailureRate1"/>
-      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_iFSSw0JIEeSYvdWyR0Mo0Q" x="495" y="145"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_iFSSw0JIEeSYvdWyR0Mo0Q" x="492" y="144"/>
     </children>
     <children xmi:type="notation:Node" xmi:id="_Tq9hwEJJEeSYvdWyR0Mo0Q" type="2006">
       <children xmi:type="notation:Node" xmi:id="_Tq-I0EJJEeSYvdWyR0Mo0Q" type="5018"/>
@@ -32,7 +32,18 @@
       <styles xmi:type="notation:ShapeStyle" xmi:id="_Tq9hwUJJEeSYvdWyR0Mo0Q" fontName="Cantarell"/>
       <styles xmi:type="notation:HintedDiagramLinkStyle" xmi:id="_Tq9hwkJJEeSYvdWyR0Mo0Q" diagramLink="_UrRIMEJJEeSYvdWyR0Mo0Q" hint="Rule"/>
       <element xmi:type="behavior:OngoingRule" href="FailureRate.behavior#FailureRate2"/>
-      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_Tq9hw0JJEeSYvdWyR0Mo0Q" x="496" y="193"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_Tq9hw0JJEeSYvdWyR0Mo0Q" x="492" y="192"/>
+    </children>
+    <children xmi:type="notation:Node" xmi:id="_iBhs8EJwEeSYvdWyR0Mo0Q" type="2004">
+      <children xmi:type="notation:Node" xmi:id="_iBhs9EJwEeSYvdWyR0Mo0Q" type="5012"/>
+      <children xmi:type="notation:Node" xmi:id="_iBiUAEJwEeSYvdWyR0Mo0Q" type="5013"/>
+      <children xmi:type="notation:Node" xmi:id="_iBiUAUJwEeSYvdWyR0Mo0Q" type="5014"/>
+      <children xmi:type="notation:Node" xmi:id="_iBiUAkJwEeSYvdWyR0Mo0Q" type="5015"/>
+      <children xmi:type="notation:Node" xmi:id="_iBiUA0JwEeSYvdWyR0Mo0Q" type="5016"/>
+      <styles xmi:type="notation:ShapeStyle" xmi:id="_iBhs8UJwEeSYvdWyR0Mo0Q" fontName="Cantarell"/>
+      <styles xmi:type="notation:HintedDiagramLinkStyle" xmi:id="_iBhs8kJwEeSYvdWyR0Mo0Q" diagramLink="_j1MC8EJwEeSYvdWyR0Mo0Q" hint="Rule"/>
+      <element xmi:type="behavior:AtomicRule" href="FailureRate.behavior#CreateFailure"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_iBhs80JwEeSYvdWyR0Mo0Q" x="492" y="48"/>
     </children>
     <styles xmi:type="notation:DiagramStyle" xmi:id="_xImz4UI7EeSckt0yyZ_PRg"/>
     <element xmi:type="behavior:Behavior" href="FailureRate.behavior#/"/>
@@ -52,7 +63,7 @@
           </children>
           <styles xmi:type="notation:ShapeStyle" xmi:id="_5ZA48UI9EeSckt0yyZ_PRg" fontName="Cantarell"/>
           <element xmi:type="behavior:Object" href="FailureRate.behavior#//@rules.0/@patterns.0/@els.0"/>
-          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_5ZA48kI9EeSckt0yyZ_PRg" x="10" y="16"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_5ZA48kI9EeSckt0yyZ_PRg" x="7" y="7"/>
         </children>
         <children xmi:type="notation:Node" xmi:id="_xPYC4EI-EeSckt0yyZ_PRg" type="3005">
           <children xmi:type="notation:Node" xmi:id="_xPYp8EI-EeSckt0yyZ_PRg" type="5013"/>
@@ -65,7 +76,7 @@
           </children>
           <styles xmi:type="notation:ShapeStyle" xmi:id="_xPYC4UI-EeSckt0yyZ_PRg" fontName="Cantarell"/>
           <element xmi:type="behavior:Object" href="FailureRate.behavior#//@rules.0/@patterns.0/@els.1"/>
-          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_xPYC4kI-EeSckt0yyZ_PRg" x="11" y="111"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_xPYC4kI-EeSckt0yyZ_PRg" x="7" y="103"/>
         </children>
         <children xmi:type="notation:Node" xmi:id="_7MtOsEI-EeSckt0yyZ_PRg" type="3005">
           <children xmi:type="notation:Node" xmi:id="_7Mt1wEI-EeSckt0yyZ_PRg" type="5013"/>
@@ -78,7 +89,7 @@
           </children>
           <styles xmi:type="notation:ShapeStyle" xmi:id="_7MtOsUI-EeSckt0yyZ_PRg" fontName="Cantarell"/>
           <element xmi:type="behavior:Object" href="FailureRate.behavior#//@rules.0/@patterns.0/@els.2"/>
-          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_7MtOskI-EeSckt0yyZ_PRg" x="103" y="115"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_7MtOskI-EeSckt0yyZ_PRg" x="103" y="103"/>
         </children>
         <children xmi:type="notation:Node" xmi:id="_8kW-IEI-EeSckt0yyZ_PRg" type="3005">
           <children xmi:type="notation:Node" xmi:id="_8kXlMEI-EeSckt0yyZ_PRg" type="5013"/>
@@ -91,7 +102,7 @@
           </children>
           <styles xmi:type="notation:ShapeStyle" xmi:id="_8kW-IUI-EeSckt0yyZ_PRg" fontName="Cantarell"/>
           <element xmi:type="behavior:Object" href="FailureRate.behavior#//@rules.0/@patterns.0/@els.3"/>
-          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_8kW-IkI-EeSckt0yyZ_PRg" x="199" y="115"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_8kW-IkI-EeSckt0yyZ_PRg" x="199" y="103"/>
         </children>
         <children xmi:type="notation:Node" xmi:id="_kxsEEEJHEeSYvdWyR0Mo0Q" type="3005">
           <children xmi:type="notation:Node" xmi:id="_kxtSMEJHEeSYvdWyR0Mo0Q" type="5013"/>
@@ -104,7 +115,7 @@
           </children>
           <styles xmi:type="notation:ShapeStyle" xmi:id="_kxsEEUJHEeSYvdWyR0Mo0Q" fontName="Cantarell"/>
           <element xmi:type="behavior:Object" href="FailureRate.behavior#//@rules.0/@patterns.0/@els.7"/>
-          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_kxsEEkJHEeSYvdWyR0Mo0Q" x="99" y="219"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_kxsEEkJHEeSYvdWyR0Mo0Q" x="115" y="199"/>
         </children>
         <styles xmi:type="notation:DrawerStyle" xmi:id="_a5v6JUI9EeSckt0yyZ_PRg"/>
         <styles xmi:type="notation:SortingStyle" xmi:id="_a5v6JkI9EeSckt0yyZ_PRg"/>
@@ -112,7 +123,7 @@
       </children>
       <styles xmi:type="notation:ShapeStyle" xmi:id="_a5v6IUI9EeSckt0yyZ_PRg" fontName="Cantarell"/>
       <element xmi:type="behavior:Pattern" href="FailureRate.behavior#//@rules.0/@patterns.0"/>
-      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_a5v6IkI9EeSckt0yyZ_PRg" width="337" height="373"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_a5v6IkI9EeSckt0yyZ_PRg" x="84" y="12" width="277" height="313"/>
     </children>
     <children xmi:type="notation:Node" xmi:id="_a5whMEI9EeSckt0yyZ_PRg" type="2005">
       <children xmi:type="notation:Node" xmi:id="_a5whM0I9EeSckt0yyZ_PRg" type="5050"/>
@@ -128,7 +139,7 @@
           </children>
           <styles xmi:type="notation:ShapeStyle" xmi:id="_QJteAUJIEeSYvdWyR0Mo0Q" fontName="Cantarell"/>
           <element xmi:type="behavior:Object" href="FailureRate.behavior#//@rules.0/@patterns.1/@els.0"/>
-          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_QJteAkJIEeSYvdWyR0Mo0Q" x="13" y="139"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_QJteAkJIEeSYvdWyR0Mo0Q" x="13" y="115"/>
         </children>
         <children xmi:type="notation:Node" xmi:id="_QyR54EJIEeSYvdWyR0Mo0Q" type="3005">
           <children xmi:type="notation:Node" xmi:id="_QySg8EJIEeSYvdWyR0Mo0Q" type="5013"/>
@@ -141,7 +152,7 @@
           </children>
           <styles xmi:type="notation:ShapeStyle" xmi:id="_QyR54UJIEeSYvdWyR0Mo0Q" fontName="Cantarell"/>
           <element xmi:type="behavior:Object" href="FailureRate.behavior#//@rules.0/@patterns.1/@els.1"/>
-          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_QyR54kJIEeSYvdWyR0Mo0Q" x="115" y="139"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_QyR54kJIEeSYvdWyR0Mo0Q" x="115" y="115"/>
         </children>
         <children xmi:type="notation:Node" xmi:id="_RUZIcEJIEeSYvdWyR0Mo0Q" type="3005">
           <children xmi:type="notation:Node" xmi:id="_RUZvgEJIEeSYvdWyR0Mo0Q" type="5013"/>
@@ -154,7 +165,7 @@
           </children>
           <styles xmi:type="notation:ShapeStyle" xmi:id="_RUZIcUJIEeSYvdWyR0Mo0Q" fontName="Cantarell"/>
           <element xmi:type="behavior:Object" href="FailureRate.behavior#//@rules.0/@patterns.1/@els.2"/>
-          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_RUZIckJIEeSYvdWyR0Mo0Q" x="223" y="139"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_RUZIckJIEeSYvdWyR0Mo0Q" x="223" y="115"/>
         </children>
         <children xmi:type="notation:Node" xmi:id="_VWHRcEJIEeSYvdWyR0Mo0Q" type="3005">
           <children xmi:type="notation:Node" xmi:id="_VWH4gEJIEeSYvdWyR0Mo0Q" type="5013"/>
@@ -167,7 +178,7 @@
           </children>
           <styles xmi:type="notation:ShapeStyle" xmi:id="_VWHRcUJIEeSYvdWyR0Mo0Q" fontName="Cantarell"/>
           <element xmi:type="behavior:Object" href="FailureRate.behavior#//@rules.0/@patterns.1/@els.5"/>
-          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_VWHRckJIEeSYvdWyR0Mo0Q" x="223" y="31"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_VWHRckJIEeSYvdWyR0Mo0Q" x="223" y="7"/>
         </children>
         <children xmi:type="notation:Node" xmi:id="_XRjDYEJIEeSYvdWyR0Mo0Q" type="3005">
           <children xmi:type="notation:Node" xmi:id="_XRjqcEJIEeSYvdWyR0Mo0Q" type="5013"/>
@@ -180,7 +191,7 @@
           </children>
           <styles xmi:type="notation:ShapeStyle" xmi:id="_XRjDYUJIEeSYvdWyR0Mo0Q" fontName="Cantarell"/>
           <element xmi:type="behavior:Object" href="FailureRate.behavior#//@rules.0/@patterns.1/@els.7"/>
-          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_XRjDYkJIEeSYvdWyR0Mo0Q" x="124" y="239"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_XRjDYkJIEeSYvdWyR0Mo0Q" x="127" y="211"/>
         </children>
         <styles xmi:type="notation:DrawerStyle" xmi:id="_a5xIQUI9EeSckt0yyZ_PRg"/>
         <styles xmi:type="notation:SortingStyle" xmi:id="_a5xIQkI9EeSckt0yyZ_PRg"/>
@@ -188,7 +199,7 @@
       </children>
       <styles xmi:type="notation:ShapeStyle" xmi:id="_a5whMUI9EeSckt0yyZ_PRg" fontName="Cantarell"/>
       <element xmi:type="behavior:Pattern" href="FailureRate.behavior#//@rules.0/@patterns.1"/>
-      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_a5whMkI9EeSckt0yyZ_PRg" x="360" width="385" height="373"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_a5whMkI9EeSckt0yyZ_PRg" x="360" y="12" width="337" height="313"/>
     </children>
     <styles xmi:type="notation:DiagramStyle" xmi:id="_1HFboUI7EeSckt0yyZ_PRg"/>
     <element xmi:type="behavior:AtomicRule" href="FailureRate.behavior#FailureRateSeq"/>
@@ -297,12 +308,12 @@
         <layoutConstraint xmi:type="notation:Location" xmi:id="_feDx0UJIEeSYvdWyR0Mo0Q" y="40"/>
       </children>
       <children xmi:type="notation:Node" xmi:id="_feDx0kJIEeSYvdWyR0Mo0Q" type="6002">
-        <layoutConstraint xmi:type="notation:Location" xmi:id="_feDx00JIEeSYvdWyR0Mo0Q" y="60"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_feDx00JIEeSYvdWyR0Mo0Q" x="-25" y="-32"/>
       </children>
       <styles xmi:type="notation:ConnectorStyle" xmi:id="_feDKwUJIEeSYvdWyR0Mo0Q"/>
       <styles xmi:type="notation:FontStyle" xmi:id="_feDKwkJIEeSYvdWyR0Mo0Q" fontName="Cantarell"/>
       <element xmi:type="behavior:Link" href="FailureRate.behavior#//@rules.0/@patterns.1/@els.9"/>
-      <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_feDKw0JIEeSYvdWyR0Mo0Q" points="[46, -8, -37, 200]$[185, -8, 102, 200]$[185, -200, 102, 8]$[114, -200, 31, 8]"/>
+      <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_feDKw0JIEeSYvdWyR0Mo0Q" points="[20, 0, -89, 198]$[163, 0, 54, 198]$[163, -198, 54, 0]$[140, -198, 31, 0]"/>
     </edges>
   </notation:Diagram>
   <notation:Diagram xmi:id="_i21EcEJIEeSYvdWyR0Mo0Q" type="Rule" measurementUnit="Pixel">
@@ -320,7 +331,7 @@
           </children>
           <styles xmi:type="notation:ShapeStyle" xmi:id="_zLXC4UJIEeSYvdWyR0Mo0Q" fontName="Cantarell"/>
           <element xmi:type="behavior:Object" href="FailureRate.behavior#//@rules.1/@patterns.0/@els.0"/>
-          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_zLXC4kJIEeSYvdWyR0Mo0Q" x="79" y="139"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_zLXC4kJIEeSYvdWyR0Mo0Q" x="15" y="87"/>
         </children>
         <children xmi:type="notation:Node" xmi:id="_5PUJYEJIEeSYvdWyR0Mo0Q" type="3005">
           <children xmi:type="notation:Node" xmi:id="_5PUwcEJIEeSYvdWyR0Mo0Q" type="5013"/>
@@ -333,13 +344,13 @@
           </children>
           <styles xmi:type="notation:ShapeStyle" xmi:id="_5PUJYUJIEeSYvdWyR0Mo0Q" fontName="Cantarell"/>
           <element xmi:type="behavior:Object" href="FailureRate.behavior#//@rules.1/@patterns.0/@els.1"/>
-          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_5PUJYkJIEeSYvdWyR0Mo0Q" x="91" y="21"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_5PUJYkJIEeSYvdWyR0Mo0Q" x="31" y="7"/>
         </children>
         <children xmi:type="notation:Node" xmi:id="_L7IvUEJJEeSYvdWyR0Mo0Q" type="3004">
           <children xmi:type="notation:Node" xmi:id="_L7JWYEJJEeSYvdWyR0Mo0Q" type="5009"/>
           <styles xmi:type="notation:ShapeStyle" xmi:id="_L7IvUUJJEeSYvdWyR0Mo0Q" fontName="Cantarell"/>
           <element xmi:type="behavior:Condition" href="FailureRate.behavior#//@rules.1/@patterns.0/@els.3"/>
-          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_L7IvUkJJEeSYvdWyR0Mo0Q" x="35" y="234"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_L7IvUkJJEeSYvdWyR0Mo0Q" x="3" y="159" width="89"/>
         </children>
         <styles xmi:type="notation:DrawerStyle" xmi:id="_i5SikUJIEeSYvdWyR0Mo0Q"/>
         <styles xmi:type="notation:SortingStyle" xmi:id="_i5SikkJIEeSYvdWyR0Mo0Q"/>
@@ -347,7 +358,7 @@
       </children>
       <styles xmi:type="notation:ShapeStyle" xmi:id="_i5RUcUJIEeSYvdWyR0Mo0Q" fontName="Cantarell"/>
       <element xmi:type="behavior:Pattern" href="FailureRate.behavior#//@rules.1/@patterns.0"/>
-      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_i5RUckJIEeSYvdWyR0Mo0Q"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_i5RUckJIEeSYvdWyR0Mo0Q" x="180" y="24" width="121" height="217"/>
     </children>
     <children xmi:type="notation:Node" xmi:id="_i5TJoEJIEeSYvdWyR0Mo0Q" type="2005">
       <children xmi:type="notation:Node" xmi:id="_i5TJo0JIEeSYvdWyR0Mo0Q" type="5050"/>
@@ -387,7 +398,7 @@
           </children>
           <styles xmi:type="notation:ShapeStyle" xmi:id="_9UZIYUJIEeSYvdWyR0Mo0Q" fontName="Cantarell"/>
           <element xmi:type="behavior:Object" href="FailureRate.behavior#//@rules.1/@patterns.1/@els.0"/>
-          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_9UZIYkJIEeSYvdWyR0Mo0Q" x="33" y="9"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_9UZIYkJIEeSYvdWyR0Mo0Q" x="7" y="7"/>
         </children>
         <children xmi:type="notation:Node" xmi:id="_kkw7AEJKEeSYvdWyR0Mo0Q" type="3005">
           <children xmi:type="notation:Node" xmi:id="_kkxiEEJKEeSYvdWyR0Mo0Q" type="5013"/>
@@ -400,7 +411,7 @@
           </children>
           <styles xmi:type="notation:ShapeStyle" xmi:id="_kkw7AUJKEeSYvdWyR0Mo0Q" fontName="Cantarell"/>
           <element xmi:type="behavior:Object" href="FailureRate.behavior#//@rules.1/@patterns.1/@els.1"/>
-          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_kkw7AkJKEeSYvdWyR0Mo0Q" x="55" y="163"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_kkw7AkJKEeSYvdWyR0Mo0Q" x="19" y="115"/>
         </children>
         <styles xmi:type="notation:DrawerStyle" xmi:id="_i5TwsUJIEeSYvdWyR0Mo0Q"/>
         <styles xmi:type="notation:SortingStyle" xmi:id="_i5TwskJIEeSYvdWyR0Mo0Q"/>
@@ -408,7 +419,7 @@
       </children>
       <styles xmi:type="notation:ShapeStyle" xmi:id="_i5TJoUJIEeSYvdWyR0Mo0Q" fontName="Cantarell"/>
       <element xmi:type="behavior:Pattern" href="FailureRate.behavior#//@rules.1/@patterns.1"/>
-      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_i5TJokJIEeSYvdWyR0Mo0Q" x="360"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_i5TJokJIEeSYvdWyR0Mo0Q" x="300" y="24" width="277" height="241"/>
     </children>
     <styles xmi:type="notation:DiagramStyle" xmi:id="_i21EcUJIEeSYvdWyR0Mo0Q"/>
     <element xmi:type="behavior:OngoingRule" href="FailureRate.behavior#FailureRate1"/>
@@ -417,13 +428,13 @@
         <layoutConstraint xmi:type="notation:Location" xmi:id="_7hOhoUJIEeSYvdWyR0Mo0Q" y="40"/>
       </children>
       <children xmi:type="notation:Node" xmi:id="_7hPIsEJIEeSYvdWyR0Mo0Q" type="6002">
-        <layoutConstraint xmi:type="notation:Location" xmi:id="_7hPIsUJIEeSYvdWyR0Mo0Q" x="2" y="38"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_7hPIsUJIEeSYvdWyR0Mo0Q" x="-4" y="-34"/>
       </children>
       <styles xmi:type="notation:ConnectorStyle" xmi:id="_7hN6kUJIEeSYvdWyR0Mo0Q"/>
       <styles xmi:type="notation:FontStyle" xmi:id="_7hN6kkJIEeSYvdWyR0Mo0Q" fontName="Cantarell"/>
       <element xmi:type="behavior:Link" href="FailureRate.behavior#//@rules.1/@patterns.0/@els.2"/>
       <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_7hN6k0JIEeSYvdWyR0Mo0Q" points="[-5, 41, 11, -101]$[15, 146, 31, 4]"/>
-      <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_79PvQEJIEeSYvdWyR0Mo0Q" id="(0.31521739130434784,0.8148148148148148)"/>
+      <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_79PvQEJIEeSYvdWyR0Mo0Q" id="(0.4,0.8524590163934426)"/>
     </edges>
   </notation:Diagram>
   <notation:Diagram xmi:id="_UrRIMEJJEeSYvdWyR0Mo0Q" type="Rule" measurementUnit="Pixel">
@@ -441,7 +452,7 @@
           </children>
           <styles xmi:type="notation:ShapeStyle" xmi:id="_iCdLwUJJEeSYvdWyR0Mo0Q" fontName="Cantarell"/>
           <element xmi:type="behavior:Object" href="FailureRate.behavior#//@rules.2/@patterns.0/@els.0"/>
-          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_iCdLwkJJEeSYvdWyR0Mo0Q" x="31" y="139"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_iCdLwkJJEeSYvdWyR0Mo0Q" x="7" y="79"/>
         </children>
         <children xmi:type="notation:Node" xmi:id="_yLJtoEJJEeSYvdWyR0Mo0Q" type="3005">
           <children xmi:type="notation:Node" xmi:id="_yLK7wEJJEeSYvdWyR0Mo0Q" type="5013"/>
@@ -454,13 +465,13 @@
           </children>
           <styles xmi:type="notation:ShapeStyle" xmi:id="_yLJtoUJJEeSYvdWyR0Mo0Q" fontName="Cantarell"/>
           <element xmi:type="behavior:Object" href="FailureRate.behavior#//@rules.2/@patterns.0/@els.1"/>
-          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_yLJtokJJEeSYvdWyR0Mo0Q" x="31" y="19"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_yLJtokJJEeSYvdWyR0Mo0Q" x="8" y="1"/>
         </children>
         <children xmi:type="notation:Node" xmi:id="_2holsEJJEeSYvdWyR0Mo0Q" type="3004">
           <children xmi:type="notation:Node" xmi:id="_2hpMwEJJEeSYvdWyR0Mo0Q" type="5009"/>
           <styles xmi:type="notation:ShapeStyle" xmi:id="_2holsUJJEeSYvdWyR0Mo0Q" fontName="Cantarell"/>
           <element xmi:type="behavior:Condition" href="FailureRate.behavior#//@rules.2/@patterns.0/@els.3"/>
-          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_2holskJJEeSYvdWyR0Mo0Q" x="17" y="227"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_2holskJJEeSYvdWyR0Mo0Q" x="2" y="163" width="102"/>
         </children>
         <styles xmi:type="notation:DrawerStyle" xmi:id="_UtjnMkJJEeSYvdWyR0Mo0Q"/>
         <styles xmi:type="notation:SortingStyle" xmi:id="_UtjnM0JJEeSYvdWyR0Mo0Q"/>
@@ -468,7 +479,7 @@
       </children>
       <styles xmi:type="notation:ShapeStyle" xmi:id="_UtjAIUJJEeSYvdWyR0Mo0Q" fontName="Cantarell"/>
       <element xmi:type="behavior:Pattern" href="FailureRate.behavior#//@rules.2/@patterns.0"/>
-      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_UtjAIkJJEeSYvdWyR0Mo0Q" x="36" y="12"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_UtjAIkJJEeSYvdWyR0Mo0Q" x="36" y="12" width="121" height="217"/>
     </children>
     <children xmi:type="notation:Node" xmi:id="_UtjnNUJJEeSYvdWyR0Mo0Q" type="2005">
       <children xmi:type="notation:Node" xmi:id="_UtkOQEJJEeSYvdWyR0Mo0Q" type="5050"/>
@@ -500,7 +511,7 @@
           </children>
           <styles xmi:type="notation:ShapeStyle" xmi:id="_39rF4UJJEeSYvdWyR0Mo0Q" fontName="Cantarell"/>
           <element xmi:type="behavior:Object" href="FailureRate.behavior#//@rules.2/@patterns.1/@els.0"/>
-          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_39rF4kJJEeSYvdWyR0Mo0Q" x="37" y="24"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_39rF4kJJEeSYvdWyR0Mo0Q" x="7" y="7"/>
         </children>
         <children xmi:type="notation:Node" xmi:id="_6lakMEJJEeSYvdWyR0Mo0Q" type="3005">
           <children xmi:type="notation:Node" xmi:id="_6lakM0JJEeSYvdWyR0Mo0Q" type="5013"/>
@@ -513,7 +524,7 @@
           </children>
           <styles xmi:type="notation:ShapeStyle" xmi:id="_6lakMUJJEeSYvdWyR0Mo0Q" fontName="Cantarell"/>
           <element xmi:type="behavior:Object" href="FailureRate.behavior#//@rules.2/@patterns.1/@els.1"/>
-          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_6lakMkJJEeSYvdWyR0Mo0Q" x="31" y="175"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_6lakMkJJEeSYvdWyR0Mo0Q" x="7" y="91"/>
         </children>
         <styles xmi:type="notation:DrawerStyle" xmi:id="_UtkOQkJJEeSYvdWyR0Mo0Q"/>
         <styles xmi:type="notation:SortingStyle" xmi:id="_UtkOQ0JJEeSYvdWyR0Mo0Q"/>
@@ -521,7 +532,7 @@
       </children>
       <styles xmi:type="notation:ShapeStyle" xmi:id="_UtjnNkJJEeSYvdWyR0Mo0Q" fontName="Cantarell"/>
       <element xmi:type="behavior:Pattern" href="FailureRate.behavior#//@rules.2/@patterns.1"/>
-      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_UtjnN0JJEeSYvdWyR0Mo0Q" x="348" y="12"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_UtjnN0JJEeSYvdWyR0Mo0Q" x="156" y="12" width="241" height="217"/>
     </children>
     <styles xmi:type="notation:DiagramStyle" xmi:id="_UrRIMUJJEeSYvdWyR0Mo0Q"/>
     <element xmi:type="behavior:OngoingRule" href="FailureRate.behavior#FailureRate2"/>
@@ -536,6 +547,90 @@
       <styles xmi:type="notation:FontStyle" xmi:id="_0d064kJJEeSYvdWyR0Mo0Q" fontName="Cantarell"/>
       <element xmi:type="behavior:Link" href="FailureRate.behavior#//@rules.2/@patterns.0/@els.2"/>
       <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_0d0640JJEeSYvdWyR0Mo0Q" points="[-3, 41, 6, -91]$[-10, 173, -1, 41]"/>
+    </edges>
+  </notation:Diagram>
+  <notation:Diagram xmi:id="_j1MC8EJwEeSYvdWyR0Mo0Q" type="Rule" measurementUnit="Pixel">
+    <children xmi:type="notation:Node" xmi:id="_j3Jx0EJwEeSYvdWyR0Mo0Q" type="2005">
+      <children xmi:type="notation:Node" xmi:id="_j3KY4EJwEeSYvdWyR0Mo0Q" type="5050"/>
+      <children xmi:type="notation:Node" xmi:id="_j3KY4UJwEeSYvdWyR0Mo0Q" type="7008">
+        <children xmi:type="notation:Node" xmi:id="_kOi-IEJwEeSYvdWyR0Mo0Q" type="3005">
+          <children xmi:type="notation:Node" xmi:id="_kOjlMEJwEeSYvdWyR0Mo0Q" type="5013"/>
+          <children xmi:type="notation:Node" xmi:id="_kOjlMUJwEeSYvdWyR0Mo0Q" type="5014"/>
+          <children xmi:type="notation:Node" xmi:id="_kOkMQEJwEeSYvdWyR0Mo0Q" type="5015"/>
+          <children xmi:type="notation:Node" xmi:id="_kOkMQUJwEeSYvdWyR0Mo0Q" type="7003">
+            <styles xmi:type="notation:DrawerStyle" xmi:id="_kOkMQkJwEeSYvdWyR0Mo0Q"/>
+            <styles xmi:type="notation:SortingStyle" xmi:id="_kOkMQ0JwEeSYvdWyR0Mo0Q"/>
+            <styles xmi:type="notation:FilteringStyle" xmi:id="_kOkMREJwEeSYvdWyR0Mo0Q"/>
+          </children>
+          <styles xmi:type="notation:ShapeStyle" xmi:id="_kOi-IUJwEeSYvdWyR0Mo0Q" fontName="Cantarell"/>
+          <element xmi:type="behavior:Object" href="FailureRate.behavior#//@rules.3/@patterns.0/@els.0"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_kOi-IkJwEeSYvdWyR0Mo0Q" x="10"/>
+        </children>
+        <children xmi:type="notation:Node" xmi:id="_sKuKgEJwEeSYvdWyR0Mo0Q" type="3004">
+          <children xmi:type="notation:Node" xmi:id="_sKuKg0JwEeSYvdWyR0Mo0Q" type="5009"/>
+          <styles xmi:type="notation:ShapeStyle" xmi:id="_sKuKgUJwEeSYvdWyR0Mo0Q" fontName="Cantarell"/>
+          <element xmi:type="behavior:Condition" href="FailureRate.behavior#//@rules.3/@patterns.0/@els.1"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_sKuKgkJwEeSYvdWyR0Mo0Q" x="7" y="79"/>
+        </children>
+        <styles xmi:type="notation:DrawerStyle" xmi:id="_j3KY4kJwEeSYvdWyR0Mo0Q"/>
+        <styles xmi:type="notation:SortingStyle" xmi:id="_j3KY40JwEeSYvdWyR0Mo0Q"/>
+        <styles xmi:type="notation:FilteringStyle" xmi:id="_j3KY5EJwEeSYvdWyR0Mo0Q"/>
+      </children>
+      <styles xmi:type="notation:ShapeStyle" xmi:id="_j3Jx0UJwEeSYvdWyR0Mo0Q" fontName="Cantarell"/>
+      <element xmi:type="behavior:Pattern" href="FailureRate.behavior#//@rules.3/@patterns.0"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_j3Jx0kJwEeSYvdWyR0Mo0Q" x="204" y="24" width="157" height="133"/>
+    </children>
+    <children xmi:type="notation:Node" xmi:id="_j3K_8EJwEeSYvdWyR0Mo0Q" type="2005">
+      <children xmi:type="notation:Node" xmi:id="_j3K_80JwEeSYvdWyR0Mo0Q" type="5050"/>
+      <children xmi:type="notation:Node" xmi:id="_j3K_9EJwEeSYvdWyR0Mo0Q" type="7008">
+        <children xmi:type="notation:Node" xmi:id="_mH-k8EJwEeSYvdWyR0Mo0Q" type="3005">
+          <children xmi:type="notation:Node" xmi:id="_mH_MAkJwEeSYvdWyR0Mo0Q" type="5013"/>
+          <children xmi:type="notation:Node" xmi:id="_mH_zEEJwEeSYvdWyR0Mo0Q" type="5014"/>
+          <children xmi:type="notation:Node" xmi:id="_mH_zEUJwEeSYvdWyR0Mo0Q" type="5015"/>
+          <children xmi:type="notation:Node" xmi:id="_mH_zEkJwEeSYvdWyR0Mo0Q" type="7003">
+            <styles xmi:type="notation:DrawerStyle" xmi:id="_mH_zE0JwEeSYvdWyR0Mo0Q"/>
+            <styles xmi:type="notation:SortingStyle" xmi:id="_mH_zFEJwEeSYvdWyR0Mo0Q"/>
+            <styles xmi:type="notation:FilteringStyle" xmi:id="_mH_zFUJwEeSYvdWyR0Mo0Q"/>
+          </children>
+          <styles xmi:type="notation:ShapeStyle" xmi:id="_mH_MAEJwEeSYvdWyR0Mo0Q" fontName="Cantarell"/>
+          <element xmi:type="behavior:Object" href="FailureRate.behavior#//@rules.3/@patterns.1/@els.0"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_mH_MAUJwEeSYvdWyR0Mo0Q" x="14" y="7"/>
+        </children>
+        <children xmi:type="notation:Node" xmi:id="_mqifcEJwEeSYvdWyR0Mo0Q" type="3005">
+          <children xmi:type="notation:Node" xmi:id="_mqifc0JwEeSYvdWyR0Mo0Q" type="5013"/>
+          <children xmi:type="notation:Node" xmi:id="_mqifdEJwEeSYvdWyR0Mo0Q" type="5014"/>
+          <children xmi:type="notation:Node" xmi:id="_mqifdUJwEeSYvdWyR0Mo0Q" type="5015"/>
+          <children xmi:type="notation:Node" xmi:id="_mqjGgEJwEeSYvdWyR0Mo0Q" type="7003">
+            <styles xmi:type="notation:DrawerStyle" xmi:id="_mqjGgUJwEeSYvdWyR0Mo0Q"/>
+            <styles xmi:type="notation:SortingStyle" xmi:id="_mqjGgkJwEeSYvdWyR0Mo0Q"/>
+            <styles xmi:type="notation:FilteringStyle" xmi:id="_mqjGg0JwEeSYvdWyR0Mo0Q"/>
+          </children>
+          <styles xmi:type="notation:ShapeStyle" xmi:id="_mqifcUJwEeSYvdWyR0Mo0Q" fontName="Cantarell"/>
+          <element xmi:type="behavior:Object" href="FailureRate.behavior#//@rules.3/@patterns.1/@els.1"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_mqifckJwEeSYvdWyR0Mo0Q" x="103" y="7"/>
+        </children>
+        <styles xmi:type="notation:DrawerStyle" xmi:id="_j3K_9UJwEeSYvdWyR0Mo0Q"/>
+        <styles xmi:type="notation:SortingStyle" xmi:id="_j3K_9kJwEeSYvdWyR0Mo0Q"/>
+        <styles xmi:type="notation:FilteringStyle" xmi:id="_j3K_90JwEeSYvdWyR0Mo0Q"/>
+      </children>
+      <styles xmi:type="notation:ShapeStyle" xmi:id="_j3K_8UJwEeSYvdWyR0Mo0Q" fontName="Cantarell"/>
+      <element xmi:type="behavior:Pattern" href="FailureRate.behavior#//@rules.3/@patterns.1"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_j3K_8kJwEeSYvdWyR0Mo0Q" x="360" y="24" width="157" height="133"/>
+    </children>
+    <styles xmi:type="notation:DiagramStyle" xmi:id="_j1MC8UJwEeSYvdWyR0Mo0Q"/>
+    <element xmi:type="behavior:AtomicRule" href="FailureRate.behavior#CreateFailure"/>
+    <edges xmi:type="notation:Edge" xmi:id="_n4PBoEJwEeSYvdWyR0Mo0Q" type="4001" source="_mH-k8EJwEeSYvdWyR0Mo0Q" target="_mqifcEJwEeSYvdWyR0Mo0Q">
+      <children xmi:type="notation:Node" xmi:id="_n4PosEJwEeSYvdWyR0Mo0Q" type="6001">
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_n4PosUJwEeSYvdWyR0Mo0Q" y="40"/>
+      </children>
+      <children xmi:type="notation:Node" xmi:id="_n4PoskJwEeSYvdWyR0Mo0Q" type="6002">
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_n4Pos0JwEeSYvdWyR0Mo0Q" y="-18"/>
+      </children>
+      <styles xmi:type="notation:ConnectorStyle" xmi:id="_n4PBoUJwEeSYvdWyR0Mo0Q"/>
+      <styles xmi:type="notation:FontStyle" xmi:id="_n4PBokJwEeSYvdWyR0Mo0Q" fontName="Cantarell"/>
+      <element xmi:type="behavior:Link" href="FailureRate.behavior#//@rules.3/@patterns.1/@els.2"/>
+      <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_n4PBo0JwEeSYvdWyR0Mo0Q" points="[-5, 41, 0, -75]$[-8, 123, -3, 7]"/>
+      <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_n4SE8EJwEeSYvdWyR0Mo0Q" id="(0.325,0.8852459016393442)"/>
     </edges>
   </notation:Diagram>
 </xmi:XMI>

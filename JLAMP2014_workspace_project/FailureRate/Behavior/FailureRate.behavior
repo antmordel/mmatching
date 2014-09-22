@@ -75,7 +75,7 @@
       <els xsi:type="behavior:Link" src="//@rules.1/@patterns.0/@els.1" target="//@rules.1/@patterns.0/@els.0">
         <ref href="../Metamodel/FailureRate.ecore#//FailureRate/reqResults"/>
       </els>
-      <els xsi:type="behavior:Condition" oclValue="r.defRate = true"/>
+      <els xsi:type="behavior:Condition" oclValue="r.defefective"/>
     </patterns>
     <patterns name="RHS">
       <els xsi:type="behavior:Object" id="o">
@@ -106,7 +106,7 @@
       <els xsi:type="behavior:Link" src="//@rules.2/@patterns.0/@els.1" target="//@rules.2/@patterns.0/@els.0">
         <ref href="../Metamodel/FailureRate.ecore#//FailureRate/reqResults"/>
       </els>
-      <els xsi:type="behavior:Condition" oclValue="r.defRate = false"/>
+      <els xsi:type="behavior:Condition" oclValue="not r.defective"/>
     </patterns>
     <patterns name="RHS">
       <els xsi:type="behavior:Object" id="o">
@@ -120,6 +120,25 @@
       </els>
       <els xsi:type="behavior:Object" id="r">
         <classGD href="FailureRate.gcs#//@packagesGD.0/@classesGD.2"/>
+      </els>
+    </patterns>
+  </rules>
+  <rules xsi:type="behavior:AtomicRule" name="CreateFailure" lhs="//@rules.3/@patterns.0" rhs="//@rules.3/@patterns.1" maxDuration="0">
+    <patterns name="LHS">
+      <els xsi:type="behavior:Object" id="s">
+        <classGD href="FailureRate.gcs#//@packagesGD.0/@classesGD.0"/>
+      </els>
+      <els xsi:type="behavior:Condition" oclValue="s.flRt.oclIsUndefined()"/>
+    </patterns>
+    <patterns name="RHS">
+      <els xsi:type="behavior:Object" id="s" outLinks="//@rules.3/@patterns.1/@els.2">
+        <classGD href="FailureRate.gcs#//@packagesGD.0/@classesGD.0"/>
+      </els>
+      <els xsi:type="behavior:Object" id="flRt" inLinks="//@rules.3/@patterns.1/@els.2">
+        <classGD href="FailureRate.gcs#//@packagesGD.0/@classesGD.3"/>
+      </els>
+      <els xsi:type="behavior:Link" src="//@rules.3/@patterns.1/@els.0" target="//@rules.3/@patterns.1/@els.1">
+        <ref href="../Metamodel/FailureRate.ecore#//Server/flRt"/>
       </els>
     </patterns>
   </rules>

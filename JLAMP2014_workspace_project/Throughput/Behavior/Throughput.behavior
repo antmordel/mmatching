@@ -63,4 +63,23 @@
       </els>
     </patterns>
   </rules>
+  <rules xsi:type="behavior:AtomicRule" name="CreateThroughput" lhs="//@rules.2/@patterns.0" rhs="//@rules.2/@patterns.1" maxDuration="0">
+    <patterns name="LHS">
+      <els xsi:type="behavior:Object" id="s">
+        <classGD href="Throughput.gcs#//@packagesGD.0/@classesGD.0"/>
+      </els>
+      <els xsi:type="behavior:Condition" oclValue="s.thp.oclIsUndefined()"/>
+    </patterns>
+    <patterns name="RHS">
+      <els xsi:type="behavior:Object" id="s" outLinks="//@rules.2/@patterns.1/@els.2">
+        <classGD href="Throughput.gcs#//@packagesGD.0/@classesGD.0"/>
+      </els>
+      <els xsi:type="behavior:Object" id="t" inLinks="//@rules.2/@patterns.1/@els.2">
+        <classGD href="Throughput.gcs#//@packagesGD.0/@classesGD.3"/>
+      </els>
+      <els xsi:type="behavior:Link" src="//@rules.2/@patterns.1/@els.0" target="//@rules.2/@patterns.1/@els.1">
+        <ref href="../Metamodel/Throughput.ecore#//System/thp"/>
+      </els>
+    </patterns>
+  </rules>
 </behavior:Behavior>
