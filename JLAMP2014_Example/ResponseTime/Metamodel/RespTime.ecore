@@ -4,7 +4,7 @@
   <eClassifiers xsi:type="ecore:EClass" name="Server">
     <eStructuralFeatures xsi:type="ecore:EReference" name="out" lowerBound="1" eType="#//Queue"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="in" eType="#//Queue"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="rspTime" eType="#//ResponseTime"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="rt" eType="#//ResponseTime"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Queue">
     <eStructuralFeatures xsi:type="ecore:EReference" name="reqsts" upperBound="-1"
@@ -12,7 +12,12 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Request"/>
   <eClassifiers xsi:type="ecore:EClass" name="ResponseTime">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="lastTime" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="lastStart" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="lastTime" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="lastStart" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="mean" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="counter" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
   </eClassifiers>
 </ecore:EPackage>

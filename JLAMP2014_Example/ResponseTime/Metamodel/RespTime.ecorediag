@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<notation:Diagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:notation="http://www.eclipse.org/gmf/runtime/1.0.2/notation" xmi:id="_PEtMUZ3YEeG2Z52qzT6-Gg" type="EcoreTools" name="RespTimeMM" measurementUnit="Pixel">
+<notation:Diagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:notation="http://www.eclipse.org/gmf/runtime/1.0.2/notation" xmi:id="_PEtMUZ3YEeG2Z52qzT6-Gg" type="EcoreTools" name="RespTime" measurementUnit="Pixel">
   <children xmi:type="notation:Node" xmi:id="_R-n_wJ3YEeG2Z52qzT6-Gg" type="1001">
     <children xmi:type="notation:Node" xmi:id="_R-qcAJ3YEeG2Z52qzT6-Gg" type="4001"/>
     <children xmi:type="notation:Node" xmi:id="_R-utcJ3YEeG2Z52qzT6-Gg" type="5001">
@@ -13,7 +13,7 @@
       <styles xmi:type="notation:FilteringStyle" xmi:id="_R-vUg53YEeG2Z52qzT6-Gg"/>
     </children>
     <styles xmi:type="notation:ShapeStyle" xmi:id="_R-n_wZ3YEeG2Z52qzT6-Gg" fontName="Cantarell" fontHeight="10" fillColor="13761016" lineColor="0"/>
-    <element xmi:type="ecore:EClass" href="RespTimeMM.ecore#//Server"/>
+    <element xmi:type="ecore:EClass" href="RespTime.ecore#//Server"/>
     <layoutConstraint xmi:type="notation:Bounds" xmi:id="_R-n_wp3YEeG2Z52qzT6-Gg" x="155" y="205"/>
   </children>
   <children xmi:type="notation:Node" xmi:id="_SsYdoJ3YEeG2Z52qzT6-Gg" type="1001">
@@ -29,7 +29,7 @@
       <styles xmi:type="notation:FilteringStyle" xmi:id="_SsZrw53YEeG2Z52qzT6-Gg"/>
     </children>
     <styles xmi:type="notation:ShapeStyle" xmi:id="_SsYdoZ3YEeG2Z52qzT6-Gg" fontName="Cantarell" fontHeight="10" fillColor="13761016" lineColor="0"/>
-    <element xmi:type="ecore:EClass" href="RespTimeMM.ecore#//Queue"/>
+    <element xmi:type="ecore:EClass" href="RespTime.ecore#//Queue"/>
     <layoutConstraint xmi:type="notation:Bounds" xmi:id="_SsYdop3YEeG2Z52qzT6-Gg" x="312" y="204"/>
   </children>
   <children xmi:type="notation:Node" xmi:id="_TrJL8J3YEeG2Z52qzT6-Gg" type="1001">
@@ -45,19 +45,27 @@
       <styles xmi:type="notation:FilteringStyle" xmi:id="_TrJzBJ3YEeG2Z52qzT6-Gg"/>
     </children>
     <styles xmi:type="notation:ShapeStyle" xmi:id="_TrJL8Z3YEeG2Z52qzT6-Gg" fontName="Cantarell" fontHeight="10" fillColor="13761016" lineColor="0"/>
-    <element xmi:type="ecore:EClass" href="RespTimeMM.ecore#//Request"/>
+    <element xmi:type="ecore:EClass" href="RespTime.ecore#//Request"/>
     <layoutConstraint xmi:type="notation:Bounds" xmi:id="_TrJL8p3YEeG2Z52qzT6-Gg" x="492" y="204"/>
   </children>
   <children xmi:type="notation:Node" xmi:id="_UqHVoJ3YEeG2Z52qzT6-Gg" type="1001">
     <children xmi:type="notation:Node" xmi:id="_UqH8sJ3YEeG2Z52qzT6-Gg" type="4001"/>
     <children xmi:type="notation:Node" xmi:id="_UqH8sZ3YEeG2Z52qzT6-Gg" type="5001">
       <children xmi:type="notation:Node" xmi:id="_mKmJ0J3YEeG2Z52qzT6-Gg" type="2001">
-        <element xmi:type="ecore:EAttribute" href="RespTimeMM.ecore#//ResponseTime/lastTime"/>
+        <element xmi:type="ecore:EAttribute" href="RespTime.ecore#//ResponseTime/lastTime"/>
         <layoutConstraint xmi:type="notation:Location" xmi:id="_mKmJ0Z3YEeG2Z52qzT6-Gg"/>
       </children>
       <children xmi:type="notation:Node" xmi:id="_qj5sYJ3YEeG2Z52qzT6-Gg" type="2001">
-        <element xmi:type="ecore:EAttribute" href="RespTimeMM.ecore#//ResponseTime/lastStart"/>
+        <element xmi:type="ecore:EAttribute" href="RespTime.ecore#//ResponseTime/lastStart"/>
         <layoutConstraint xmi:type="notation:Location" xmi:id="_qj5sYZ3YEeG2Z52qzT6-Gg"/>
+      </children>
+      <children xmi:type="notation:Node" xmi:id="_5ZsPwEJ8EeSaULJpfuQcCw" type="2001">
+        <element xmi:type="ecore:EAttribute" href="RespTime.ecore#//ResponseTime/counter"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_5ZsPwUJ8EeSaULJpfuQcCw"/>
+      </children>
+      <children xmi:type="notation:Node" xmi:id="_kXIb8EJ8EeSaULJpfuQcCw" type="2001">
+        <element xmi:type="ecore:EAttribute" href="RespTime.ecore#//ResponseTime/mean"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_kXIb8UJ8EeSaULJpfuQcCw"/>
       </children>
       <styles xmi:type="notation:DrawerStyle" xmi:id="_UqH8sp3YEeG2Z52qzT6-Gg"/>
       <styles xmi:type="notation:SortingStyle" xmi:id="_UqH8s53YEeG2Z52qzT6-Gg"/>
@@ -69,11 +77,11 @@
       <styles xmi:type="notation:FilteringStyle" xmi:id="_UqJK053YEeG2Z52qzT6-Gg"/>
     </children>
     <styles xmi:type="notation:ShapeStyle" xmi:id="_UqHVoZ3YEeG2Z52qzT6-Gg" fontName="Cantarell" fontHeight="10" fillColor="13761016" lineColor="0"/>
-    <element xmi:type="ecore:EClass" href="RespTimeMM.ecore#//ResponseTime"/>
+    <element xmi:type="ecore:EClass" href="RespTime.ecore#//ResponseTime"/>
     <layoutConstraint xmi:type="notation:Bounds" xmi:id="_UqHVop3YEeG2Z52qzT6-Gg" x="140" y="290"/>
   </children>
   <styles xmi:type="notation:DiagramStyle" xmi:id="_PEtzYJ3YEeG2Z52qzT6-Gg"/>
-  <element xmi:type="ecore:EPackage" href="RespTimeMM.ecore#/"/>
+  <element xmi:type="ecore:EPackage" href="RespTime.ecore#/"/>
   <edges xmi:type="notation:Edge" xmi:id="_ZDctYJ3YEeG2Z52qzT6-Gg" type="3002" source="_R-n_wJ3YEeG2Z52qzT6-Gg" target="_SsYdoJ3YEeG2Z52qzT6-Gg">
     <children xmi:type="notation:Node" xmi:id="_ZDeikJ3YEeG2Z52qzT6-Gg" type="4011">
       <layoutConstraint xmi:type="notation:Location" xmi:id="_ZDfJoJ3YEeG2Z52qzT6-Gg" x="-10" y="-10"/>
@@ -83,7 +91,7 @@
     </children>
     <styles xmi:type="notation:ConnectorStyle" xmi:id="_ZDctYZ3YEeG2Z52qzT6-Gg" lineColor="0"/>
     <styles xmi:type="notation:FontStyle" xmi:id="_ZDctYp3YEeG2Z52qzT6-Gg" fontName="Cantarell" fontHeight="10"/>
-    <element xmi:type="ecore:EReference" href="RespTimeMM.ecore#//Server/out"/>
+    <element xmi:type="ecore:EReference" href="RespTime.ecore#//Server/out"/>
     <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_ZDctY53YEeG2Z52qzT6-Gg" points="[50, 3, -208, 5]$[208, 7, -50, 9]"/>
   </edges>
   <edges xmi:type="notation:Edge" xmi:id="_aqPsEJ3YEeG2Z52qzT6-Gg" type="3002" source="_R-n_wJ3YEeG2Z52qzT6-Gg" target="_SsYdoJ3YEeG2Z52qzT6-Gg">
@@ -95,7 +103,7 @@
     </children>
     <styles xmi:type="notation:ConnectorStyle" xmi:id="_aqPsEZ3YEeG2Z52qzT6-Gg" lineColor="0"/>
     <styles xmi:type="notation:FontStyle" xmi:id="_aqQTIJ3YEeG2Z52qzT6-Gg" fontName="Cantarell" fontHeight="10"/>
-    <element xmi:type="ecore:EReference" href="RespTimeMM.ecore#//Server/in"/>
+    <element xmi:type="ecore:EReference" href="RespTime.ecore#//Server/in"/>
     <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_aqQTIZ3YEeG2Z52qzT6-Gg" points="[0, -20, -130, -20]$[0, -43, -130, -43]$[130, -43, 0, -43]$[130, -20, 0, -20]"/>
   </edges>
   <edges xmi:type="notation:Edge" xmi:id="_iBveEJ3YEeG2Z52qzT6-Gg" type="3002" source="_SsYdoJ3YEeG2Z52qzT6-Gg" target="_TrJL8J3YEeG2Z52qzT6-Gg">
@@ -107,20 +115,20 @@
     </children>
     <styles xmi:type="notation:ConnectorStyle" xmi:id="_iBveEZ3YEeG2Z52qzT6-Gg" lineColor="0"/>
     <styles xmi:type="notation:FontStyle" xmi:id="_iBveEp3YEeG2Z52qzT6-Gg" fontName="Cantarell" fontHeight="10"/>
-    <element xmi:type="ecore:EReference" href="RespTimeMM.ecore#//Queue/reqsts"/>
+    <element xmi:type="ecore:EReference" href="RespTime.ecore#//Queue/reqsts"/>
     <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_iBveE53YEeG2Z52qzT6-Gg" points="[8, 8, -125, 5]$[48, 8, -85, 5]$[83, 8, -50, 5]"/>
     <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_38ByAa8ZEeGAZ5gcCEXQYw" id="(0.9215686274509803,0.4186046511627907)"/>
   </edges>
   <edges xmi:type="notation:Edge" xmi:id="_tMbN0J3YEeG2Z52qzT6-Gg" type="3002" source="_R-n_wJ3YEeG2Z52qzT6-Gg" target="_UqHVoJ3YEeG2Z52qzT6-Gg">
     <children xmi:type="notation:Node" xmi:id="_tMb04J3YEeG2Z52qzT6-Gg" type="4011">
-      <layoutConstraint xmi:type="notation:Location" xmi:id="_tMb04Z3YEeG2Z52qzT6-Gg" x="-11" y="-41"/>
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_tMb04Z3YEeG2Z52qzT6-Gg" x="-11" y="-11"/>
     </children>
     <children xmi:type="notation:Node" xmi:id="_tMcb8J3YEeG2Z52qzT6-Gg" type="4012">
       <layoutConstraint xmi:type="notation:Location" xmi:id="_tMcb8Z3YEeG2Z52qzT6-Gg" x="-8" y="17"/>
     </children>
     <styles xmi:type="notation:ConnectorStyle" xmi:id="_tMbN0Z3YEeG2Z52qzT6-Gg" lineColor="0"/>
     <styles xmi:type="notation:FontStyle" xmi:id="_tMbN0p3YEeG2Z52qzT6-Gg" fontName="Cantarell" fontHeight="10"/>
-    <element xmi:type="ecore:EReference" href="RespTimeMM.ecore#//Server/rspTime"/>
+    <element xmi:type="ecore:EReference" href="RespTime.ecore#//Server/rt"/>
     <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_tMbN053YEeG2Z52qzT6-Gg" points="[-1, 21, 1, -93]$[-4, 81, -2, -33]"/>
   </edges>
 </notation:Diagram>

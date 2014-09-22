@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gcs:MetamodelGD xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:gcs="http://www.lcc.uma.es/GCS/1.0" name="@RESPTIMEMM@">
+  <packagesGD name="resptimemm">
+    <classesGD name="Server">
+      <class href="../Metamodel/RespTime.ecore#//Server"/>
+    </classesGD>
+    <classesGD name="Queue">
+      <class href="../Metamodel/RespTime.ecore#//Queue"/>
+    </classesGD>
+    <classesGD name="Request">
+      <class href="../Metamodel/RespTime.ecore#//Request"/>
+    </classesGD>
+    <classesGD name="ResponseTime" figurePath="/JLAMP2014_workspace_project/ResponseTime/Behavior/ObserverResponseTime.jpg">
+      <class href="../Metamodel/RespTime.ecore#//ResponseTime"/>
+    </classesGD>
+    <package href="../Metamodel/RespTime.ecore#/"/>
+  </packagesGD>
+</gcs:MetamodelGD>
