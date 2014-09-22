@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<behavior:Behavior xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:behavior="http://www.lcc.uma.es/Behavior/1.0">
+  <metamodelGD href="PLS.gcs#/"/>
+  <rules xsi:type="behavior:AtomicRule" name="GenHandle" lhs="//@rules.0/@patterns.0" rhs="//@rules.0/@patterns.1" maxDuration="prodTime" minDuration="prodTime">
+    <vbles name="prodTime" type="Int" value="hg.prodTime - 3 + eMotions.random(6)"/>
+    <vbles name="rdm" type="Int" value="eMotions.random(100)"/>
+    <patterns name="LHS">
+      <els xsi:type="behavior:Object" id="hg" outLinks="//@rules.0/@patterns.0/@els.2">
+        <classGD href="PLS.gcs#//@packagesGD.0/@classesGD.5"/>
+      </els>
+      <els xsi:type="behavior:Object" id="c" inLinks="//@rules.0/@patterns.0/@els.2">
+        <classGD href="PLS.gcs#//@packagesGD.0/@classesGD.10"/>
+      </els>
+      <els xsi:type="behavior:Link" src="//@rules.0/@patterns.0/@els.0" target="//@rules.0/@patterns.0/@els.1">
+        <ref href="../Metamodel/DEVSMM.ecore#//Machine/out"/>
+      </els>
+      <els xsi:type="behavior:Condition" oclValue="hg.counter>0 and (c.parts->size() + c.outParts->size()) &lt; c.capacity"/>
+    </patterns>
+    <patterns name="RHS">
+      <els xsi:type="behavior:Object" id="hg" outLinks="//@rules.0/@patterns.1/@els.2">
+        <classGD href="PLS.gcs#//@packagesGD.0/@classesGD.5"/>
+      </els>
+      <els xsi:type="behavior:Object" id="c" outLinks="//@rules.0/@patterns.1/@els.4" inLinks="//@rules.0/@patterns.1/@els.2">
+        <classGD href="PLS.gcs#//@packagesGD.0/@classesGD.10"/>
+      </els>
+      <els xsi:type="behavior:Link" src="//@rules.0/@patterns.1/@els.0" target="//@rules.0/@patterns.1/@els.1">
+        <ref href="../Metamodel/DEVSMM.ecore#//Machine/out"/>
+      </els>
+      <els xsi:type="behavior:Object" id="h" inLinks="//@rules.0/@patterns.1/@els.4">
+        <sfs oclValue="rdm &lt; hg.defRate">
+          <sf href="../Metamodel/DEVSMM.ecore#//Part/defective"/>
+        </sfs>
+        <classGD href="PLS.gcs#//@packagesGD.0/@classesGD.14"/>
+      </els>
+      <els xsi:type="behavior:Link" src="//@rules.0/@patterns.1/@els.1" target="//@rules.0/@patterns.1/@els.3">
+        <ref href="../Metamodel/DEVSMM.ecore#//Container/parts"/>
+      </els>
+    </patterns>
+  </rules>
+</behavior:Behavior>
