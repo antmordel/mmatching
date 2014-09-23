@@ -63,6 +63,14 @@ public class SelectBindingsWizardPage extends WizardPage {
 	private ParameterizedDSL currentDSL;
 	private Button addButton;
 
+	private Text textBehavior;
+
+	private Text textAlias;
+
+	private Text textMetamodel;
+
+	private Text textGCS;
+
 	protected SelectBindingsWizardPage(String pageName) {
 		super(pageName);
 		setTitle(pageName);
@@ -134,6 +142,12 @@ public class SelectBindingsWizardPage extends WizardPage {
 	  createEmptyLabel(); createEmptyLabel();
   }
 	
+	private void fillList() {
+	  for(ParameterizedDSL p : FileManager.getDefault().getListParams()) {
+	  	bindingsList.add(p.getAlias());
+	  }
+  }
+
 	private List createClassesList() {
 		final List bindingsList = new List(container, SWT.MULTI | SWT.BORDER | SWT.V_SCROLL);
 		
@@ -152,21 +166,10 @@ public class SelectBindingsWizardPage extends WizardPage {
 	  return bindingsList;
   }
 	
-	public void fillList() {
-		if (bindingsList != null) {
-			bindingsList.removeAll();
-//			classes = new ArrayList<String>();
-//			for (String _class : FileManager.getDefault().readParameterClasses()) {
-//				classesList.add(_class);
-//				classes.add(_class);
-//			}
-		}
-	}
-	
   private void createAlias(final Composite parent) {
     createLabel("Alias:", 1);
     
-    final Text textAlias = new Text(container, SWT.SINGLE);
+    textAlias = new Text(container, SWT.SINGLE);
 		textAlias.setEditable(true);
 		textAlias.setBackground(new Color(parent.getDisplay(), new RGB(255, 255, 255)));
 		
@@ -198,20 +201,20 @@ public class SelectBindingsWizardPage extends WizardPage {
 	private void selectMM(final Composite parent) {
 		createLabel("DSL metamodel:", 1);
 
-		final Text textSystemMM = new Text(container, SWT.SINGLE);
-		textSystemMM.setEditable(false);
-		textSystemMM.setBackground(new Color(parent.getDisplay(), new RGB(255, 255, 255)));
+		textMetamodel = new Text(container, SWT.SINGLE);
+		textMetamodel.setEditable(false);
+		textMetamodel.setBackground(new Color(parent.getDisplay(), new RGB(255, 255, 255)));
 
 		GridData _gridTextSystemDSL = new GridData();
 		_gridTextSystemDSL.horizontalAlignment = GridData.END;
 		_gridTextSystemDSL.horizontalSpan = 2;
 		_gridTextSystemDSL.widthHint = 350;
-		textSystemMM.setLayoutData(_gridTextSystemDSL);
+		textMetamodel.setLayoutData(_gridTextSystemDSL);
 
 		if (currentDSL.getMetamodel() != null) {
-			textSystemMM.setText(currentDSL.getMetamodel().getFullPath().toOSString());
+			textMetamodel.setText(currentDSL.getMetamodel().getFullPath().toOSString());
 		} else {
-			textSystemMM.setText("");
+			textMetamodel.setText("");
 		}
 
 		final Button selectSystemMMButton = new Button(container, SWT.PUSH);
@@ -230,11 +233,11 @@ public class SelectBindingsWizardPage extends WizardPage {
 				IFile result = (IFile) dialog.getResult()[0];
 				if (result != null) {
 					currentDSL.setMetamodel(result);
-					textSystemMM.setText(result.getFullPath().toOSString());
+					textMetamodel.setText(result.getFullPath().toOSString());
 					
 					if(!result.getFileExtension().equals(FileManager.METAMODEL_EXTENSION)){
 						setErrorMessage(FILE_EXTENSION_ERROR_ECORE);
-					} else if (getErrorMessage().equals(FILE_EXTENSION_ERROR_ECORE)){
+					} else if (getErrorMessage() != null && getErrorMessage().equals(FILE_EXTENSION_ERROR_ECORE)){
 						setErrorMessage("");
 					}
 					
@@ -248,20 +251,20 @@ public class SelectBindingsWizardPage extends WizardPage {
 	private void selectGCS(final Composite parent) {
 		createLabel("DSL GCS:", 1);
 
-		final Text textDSLGCS = new Text(container, SWT.SINGLE);
-		textDSLGCS.setEditable(false);
-		textDSLGCS.setBackground(new Color(parent.getDisplay(), new RGB(255, 255, 255)));
+		textGCS = new Text(container, SWT.SINGLE);
+		textGCS.setEditable(false);
+		textGCS.setBackground(new Color(parent.getDisplay(), new RGB(255, 255, 255)));
 
 		GridData _gridTextDSLGCS = new GridData();
 		_gridTextDSLGCS.horizontalAlignment = GridData.END;
 		_gridTextDSLGCS.horizontalSpan = 2;
 		_gridTextDSLGCS.widthHint = 350;
-		textDSLGCS.setLayoutData(_gridTextDSLGCS);
+		textGCS.setLayoutData(_gridTextDSLGCS);
 
 		if (currentDSL.getGcs() != null) {
-			textDSLGCS.setText(currentDSL.getGcs().getFullPath().toOSString());
+			textGCS.setText(currentDSL.getGcs().getFullPath().toOSString());
 		} else {
-			textDSLGCS.setText("");
+			textGCS.setText("");
 		}
 
 		final Button selectSystemMMButton = new Button(container, SWT.PUSH);
@@ -280,11 +283,11 @@ public class SelectBindingsWizardPage extends WizardPage {
 				IFile result = (IFile) dialog.getResult()[0];
 				if (result != null) {
 					currentDSL.setGcs(result);
-					textDSLGCS.setText(result.getFullPath().toOSString());
+					textGCS.setText(result.getFullPath().toOSString());
 					
 					if(!result.getFileExtension().equals(FileManager.GCS_EXTENSION)){
 						setErrorMessage(FILE_EXTENSION_ERROR_GCS);
-					} else if (getErrorMessage().equals(FILE_EXTENSION_ERROR_GCS)){
+					} else if (getErrorMessage() != null && getErrorMessage().equals(FILE_EXTENSION_ERROR_GCS)){
 						setErrorMessage("");
 					}
 					
@@ -298,7 +301,7 @@ public class SelectBindingsWizardPage extends WizardPage {
 	private void selectBehavior(final Composite parent) {
 		createLabel("DSL Behavior:", 1);
 
-		final Text textBehavior = new Text(container, SWT.SINGLE);
+		textBehavior = new Text(container, SWT.SINGLE);
 		textBehavior.setEditable(false);
 		textBehavior.setBackground(new Color(parent.getDisplay(), new RGB(255, 255, 255)));
 
@@ -334,7 +337,7 @@ public class SelectBindingsWizardPage extends WizardPage {
 					
 					if(!result.getFileExtension().equals(FileManager.BEHAVIOR_EXTENSION)){
 						setErrorMessage(FILE_EXTENSION_ERROR_BEH);
-					} else if (getErrorMessage().equals(FILE_EXTENSION_ERROR_BEH)){
+					} else if (getErrorMessage() != null && getErrorMessage().equals(FILE_EXTENSION_ERROR_BEH)){
 						setErrorMessage("");
 					}
 					
@@ -392,7 +395,6 @@ public class SelectBindingsWizardPage extends WizardPage {
 	private void addButton(final Composite parent) {
 		createEmptyLabel();
 		createEmptyLabel();
-		createEmptyLabel();
 		addButton = new Button(container, SWT.PUSH);
 		addButton.setText("Add binding");
 		addButton.setEnabled(false);
@@ -403,10 +405,22 @@ public class SelectBindingsWizardPage extends WizardPage {
 				bindingsList.add(currentDSL.getAlias());
 				
 				bindingsList.redraw();
-				currentDSL = new ParameterizedDSL();
 				addButton.setEnabled(false);
+				
+				cleanCurrentDSL();
 			}
 		});
+		
+		createEmptyLabel();
+  }
+
+	protected void cleanCurrentDSL() {
+		currentDSL = new ParameterizedDSL();
+
+	  textAlias.setText("");
+	  textBehavior.setText("");
+	  textGCS.setText("");
+	  textMetamodel.setText("");
   }
 
 	private void createLabel(String labelText, int span) {
