@@ -24,7 +24,6 @@ package es.uma.lcc.composition.wizard;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.ResourcesPlugin;
-import org.eclipse.jface.wizard.IWizardPage;
 import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Color;
@@ -43,13 +42,15 @@ import org.eclipse.ui.model.WorkbenchLabelProvider;
 
 import es.uma.lcc.composition.handlers.FileManager;
 
-public class SelectMMWizardPage extends WizardPage {
+public class SelectDSLWizardPage extends WizardPage {
 
-	private static final String FILE_EXTENSION_ERROR = "Please select Ecore metamodels.";
+	private static final String FILE_EXTENSION_ERROR_ECORE = "Please select Ecore files (*.ecore)",
+			FILE_EXTENSION_ERROR_GCS = "Please select GCS files (*.gcs)",
+					FILE_EXTENSION_ERROR_BEH = "Please select behavior files (*.behavior)";
 	
 	private Composite container;
 
-	protected SelectMMWizardPage(String pageName) {
+	protected SelectDSLWizardPage(String pageName) {
 		super(pageName);
 		setTitle(pageName);
 		setDescription("Please select the DSL to be composed");
@@ -67,15 +68,19 @@ public class SelectMMWizardPage extends WizardPage {
 		
 		/* Select DSL MM */
 		selectMM(parent);
+		
+		/* Select DSL GCS */
+		selectGCS(parent);
 
-		/* Select Parameterized DSL MM */
-		selectParameterizedMM(parent);
+		/* Select Behavior */
+		selectBehavior(parent);
 
 		setControl(container);
 	}
 	
 	private void checkIfFinished() {
-		if (FileManager.getDefault().getDSLMM() != null && FileManager.getDefault().getParameterizedMM() != null) {
+		if (FileManager.getDefault().getDSLMM() != null && FileManager.getDefault().getDSLBehavior() != null &&
+				FileManager.getDefault().getDSLGCS() != null) {
 			setPageComplete(true);
 		} else {
 			setPageComplete(false);
@@ -109,7 +114,7 @@ public class SelectMMWizardPage extends WizardPage {
 
 				ElementTreeSelectionDialog dialog = new ElementTreeSelectionDialog(parent.getShell(),
 				    new WorkbenchLabelProvider(), new BaseWorkbenchContentProvider());
-				dialog.setTitle("Actual Parameter Metamodel");
+				dialog.setTitle("Metamodel");
 				dialog.setMessage("Select Metamodel file");
 				dialog.setInput(ResourcesPlugin.getWorkspace());
 				dialog.open();
@@ -121,7 +126,55 @@ public class SelectMMWizardPage extends WizardPage {
 					
 					if(!result.getFileExtension().equals(FileManager.METAMODEL_EXTENSION)){
 						System.out.println(result.getFileExtension());
-						setErrorMessage(FILE_EXTENSION_ERROR);
+						setErrorMessage(FILE_EXTENSION_ERROR_ECORE);
+					}
+					
+					checkIfFinished();
+				}
+			}
+		});
+	}
+	
+	private void selectGCS(final Composite parent) {
+		createLabel("DSL GCS:");
+
+		final Text textDSLGCS = new Text(container, SWT.SINGLE);
+		textDSLGCS.setEditable(false);
+		textDSLGCS.setBackground(new Color(parent.getDisplay(), new RGB(255, 255, 255)));
+
+		GridData _gridTextDSLGCS = new GridData();
+		_gridTextDSLGCS.horizontalAlignment = GridData.END;
+		_gridTextDSLGCS.horizontalSpan = 2;
+		_gridTextDSLGCS.widthHint = 350;
+		textDSLGCS.setLayoutData(_gridTextDSLGCS);
+
+		if (FileManager.getDefault().getDSLMM() != null) {
+			textDSLGCS.setText(FileManager.getDefault().getDSLGCS().getFullPath().toOSString());
+		} else {
+			textDSLGCS.setText("");
+		}
+
+		final Button selectSystemMMButton = new Button(container, SWT.PUSH);
+		selectSystemMMButton.setText("Browse");
+		selectSystemMMButton.addListener(SWT.Selection, new Listener() {
+
+			public void handleEvent(Event event) {
+
+				ElementTreeSelectionDialog dialog = new ElementTreeSelectionDialog(parent.getShell(),
+				    new WorkbenchLabelProvider(), new BaseWorkbenchContentProvider());
+				dialog.setTitle("Graphical Concrete Syntax");
+				dialog.setMessage("Select GCS file");
+				dialog.setInput(ResourcesPlugin.getWorkspace());
+				dialog.open();
+
+				IFile result = (IFile) dialog.getResult()[0];
+				if (result != null) {
+					FileManager.getDefault().setDSLGCS(result);
+					textDSLGCS.setText(result.getFullPath().toOSString());
+					
+					if(!result.getFileExtension().equals(FileManager.GCS_EXTENSION)){
+						System.out.println(result.getFileExtension());
+						setErrorMessage(FILE_EXTENSION_ERROR_GCS);
 					}
 					
 					checkIfFinished();
@@ -130,23 +183,23 @@ public class SelectMMWizardPage extends WizardPage {
 		});
 	}
 
-	private void selectParameterizedMM(final Composite parent) {
-		createLabel("Parameterized DSL metamodel:");
+	private void selectBehavior(final Composite parent) {
+		createLabel("DSL Behavior:");
 
-		final Text textParameterizedMM = new Text(container, SWT.SINGLE);
-		textParameterizedMM.setEditable(false);
-		textParameterizedMM.setBackground(new Color(parent.getDisplay(), new RGB(255, 255, 255)));
+		final Text textBehavior = new Text(container, SWT.SINGLE);
+		textBehavior.setEditable(false);
+		textBehavior.setBackground(new Color(parent.getDisplay(), new RGB(255, 255, 255)));
 
-		GridData _gridTextParameterizedDSL = new GridData();
-		_gridTextParameterizedDSL.horizontalAlignment = GridData.END;
-		_gridTextParameterizedDSL.horizontalSpan = 2;
-		_gridTextParameterizedDSL.widthHint = 350;
-		textParameterizedMM.setLayoutData(_gridTextParameterizedDSL);
+		GridData _gridTextBehavior = new GridData();
+		_gridTextBehavior.horizontalAlignment = GridData.END;
+		_gridTextBehavior.horizontalSpan = 2;
+		_gridTextBehavior.widthHint = 350;
+		textBehavior.setLayoutData(_gridTextBehavior);
 
-		if (FileManager.getDefault().getParameterizedMM() != null) {
-			textParameterizedMM.setText(FileManager.getDefault().getParameterizedMM().getFullPath().toOSString());
+		if (FileManager.getDefault().getDSLBehavior() != null) {
+			textBehavior.setText(FileManager.getDefault().getDSLBehavior().getFullPath().toOSString());
 		} else {
-			textParameterizedMM.setText("");
+			textBehavior.setText("");
 		}
 
 		final Button selectParameterizedMMButton = new Button(container, SWT.PUSH);
@@ -157,18 +210,18 @@ public class SelectMMWizardPage extends WizardPage {
 
 				ElementTreeSelectionDialog dialog = new ElementTreeSelectionDialog(parent.getShell(),
 				    new WorkbenchLabelProvider(), new BaseWorkbenchContentProvider());
-				dialog.setTitle("System Metamodel");
-				dialog.setMessage("Select Metamodel file");
+				dialog.setTitle("Behavior");
+				dialog.setMessage("Select behavior file");
 				dialog.setInput(ResourcesPlugin.getWorkspace());
 				dialog.open();
 
 				IFile result = (IFile) dialog.getResult()[0];
 				if (result != null) {
-					FileManager.getDefault().setParameterizedMM(result);
-					textParameterizedMM.setText(result.getFullPath().toOSString());
+					FileManager.getDefault().setDSLBehavior(result);
+					textBehavior.setText(result.getFullPath().toOSString());
 					
-					if(!result.getFileExtension().equals(FileManager.METAMODEL_EXTENSION)){
-						setErrorMessage(FILE_EXTENSION_ERROR);
+					if(!result.getFileExtension().equals(FileManager.BEHAVIOR_EXTENSION)){
+						setErrorMessage(FILE_EXTENSION_ERROR_BEH);
 					}
 					
 					checkIfFinished();
@@ -187,14 +240,5 @@ public class SelectMMWizardPage extends WizardPage {
 
 		label.setLayoutData(_gridLabel);
 	}
-	
-	@Override
-	public IWizardPage getNextPage() {
-		
-	  return null;
-	}
-	
-	
-	
 	
 }

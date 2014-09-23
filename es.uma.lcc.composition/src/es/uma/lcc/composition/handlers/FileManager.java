@@ -34,17 +34,14 @@ import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
-import org.eclipse.emf.common.util.URI;
-import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.impl.EClassImpl;
-import org.eclipse.emf.ecore.impl.EPackageImpl;
-import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
-import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
+
+import es.uma.lcc.composition.parameterized_dsls.ParameterizedDSL;
 
 public class FileManager {
 	
 	public static String METAMODEL_EXTENSION = "ecore",
+						 GCS_EXTENSION = "gcs",
+						 BEHAVIOR_EXTENSION = "behavior",
 						 MAUDE_MODEL_TMP = "maude_model.xmi",
 						 MAUDE_RED_MODEL_TMP = "maude_red.xmi",
 						 CLASSES_LIST_MODEL = "classesList.xmi";
@@ -52,11 +49,15 @@ public class FileManager {
 	private static FileManager self;
 	
 	private IFile DSLMM,
-			          parameterizedMM;
+								DSLGCS,
+			          DSLBehavior;
+	
+	private List<ParameterizedDSL> listParams;
 
 	private IFolder tmp;
 
 	private FileManager() {
+		setListParams(new ArrayList<ParameterizedDSL>());
 	}
 
 	public static FileManager getDefault() {
@@ -73,44 +74,31 @@ public class FileManager {
 	public void setDSLMM(IFile actualMM) {
 		this.DSLMM = actualMM;
 	}
-
-	public IFile getParameterizedMM() {
-		return parameterizedMM;
+	
+	public IFile getDSLGCS() {
+		return DSLGCS;
 	}
 
-	public void setParameterizedMM(IFile parameterizedMM) {
-		this.parameterizedMM = parameterizedMM;
+	public void setDSLGCS(IFile dSLGCS) {
+		DSLGCS = dSLGCS;
+	}
+
+	public IFile getDSLBehavior() {
+		return DSLBehavior;
+	}
+
+	public void setDSLBehavior(IFile parameterizedMM) {
+		this.DSLBehavior = parameterizedMM;
 	}
 	
-	public List<String> readParameterClasses() {
-		ArrayList<String> res = new ArrayList<>();
-		
-		if (parameterizedMM != null) {
-			
-			ResourceSetImpl resourceSet = new ResourceSetImpl();
-			resourceSet.getResourceFactoryRegistry().getExtensionToFactoryMap().put("ecore", new XMIResourceFactoryImpl());
+	public List<ParameterizedDSL> getListParams() {
+	  return listParams;
+  }
 
-			URI uri = URI.createURI(parameterizedMM.getFullPath().toOSString());
-			Resource resource = resourceSet.createResource(uri);
-			try {
-				resource.load(null);
-			} catch (IOException e) {
-				System.out.println(e.getMessage());
-			}
-			for (EObject current : resource.getContents()){ 
-				if(current instanceof EPackageImpl) { // we search the package
-					for (EObject _class : current.eContents()){ // we loop searching all classes
-						if (_class instanceof EClassImpl) {
-							res.add(((EClassImpl) _class).getName());
-						}
-					}
-				}
-			}
-		}
-		
-		return res;
-	}
-	
+	public void setListParams(List<ParameterizedDSL> listParams) {
+	  this.listParams = listParams;
+  }
+
 	public IFolder getTmpFolder() throws CoreException{
 		String project = this.getDSLMM().getProject().getName();
 		IProject currentProject = ResourcesPlugin.getWorkspace().getRoot().getProject(project);

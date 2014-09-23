@@ -27,7 +27,8 @@ import org.eclipse.jface.wizard.Wizard;
 
 public class CompositionWizard extends Wizard {
 	
-	protected SelectMMWizardPage firstPage;
+	protected SelectDSLWizardPage firstPage;
+	protected SelectBindingsWizardPage secondPage;
 	
 	public CompositionWizard() {
 	  super();
@@ -42,9 +43,11 @@ public class CompositionWizard extends Wizard {
 	
 	@Override
   public void addPages() {
-    firstPage = new SelectMMWizardPage("Domain Specific Language to compose");
+    firstPage = new SelectDSLWizardPage("Domain Specific Language to compose");
+    secondPage = new SelectBindingsWizardPage("Parameterized DSL & Bindings");
     
     addPage(firstPage);
+    addPage(secondPage);
   }
 
 
