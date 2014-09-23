@@ -51,14 +51,6 @@
   <children xmi:type="notation:Node" xmi:id="_UqHVoJ3YEeG2Z52qzT6-Gg" type="1001">
     <children xmi:type="notation:Node" xmi:id="_UqH8sJ3YEeG2Z52qzT6-Gg" type="4001"/>
     <children xmi:type="notation:Node" xmi:id="_UqH8sZ3YEeG2Z52qzT6-Gg" type="5001">
-      <children xmi:type="notation:Node" xmi:id="_mKmJ0J3YEeG2Z52qzT6-Gg" type="2001">
-        <element xmi:type="ecore:EAttribute" href="RespTime.ecore#//ResponseTime/lastTime"/>
-        <layoutConstraint xmi:type="notation:Location" xmi:id="_mKmJ0Z3YEeG2Z52qzT6-Gg"/>
-      </children>
-      <children xmi:type="notation:Node" xmi:id="_qj5sYJ3YEeG2Z52qzT6-Gg" type="2001">
-        <element xmi:type="ecore:EAttribute" href="RespTime.ecore#//ResponseTime/lastStart"/>
-        <layoutConstraint xmi:type="notation:Location" xmi:id="_qj5sYZ3YEeG2Z52qzT6-Gg"/>
-      </children>
       <children xmi:type="notation:Node" xmi:id="_5ZsPwEJ8EeSaULJpfuQcCw" type="2001">
         <element xmi:type="ecore:EAttribute" href="RespTime.ecore#//ResponseTime/counter"/>
         <layoutConstraint xmi:type="notation:Location" xmi:id="_5ZsPwUJ8EeSaULJpfuQcCw"/>

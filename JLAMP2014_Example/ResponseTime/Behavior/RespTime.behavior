@@ -49,6 +49,7 @@
       <els xsi:type="behavior:Link" src="//@rules.1/@patterns.0/@els.2" target="//@rules.1/@patterns.0/@els.7">
         <ref href="../Metamodel/RespTime.ecore#//Server/rt"/>
       </els>
+      <els xsi:type="behavior:Clock" id="clk"/>
     </patterns>
     <patterns name="RHS">
       <els xsi:type="behavior:Object" id="r" inLinks="//@rules.1/@patterns.1/@els.4">
@@ -73,16 +74,10 @@
         <ref href="../Metamodel/RespTime.ecore#//Server/in"/>
       </els>
       <els xsi:type="behavior:Object" id="rt" inLinks="//@rules.1/@patterns.1/@els.8">
-        <sfs oclValue="rt.lastStart + clk.time">
-          <sf href="../Metamodel/RespTime.ecore#//ResponseTime/lastStart"/>
-        </sfs>
-        <sfs oclValue="rt.lastTime + clk.time + T">
-          <sf href="../Metamodel/RespTime.ecore#//ResponseTime/lastTime"/>
-        </sfs>
         <sfs oclValue="rt.counter + 1">
           <sf href="../Metamodel/RespTime.ecore#//ResponseTime/counter"/>
         </sfs>
-        <sfs oclValue="((rt.lastTime + clk.time + T) - (rt.startTime + clk.time))  / (rt.counter + 1)">
+        <sfs oclValue="((rt.mean * rt.counter) + clk.time) / (rt.counter + 1)">
           <sf href="../Metamodel/RespTime.ecore#//ResponseTime/mean"/>
         </sfs>
         <classGD href="RespTime.gcs#//@packagesGD.0/@classesGD.3"/>
@@ -90,6 +85,7 @@
       <els xsi:type="behavior:Link" src="//@rules.1/@patterns.1/@els.2" target="//@rules.1/@patterns.1/@els.7">
         <ref href="../Metamodel/RespTime.ecore#//Server/rt"/>
       </els>
+      <els xsi:type="behavior:Clock" id="clk"/>
     </patterns>
   </rules>
 </behavior:Behavior>

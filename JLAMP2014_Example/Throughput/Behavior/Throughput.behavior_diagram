@@ -52,7 +52,7 @@
           </children>
           <styles xmi:type="notation:ShapeStyle" xmi:id="_bPBOQUI3EeSckt0yyZ_PRg" fontName="Cantarell"/>
           <element xmi:type="behavior:Object" href="Throughput.behavior#//@rules.0/@patterns.0/@els.0"/>
-          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_bPBOQkI3EeSckt0yyZ_PRg" x="7" y="19" width="61" height="72"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_bPBOQkI3EeSckt0yyZ_PRg" x="19" y="19" width="61" height="72"/>
         </children>
         <children xmi:type="notation:Node" xmi:id="_b7TsgEI3EeSckt0yyZ_PRg" type="3005">
           <children xmi:type="notation:Node" xmi:id="_b7Tsg0I3EeSckt0yyZ_PRg" type="5013"/>
@@ -128,7 +128,7 @@
           </children>
           <styles xmi:type="notation:ShapeStyle" xmi:id="_s07VAUI3EeSckt0yyZ_PRg" fontName="Cantarell"/>
           <element xmi:type="behavior:Object" href="Throughput.behavior#//@rules.0/@patterns.1/@els.1"/>
-          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_s07VAkI3EeSckt0yyZ_PRg" x="127" y="7"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_s07VAkI3EeSckt0yyZ_PRg" x="103" y="7"/>
         </children>
         <children xmi:type="notation:Node" xmi:id="_ucw1gEI3EeSckt0yyZ_PRg" type="3005">
           <children xmi:type="notation:Node" xmi:id="_ucxckEI3EeSckt0yyZ_PRg" type="5013"/>
@@ -149,7 +149,7 @@
           </children>
           <styles xmi:type="notation:ShapeStyle" xmi:id="_ucw1gUI3EeSckt0yyZ_PRg" fontName="Cantarell"/>
           <element xmi:type="behavior:Object" href="Throughput.behavior#//@rules.0/@patterns.1/@els.3"/>
-          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_ucw1gkI3EeSckt0yyZ_PRg" x="19" y="103"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_ucw1gkI3EeSckt0yyZ_PRg" x="7" y="103"/>
         </children>
         <styles xmi:type="notation:DrawerStyle" xmi:id="_MFYVoUI3EeSckt0yyZ_PRg"/>
         <styles xmi:type="notation:SortingStyle" xmi:id="_MFYVokI3EeSckt0yyZ_PRg"/>
@@ -157,7 +157,7 @@
       </children>
       <styles xmi:type="notation:ShapeStyle" xmi:id="_MFXukUI3EeSckt0yyZ_PRg" fontName="Cantarell"/>
       <element xmi:type="behavior:Pattern" href="Throughput.behavior#//@rules.0/@patterns.1"/>
-      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_MFXukkI3EeSckt0yyZ_PRg" x="480" y="48" width="217" height="217"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_MFXukkI3EeSckt0yyZ_PRg" x="480" y="48" width="181" height="217"/>
     </children>
     <styles xmi:type="notation:DiagramStyle" xmi:id="_MDiikUI3EeSckt0yyZ_PRg"/>
     <element xmi:type="behavior:AtomicRule" href="Throughput.behavior#RecordLeave"/>
@@ -166,7 +166,7 @@
         <layoutConstraint xmi:type="notation:Location" xmi:id="_mWsGQUI3EeSckt0yyZ_PRg" y="40"/>
       </children>
       <children xmi:type="notation:Node" xmi:id="_mWstUEI3EeSckt0yyZ_PRg" type="6002">
-        <layoutConstraint xmi:type="notation:Location" xmi:id="_mWstUUI3EeSckt0yyZ_PRg" x="-10" y="-8"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_mWstUUI3EeSckt0yyZ_PRg" x="2" y="-8"/>
       </children>
       <styles xmi:type="notation:ConnectorStyle" xmi:id="_mWrfMUI3EeSckt0yyZ_PRg"/>
       <styles xmi:type="notation:FontStyle" xmi:id="_mWrfMkI3EeSckt0yyZ_PRg" fontName="Cantarell"/>
@@ -311,7 +311,7 @@
           </children>
           <styles xmi:type="notation:ShapeStyle" xmi:id="_gZgbsUJvEeSYvdWyR0Mo0Q" fontName="Cantarell"/>
           <element xmi:type="behavior:Object" href="Throughput.behavior#//@rules.2/@patterns.0/@els.0"/>
-          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_gZgbskJvEeSYvdWyR0Mo0Q" x="7" y="3"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_gZgbskJvEeSYvdWyR0Mo0Q" x="43" y="7"/>
         </children>
         <children xmi:type="notation:Node" xmi:id="_j4IesEJvEeSYvdWyR0Mo0Q" type="3004">
           <children xmi:type="notation:Node" xmi:id="_j4JFwEJvEeSYvdWyR0Mo0Q" type="5009"/>
@@ -341,7 +341,7 @@
           </children>
           <styles xmi:type="notation:ShapeStyle" xmi:id="_ifLuwUJvEeSYvdWyR0Mo0Q" fontName="Cantarell"/>
           <element xmi:type="behavior:Object" href="Throughput.behavior#//@rules.2/@patterns.1/@els.0"/>
-          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_ifLuwkJvEeSYvdWyR0Mo0Q" x="19" y="7"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_ifLuwkJvEeSYvdWyR0Mo0Q" x="7" y="7"/>
         </children>
         <children xmi:type="notation:Node" xmi:id="_nN_AMEJvEeSYvdWyR0Mo0Q" type="3005">
           <children xmi:type="notation:Node" xmi:id="_nN_AM0JvEeSYvdWyR0Mo0Q" type="5013"/>
@@ -354,7 +354,7 @@
           </children>
           <styles xmi:type="notation:ShapeStyle" xmi:id="_nN_AMUJvEeSYvdWyR0Mo0Q" fontName="Cantarell"/>
           <element xmi:type="behavior:Object" href="Throughput.behavior#//@rules.2/@patterns.1/@els.1"/>
-          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_nN_AMkJvEeSYvdWyR0Mo0Q" x="27" y="98"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_nN_AMkJvEeSYvdWyR0Mo0Q" x="103" y="19"/>
         </children>
         <styles xmi:type="notation:DrawerStyle" xmi:id="_gFukEkJvEeSYvdWyR0Mo0Q"/>
         <styles xmi:type="notation:SortingStyle" xmi:id="_gFukE0JvEeSYvdWyR0Mo0Q"/>
@@ -362,7 +362,7 @@
       </children>
       <styles xmi:type="notation:ShapeStyle" xmi:id="_gFt9BkJvEeSYvdWyR0Mo0Q" fontName="Cantarell"/>
       <element xmi:type="behavior:Pattern" href="Throughput.behavior#//@rules.2/@patterns.1"/>
-      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_gFt9B0JvEeSYvdWyR0Mo0Q" x="312" y="36" width="97" height="193"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_gFt9B0JvEeSYvdWyR0Mo0Q" x="312" y="36" width="169" height="133"/>
     </children>
     <styles xmi:type="notation:DiagramStyle" xmi:id="_gD5_IUJvEeSYvdWyR0Mo0Q"/>
     <element xmi:type="behavior:AtomicRule" href="Throughput.behavior#CreateThroughput"/>
