@@ -1,40 +1,12 @@
 <?xml version="1.0" encoding="ASCII"?>
-<devsmm:Plant
-    xmi:version="2.0"
-    xmlns:xmi="http://www.omg.org/XMI"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns:devsmm="http://devsmm/1.0"
-    xsi:schemaLocation="http://devsmm/1.0 PLS/Metamodel/DEVSMM.ecore">
-  <els xsi:type="devsmm:GenHead"
-      prodTime="40"
-      defRate="2"
-      out="//@els.2"
-      counter="40"/>
-  <els xsi:type="devsmm:Tray"
-      capacity="4"/>
-  <els xsi:type="devsmm:Conveyor"
-      capacity="4"
-      speed="15"
-      out="//@els.1"/>
-  <els xsi:type="devsmm:GenHandle"
-      prodTime="40"
-      defRate="2"
-      out="//@els.4"
-      counter="40"/>
-  <els xsi:type="devsmm:Conveyor"
-      capacity="4"
-      speed="15"
-      out="//@els.1"/>
-  <els xsi:type="devsmm:Assemble"
-      prodTime="40"
-      defRate="1"
-      in="//@els.1"
-      out="//@els.6"/>
-  <els xsi:type="devsmm:Conveyor"
-      capacity="4"
-      speed="15"
-      out="//@els.7"/>
-  <els xsi:type="devsmm:Tray"
-      capacity="4"/>
+<devsmm:Plant xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:devsmm="http://devsmm/1.0" xsi:schemaLocation="http://devsmm/1.0 PLS/Metamodel/DEVSMM.ecore">
+  <els xsi:type="devsmm:GenHead" prodTime="40" defRate="2" out="//@els.2" counter="100"/>
+  <els xsi:type="devsmm:Tray" capacity="4"/>
+  <els xsi:type="devsmm:Conveyor" capacity="4" speed="15" out="//@els.1"/>
+  <els xsi:type="devsmm:GenHandle" prodTime="40" defRate="2" out="//@els.4" counter="100"/>
+  <els xsi:type="devsmm:Conveyor" capacity="4" speed="15" out="//@els.1"/>
+  <els xsi:type="devsmm:Assemble" prodTime="40" defRate="1" in="//@els.1" out="//@els.6"/>
+  <els xsi:type="devsmm:Conveyor" capacity="4" speed="15" out="//@els.7"/>
+  <els xsi:type="devsmm:Tray" capacity="4"/>
   <els xsi:type="devsmm:User"/>
 </devsmm:Plant>

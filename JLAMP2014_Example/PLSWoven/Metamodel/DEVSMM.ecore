@@ -13,6 +13,7 @@
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="in" eType="#//LimitedContainer"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="out" lowerBound="1" eType="#//LimitedContainer"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="assocMachine" eType="#//Charts"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Generator" eSuperTypes="#//Machine">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="counter" lowerBound="1"
@@ -59,5 +60,13 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="counter" lowerBound="1"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="mean" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Charts">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="time" unique="false" upperBound="-1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="responseTime" unique="false"
+        upperBound="-1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="failRate" unique="false"
+        upperBound="-1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
   </eClassifiers>
 </ecore:EPackage>

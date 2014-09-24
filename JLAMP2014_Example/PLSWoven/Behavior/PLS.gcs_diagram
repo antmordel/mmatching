@@ -111,6 +111,12 @@
         <element xmi:type="gcs:ClassGD" href="PLS.gcs#//@packagesGD.0/@classesGD.17"/>
         <layoutConstraint xmi:type="notation:Bounds" xmi:id="_nhsKkkPIEeSqW5UaLm2CUw" x="367" y="141"/>
       </children>
+      <children xmi:type="notation:Node" xmi:id="_3_KnoEPeEeSqW5UaLm2CUw" type="3001">
+        <children xmi:type="notation:Node" xmi:id="_3_Kno0PeEeSqW5UaLm2CUw" type="5001"/>
+        <styles xmi:type="notation:ShapeStyle" xmi:id="_3_KnoUPeEeSqW5UaLm2CUw" fontName="Cantarell"/>
+        <element xmi:type="gcs:ClassGD" href="PLS.gcs#//@packagesGD.0/@classesGD.18"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_3_KnokPeEeSqW5UaLm2CUw" x="64" y="124"/>
+      </children>
       <styles xmi:type="notation:DrawerStyle" xmi:id="_UnkUIUJuEeSYvdWyR0Mo0Q"/>
       <styles xmi:type="notation:SortingStyle" xmi:id="_UnkUIkJuEeSYvdWyR0Mo0Q"/>
       <styles xmi:type="notation:FilteringStyle" xmi:id="_UnkUI0JuEeSYvdWyR0Mo0Q"/>

@@ -55,6 +55,9 @@
     <classesGD name="ResponseTime" figurePath="/JLAMP2014_workspace_project/PLSWoven/Images/ObserverResponseTime.jpg">
       <class href="../Metamodel/DEVSMM.ecore#//ResponseTime"/>
     </classesGD>
+    <classesGD name="Charts">
+      <class href="../Metamodel/DEVSMM.ecore#//Charts"/>
+    </classesGD>
     <package href="../Metamodel/DEVSMM.ecore#/"/>
   </packagesGD>
 </gcs:MetamodelGD>

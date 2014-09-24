@@ -1,6 +1,6 @@
 ---- ----------------------------------------------- ----
 ---- Programmatically generated code using e-Motions ----
----- @date Wed Sep 24 10:46:26 CEST 2014             ----
+---- @date Wed Sep 24 16:52:27 CEST 2014             ----
 ---- ----------------------------------------------- ----
 
 mod INITIALMODEL is
@@ -19,9 +19,10 @@ mod INITIALMODEL is
           _#_(
             _:_(prodTime@Machine@devsmm, 40), 
             _:_(defRate@Machine@devsmm, 2), 
-            _:_(counter@Generator@devsmm, 40), 
+            _:_(counter@Generator@devsmm, 100), 
             _:_(in@Machine@devsmm, null), 
-            _:_(out@Machine@devsmm, '//@els.2), empty, empty)), 
+            _:_(out@Machine@devsmm, '//@els.2), 
+            _:_(assocMachine@Machine@devsmm, null), empty, empty)), 
         <_:_|_>('//@els.1, Tray@devsmm, 
           _#_(
             _:_(capacity@LimitedContainer@devsmm, 4), 
@@ -40,9 +41,10 @@ mod INITIALMODEL is
           _#_(
             _:_(prodTime@Machine@devsmm, 40), 
             _:_(defRate@Machine@devsmm, 2), 
-            _:_(counter@Generator@devsmm, 40), 
+            _:_(counter@Generator@devsmm, 100), 
             _:_(in@Machine@devsmm, null), 
-            _:_(out@Machine@devsmm, '//@els.4), empty, empty)), 
+            _:_(out@Machine@devsmm, '//@els.4), 
+            _:_(assocMachine@Machine@devsmm, null), empty, empty)), 
         <_:_|_>('//@els.4, Conveyor@devsmm, 
           _#_(
             _:_(capacity@LimitedContainer@devsmm, 4), 
@@ -58,7 +60,9 @@ mod INITIALMODEL is
             _:_(defRate@Machine@devsmm, 1), 
             _:_(in@Machine@devsmm, '//@els.1), 
             _:_(out@Machine@devsmm, '//@els.6), 
-            _:_(flRt@Assemble@devsmm, null), empty, empty)), 
+            _:_(assocMachine@Machine@devsmm, null), 
+            _:_(flRt@Assemble@devsmm, null), 
+            _:_(rt@Assemble@devsmm, null), empty, empty)), 
         <_:_|_>('//@els.6, Conveyor@devsmm, 
           _#_(
             _:_(capacity@LimitedContainer@devsmm, 4), 

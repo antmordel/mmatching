@@ -1,6 +1,6 @@
 ---- ----------------------------------------------- ----
 ---- Programmatically generated code using e-Motions ----
----- @date Wed Sep 24 10:46:26 CEST 2014             ----
+---- @date Wed Sep 24 16:52:27 CEST 2014             ----
 ---- ----------------------------------------------- ----
 
 mod @DEVSMM@ is
@@ -23,6 +23,8 @@ mod @DEVSMM@ is
   sort Handle@devsmm .
   sort Hammer@devsmm .
   sort FailureRate@devsmm .
+  sort ResponseTime@devsmm .
+  sort Charts@devsmm .
     
   subsort Plant@devsmm < @Class .
   subsort PlantEl@devsmm < @Class .
@@ -41,6 +43,8 @@ mod @DEVSMM@ is
   subsort Handle@devsmm < Part@devsmm .
   subsort Hammer@devsmm < Part@devsmm .
   subsort FailureRate@devsmm < @Class .
+  subsort ResponseTime@devsmm < @Class .
+  subsort Charts@devsmm < @Class .
     
   op @devsmm@ : -> @Metamodel  .
   op devsmm : -> @Package  .
@@ -61,10 +65,14 @@ mod @DEVSMM@ is
   op Handle@devsmm : -> Handle@devsmm  .
   op Hammer@devsmm : -> Hammer@devsmm  .
   op FailureRate@devsmm : -> FailureRate@devsmm  .
+  op ResponseTime@devsmm : -> ResponseTime@devsmm  .
+  op Charts@devsmm : -> Charts@devsmm  .
   op els@Plant@devsmm : -> @Reference  .
   op in@Machine@devsmm : -> @Reference  .
   op out@Machine@devsmm : -> @Reference  .
+  op assocMachine@Machine@devsmm : -> @Reference  .
   op flRt@Assemble@devsmm : -> @Reference  .
+  op rt@Assemble@devsmm : -> @Reference  .
   op parts@Container@devsmm : -> @Reference  .
   op out@Conveyor@devsmm : -> @Reference  .
   op outParts@Conveyor@devsmm : -> @Reference  .
@@ -78,6 +86,11 @@ mod @DEVSMM@ is
   op numFailures@FailureRate@devsmm : -> @Attribute  .
   op numTotal@FailureRate@devsmm : -> @Attribute  .
   op rate@FailureRate@devsmm : -> @Attribute  .
+  op counter@ResponseTime@devsmm : -> @Attribute  .
+  op mean@ResponseTime@devsmm : -> @Attribute  .
+  op time@Charts@devsmm : -> @Attribute  .
+  op responseTime@Charts@devsmm : -> @Attribute  .
+  op failRate@Charts@devsmm : -> @Attribute  .
     
   eq name(@devsmm@)
     = "devsmm" .
@@ -92,7 +105,7 @@ mod @DEVSMM@ is
   eq subPackages(devsmm)
     = nil .
   eq classes(devsmm)
-    = __(Plant@devsmm, PlantEl@devsmm, Machine@devsmm, Generator@devsmm, GenHead@devsmm, GenHandle@devsmm, Assemble@devsmm, Container@devsmm, Tray@devsmm, User@devsmm, Conveyor@devsmm, LimitedContainer@devsmm, Part@devsmm, Head@devsmm, Handle@devsmm, Hammer@devsmm, FailureRate@devsmm) .
+    = __(Plant@devsmm, PlantEl@devsmm, Machine@devsmm, Generator@devsmm, GenHead@devsmm, GenHandle@devsmm, Assemble@devsmm, Container@devsmm, Tray@devsmm, User@devsmm, Conveyor@devsmm, LimitedContainer@devsmm, Part@devsmm, Head@devsmm, Handle@devsmm, Hammer@devsmm, FailureRate@devsmm, ResponseTime@devsmm, Charts@devsmm) .
   eq name(Plant@devsmm)
     = "Plant" .
   eq isAbstract(Plant@devsmm)
@@ -126,7 +139,7 @@ mod @DEVSMM@ is
   eq superTypes(Machine@devsmm)
     = PlantEl@devsmm .
   eq references(Machine@devsmm)
-    = __(in@Machine@devsmm, out@Machine@devsmm) .
+    = __(in@Machine@devsmm, out@Machine@devsmm, assocMachine@Machine@devsmm) .
   eq attributes(Machine@devsmm)
     = __(prodTime@Machine@devsmm, defRate@Machine@devsmm) .
   eq name(Generator@devsmm)
@@ -174,7 +187,7 @@ mod @DEVSMM@ is
   eq superTypes(Assemble@devsmm)
     = Machine@devsmm .
   eq references(Assemble@devsmm)
-    = flRt@Assemble@devsmm .
+    = __(flRt@Assemble@devsmm, rt@Assemble@devsmm) .
   eq attributes(Assemble@devsmm)
     = nil .
   eq name(Container@devsmm)
@@ -297,6 +310,30 @@ mod @DEVSMM@ is
     = reqResults@FailureRate@devsmm .
   eq attributes(FailureRate@devsmm)
     = __(numFailures@FailureRate@devsmm, numTotal@FailureRate@devsmm, rate@FailureRate@devsmm) .
+  eq name(ResponseTime@devsmm)
+    = "ResponseTime" .
+  eq isAbstract(ResponseTime@devsmm)
+    = false .
+  eq package(ResponseTime@devsmm)
+    = devsmm .
+  eq superTypes(ResponseTime@devsmm)
+    = nil .
+  eq references(ResponseTime@devsmm)
+    = nil .
+  eq attributes(ResponseTime@devsmm)
+    = __(counter@ResponseTime@devsmm, mean@ResponseTime@devsmm) .
+  eq name(Charts@devsmm)
+    = "Charts" .
+  eq isAbstract(Charts@devsmm)
+    = false .
+  eq package(Charts@devsmm)
+    = devsmm .
+  eq superTypes(Charts@devsmm)
+    = nil .
+  eq references(Charts@devsmm)
+    = nil .
+  eq attributes(Charts@devsmm)
+    = __(time@Charts@devsmm, responseTime@Charts@devsmm, failRate@Charts@devsmm) .
   eq name(els@Plant@devsmm)
     = "els" .
   eq type(els@Plant@devsmm)
@@ -351,6 +388,24 @@ mod @DEVSMM@ is
     = true .
   eq isUnique(out@Machine@devsmm)
     = true .
+  eq name(assocMachine@Machine@devsmm)
+    = "assocMachine" .
+  eq type(assocMachine@Machine@devsmm)
+    = Charts@devsmm .
+  eq opposite(assocMachine@Machine@devsmm)
+    = null .
+  eq lowerBound(assocMachine@Machine@devsmm)
+    = 0 .
+  eq upperBound(assocMachine@Machine@devsmm)
+    = 1 .
+  eq containingClass(assocMachine@Machine@devsmm)
+    = Machine@devsmm .
+  eq isContainment(assocMachine@Machine@devsmm)
+    = false .
+  eq isOrdered(assocMachine@Machine@devsmm)
+    = true .
+  eq isUnique(assocMachine@Machine@devsmm)
+    = true .
   eq name(flRt@Assemble@devsmm)
     = "flRt" .
   eq type(flRt@Assemble@devsmm)
@@ -368,6 +423,24 @@ mod @DEVSMM@ is
   eq isOrdered(flRt@Assemble@devsmm)
     = true .
   eq isUnique(flRt@Assemble@devsmm)
+    = true .
+  eq name(rt@Assemble@devsmm)
+    = "rt" .
+  eq type(rt@Assemble@devsmm)
+    = ResponseTime@devsmm .
+  eq opposite(rt@Assemble@devsmm)
+    = null .
+  eq lowerBound(rt@Assemble@devsmm)
+    = 0 .
+  eq upperBound(rt@Assemble@devsmm)
+    = 1 .
+  eq containingClass(rt@Assemble@devsmm)
+    = Assemble@devsmm .
+  eq isContainment(rt@Assemble@devsmm)
+    = false .
+  eq isOrdered(rt@Assemble@devsmm)
+    = true .
+  eq isUnique(rt@Assemble@devsmm)
     = true .
   eq name(parts@Container@devsmm)
     = "parts" .
@@ -585,5 +658,85 @@ mod @DEVSMM@ is
     = true .
   eq isUnique(rate@FailureRate@devsmm)
     = true .
+  eq name(counter@ResponseTime@devsmm)
+    = "counter" .
+  eq type(counter@ResponseTime@devsmm)
+    = @Int .
+  eq lowerBound(counter@ResponseTime@devsmm)
+    = 1 .
+  eq upperBound(counter@ResponseTime@devsmm)
+    = 1 .
+  eq containingClass(counter@ResponseTime@devsmm)
+    = ResponseTime@devsmm .
+  eq isId(counter@ResponseTime@devsmm)
+    = false .
+  eq isOrdered(counter@ResponseTime@devsmm)
+    = true .
+  eq isUnique(counter@ResponseTime@devsmm)
+    = true .
+  eq name(mean@ResponseTime@devsmm)
+    = "mean" .
+  eq type(mean@ResponseTime@devsmm)
+    = @Float .
+  eq lowerBound(mean@ResponseTime@devsmm)
+    = 1 .
+  eq upperBound(mean@ResponseTime@devsmm)
+    = 1 .
+  eq containingClass(mean@ResponseTime@devsmm)
+    = ResponseTime@devsmm .
+  eq isId(mean@ResponseTime@devsmm)
+    = false .
+  eq isOrdered(mean@ResponseTime@devsmm)
+    = true .
+  eq isUnique(mean@ResponseTime@devsmm)
+    = true .
+  eq name(time@Charts@devsmm)
+    = "time" .
+  eq type(time@Charts@devsmm)
+    = @Int .
+  eq lowerBound(time@Charts@devsmm)
+    = 0 .
+  eq upperBound(time@Charts@devsmm)
+    = * .
+  eq containingClass(time@Charts@devsmm)
+    = Charts@devsmm .
+  eq isId(time@Charts@devsmm)
+    = false .
+  eq isOrdered(time@Charts@devsmm)
+    = true .
+  eq isUnique(time@Charts@devsmm)
+    = false .
+  eq name(responseTime@Charts@devsmm)
+    = "responseTime" .
+  eq type(responseTime@Charts@devsmm)
+    = @Int .
+  eq lowerBound(responseTime@Charts@devsmm)
+    = 0 .
+  eq upperBound(responseTime@Charts@devsmm)
+    = * .
+  eq containingClass(responseTime@Charts@devsmm)
+    = Charts@devsmm .
+  eq isId(responseTime@Charts@devsmm)
+    = false .
+  eq isOrdered(responseTime@Charts@devsmm)
+    = true .
+  eq isUnique(responseTime@Charts@devsmm)
+    = false .
+  eq name(failRate@Charts@devsmm)
+    = "failRate" .
+  eq type(failRate@Charts@devsmm)
+    = @Int .
+  eq lowerBound(failRate@Charts@devsmm)
+    = 0 .
+  eq upperBound(failRate@Charts@devsmm)
+    = * .
+  eq containingClass(failRate@Charts@devsmm)
+    = Charts@devsmm .
+  eq isId(failRate@Charts@devsmm)
+    = false .
+  eq isOrdered(failRate@Charts@devsmm)
+    = true .
+  eq isUnique(failRate@Charts@devsmm)
+    = false .
     
 endm ---- end system module @DEVSMM@
