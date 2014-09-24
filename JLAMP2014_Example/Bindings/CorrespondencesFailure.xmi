@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="ASCII"?>
+<correspondencesmm:Correspondences
+    xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:correspondencesmm="http://correspondencesmm/1.0"
+    xsi:schemaLocation="http://correspondencesmm/1.0 CorrespondencesMM.ecore">
+  <mms obMMName="failurerate"
+      DSLMMName="DEVSMM">
+    <classes
+        obName="Server"
+        DSLName="Assemble"/>
+    <classes
+        obName="LimitedContainer"
+        DSLName="Queue"/>
+    <classes
+        obName="Part"
+        DSLName="Request"/>
+    <refs obClassName="Assemble"
+        obRefName="in"
+        DSLClassName="Server"
+        DSLRefName="in"/>
+    <refs obClassName="Assemble"
+        obRefName="out"
+        DSLClassName="Server"
+        DSLRefName="out"/>
+    <refs obClassName="LimitedContainer"
+        obRefName="parts"
+        DSLClassName="Queue"
+        DSLRefName="rqsts"/>
+  </mms>
+</correspondencesmm:Correspondences>

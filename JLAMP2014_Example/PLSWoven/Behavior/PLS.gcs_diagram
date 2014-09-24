@@ -99,6 +99,12 @@
         <element xmi:type="gcs:ClassGD" href="PLS.gcs#//@packagesGD.0/@classesGD.15"/>
         <layoutConstraint xmi:type="notation:Bounds" xmi:id="_gKXB40JuEeSYvdWyR0Mo0Q" x="943" y="7"/>
       </children>
+      <children xmi:type="notation:Node" xmi:id="_P6paEEPDEeSV19NzhIwgTQ" type="3001">
+        <children xmi:type="notation:Node" xmi:id="_P6qoMEPDEeSV19NzhIwgTQ" type="5001"/>
+        <styles xmi:type="notation:ShapeStyle" xmi:id="_P6paEUPDEeSV19NzhIwgTQ" fontName="Cantarell"/>
+        <element xmi:type="gcs:ClassGD" href="PLS.gcs#//@packagesGD.0/@classesGD.16"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_P6paEkPDEeSV19NzhIwgTQ" x="295" y="141"/>
+      </children>
       <styles xmi:type="notation:DrawerStyle" xmi:id="_UnkUIUJuEeSYvdWyR0Mo0Q"/>
       <styles xmi:type="notation:SortingStyle" xmi:id="_UnkUIkJuEeSYvdWyR0Mo0Q"/>
       <styles xmi:type="notation:FilteringStyle" xmi:id="_UnkUI0JuEeSYvdWyR0Mo0Q"/>

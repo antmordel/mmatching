@@ -49,6 +49,9 @@
     <classesGD name="Hammer" figurePath="/JLAMP2014_workspace_project/PLS/Images/Hammer.JPG">
       <class href="../Metamodel/DEVSMM.ecore#//Hammer"/>
     </classesGD>
+    <classesGD name="FailureRate" figurePath="/JLAMP2014_workspace_project/PLSWoven/Images/ObserverFailure.png">
+      <class href="../Metamodel/DEVSMM.ecore#//FailureRate"/>
+    </classesGD>
     <package href="../Metamodel/DEVSMM.ecore#/"/>
   </packagesGD>
 </gcs:MetamodelGD>

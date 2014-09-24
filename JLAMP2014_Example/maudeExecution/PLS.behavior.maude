@@ -1,6 +1,6 @@
 ---- ----------------------------------------------- ----
 ---- Programmatically generated code using e-Motions ----
----- @date Mon Sep 22 16:16:59 CEST 2014             ----
+---- @date Wed Sep 24 10:38:04 CEST 2014             ----
 ---- ----------------------------------------------- ----
 
 mod @DEVSMM@BEHAVIOR@ is
@@ -14,17 +14,23 @@ mod @DEVSMM@BEHAVIOR@ is
   op in@OCLSf : -> @StructuralFeature  .
   op out@OCLSf : -> @StructuralFeature  .
   op counter@OCLSf : -> @StructuralFeature  .
+  op flRt@OCLSf : -> @StructuralFeature  .
   op parts@OCLSf : -> @StructuralFeature  .
   op speed@OCLSf : -> @StructuralFeature  .
   op out@OCLSf : -> @StructuralFeature  .
   op outParts@OCLSf : -> @StructuralFeature  .
   op capacity@OCLSf : -> @StructuralFeature  .
   op defective@OCLSf : -> @StructuralFeature  .
+  op numFailures@OCLSf : -> @StructuralFeature  .
+  op numTotal@OCLSf : -> @StructuralFeature  .
+  op rate@OCLSf : -> @StructuralFeature  .
+  op reqResults@OCLSf : -> @StructuralFeature  .
   op currentExec@GenHandle : Set @Model -> Bool  .
   op currentExec@GenHead : Set @Model -> Bool  .
   op currentExec@Carry : Set @Model -> Bool  .
   op notconcurrentassembles@Assemble : Set Set{@Object} @Model -> Bool  .
   op currentExec@Assemble : Set @Model -> Bool  .
+  op currentExec@FailureRate1 : Set @Model -> Bool  .
   op e : -> Vid  .
   op noconc@Collect : Set Set{@Object} @Model -> Bool  .
     
@@ -40,6 +46,8 @@ mod @DEVSMM@BEHAVIOR@ is
     = "out" .
   eq name(counter@OCLSf)
     = "counter" .
+  eq name(flRt@OCLSf)
+    = "flRt" .
   eq name(parts@OCLSf)
     = "parts" .
   eq name(speed@OCLSf)
@@ -52,6 +60,14 @@ mod @DEVSMM@BEHAVIOR@ is
     = "capacity" .
   eq name(defective@OCLSf)
     = "defective" .
+  eq name(numFailures@OCLSf)
+    = "numFailures" .
+  eq name(numTotal@OCLSf)
+    = "numTotal" .
+  eq name(rate@OCLSf)
+    = "rate" .
+  eq name(reqResults@OCLSf)
+    = "reqResults" .
   eq rulesInformation
     = _`{_`}(@MGBehavior@, 
       __(
@@ -93,6 +109,13 @@ mod @DEVSMM@BEHAVIOR@ is
         <_:_|_>('Rule0:OCL-Type, AtomicRule@MGBehavior, 
           _#_(
             _:_(name@Rule@MGBehavior, "Collect"), 
+            _:_(lowerBound@Rule@MGBehavior, null), 
+            _:_(upperBound@Rule@MGBehavior, null), 
+            _:_(soft@Rule@MGBehavior, false), 
+            _:_(periodicity@AtomicRule@MGBehavior, null))), 
+        <_:_|_>('Rule0:OCL-Type, AtomicRule@MGBehavior, 
+          _#_(
+            _:_(name@Rule@MGBehavior, "CreateFailure"), 
             _:_(lowerBound@Rule@MGBehavior, null), 
             _:_(upperBound@Rule@MGBehavior, null), 
             _:_(soft@Rule@MGBehavior, false), 
@@ -244,7 +267,7 @@ mod @DEVSMM@BEHAVIOR@ is
             _:_(value@Counter@MGBehavior, VALUE@rdm@:Int)), OBJSET@:Set{@Object}))
     /\ _in_(p:OCL-Type, PARTS@c@ATT:OCL-Type)
     /\ not_(currentExec@Carry(Set`{_`}(_;_(p:OCL-Type, c:OCL-Type)), MODEL@:@Model)) .
-  ceq notconcurrentassembles@Assemble(Set`{_`}(_;_(he:OCL-Type, ha:OCL-Type, t:OCL-Type, a:OCL-Type, c:OCL-Type)), __(<_:_|_>(VAR1@:Oid, Variable@MGBehavior, _#_(_:_(name@Variable@MGBehavior, "rdm"), _:_(value@Variable@MGBehavior, rdm:OCL-Type))), <_:_|_>(VAR2@:Oid, Variable@MGBehavior, _#_(_:_(name@Variable@MGBehavior, "prodTime"), _:_(value@Variable@MGBehavior, prodTime:OCL-Type)))), _`{_`}(MM@:@Metamodel, 
+  ceq notconcurrentassembles@Assemble(Set`{_`}(_;_(he:OCL-Type, ha:OCL-Type, t:OCL-Type, a:OCL-Type, c:OCL-Type, fr:OCL-Type)), __(<_:_|_>(VAR1@:Oid, Variable@MGBehavior, _#_(_:_(name@Variable@MGBehavior, "rdm"), _:_(value@Variable@MGBehavior, rdm:OCL-Type))), <_:_|_>(VAR2@:Oid, Variable@MGBehavior, _#_(_:_(name@Variable@MGBehavior, "prodTime"), _:_(value@Variable@MGBehavior, prodTime:OCL-Type)))), _`{_`}(MM@:@Metamodel, 
     __(
       <_:_|_>(asse:OCL-Type, AtomicActionExec@MGBehavior, 
         _#_(
@@ -267,13 +290,13 @@ mod @DEVSMM@BEHAVIOR@ is
             _:_(actualObject@ObjectRole@MGBehavior, a:OCL-Type), OR1@asse@SFS:Set{@StructuralFeatureInstance})))) .
   eq notconcurrentassembles@Assemble(OIDSET@:Set, OBJSET@:Set{@Object}, MODEL@:@Model)
     = false [owise] .
-  eq currentExec@Assemble(Set`{_`}(_;_(he:OCL-Type, ha:OCL-Type, t:OCL-Type, a:OCL-Type, c:OCL-Type)), _`{_`}(MM@:@Metamodel, 
+  eq currentExec@Assemble(Set`{_`}(_;_(he:OCL-Type, ha:OCL-Type, t:OCL-Type, a:OCL-Type, c:OCL-Type, fr:OCL-Type)), _`{_`}(MM@:@Metamodel, 
     __(
       <_:_|_>(ACTEXEC@:Oid, AtomicActionExec@MGBehavior, 
         _#_(
           _:_(action@ActionExec@MGBehavior, "Assemble"), 
           _:_(endingTime@ActionExec@MGBehavior, null), 
-          _:_(participants@ActionExec@MGBehavior, Set`{_`}(_;_(L@ACTEXEC@:MSet{OCL-Exp}, OR1@:Oid, OR2@:Oid, OR3@:Oid, OR4@:Oid, OR5@:Oid))), ACTEXEC@@SFS:Set{@StructuralFeatureInstance})), OBJSET@:Set{@Object}, 
+          _:_(participants@ActionExec@MGBehavior, Set`{_`}(_;_(L@ACTEXEC@:MSet{OCL-Exp}, OR1@:Oid, OR2@:Oid, OR3@:Oid, OR4@:Oid, OR5@:Oid, OR6@:Oid))), ACTEXEC@@SFS:Set{@StructuralFeatureInstance})), OBJSET@:Set{@Object}, 
       <_:_|_>(OR1@:Oid, ObjectRole@MGBehavior, 
         _#_(
           _:_(actualObject@ObjectRole@MGBehavior, he:OCL-Type), 
@@ -293,7 +316,11 @@ mod @DEVSMM@BEHAVIOR@ is
       <_:_|_>(OR5@:Oid, ObjectRole@MGBehavior, 
         _#_(
           _:_(actualObject@ObjectRole@MGBehavior, c:OCL-Type), 
-          _:_(role@ObjectRole@MGBehavior, "c"))))))
+          _:_(role@ObjectRole@MGBehavior, "c"))), 
+      <_:_|_>(OR6@:Oid, ObjectRole@MGBehavior, 
+        _#_(
+          _:_(actualObject@ObjectRole@MGBehavior, fr:OCL-Type), 
+          _:_(role@ObjectRole@MGBehavior, "fr"))))))
     = true .
   eq currentExec@Assemble(OIDSET@:Set, MODEL@:@Model)
     = false [owise] .
@@ -306,9 +333,11 @@ mod @DEVSMM@BEHAVIOR@ is
           _:_(parts@Container@devsmm, PARTS@t@ATT:OCL-Type), t@SFS:Set{@StructuralFeatureInstance})), 
       <_:_|_>(a:OCL-Type, ASSEMBLE@DEVSMM@a@CLASS:Assemble@devsmm, 
         _#_(
+          _:_(flRt@Assemble@devsmm, FLRT@a@ATT:OCL-Type), 
           _:_(out@Machine@devsmm, OUT@a@ATT:OCL-Type), 
           _:_(in@Machine@devsmm, IN@a@ATT:OCL-Type), a@SFS:Set{@StructuralFeatureInstance})), 
       <_:_|_>(c:OCL-Type, CONVEYOR@DEVSMM@c@CLASS:Conveyor@devsmm, c@SFS:Set{@StructuralFeatureInstance}), 
+      <_:_|_>(fr:OCL-Type, FAILURERATE@DEVSMM@fr@CLASS:FailureRate@devsmm, fr@SFS:Set{@StructuralFeatureInstance}), 
       <_:_|_>(CLK@:Oid, Clock@MGBehavior, 
           _:_(time@Clock@MGBehavior, TIME@CLK@:Time)), 
       <_:_|_>('ids@, Counter@MGBehavior, 
@@ -325,9 +354,11 @@ mod @DEVSMM@BEHAVIOR@ is
             _:_(parts@Container@devsmm, PARTS@t@ATT:OCL-Type), t@SFS:Set{@StructuralFeatureInstance})), 
         <_:_|_>(a:OCL-Type, ASSEMBLE@DEVSMM@a@CLASS:Assemble@devsmm, 
           _#_(
+            _:_(flRt@Assemble@devsmm, FLRT@a@ATT:OCL-Type), 
             _:_(out@Machine@devsmm, OUT@a@ATT:OCL-Type), 
             _:_(in@Machine@devsmm, IN@a@ATT:OCL-Type), a@SFS:Set{@StructuralFeatureInstance})), 
         <_:_|_>(c:OCL-Type, CONVEYOR@DEVSMM@c@CLASS:Conveyor@devsmm, c@SFS:Set{@StructuralFeatureInstance}), 
+        <_:_|_>(fr:OCL-Type, FAILURERATE@DEVSMM@fr@CLASS:FailureRate@devsmm, fr@SFS:Set{@StructuralFeatureInstance}), 
         <_:_|_>(CLK@:Oid, Clock@MGBehavior, 
             _:_(time@Clock@MGBehavior, TIME@CLK@:Time)), 
         <_:_|_>('ids@, Counter@MGBehavior, 
@@ -338,20 +369,148 @@ mod @DEVSMM@BEHAVIOR@ is
     /\ _in_(ha:OCL-Type, PARTS@t@ATT:OCL-Type)
     /\ _in_(t:OCL-Type, IN@a@ATT:OCL-Type)
     /\ _in_(c:OCL-Type, OUT@a@ATT:OCL-Type)
-    /\ VAR1@:Oid := newId(_+_(VALUE@ids@:Int, 6))
-    /\ VAR2@:Oid := newId(_+_(VALUE@ids@:Int, 7))
+    /\ _in_(fr:OCL-Type, FLRT@a@ATT:OCL-Type)
+    /\ VAR1@:Oid := newId(_+_(VALUE@ids@:Int, 7))
+    /\ VAR2@:Oid := newId(_+_(VALUE@ids@:Int, 8))
     /\ rdm:OCL-Type := eval(_rem_(random(_+_(VALUE@rdm@:Int, 10)), eval(100, env(empty), MODEL@:@Model)), env(empty), MODEL@:@Model)
     /\ prodTime:OCL-Type := eval(_+_(_-_(
       __(a:OCL-Type, ._(prodTime@OCLSf)), 3), _rem_(random(_+_(VALUE@rdm@:Int, 11)), eval(6, env(empty), MODEL@:@Model))), env(empty), MODEL@:@Model)
     /\ eval(_<_(_+_(_->`size`(`)(__(c:OCL-Type, ._(parts@OCLSf))), _->`size`(`)(__(c:OCL-Type, ._(outParts@OCLSf)))), __(c:OCL-Type, ._(capacity@OCLSf))), env(empty), MODEL@:@Model)
-    /\ not_(notconcurrentassembles@Assemble(Set`{_`}(_;_(he:OCL-Type, ha:OCL-Type, t:OCL-Type, a:OCL-Type, c:OCL-Type)), __(<_:_|_>(VAR1@:Oid, Variable@MGBehavior, _#_(_:_(name@Variable@MGBehavior, "rdm"), _:_(value@Variable@MGBehavior, rdm:OCL-Type))), <_:_|_>(VAR2@:Oid, Variable@MGBehavior, _#_(_:_(name@Variable@MGBehavior, "prodTime"), _:_(value@Variable@MGBehavior, prodTime:OCL-Type)))), MODEL@:@Model))
-    /\ not_(currentExec@Assemble(Set`{_`}(_;_(he:OCL-Type, ha:OCL-Type, t:OCL-Type, a:OCL-Type, c:OCL-Type)), MODEL@:@Model)) .
+    /\ not_(notconcurrentassembles@Assemble(Set`{_`}(_;_(he:OCL-Type, ha:OCL-Type, t:OCL-Type, a:OCL-Type, c:OCL-Type, fr:OCL-Type)), __(<_:_|_>(VAR1@:Oid, Variable@MGBehavior, _#_(_:_(name@Variable@MGBehavior, "rdm"), _:_(value@Variable@MGBehavior, rdm:OCL-Type))), <_:_|_>(VAR2@:Oid, Variable@MGBehavior, _#_(_:_(name@Variable@MGBehavior, "prodTime"), _:_(value@Variable@MGBehavior, prodTime:OCL-Type)))), MODEL@:@Model))
+    /\ not_(currentExec@Assemble(Set`{_`}(_;_(he:OCL-Type, ha:OCL-Type, t:OCL-Type, a:OCL-Type, c:OCL-Type, fr:OCL-Type)), MODEL@:@Model)) .
+  eq currentExec@FailureRate1(Set`{_`}(_;_(p:OCL-Type, o:OCL-Type)), _`{_`}(MM@:@Metamodel, 
+    __(
+      <_:_|_>(ACTEXEC@:Oid, OngoingActionExec@MGBehavior, 
+        _#_(
+          _:_(action@ActionExec@MGBehavior, "FailureRate1"), 
+          _:_(endingTime@ActionExec@MGBehavior, null), 
+          _:_(participants@ActionExec@MGBehavior, Set`{_`}(_;_(L@ACTEXEC@:MSet{OCL-Exp}, OR1@:Oid, OR2@:Oid))), ACTEXEC@@SFS:Set{@StructuralFeatureInstance})), OBJSET@:Set{@Object}, 
+      <_:_|_>(OR1@:Oid, ObjectRole@MGBehavior, 
+        _#_(
+          _:_(actualObject@ObjectRole@MGBehavior, p:OCL-Type), 
+          _:_(role@ObjectRole@MGBehavior, "p"))), 
+      <_:_|_>(OR2@:Oid, ObjectRole@MGBehavior, 
+        _#_(
+          _:_(actualObject@ObjectRole@MGBehavior, o:OCL-Type), 
+          _:_(role@ObjectRole@MGBehavior, "o"))))))
+    = true .
+  eq currentExec@FailureRate1(OIDSET@:Set, MODEL@:@Model)
+    = false [owise] .
+  ceq mte(_`{_`}(MM@:@Metamodel, 
+    __(
+      <_:_|_>(p:OCL-Type, PART@DEVSMM@p@CLASS:Part@devsmm, p@SFS:Set{@StructuralFeatureInstance}), 
+      <_:_|_>(o:OCL-Type, FAILURERATE@DEVSMM@o@CLASS:FailureRate@devsmm, 
+        _#_(
+          _:_(reqResults@FailureRate@devsmm, REQRESULTS@o@ATT:OCL-Type), o@SFS:Set{@StructuralFeatureInstance})), 
+      <_:_|_>(CLK@:Oid, Clock@MGBehavior, 
+          _:_(time@Clock@MGBehavior, TIME@CLK@:Time)), 
+      <_:_|_>('ids@, Counter@MGBehavior, 
+          _:_(value@Counter@MGBehavior, VALUE@ids@:Int)), 
+      <_:_|_>('rdm@, Counter@MGBehavior, 
+          _:_(value@Counter@MGBehavior, VALUE@rdm@:Int)), OBJSET@:Set{@Object})))
+    = 0
+    if MODEL@:@Model := _`{_`}(MM@:@Metamodel, 
+      __(
+        <_:_|_>(p:OCL-Type, PART@DEVSMM@p@CLASS:Part@devsmm, p@SFS:Set{@StructuralFeatureInstance}), 
+        <_:_|_>(o:OCL-Type, FAILURERATE@DEVSMM@o@CLASS:FailureRate@devsmm, 
+          _#_(
+            _:_(reqResults@FailureRate@devsmm, REQRESULTS@o@ATT:OCL-Type), o@SFS:Set{@StructuralFeatureInstance})), 
+        <_:_|_>(CLK@:Oid, Clock@MGBehavior, 
+            _:_(time@Clock@MGBehavior, TIME@CLK@:Time)), 
+        <_:_|_>('ids@, Counter@MGBehavior, 
+            _:_(value@Counter@MGBehavior, VALUE@ids@:Int)), 
+        <_:_|_>('rdm@, Counter@MGBehavior, 
+            _:_(value@Counter@MGBehavior, VALUE@rdm@:Int)), OBJSET@:Set{@Object}))
+    /\ _in_(p:OCL-Type, REQRESULTS@o@ATT:OCL-Type)
+    /\ eval(__(p:OCL-Type, ._(defective@OCLSf)), env(empty), MODEL@:@Model)
+    /\ not_(currentExec@FailureRate1(Set`{_`}(_;_(p:OCL-Type, o:OCL-Type)), MODEL@:@Model)) .
+  ceq applyOngoingRules(_`{_`}(MM@:@Metamodel, 
+    __(
+      <_:_|_>(p:OCL-Type, PART@DEVSMM@p@CLASS:Part@devsmm, p@SFS:Set{@StructuralFeatureInstance}), 
+      <_:_|_>(o:OCL-Type, FAILURERATE@DEVSMM@o@CLASS:FailureRate@devsmm, 
+        _#_(
+          _:_(reqResults@FailureRate@devsmm, REQRESULTS@o@ATT:OCL-Type), 
+          _:_(numFailures@FailureRate@devsmm, NUMFAILURES@o@ATT:OCL-Type), 
+          _:_(numTotal@FailureRate@devsmm, NUMTOTAL@o@ATT:OCL-Type), 
+          _:_(rate@FailureRate@devsmm, RATE@o@ATT:OCL-Type), o@SFS:Set{@StructuralFeatureInstance})), 
+      <_:_|_>(ACTEXEC@:Oid, OngoingActionExec@MGBehavior, 
+        _#_(
+          _:_(action@ActionExec@MGBehavior, "FailureRate1"), 
+          _:_(endingTime@ActionExec@MGBehavior, null), 
+          _:_(participants@ActionExec@MGBehavior, Set`{_`}(_;_(OR1@:Oid, OR2@:Oid))), 
+          _:_(variables@ActionExec@MGBehavior, Set`{_`}(mt)), 
+          _:_(maxTimer@ActionExec@MGBehavior, freeze(MAXDURATIONONGOING@:OCL-Exp)), ACTEXEC@@SFS:Set{@StructuralFeatureInstance})), 
+      <_:_|_>(CLK@:Oid, Clock@MGBehavior, 
+          _:_(time@Clock@MGBehavior, TIME@CLK@:Time)), 
+      <_:_|_>('ids@, Counter@MGBehavior, 
+          _:_(value@Counter@MGBehavior, VALUE@ids@:Int)), 
+      <_:_|_>('rdm@, Counter@MGBehavior, 
+          _:_(value@Counter@MGBehavior, VALUE@rdm@:Int)), OBJSET@:Set{@Object}, 
+      <_:_|_>(OR1@:Oid, ObjectRole@MGBehavior, 
+        _#_(
+          _:_(actualObject@ObjectRole@MGBehavior, p:OCL-Type), 
+          _:_(role@ObjectRole@MGBehavior, "p"))), 
+      <_:_|_>(OR2@:Oid, ObjectRole@MGBehavior, 
+        _#_(
+          _:_(actualObject@ObjectRole@MGBehavior, o:OCL-Type), 
+          _:_(role@ObjectRole@MGBehavior, "o"))))), T:OCL-Type)
+    = applyOngoingRules(readjust(Set`{_`}(mt), nil, _`{_`}(MM@:@Metamodel, 
+      __(
+        <_:_|_>(p:OCL-Type, PART@DEVSMM@p@CLASS:Part@devsmm, p@SFS:Set{@StructuralFeatureInstance}), 
+        <_:_|_>(o:OCL-Type, FAILURERATE@DEVSMM@o@CLASS:FailureRate@devsmm, 
+          _#_(
+            _:_(numFailures@FailureRate@devsmm, eval(_+_(
+      __(o:OCL-Type, ._(numFailures@OCLSf)), 1), env(_<-_(self, o:OCL-Type)), MODEL@:@Model)), 
+            _:_(numTotal@FailureRate@devsmm, eval(_+_(
+      __(o:OCL-Type, ._(numTotal@OCLSf)), 1), env(_<-_(self, o:OCL-Type)), MODEL@:@Model)), 
+            _:_(rate@FailureRate@devsmm, eval(_/_(_+_(
+      __(o:OCL-Type, ._(numFailures@OCLSf)), 1), _+_(
+      __(o:OCL-Type, ._(numTotal@OCLSf)), 1)), env(_<-_(self, o:OCL-Type)), MODEL@:@Model)), 
+            _:_(reqResults@FailureRate@devsmm, update(reqResults@FailureRate@devsmm, REQRESULTS@o@ATT:OCL-Type, link(p:OCL-Type, null), nil)), o@SFS:Set{@StructuralFeatureInstance})), 
+        <_:_|_>(CLK@:Oid, Clock@MGBehavior, 
+            _:_(time@Clock@MGBehavior, TIME@CLK@:Time)), 
+        <_:_|_>('ids@, Counter@MGBehavior, 
+            _:_(value@Counter@MGBehavior, VALUE@ids@:Int)), 
+        <_:_|_>('rdm@, Counter@MGBehavior, 
+            _:_(value@Counter@MGBehavior, _+_(VALUE@rdm@:Int, 7))), OBJSET@:Set{@Object}))), T:OCL-Type)
+    if MODEL@:@Model := _`{_`}(MM@:@Metamodel, 
+      __(
+        <_:_|_>(p:OCL-Type, PART@DEVSMM@p@CLASS:Part@devsmm, p@SFS:Set{@StructuralFeatureInstance}), 
+        <_:_|_>(o:OCL-Type, FAILURERATE@DEVSMM@o@CLASS:FailureRate@devsmm, 
+          _#_(
+            _:_(reqResults@FailureRate@devsmm, REQRESULTS@o@ATT:OCL-Type), 
+            _:_(numFailures@FailureRate@devsmm, NUMFAILURES@o@ATT:OCL-Type), 
+            _:_(numTotal@FailureRate@devsmm, NUMTOTAL@o@ATT:OCL-Type), 
+            _:_(rate@FailureRate@devsmm, RATE@o@ATT:OCL-Type), o@SFS:Set{@StructuralFeatureInstance})), 
+        <_:_|_>(ACTEXEC@:Oid, OngoingActionExec@MGBehavior, 
+          _#_(
+            _:_(action@ActionExec@MGBehavior, "FailureRate1"), 
+            _:_(endingTime@ActionExec@MGBehavior, null), 
+            _:_(participants@ActionExec@MGBehavior, Set`{_`}(_;_(OR1@:Oid, OR2@:Oid))), 
+            _:_(variables@ActionExec@MGBehavior, Set`{_`}(mt)), 
+            _:_(maxTimer@ActionExec@MGBehavior, freeze(MAXDURATIONONGOING@:OCL-Exp)), ACTEXEC@@SFS:Set{@StructuralFeatureInstance})), 
+        <_:_|_>(CLK@:Oid, Clock@MGBehavior, 
+            _:_(time@Clock@MGBehavior, TIME@CLK@:Time)), 
+        <_:_|_>('ids@, Counter@MGBehavior, 
+            _:_(value@Counter@MGBehavior, VALUE@ids@:Int)), 
+        <_:_|_>('rdm@, Counter@MGBehavior, 
+            _:_(value@Counter@MGBehavior, VALUE@rdm@:Int)), OBJSET@:Set{@Object}, 
+        <_:_|_>(OR1@:Oid, ObjectRole@MGBehavior, 
+          _#_(
+            _:_(actualObject@ObjectRole@MGBehavior, p:OCL-Type), 
+            _:_(role@ObjectRole@MGBehavior, "p"))), 
+        <_:_|_>(OR2@:Oid, ObjectRole@MGBehavior, 
+          _#_(
+            _:_(actualObject@ObjectRole@MGBehavior, o:OCL-Type), 
+            _:_(role@ObjectRole@MGBehavior, "o")))))
+    /\ eval(__(p:OCL-Type, ._(defective@OCLSf)), env(empty), MODEL@:@Model)
+    /\ _in_(p:OCL-Type, REQRESULTS@o@ATT:OCL-Type) .
   ceq mte(_`{_`}(MM@:@Metamodel, 
     __(
       <_:_|_>(c:OCL-Type, CONVEYOR@DEVSMM@c@CLASS:Conveyor@devsmm, 
         _#_(
-          _:_(outParts@Conveyor@devsmm, OUTPARTS@c@ATT:OCL-Type), 
-          _:_(out@Conveyor@devsmm, OUT@c@ATT:OCL-Type), c@SFS:Set{@StructuralFeatureInstance})), 
+          _:_(out@Conveyor@devsmm, OUT@c@ATT:OCL-Type), 
+          _:_(outParts@Conveyor@devsmm, OUTPARTS@c@ATT:OCL-Type), c@SFS:Set{@StructuralFeatureInstance})), 
       <_:_|_>(t:OCL-Type, TRAY@DEVSMM@t@CLASS:Tray@devsmm, 
         _#_(
           _:_(parts@Container@devsmm, PARTS@t@ATT:OCL-Type), t@SFS:Set{@StructuralFeatureInstance})), 
@@ -367,8 +526,8 @@ mod @DEVSMM@BEHAVIOR@ is
       __(
         <_:_|_>(c:OCL-Type, CONVEYOR@DEVSMM@c@CLASS:Conveyor@devsmm, 
           _#_(
-            _:_(outParts@Conveyor@devsmm, OUTPARTS@c@ATT:OCL-Type), 
-            _:_(out@Conveyor@devsmm, OUT@c@ATT:OCL-Type), c@SFS:Set{@StructuralFeatureInstance})), 
+            _:_(out@Conveyor@devsmm, OUT@c@ATT:OCL-Type), 
+            _:_(outParts@Conveyor@devsmm, OUTPARTS@c@ATT:OCL-Type), c@SFS:Set{@StructuralFeatureInstance})), 
         <_:_|_>(t:OCL-Type, TRAY@DEVSMM@t@CLASS:Tray@devsmm, 
           _#_(
             _:_(parts@Container@devsmm, PARTS@t@ATT:OCL-Type), t@SFS:Set{@StructuralFeatureInstance})), 
@@ -440,6 +599,30 @@ mod @DEVSMM@BEHAVIOR@ is
     /\ VAR1@:Oid := newId(_+_(VALUE@ids@:Int, 4))
     /\ collectTime:OCL-Type := eval(_rem_(random(_+_(VALUE@rdm@:Int, 13)), eval(5, env(empty), MODEL@:@Model)), env(empty), MODEL@:@Model)
     /\ not_(noconc@Collect(Set`{_`}(_;_(h:OCL-Type, t:OCL-Type, u:OCL-Type)), <_:_|_>(VAR1@:Oid, Variable@MGBehavior, _#_(_:_(name@Variable@MGBehavior, "collectTime"), _:_(value@Variable@MGBehavior, collectTime:OCL-Type))), MODEL@:@Model)) .
+  ceq mte(_`{_`}(MM@:@Metamodel, 
+    __(
+      <_:_|_>(a:OCL-Type, ASSEMBLE@DEVSMM@a@CLASS:Assemble@devsmm, 
+        _#_(
+          _:_(flRt@Assemble@devsmm, FLRT@a@ATT:OCL-Type), a@SFS:Set{@StructuralFeatureInstance})), 
+      <_:_|_>(CLK@:Oid, Clock@MGBehavior, 
+          _:_(time@Clock@MGBehavior, TIME@CLK@:Time)), 
+      <_:_|_>('ids@, Counter@MGBehavior, 
+          _:_(value@Counter@MGBehavior, VALUE@ids@:Int)), 
+      <_:_|_>('rdm@, Counter@MGBehavior, 
+          _:_(value@Counter@MGBehavior, VALUE@rdm@:Int)), OBJSET@:Set{@Object})))
+    = 0
+    if MODEL@:@Model := _`{_`}(MM@:@Metamodel, 
+      __(
+        <_:_|_>(a:OCL-Type, ASSEMBLE@DEVSMM@a@CLASS:Assemble@devsmm, 
+          _#_(
+            _:_(flRt@Assemble@devsmm, FLRT@a@ATT:OCL-Type), a@SFS:Set{@StructuralFeatureInstance})), 
+        <_:_|_>(CLK@:Oid, Clock@MGBehavior, 
+            _:_(time@Clock@MGBehavior, TIME@CLK@:Time)), 
+        <_:_|_>('ids@, Counter@MGBehavior, 
+            _:_(value@Counter@MGBehavior, VALUE@ids@:Int)), 
+        <_:_|_>('rdm@, Counter@MGBehavior, 
+            _:_(value@Counter@MGBehavior, VALUE@rdm@:Int)), OBJSET@:Set{@Object}))
+    /\ eval(_.`oclIsUndefined`(`)(__(a:OCL-Type, ._(flRt@OCLSf))), env(empty), MODEL@:@Model) .
     
   crl [GenHandle@Triggering] :
     _`{_`}(MM@:@Metamodel, 
@@ -956,9 +1139,11 @@ mod @DEVSMM@BEHAVIOR@ is
             _:_(parts@Container@devsmm, PARTS@t@ATT:OCL-Type), t@SFS:Set{@StructuralFeatureInstance})), 
         <_:_|_>(a:OCL-Type, ASSEMBLE@DEVSMM@a@CLASS:Assemble@devsmm, 
           _#_(
+            _:_(flRt@Assemble@devsmm, FLRT@a@ATT:OCL-Type), 
             _:_(out@Machine@devsmm, OUT@a@ATT:OCL-Type), 
             _:_(in@Machine@devsmm, IN@a@ATT:OCL-Type), a@SFS:Set{@StructuralFeatureInstance})), 
         <_:_|_>(c:OCL-Type, CONVEYOR@DEVSMM@c@CLASS:Conveyor@devsmm, c@SFS:Set{@StructuralFeatureInstance}), 
+        <_:_|_>(fr:OCL-Type, FAILURERATE@DEVSMM@fr@CLASS:FailureRate@devsmm, fr@SFS:Set{@StructuralFeatureInstance}), 
         <_:_|_>(CLK@:Oid, Clock@MGBehavior, 
             _:_(time@Clock@MGBehavior, TIME@CLK@:Time)), 
         <_:_|_>('ids@, Counter@MGBehavior, 
@@ -975,9 +1160,11 @@ mod @DEVSMM@BEHAVIOR@ is
             _:_(parts@Container@devsmm, PARTS@t@ATT:OCL-Type), t@SFS:Set{@StructuralFeatureInstance})), 
         <_:_|_>(a:OCL-Type, ASSEMBLE@DEVSMM@a@CLASS:Assemble@devsmm, 
           _#_(
+            _:_(flRt@Assemble@devsmm, FLRT@a@ATT:OCL-Type), 
             _:_(out@Machine@devsmm, OUT@a@ATT:OCL-Type), 
             _:_(in@Machine@devsmm, IN@a@ATT:OCL-Type), a@SFS:Set{@StructuralFeatureInstance})), 
         <_:_|_>(c:OCL-Type, CONVEYOR@DEVSMM@c@CLASS:Conveyor@devsmm, c@SFS:Set{@StructuralFeatureInstance}), 
+        <_:_|_>(fr:OCL-Type, FAILURERATE@DEVSMM@fr@CLASS:FailureRate@devsmm, fr@SFS:Set{@StructuralFeatureInstance}), 
         <_:_|_>(ACTEXEC@:Oid, AtomicActionExec@MGBehavior, 
           _#_(
             _:_(action@ActionExec@MGBehavior, "Assemble"), 
@@ -987,12 +1174,12 @@ mod @DEVSMM@BEHAVIOR@ is
             _:_(status@AtomicActionExec@MGBehavior, unfinished@ActionStatus@MGBehavior), 
             _:_(startingTime@ActionExec@MGBehavior, TIME@CLK@:Time), 
             _:_(endingTime@ActionExec@MGBehavior, null), 
-            _:_(participants@ActionExec@MGBehavior, Set`{_`}(_;_(OR1@:Oid, OR2@:Oid, OR3@:Oid, OR4@:Oid, OR5@:Oid))), 
+            _:_(participants@ActionExec@MGBehavior, Set`{_`}(_;_(OR1@:Oid, OR2@:Oid, OR3@:Oid, OR4@:Oid, OR5@:Oid, OR6@:Oid))), 
             _:_(variables@ActionExec@MGBehavior, Set`{_`}(_;_(VAR1@:Oid, VAR2@:Oid))))), 
         <_:_|_>(CLK@:Oid, Clock@MGBehavior, 
             _:_(time@Clock@MGBehavior, TIME@CLK@:Time)), 
         <_:_|_>('ids@, Counter@MGBehavior, 
-            _:_(value@Counter@MGBehavior, _+_(VALUE@ids@:Int, 8))), 
+            _:_(value@Counter@MGBehavior, _+_(VALUE@ids@:Int, 9))), 
         <_:_|_>('rdm@, Counter@MGBehavior, 
             _:_(value@Counter@MGBehavior, _+_(VALUE@rdm@:Int, 7))), OBJSET@:Set{@Object}, 
         <_:_|_>(OR1@:Oid, ObjectRole@MGBehavior, 
@@ -1015,6 +1202,10 @@ mod @DEVSMM@BEHAVIOR@ is
           _#_(
             _:_(actualObject@ObjectRole@MGBehavior, c:OCL-Type), 
             _:_(role@ObjectRole@MGBehavior, "c"))), 
+        <_:_|_>(OR6@:Oid, ObjectRole@MGBehavior, 
+          _#_(
+            _:_(actualObject@ObjectRole@MGBehavior, fr:OCL-Type), 
+            _:_(role@ObjectRole@MGBehavior, "fr"))), 
         <_:_|_>(VAR1@:Oid, Variable@MGBehavior, 
           _#_(
             _:_(name@Variable@MGBehavior, "rdm"), 
@@ -1033,9 +1224,11 @@ mod @DEVSMM@BEHAVIOR@ is
           _:_(parts@Container@devsmm, PARTS@t@ATT:OCL-Type), t@SFS:Set{@StructuralFeatureInstance})), 
       <_:_|_>(a:OCL-Type, ASSEMBLE@DEVSMM@a@CLASS:Assemble@devsmm, 
         _#_(
+          _:_(flRt@Assemble@devsmm, FLRT@a@ATT:OCL-Type), 
           _:_(out@Machine@devsmm, OUT@a@ATT:OCL-Type), 
           _:_(in@Machine@devsmm, IN@a@ATT:OCL-Type), a@SFS:Set{@StructuralFeatureInstance})), 
       <_:_|_>(c:OCL-Type, CONVEYOR@DEVSMM@c@CLASS:Conveyor@devsmm, c@SFS:Set{@StructuralFeatureInstance}), 
+      <_:_|_>(fr:OCL-Type, FAILURERATE@DEVSMM@fr@CLASS:FailureRate@devsmm, fr@SFS:Set{@StructuralFeatureInstance}), 
       <_:_|_>(CLK@:Oid, Clock@MGBehavior, 
           _:_(time@Clock@MGBehavior, TIME@CLK@:Time)), 
       <_:_|_>('ids@, Counter@MGBehavior, 
@@ -1051,16 +1244,18 @@ mod @DEVSMM@BEHAVIOR@ is
   /\ _in_(ha:OCL-Type, PARTS@t@ATT:OCL-Type)
   /\ _in_(t:OCL-Type, IN@a@ATT:OCL-Type)
   /\ _in_(c:OCL-Type, OUT@a@ATT:OCL-Type)
+  /\ _in_(fr:OCL-Type, FLRT@a@ATT:OCL-Type)
   /\ OR1@:Oid := newId(_+_(VALUE@ids@:Int, 1))
   /\ OR2@:Oid := newId(_+_(VALUE@ids@:Int, 2))
   /\ OR3@:Oid := newId(_+_(VALUE@ids@:Int, 3))
   /\ OR4@:Oid := newId(_+_(VALUE@ids@:Int, 4))
   /\ OR5@:Oid := newId(_+_(VALUE@ids@:Int, 5))
-  /\ VAR1@:Oid := newId(_+_(VALUE@ids@:Int, 6))
-  /\ VAR2@:Oid := newId(_+_(VALUE@ids@:Int, 7))
+  /\ OR6@:Oid := newId(_+_(VALUE@ids@:Int, 6))
+  /\ VAR1@:Oid := newId(_+_(VALUE@ids@:Int, 7))
+  /\ VAR2@:Oid := newId(_+_(VALUE@ids@:Int, 8))
   /\ MAXDURATION@:Time := toRat(eval(prodTime:OCL-Type, env(empty), MODEL@:@Model))
-  /\ not_(currentExec@Assemble(Set`{_`}(_;_(he:OCL-Type, ha:OCL-Type, t:OCL-Type, a:OCL-Type, c:OCL-Type)), MODEL@:@Model))
-  /\ not_(notconcurrentassembles@Assemble(Set`{_`}(_;_(he:OCL-Type, ha:OCL-Type, t:OCL-Type, a:OCL-Type, c:OCL-Type)), __(<_:_|_>(VAR1@:Oid, Variable@MGBehavior, _#_(_:_(name@Variable@MGBehavior, "rdm"), _:_(value@Variable@MGBehavior, rdm:OCL-Type))), <_:_|_>(VAR2@:Oid, Variable@MGBehavior, _#_(_:_(name@Variable@MGBehavior, "prodTime"), _:_(value@Variable@MGBehavior, prodTime:OCL-Type)))), MODEL@:@Model)) [print " -> Assemble@Triggering \tin time " TIME@CLK@:Time] .
+  /\ not_(currentExec@Assemble(Set`{_`}(_;_(he:OCL-Type, ha:OCL-Type, t:OCL-Type, a:OCL-Type, c:OCL-Type, fr:OCL-Type)), MODEL@:@Model))
+  /\ not_(notconcurrentassembles@Assemble(Set`{_`}(_;_(he:OCL-Type, ha:OCL-Type, t:OCL-Type, a:OCL-Type, c:OCL-Type, fr:OCL-Type)), __(<_:_|_>(VAR1@:Oid, Variable@MGBehavior, _#_(_:_(name@Variable@MGBehavior, "rdm"), _:_(value@Variable@MGBehavior, rdm:OCL-Type))), <_:_|_>(VAR2@:Oid, Variable@MGBehavior, _#_(_:_(name@Variable@MGBehavior, "prodTime"), _:_(value@Variable@MGBehavior, prodTime:OCL-Type)))), MODEL@:@Model)) [print " -> Assemble@Triggering \tin time " TIME@CLK@:Time] .
   
   crl [Assemble@Realization] :
     _`{_`}(MM@:@Metamodel, 
@@ -1072,11 +1267,15 @@ mod @DEVSMM@BEHAVIOR@ is
             _:_(parts@Container@devsmm, PARTS@t@ATT:OCL-Type), t@SFS:Set{@StructuralFeatureInstance})), 
         <_:_|_>(a:OCL-Type, ASSEMBLE@DEVSMM@a@CLASS:Assemble@devsmm, 
           _#_(
+            _:_(flRt@Assemble@devsmm, FLRT@a@ATT:OCL-Type), 
             _:_(out@Machine@devsmm, OUT@a@ATT:OCL-Type), 
             _:_(in@Machine@devsmm, IN@a@ATT:OCL-Type), a@SFS:Set{@StructuralFeatureInstance})), 
         <_:_|_>(c:OCL-Type, CONVEYOR@DEVSMM@c@CLASS:Conveyor@devsmm, 
           _#_(
             _:_(parts@Container@devsmm, PARTS@c@ATT:OCL-Type), c@SFS:Set{@StructuralFeatureInstance})), 
+        <_:_|_>(fr:OCL-Type, FAILURERATE@DEVSMM@fr@CLASS:FailureRate@devsmm, 
+          _#_(
+            _:_(reqResults@FailureRate@devsmm, REQRESULTS@fr@ATT:OCL-Type), fr@SFS:Set{@StructuralFeatureInstance})), 
         <_:_|_>(ACTEXEC@:Oid, AtomicActionExec@MGBehavior, 
           _#_(
             _:_(action@ActionExec@MGBehavior, "Assemble"), 
@@ -1084,7 +1283,7 @@ mod @DEVSMM@BEHAVIOR@ is
             _:_(minTimer@AtomicActionExec@MGBehavior, 0), 
             _:_(endingTime@ActionExec@MGBehavior, null), 
             _:_(executionTime@AtomicActionExec@MGBehavior, T:OCL-Type), 
-            _:_(participants@ActionExec@MGBehavior, Set`{_`}(_;_(OR1@:Oid, OR2@:Oid, OR3@:Oid, OR4@:Oid, OR5@:Oid))), 
+            _:_(participants@ActionExec@MGBehavior, Set`{_`}(_;_(OR1@:Oid, OR2@:Oid, OR3@:Oid, OR4@:Oid, OR5@:Oid, OR6@:Oid))), 
             _:_(variables@ActionExec@MGBehavior, Set`{_`}(_;_(VAR1@:Oid, VAR2@:Oid))), ACTEXEC@@SFS:Set{@StructuralFeatureInstance})), 
         <_:_|_>(CLK@:Oid, Clock@MGBehavior, 
             _:_(time@Clock@MGBehavior, TIME@CLK@:Time)), 
@@ -1112,6 +1311,10 @@ mod @DEVSMM@BEHAVIOR@ is
           _#_(
             _:_(actualObject@ObjectRole@MGBehavior, c:OCL-Type), 
             _:_(role@ObjectRole@MGBehavior, "c"))), 
+        <_:_|_>(OR6@:Oid, ObjectRole@MGBehavior, 
+          _#_(
+            _:_(actualObject@ObjectRole@MGBehavior, fr:OCL-Type), 
+            _:_(role@ObjectRole@MGBehavior, "fr"))), 
         <_:_|_>(VAR1@:Oid, Variable@MGBehavior, 
           _#_(
             _:_(name@Variable@MGBehavior, "rdm"), 
@@ -1134,11 +1337,15 @@ mod @DEVSMM@BEHAVIOR@ is
       __(link(he:OCL-Type, null), link(ha:OCL-Type, null)), nil)), t@SFS:Set{@StructuralFeatureInstance})), 
         <_:_|_>(a:OCL-Type, ASSEMBLE@DEVSMM@a@CLASS:Assemble@devsmm, 
           _#_(
+            _:_(flRt@Assemble@devsmm, update(flRt@Assemble@devsmm, FLRT@a@ATT:OCL-Type, nil, link(fr:OCL-Type, null))), 
             _:_(out@Machine@devsmm, update(out@Machine@devsmm, OUT@a@ATT:OCL-Type, nil, link(c:OCL-Type, null))), 
             _:_(in@Machine@devsmm, update(in@Machine@devsmm, IN@a@ATT:OCL-Type, nil, link(t:OCL-Type, null))), a@SFS:Set{@StructuralFeatureInstance})), 
         <_:_|_>(c:OCL-Type, CONVEYOR@DEVSMM@c@CLASS:Conveyor@devsmm, 
           _#_(
             _:_(parts@Container@devsmm, update(parts@Container@devsmm, PARTS@c@ATT:OCL-Type, nil, link(ham:OCL-Type, null))), c@SFS:Set{@StructuralFeatureInstance})), 
+        <_:_|_>(fr:OCL-Type, FAILURERATE@DEVSMM@fr@CLASS:FailureRate@devsmm, 
+          _#_(
+            _:_(reqResults@FailureRate@devsmm, update(reqResults@FailureRate@devsmm, REQRESULTS@fr@ATT:OCL-Type, nil, link(ham:OCL-Type, null))), fr@SFS:Set{@StructuralFeatureInstance})), 
         <_:_|_>(CLK@:Oid, Clock@MGBehavior, 
             _:_(time@Clock@MGBehavior, TIME@CLK@:Time)), 
         <_:_|_>('rdm@, Counter@MGBehavior, 
@@ -1156,11 +1363,15 @@ mod @DEVSMM@BEHAVIOR@ is
           _:_(parts@Container@devsmm, PARTS@t@ATT:OCL-Type), t@SFS:Set{@StructuralFeatureInstance})), 
       <_:_|_>(a:OCL-Type, ASSEMBLE@DEVSMM@a@CLASS:Assemble@devsmm, 
         _#_(
+          _:_(flRt@Assemble@devsmm, FLRT@a@ATT:OCL-Type), 
           _:_(out@Machine@devsmm, OUT@a@ATT:OCL-Type), 
           _:_(in@Machine@devsmm, IN@a@ATT:OCL-Type), a@SFS:Set{@StructuralFeatureInstance})), 
       <_:_|_>(c:OCL-Type, CONVEYOR@DEVSMM@c@CLASS:Conveyor@devsmm, 
         _#_(
           _:_(parts@Container@devsmm, PARTS@c@ATT:OCL-Type), c@SFS:Set{@StructuralFeatureInstance})), 
+      <_:_|_>(fr:OCL-Type, FAILURERATE@DEVSMM@fr@CLASS:FailureRate@devsmm, 
+        _#_(
+          _:_(reqResults@FailureRate@devsmm, REQRESULTS@fr@ATT:OCL-Type), fr@SFS:Set{@StructuralFeatureInstance})), 
       <_:_|_>(ACTEXEC@:Oid, AtomicActionExec@MGBehavior, 
         _#_(
           _:_(action@ActionExec@MGBehavior, "Assemble"), 
@@ -1168,7 +1379,7 @@ mod @DEVSMM@BEHAVIOR@ is
           _:_(minTimer@AtomicActionExec@MGBehavior, 0), 
           _:_(endingTime@ActionExec@MGBehavior, null), 
           _:_(executionTime@AtomicActionExec@MGBehavior, T:OCL-Type), 
-          _:_(participants@ActionExec@MGBehavior, Set`{_`}(_;_(OR1@:Oid, OR2@:Oid, OR3@:Oid, OR4@:Oid, OR5@:Oid))), 
+          _:_(participants@ActionExec@MGBehavior, Set`{_`}(_;_(OR1@:Oid, OR2@:Oid, OR3@:Oid, OR4@:Oid, OR5@:Oid, OR6@:Oid))), 
           _:_(variables@ActionExec@MGBehavior, Set`{_`}(_;_(VAR1@:Oid, VAR2@:Oid))), ACTEXEC@@SFS:Set{@StructuralFeatureInstance})), 
       <_:_|_>(CLK@:Oid, Clock@MGBehavior, 
           _:_(time@Clock@MGBehavior, TIME@CLK@:Time)), 
@@ -1196,6 +1407,10 @@ mod @DEVSMM@BEHAVIOR@ is
         _#_(
           _:_(actualObject@ObjectRole@MGBehavior, c:OCL-Type), 
           _:_(role@ObjectRole@MGBehavior, "c"))), 
+      <_:_|_>(OR6@:Oid, ObjectRole@MGBehavior, 
+        _#_(
+          _:_(actualObject@ObjectRole@MGBehavior, fr:OCL-Type), 
+          _:_(role@ObjectRole@MGBehavior, "fr"))), 
       <_:_|_>(VAR1@:Oid, Variable@MGBehavior, 
         _#_(
           _:_(name@Variable@MGBehavior, "rdm"), 
@@ -1206,13 +1421,75 @@ mod @DEVSMM@BEHAVIOR@ is
           _:_(value@Variable@MGBehavior, prodTime:OCL-Type)))))
   /\ ham:OCL-Type := newId(_+_(VALUE@ids@:Int, 0)) [print " -> Assemble@Realization \tin time " TIME@CLK@:Time] .
   
+  crl [FailureRate1@Triggering] :
+    _`{_`}(MM@:@Metamodel, 
+      __(
+        <_:_|_>(p:OCL-Type, PART@DEVSMM@p@CLASS:Part@devsmm, p@SFS:Set{@StructuralFeatureInstance}), 
+        <_:_|_>(o:OCL-Type, FAILURERATE@DEVSMM@o@CLASS:FailureRate@devsmm, 
+          _#_(
+            _:_(reqResults@FailureRate@devsmm, REQRESULTS@o@ATT:OCL-Type), o@SFS:Set{@StructuralFeatureInstance})), 
+        <_:_|_>(CLK@:Oid, Clock@MGBehavior, 
+            _:_(time@Clock@MGBehavior, TIME@CLK@:Time)), 
+        <_:_|_>('ids@, Counter@MGBehavior, 
+            _:_(value@Counter@MGBehavior, VALUE@ids@:Int)), 
+        <_:_|_>('rdm@, Counter@MGBehavior, 
+            _:_(value@Counter@MGBehavior, VALUE@rdm@:Int)), OBJSET@:Set{@Object}))
+  =>
+    _`{_`}(MM@:@Metamodel, 
+      __(
+        <_:_|_>(p:OCL-Type, PART@DEVSMM@p@CLASS:Part@devsmm, p@SFS:Set{@StructuralFeatureInstance}), 
+        <_:_|_>(o:OCL-Type, FAILURERATE@DEVSMM@o@CLASS:FailureRate@devsmm, 
+          _#_(
+            _:_(reqResults@FailureRate@devsmm, REQRESULTS@o@ATT:OCL-Type), o@SFS:Set{@StructuralFeatureInstance})), 
+        <_:_|_>(ACTEXEC@:Oid, OngoingActionExec@MGBehavior, 
+          _#_(
+            _:_(action@ActionExec@MGBehavior, "FailureRate1"), 
+            _:_(maxTimer@ActionExec@MGBehavior, freeze(null)), 
+            _:_(startingTime@ActionExec@MGBehavior, TIME@CLK@:Time), 
+            _:_(endingTime@ActionExec@MGBehavior, null), 
+            _:_(participants@ActionExec@MGBehavior, Set`{_`}(_;_(OR1@:Oid, OR2@:Oid))), 
+            _:_(variables@ActionExec@MGBehavior, Set`{_`}(mt)), 
+            _:_(upperBoundTimer@OngoingActionExec@MGBehavior, null))), 
+        <_:_|_>(CLK@:Oid, Clock@MGBehavior, 
+            _:_(time@Clock@MGBehavior, TIME@CLK@:Time)), 
+        <_:_|_>('ids@, Counter@MGBehavior, 
+            _:_(value@Counter@MGBehavior, _+_(VALUE@ids@:Int, 3))), 
+        <_:_|_>('rdm@, Counter@MGBehavior, 
+            _:_(value@Counter@MGBehavior, _+_(VALUE@rdm@:Int, 7))), OBJSET@:Set{@Object}, 
+        <_:_|_>(OR1@:Oid, ObjectRole@MGBehavior, 
+          _#_(
+            _:_(actualObject@ObjectRole@MGBehavior, p:OCL-Type), 
+            _:_(role@ObjectRole@MGBehavior, "p"))), 
+        <_:_|_>(OR2@:Oid, ObjectRole@MGBehavior, 
+          _#_(
+            _:_(actualObject@ObjectRole@MGBehavior, o:OCL-Type), 
+            _:_(role@ObjectRole@MGBehavior, "o")))))
+  if ACTEXEC@:Oid := newId(VALUE@ids@:Int)
+  /\ MODEL@:@Model := _`{_`}(MM@:@Metamodel, 
+    __(
+      <_:_|_>(p:OCL-Type, PART@DEVSMM@p@CLASS:Part@devsmm, p@SFS:Set{@StructuralFeatureInstance}), 
+      <_:_|_>(o:OCL-Type, FAILURERATE@DEVSMM@o@CLASS:FailureRate@devsmm, 
+        _#_(
+          _:_(reqResults@FailureRate@devsmm, REQRESULTS@o@ATT:OCL-Type), o@SFS:Set{@StructuralFeatureInstance})), 
+      <_:_|_>(CLK@:Oid, Clock@MGBehavior, 
+          _:_(time@Clock@MGBehavior, TIME@CLK@:Time)), 
+      <_:_|_>('ids@, Counter@MGBehavior, 
+          _:_(value@Counter@MGBehavior, VALUE@ids@:Int)), 
+      <_:_|_>('rdm@, Counter@MGBehavior, 
+          _:_(value@Counter@MGBehavior, VALUE@rdm@:Int)), OBJSET@:Set{@Object}))
+  /\ not_(currentExec@FailureRate1(Set`{_`}(_;_(p:OCL-Type, o:OCL-Type)), MODEL@:@Model))
+  /\ eval(__(p:OCL-Type, ._(defective@OCLSf)), env(empty), MODEL@:@Model)
+  /\ _in_(p:OCL-Type, REQRESULTS@o@ATT:OCL-Type)
+  /\ OR1@:Oid := newId(_+_(VALUE@ids@:Int, 1))
+  /\ OR2@:Oid := newId(_+_(VALUE@ids@:Int, 2)) [print " -> FailureRate1@Triggering \tin time " TIME@CLK@:Time] .
+  
   crl [Transfer@Instantaneous] :
     _`{_`}(MM@:@Metamodel, 
       __(
         <_:_|_>(c:OCL-Type, CONVEYOR@DEVSMM@c@CLASS:Conveyor@devsmm, 
           _#_(
-            _:_(outParts@Conveyor@devsmm, OUTPARTS@c@ATT:OCL-Type), 
-            _:_(out@Conveyor@devsmm, OUT@c@ATT:OCL-Type), c@SFS:Set{@StructuralFeatureInstance})), 
+            _:_(out@Conveyor@devsmm, OUT@c@ATT:OCL-Type), 
+            _:_(outParts@Conveyor@devsmm, OUTPARTS@c@ATT:OCL-Type), c@SFS:Set{@StructuralFeatureInstance})), 
         <_:_|_>(t:OCL-Type, TRAY@DEVSMM@t@CLASS:Tray@devsmm, 
           _#_(
             _:_(parts@Container@devsmm, PARTS@t@ATT:OCL-Type), t@SFS:Set{@StructuralFeatureInstance})), 
@@ -1245,8 +1522,8 @@ mod @DEVSMM@BEHAVIOR@ is
     __(
       <_:_|_>(c:OCL-Type, CONVEYOR@DEVSMM@c@CLASS:Conveyor@devsmm, 
         _#_(
-          _:_(outParts@Conveyor@devsmm, OUTPARTS@c@ATT:OCL-Type), 
-          _:_(out@Conveyor@devsmm, OUT@c@ATT:OCL-Type), c@SFS:Set{@StructuralFeatureInstance})), 
+          _:_(out@Conveyor@devsmm, OUT@c@ATT:OCL-Type), 
+          _:_(outParts@Conveyor@devsmm, OUTPARTS@c@ATT:OCL-Type), c@SFS:Set{@StructuralFeatureInstance})), 
       <_:_|_>(t:OCL-Type, TRAY@DEVSMM@t@CLASS:Tray@devsmm, 
         _#_(
           _:_(parts@Container@devsmm, PARTS@t@ATT:OCL-Type), t@SFS:Set{@StructuralFeatureInstance})), 
@@ -1321,5 +1598,47 @@ mod @DEVSMM@BEHAVIOR@ is
   /\ OR3@:Oid := newId(_+_(VALUE@ids@:Int, 3))
   /\ VAR1@:Oid := newId(_+_(VALUE@ids@:Int, 4))
   /\ not_(noconc@Collect(Set`{_`}(_;_(h:OCL-Type, t:OCL-Type, u:OCL-Type)), <_:_|_>(VAR1@:Oid, Variable@MGBehavior, _#_(_:_(name@Variable@MGBehavior, "collectTime"), _:_(value@Variable@MGBehavior, collectTime:OCL-Type))), MODEL@:@Model)) [print " -> Collect@Instantaneous \tin time " TIME@CLK@:Time] .
+  
+  crl [CreateFailure@Instantaneous] :
+    _`{_`}(MM@:@Metamodel, 
+      __(
+        <_:_|_>(a:OCL-Type, ASSEMBLE@DEVSMM@a@CLASS:Assemble@devsmm, 
+          _#_(
+            _:_(flRt@Assemble@devsmm, FLRT@a@ATT:OCL-Type), a@SFS:Set{@StructuralFeatureInstance})), 
+        <_:_|_>(CLK@:Oid, Clock@MGBehavior, 
+            _:_(time@Clock@MGBehavior, TIME@CLK@:Time)), 
+        <_:_|_>('ids@, Counter@MGBehavior, 
+            _:_(value@Counter@MGBehavior, VALUE@ids@:Int)), 
+        <_:_|_>('rdm@, Counter@MGBehavior, 
+            _:_(value@Counter@MGBehavior, VALUE@rdm@:Int)), OBJSET@:Set{@Object}))
+  =>
+    readjust(Set`{_`}(mt), nil, _`{_`}(MM@:@Metamodel, 
+      __(
+        <_:_|_>(a:OCL-Type, ASSEMBLE@DEVSMM@a@CLASS:Assemble@devsmm, 
+          _#_(
+            _:_(flRt@Assemble@devsmm, update(flRt@Assemble@devsmm, FLRT@a@ATT:OCL-Type, nil, link(fr:OCL-Type, null))), a@SFS:Set{@StructuralFeatureInstance})), complete(
+        <_:_|_>(fr:OCL-Type, FailureRate@devsmm, empty)), 
+        <_:_|_>(CLK@:Oid, Clock@MGBehavior, 
+            _:_(time@Clock@MGBehavior, TIME@CLK@:Time)), 
+        <_:_|_>('rdm@, Counter@MGBehavior, 
+            _:_(value@Counter@MGBehavior, _+_(VALUE@rdm@:Int, 7))), OBJSET@:Set{@Object}, 
+        <_:_|_>('ids@, Counter@MGBehavior, 
+            _:_(value@Counter@MGBehavior, _+_(VALUE@ids@:Int, 3))))))
+  if ACTEXEC@:Oid := newId(VALUE@ids@:Int)
+  /\ MODEL@:@Model := _`{_`}(MM@:@Metamodel, 
+    __(
+      <_:_|_>(a:OCL-Type, ASSEMBLE@DEVSMM@a@CLASS:Assemble@devsmm, 
+        _#_(
+          _:_(flRt@Assemble@devsmm, FLRT@a@ATT:OCL-Type), a@SFS:Set{@StructuralFeatureInstance})), 
+      <_:_|_>(CLK@:Oid, Clock@MGBehavior, 
+          _:_(time@Clock@MGBehavior, TIME@CLK@:Time)), 
+      <_:_|_>('ids@, Counter@MGBehavior, 
+          _:_(value@Counter@MGBehavior, VALUE@ids@:Int)), 
+      <_:_|_>('rdm@, Counter@MGBehavior, 
+          _:_(value@Counter@MGBehavior, VALUE@rdm@:Int)), OBJSET@:Set{@Object}))
+  /\ eval(_.`oclIsUndefined`(`)(__(a:OCL-Type, ._(flRt@OCLSf))), env(empty), MODEL@:@Model)
+  /\ T:OCL-Type := eval(0, env(empty), MODEL@:@Model)
+  /\ OR1@:Oid := newId(_+_(VALUE@ids@:Int, 1))
+  /\ fr:OCL-Type := newId(_+_(VALUE@ids@:Int, 2)) [print " -> CreateFailure@Instantaneous \tin time " TIME@CLK@:Time] .
   
 endm ---- end system module @DEVSMM@BEHAVIOR@

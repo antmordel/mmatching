@@ -11,8 +11,8 @@
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="defRate" lowerBound="1"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="in" eType="#//Tray"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="out" lowerBound="1" eType="#//Conveyor"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="in" eType="#//LimitedContainer"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="out" lowerBound="1" eType="#//LimitedContainer"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Generator" eSuperTypes="#//Machine">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="counter" lowerBound="1"

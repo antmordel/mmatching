@@ -1,6 +1,6 @@
 ---- ----------------------------------------------- ----
 ---- Programmatically generated code using e-Motions ----
----- @date Mon Sep 22 16:16:59 CEST 2014             ----
+---- @date Wed Sep 24 10:38:04 CEST 2014             ----
 ---- ----------------------------------------------- ----
 
 mod @DEVSMM@ is
@@ -22,6 +22,7 @@ mod @DEVSMM@ is
   sort Head@devsmm .
   sort Handle@devsmm .
   sort Hammer@devsmm .
+  sort FailureRate@devsmm .
     
   subsort Plant@devsmm < @Class .
   subsort PlantEl@devsmm < @Class .
@@ -39,6 +40,7 @@ mod @DEVSMM@ is
   subsort Head@devsmm < Part@devsmm .
   subsort Handle@devsmm < Part@devsmm .
   subsort Hammer@devsmm < Part@devsmm .
+  subsort FailureRate@devsmm < @Class .
     
   op @devsmm@ : -> @Metamodel  .
   op devsmm : -> @Package  .
@@ -58,18 +60,24 @@ mod @DEVSMM@ is
   op Head@devsmm : -> Head@devsmm  .
   op Handle@devsmm : -> Handle@devsmm  .
   op Hammer@devsmm : -> Hammer@devsmm  .
+  op FailureRate@devsmm : -> FailureRate@devsmm  .
   op els@Plant@devsmm : -> @Reference  .
   op in@Machine@devsmm : -> @Reference  .
   op out@Machine@devsmm : -> @Reference  .
+  op flRt@Assemble@devsmm : -> @Reference  .
   op parts@Container@devsmm : -> @Reference  .
   op out@Conveyor@devsmm : -> @Reference  .
   op outParts@Conveyor@devsmm : -> @Reference  .
+  op reqResults@FailureRate@devsmm : -> @Reference  .
   op prodTime@Machine@devsmm : -> @Attribute  .
   op defRate@Machine@devsmm : -> @Attribute  .
   op counter@Generator@devsmm : -> @Attribute  .
   op speed@Conveyor@devsmm : -> @Attribute  .
   op capacity@LimitedContainer@devsmm : -> @Attribute  .
   op defective@Part@devsmm : -> @Attribute  .
+  op numFailures@FailureRate@devsmm : -> @Attribute  .
+  op numTotal@FailureRate@devsmm : -> @Attribute  .
+  op rate@FailureRate@devsmm : -> @Attribute  .
     
   eq name(@devsmm@)
     = "devsmm" .
@@ -84,7 +92,7 @@ mod @DEVSMM@ is
   eq subPackages(devsmm)
     = nil .
   eq classes(devsmm)
-    = __(Plant@devsmm, PlantEl@devsmm, Machine@devsmm, Generator@devsmm, GenHead@devsmm, GenHandle@devsmm, Assemble@devsmm, Container@devsmm, Tray@devsmm, User@devsmm, Conveyor@devsmm, LimitedContainer@devsmm, Part@devsmm, Head@devsmm, Handle@devsmm, Hammer@devsmm) .
+    = __(Plant@devsmm, PlantEl@devsmm, Machine@devsmm, Generator@devsmm, GenHead@devsmm, GenHandle@devsmm, Assemble@devsmm, Container@devsmm, Tray@devsmm, User@devsmm, Conveyor@devsmm, LimitedContainer@devsmm, Part@devsmm, Head@devsmm, Handle@devsmm, Hammer@devsmm, FailureRate@devsmm) .
   eq name(Plant@devsmm)
     = "Plant" .
   eq isAbstract(Plant@devsmm)
@@ -166,7 +174,7 @@ mod @DEVSMM@ is
   eq superTypes(Assemble@devsmm)
     = Machine@devsmm .
   eq references(Assemble@devsmm)
-    = nil .
+    = flRt@Assemble@devsmm .
   eq attributes(Assemble@devsmm)
     = nil .
   eq name(Container@devsmm)
@@ -277,6 +285,18 @@ mod @DEVSMM@ is
     = nil .
   eq attributes(Hammer@devsmm)
     = nil .
+  eq name(FailureRate@devsmm)
+    = "FailureRate" .
+  eq isAbstract(FailureRate@devsmm)
+    = false .
+  eq package(FailureRate@devsmm)
+    = devsmm .
+  eq superTypes(FailureRate@devsmm)
+    = nil .
+  eq references(FailureRate@devsmm)
+    = reqResults@FailureRate@devsmm .
+  eq attributes(FailureRate@devsmm)
+    = __(numFailures@FailureRate@devsmm, numTotal@FailureRate@devsmm, rate@FailureRate@devsmm) .
   eq name(els@Plant@devsmm)
     = "els" .
   eq type(els@Plant@devsmm)
@@ -298,7 +318,7 @@ mod @DEVSMM@ is
   eq name(in@Machine@devsmm)
     = "in" .
   eq type(in@Machine@devsmm)
-    = Tray@devsmm .
+    = LimitedContainer@devsmm .
   eq opposite(in@Machine@devsmm)
     = null .
   eq lowerBound(in@Machine@devsmm)
@@ -316,7 +336,7 @@ mod @DEVSMM@ is
   eq name(out@Machine@devsmm)
     = "out" .
   eq type(out@Machine@devsmm)
-    = Conveyor@devsmm .
+    = LimitedContainer@devsmm .
   eq opposite(out@Machine@devsmm)
     = null .
   eq lowerBound(out@Machine@devsmm)
@@ -330,6 +350,24 @@ mod @DEVSMM@ is
   eq isOrdered(out@Machine@devsmm)
     = true .
   eq isUnique(out@Machine@devsmm)
+    = true .
+  eq name(flRt@Assemble@devsmm)
+    = "flRt" .
+  eq type(flRt@Assemble@devsmm)
+    = FailureRate@devsmm .
+  eq opposite(flRt@Assemble@devsmm)
+    = null .
+  eq lowerBound(flRt@Assemble@devsmm)
+    = 0 .
+  eq upperBound(flRt@Assemble@devsmm)
+    = 1 .
+  eq containingClass(flRt@Assemble@devsmm)
+    = Assemble@devsmm .
+  eq isContainment(flRt@Assemble@devsmm)
+    = false .
+  eq isOrdered(flRt@Assemble@devsmm)
+    = true .
+  eq isUnique(flRt@Assemble@devsmm)
     = true .
   eq name(parts@Container@devsmm)
     = "parts" .
@@ -384,6 +422,24 @@ mod @DEVSMM@ is
   eq isOrdered(outParts@Conveyor@devsmm)
     = true .
   eq isUnique(outParts@Conveyor@devsmm)
+    = true .
+  eq name(reqResults@FailureRate@devsmm)
+    = "reqResults" .
+  eq type(reqResults@FailureRate@devsmm)
+    = Part@devsmm .
+  eq opposite(reqResults@FailureRate@devsmm)
+    = null .
+  eq lowerBound(reqResults@FailureRate@devsmm)
+    = 0 .
+  eq upperBound(reqResults@FailureRate@devsmm)
+    = * .
+  eq containingClass(reqResults@FailureRate@devsmm)
+    = FailureRate@devsmm .
+  eq isContainment(reqResults@FailureRate@devsmm)
+    = false .
+  eq isOrdered(reqResults@FailureRate@devsmm)
+    = true .
+  eq isUnique(reqResults@FailureRate@devsmm)
     = true .
   eq name(prodTime@Machine@devsmm)
     = "prodTime" .
@@ -480,6 +536,54 @@ mod @DEVSMM@ is
   eq isOrdered(defective@Part@devsmm)
     = true .
   eq isUnique(defective@Part@devsmm)
+    = true .
+  eq name(numFailures@FailureRate@devsmm)
+    = "numFailures" .
+  eq type(numFailures@FailureRate@devsmm)
+    = @Int .
+  eq lowerBound(numFailures@FailureRate@devsmm)
+    = 1 .
+  eq upperBound(numFailures@FailureRate@devsmm)
+    = 1 .
+  eq containingClass(numFailures@FailureRate@devsmm)
+    = FailureRate@devsmm .
+  eq isId(numFailures@FailureRate@devsmm)
+    = false .
+  eq isOrdered(numFailures@FailureRate@devsmm)
+    = true .
+  eq isUnique(numFailures@FailureRate@devsmm)
+    = true .
+  eq name(numTotal@FailureRate@devsmm)
+    = "numTotal" .
+  eq type(numTotal@FailureRate@devsmm)
+    = @Int .
+  eq lowerBound(numTotal@FailureRate@devsmm)
+    = 1 .
+  eq upperBound(numTotal@FailureRate@devsmm)
+    = 1 .
+  eq containingClass(numTotal@FailureRate@devsmm)
+    = FailureRate@devsmm .
+  eq isId(numTotal@FailureRate@devsmm)
+    = false .
+  eq isOrdered(numTotal@FailureRate@devsmm)
+    = true .
+  eq isUnique(numTotal@FailureRate@devsmm)
+    = true .
+  eq name(rate@FailureRate@devsmm)
+    = "rate" .
+  eq type(rate@FailureRate@devsmm)
+    = @Float .
+  eq lowerBound(rate@FailureRate@devsmm)
+    = 1 .
+  eq upperBound(rate@FailureRate@devsmm)
+    = 1 .
+  eq containingClass(rate@FailureRate@devsmm)
+    = FailureRate@devsmm .
+  eq isId(rate@FailureRate@devsmm)
+    = false .
+  eq isOrdered(rate@FailureRate@devsmm)
+    = true .
+  eq isUnique(rate@FailureRate@devsmm)
     = true .
     
 endm ---- end system module @DEVSMM@

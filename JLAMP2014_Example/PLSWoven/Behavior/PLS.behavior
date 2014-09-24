@@ -156,7 +156,7 @@
       <els xsi:type="behavior:Link" src="//@rules.4/@patterns.0/@els.2" target="//@rules.4/@patterns.0/@els.1">
         <ref href="../Metamodel/DEVSMM.ecore#//Container/parts"/>
       </els>
-      <els xsi:type="behavior:Object" id="a" outLinks="//@rules.4/@patterns.0/@els.7 //@rules.4/@patterns.0/@els.8">
+      <els xsi:type="behavior:Object" id="a" outLinks="//@rules.4/@patterns.0/@els.7 //@rules.4/@patterns.0/@els.8 //@rules.4/@patterns.0/@els.11">
         <classGD href="PLS.gcs#//@packagesGD.0/@classesGD.6"/>
       </els>
       <els xsi:type="behavior:Object" id="c" inLinks="//@rules.4/@patterns.0/@els.8">
@@ -169,9 +169,15 @@
         <ref href="../Metamodel/DEVSMM.ecore#//Machine/out"/>
       </els>
       <els xsi:type="behavior:Condition" oclValue="(c.parts->size() + c.outParts->size()) &lt; c.capacity"/>
+      <els xsi:type="behavior:Object" id="fr" inLinks="//@rules.4/@patterns.0/@els.11">
+        <classGD href="PLS.gcs#//@packagesGD.0/@classesGD.16"/>
+      </els>
+      <els xsi:type="behavior:Link" src="//@rules.4/@patterns.0/@els.5" target="//@rules.4/@patterns.0/@els.10">
+        <ref href="../Metamodel/DEVSMM.ecore#//Assemble/flRt"/>
+      </els>
     </patterns>
     <patterns name="RHS">
-      <els xsi:type="behavior:Object" id="ham" inLinks="//@rules.4/@patterns.1/@els.6">
+      <els xsi:type="behavior:Object" id="ham" inLinks="//@rules.4/@patterns.1/@els.6 //@rules.4/@patterns.1/@els.8">
         <sfs oclValue="ha.defective or he.defective or rdm &lt; a.defRate">
           <sf href="../Metamodel/DEVSMM.ecore#//Part/defective"/>
         </sfs>
@@ -180,7 +186,7 @@
       <els xsi:type="behavior:Object" id="t" inLinks="//@rules.4/@patterns.1/@els.4">
         <classGD href="PLS.gcs#//@packagesGD.0/@classesGD.8"/>
       </els>
-      <els xsi:type="behavior:Object" id="a" outLinks="//@rules.4/@patterns.1/@els.4 //@rules.4/@patterns.1/@els.5">
+      <els xsi:type="behavior:Object" id="a" outLinks="//@rules.4/@patterns.1/@els.4 //@rules.4/@patterns.1/@els.5 //@rules.4/@patterns.1/@els.9">
         <classGD href="PLS.gcs#//@packagesGD.0/@classesGD.6"/>
       </els>
       <els xsi:type="behavior:Object" id="c" outLinks="//@rules.4/@patterns.1/@els.6" inLinks="//@rules.4/@patterns.1/@els.5">
@@ -194,6 +200,15 @@
       </els>
       <els xsi:type="behavior:Link" src="//@rules.4/@patterns.1/@els.3" target="//@rules.4/@patterns.1/@els.0">
         <ref href="../Metamodel/DEVSMM.ecore#//Container/parts"/>
+      </els>
+      <els xsi:type="behavior:Object" id="fr" outLinks="//@rules.4/@patterns.1/@els.8" inLinks="//@rules.4/@patterns.1/@els.9">
+        <classGD href="PLS.gcs#//@packagesGD.0/@classesGD.16"/>
+      </els>
+      <els xsi:type="behavior:Link" src="//@rules.4/@patterns.1/@els.7" target="//@rules.4/@patterns.1/@els.0">
+        <ref href="../Metamodel/DEVSMM.ecore#//FailureRate/reqResults"/>
+      </els>
+      <els xsi:type="behavior:Link" src="//@rules.4/@patterns.1/@els.2" target="//@rules.4/@patterns.1/@els.7">
+        <ref href="../Metamodel/DEVSMM.ecore#//Assemble/flRt"/>
       </els>
     </patterns>
     <patterns name="NotConcurrentAssembles">
@@ -237,5 +252,59 @@
         <participants actualObject="//@rules.5/@patterns.0/@els.3"/>
       </els>
     </patterns>
+  </rules>
+  <rules xsi:type="behavior:AtomicRule" name="CreateFailure" lhs="//@rules.6/@patterns.0" rhs="//@rules.6/@patterns.1" maxDuration="0">
+    <patterns name="LHS">
+      <els xsi:type="behavior:Object" id="a">
+        <classGD href="PLS.gcs#//@packagesGD.0/@classesGD.6"/>
+      </els>
+      <els xsi:type="behavior:Condition" oclValue="a.flRt.oclIsUndefined()"/>
+    </patterns>
+    <patterns name="RHS">
+      <els xsi:type="behavior:Object" id="a" outLinks="//@rules.6/@patterns.1/@els.2">
+        <classGD href="PLS.gcs#//@packagesGD.0/@classesGD.6"/>
+      </els>
+      <els xsi:type="behavior:Object" id="fr" inLinks="//@rules.6/@patterns.1/@els.2">
+        <classGD href="PLS.gcs#//@packagesGD.0/@classesGD.16"/>
+      </els>
+      <els xsi:type="behavior:Link" src="//@rules.6/@patterns.1/@els.0" target="//@rules.6/@patterns.1/@els.1">
+        <ref href="../Metamodel/DEVSMM.ecore#//Assemble/flRt"/>
+      </els>
+    </patterns>
+  </rules>
+  <rules xsi:type="behavior:OngoingRule" name="FailureRate1" lhs="//@rules.7/@patterns.0" rhs="//@rules.7/@patterns.1">
+    <patterns name="LHS">
+      <els xsi:type="behavior:Object" id="p" inLinks="//@rules.7/@patterns.0/@els.2">
+        <classGD href="PLS.gcs#//@packagesGD.0/@classesGD.12"/>
+      </els>
+      <els xsi:type="behavior:Object" id="o" outLinks="//@rules.7/@patterns.0/@els.2">
+        <classGD href="PLS.gcs#//@packagesGD.0/@classesGD.16"/>
+      </els>
+      <els xsi:type="behavior:Link" src="//@rules.7/@patterns.0/@els.1" target="//@rules.7/@patterns.0/@els.0">
+        <ref href="../Metamodel/DEVSMM.ecore#//FailureRate/reqResults"/>
+      </els>
+      <els xsi:type="behavior:Condition" oclValue="p.defective"/>
+    </patterns>
+    <patterns name="RHS">
+      <els xsi:type="behavior:Object" id="p">
+        <classGD href="PLS.gcs#//@packagesGD.0/@classesGD.12"/>
+      </els>
+      <els xsi:type="behavior:Object" id="o">
+        <sfs oclValue="o.numFailures + 1">
+          <sf href="../Metamodel/DEVSMM.ecore#//FailureRate/numFailures"/>
+        </sfs>
+        <sfs oclValue="o.numTotal + 1">
+          <sf href="../Metamodel/DEVSMM.ecore#//FailureRate/numTotal"/>
+        </sfs>
+        <sfs oclValue="(o.numFailures + 1) / (o.numTotal + 1)">
+          <sf href="../Metamodel/DEVSMM.ecore#//FailureRate/rate"/>
+        </sfs>
+        <classGD href="PLS.gcs#//@packagesGD.0/@classesGD.16"/>
+      </els>
+    </patterns>
+  </rules>
+  <rules xsi:type="behavior:OngoingRule" name="FailureRate2" lhs="//@rules.8/@patterns.0" rhs="//@rules.8/@patterns.1">
+    <patterns name="LHS"/>
+    <patterns name="RHS"/>
   </rules>
 </behavior:Behavior>
