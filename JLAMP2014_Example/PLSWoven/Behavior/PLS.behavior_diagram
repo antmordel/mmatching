@@ -1428,7 +1428,115 @@
     </edges>
   </notation:Diagram>
   <notation:Diagram xmi:id="_O0lpkEPGEeSV19NzhIwgTQ" type="Rule" measurementUnit="Pixel">
+    <children xmi:type="notation:Node" xmi:id="_O2HTkEPGEeSV19NzhIwgTQ" type="2005">
+      <children xmi:type="notation:Node" xmi:id="_O2HTk0PGEeSV19NzhIwgTQ" type="5050"/>
+      <children xmi:type="notation:Node" xmi:id="_O2HTlEPGEeSV19NzhIwgTQ" type="7008">
+        <children xmi:type="notation:Node" xmi:id="_ZJ1mIEPGEeSV19NzhIwgTQ" type="3005">
+          <children xmi:type="notation:Node" xmi:id="_ZJ2NMEPGEeSV19NzhIwgTQ" type="5013"/>
+          <children xmi:type="notation:Node" xmi:id="_ZJ2NMUPGEeSV19NzhIwgTQ" type="5014"/>
+          <children xmi:type="notation:Node" xmi:id="_ZJ2NMkPGEeSV19NzhIwgTQ" type="5015"/>
+          <children xmi:type="notation:Node" xmi:id="_ZJ2NM0PGEeSV19NzhIwgTQ" type="7003">
+            <styles xmi:type="notation:DrawerStyle" xmi:id="_ZJ20QEPGEeSV19NzhIwgTQ"/>
+            <styles xmi:type="notation:SortingStyle" xmi:id="_ZJ20QUPGEeSV19NzhIwgTQ"/>
+            <styles xmi:type="notation:FilteringStyle" xmi:id="_ZJ20QkPGEeSV19NzhIwgTQ"/>
+          </children>
+          <styles xmi:type="notation:ShapeStyle" xmi:id="_ZJ1mIUPGEeSV19NzhIwgTQ" fontName="Cantarell"/>
+          <element xmi:type="behavior:Object" href="PLS.behavior#//@rules.8/@patterns.0/@els.0"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_ZJ1mIkPGEeSV19NzhIwgTQ" x="7" y="7"/>
+        </children>
+        <children xmi:type="notation:Node" xmi:id="_azC_oEPGEeSV19NzhIwgTQ" type="3005">
+          <children xmi:type="notation:Node" xmi:id="_azDmsEPGEeSV19NzhIwgTQ" type="5013"/>
+          <children xmi:type="notation:Node" xmi:id="_azDmsUPGEeSV19NzhIwgTQ" type="5014"/>
+          <children xmi:type="notation:Node" xmi:id="_azENwEPGEeSV19NzhIwgTQ" type="5015"/>
+          <children xmi:type="notation:Node" xmi:id="_azENwUPGEeSV19NzhIwgTQ" type="7003">
+            <styles xmi:type="notation:DrawerStyle" xmi:id="_azENwkPGEeSV19NzhIwgTQ"/>
+            <styles xmi:type="notation:SortingStyle" xmi:id="_azENw0PGEeSV19NzhIwgTQ"/>
+            <styles xmi:type="notation:FilteringStyle" xmi:id="_azENxEPGEeSV19NzhIwgTQ"/>
+          </children>
+          <styles xmi:type="notation:ShapeStyle" xmi:id="_azC_oUPGEeSV19NzhIwgTQ" fontName="Cantarell"/>
+          <element xmi:type="behavior:Object" href="PLS.behavior#//@rules.8/@patterns.0/@els.1"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_azC_okPGEeSV19NzhIwgTQ" x="115" y="19"/>
+        </children>
+        <children xmi:type="notation:Node" xmi:id="_gJUgwEPGEeSV19NzhIwgTQ" type="3004">
+          <children xmi:type="notation:Node" xmi:id="_gJUgw0PGEeSV19NzhIwgTQ" type="5009"/>
+          <styles xmi:type="notation:ShapeStyle" xmi:id="_gJUgwUPGEeSV19NzhIwgTQ" fontName="Cantarell"/>
+          <element xmi:type="behavior:Condition" href="PLS.behavior#//@rules.8/@patterns.0/@els.3"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_gJUgwkPGEeSV19NzhIwgTQ" x="7" y="91"/>
+        </children>
+        <styles xmi:type="notation:DrawerStyle" xmi:id="_O2HTlUPGEeSV19NzhIwgTQ"/>
+        <styles xmi:type="notation:SortingStyle" xmi:id="_O2HTlkPGEeSV19NzhIwgTQ"/>
+        <styles xmi:type="notation:FilteringStyle" xmi:id="_O2HTl0PGEeSV19NzhIwgTQ"/>
+      </children>
+      <styles xmi:type="notation:ShapeStyle" xmi:id="_O2HTkUPGEeSV19NzhIwgTQ" fontName="Cantarell"/>
+      <element xmi:type="behavior:Pattern" href="PLS.behavior#//@rules.8/@patterns.0"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_O2HTkkPGEeSV19NzhIwgTQ" x="156" y="72" width="169" height="145"/>
+    </children>
+    <children xmi:type="notation:Node" xmi:id="_O2H6oEPGEeSV19NzhIwgTQ" type="2005">
+      <children xmi:type="notation:Node" xmi:id="_O2H6o0PGEeSV19NzhIwgTQ" type="5050"/>
+      <children xmi:type="notation:Node" xmi:id="_O2H6pEPGEeSV19NzhIwgTQ" type="7008">
+        <children xmi:type="notation:Node" xmi:id="_pYlFoEPGEeSV19NzhIwgTQ" type="3005">
+          <children xmi:type="notation:Node" xmi:id="_pYlssEPGEeSV19NzhIwgTQ" type="5013"/>
+          <children xmi:type="notation:Node" xmi:id="_pYlssUPGEeSV19NzhIwgTQ" type="5014"/>
+          <children xmi:type="notation:Node" xmi:id="_pYlsskPGEeSV19NzhIwgTQ" type="5015"/>
+          <children xmi:type="notation:Node" xmi:id="_pYmTwEPGEeSV19NzhIwgTQ" type="7003">
+            <styles xmi:type="notation:DrawerStyle" xmi:id="_pYmTwUPGEeSV19NzhIwgTQ"/>
+            <styles xmi:type="notation:SortingStyle" xmi:id="_pYmTwkPGEeSV19NzhIwgTQ"/>
+            <styles xmi:type="notation:FilteringStyle" xmi:id="_pYmTw0PGEeSV19NzhIwgTQ"/>
+          </children>
+          <styles xmi:type="notation:ShapeStyle" xmi:id="_pYlFoUPGEeSV19NzhIwgTQ" fontName="Cantarell"/>
+          <element xmi:type="behavior:Object" href="PLS.behavior#//@rules.8/@patterns.1/@els.0"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_pYlFokPGEeSV19NzhIwgTQ" x="9" y="13"/>
+        </children>
+        <children xmi:type="notation:Node" xmi:id="_p4xBkEPGEeSV19NzhIwgTQ" type="3005">
+          <children xmi:type="notation:Node" xmi:id="_p4xooEPGEeSV19NzhIwgTQ" type="5013"/>
+          <children xmi:type="notation:Node" xmi:id="_p4xooUPGEeSV19NzhIwgTQ" type="5014"/>
+          <children xmi:type="notation:Node" xmi:id="_p4xookPGEeSV19NzhIwgTQ" type="5015"/>
+          <children xmi:type="notation:Node" xmi:id="_p4yPsEPGEeSV19NzhIwgTQ" type="7003">
+            <children xmi:type="notation:Node" xmi:id="_q80fkEPGEeSV19NzhIwgTQ" type="3006">
+              <children xmi:type="notation:Node" xmi:id="_q81GoEPGEeSV19NzhIwgTQ" type="5010"/>
+              <children xmi:type="notation:Node" xmi:id="_q81GoUPGEeSV19NzhIwgTQ" type="5011"/>
+              <children xmi:type="notation:Node" xmi:id="_q81GokPGEeSV19NzhIwgTQ" type="5012"/>
+              <styles xmi:type="notation:ShapeStyle" xmi:id="_q80fkUPGEeSV19NzhIwgTQ" fontName="Cantarell"/>
+              <element xmi:type="behavior:Slot" href="PLS.behavior#//@rules.8/@patterns.1/@els.1/@sfs.0"/>
+              <layoutConstraint xmi:type="notation:Bounds" xmi:id="_q80fkkPGEeSV19NzhIwgTQ"/>
+            </children>
+            <children xmi:type="notation:Node" xmi:id="_s8AJEEPGEeSV19NzhIwgTQ" type="3006">
+              <children xmi:type="notation:Node" xmi:id="_s8AwIEPGEeSV19NzhIwgTQ" type="5010"/>
+              <children xmi:type="notation:Node" xmi:id="_s8BXMEPGEeSV19NzhIwgTQ" type="5011"/>
+              <children xmi:type="notation:Node" xmi:id="_s8BXMUPGEeSV19NzhIwgTQ" type="5012"/>
+              <styles xmi:type="notation:ShapeStyle" xmi:id="_s8AJEUPGEeSV19NzhIwgTQ" fontName="Cantarell"/>
+              <element xmi:type="behavior:Slot" href="PLS.behavior#//@rules.8/@patterns.1/@els.1/@sfs.1"/>
+              <layoutConstraint xmi:type="notation:Bounds" xmi:id="_s8AJEkPGEeSV19NzhIwgTQ"/>
+            </children>
+            <styles xmi:type="notation:DrawerStyle" xmi:id="_p4yPsUPGEeSV19NzhIwgTQ"/>
+            <styles xmi:type="notation:SortingStyle" xmi:id="_p4yPskPGEeSV19NzhIwgTQ"/>
+            <styles xmi:type="notation:FilteringStyle" xmi:id="_p4yPs0PGEeSV19NzhIwgTQ"/>
+          </children>
+          <styles xmi:type="notation:ShapeStyle" xmi:id="_p4xBkUPGEeSV19NzhIwgTQ" fontName="Cantarell"/>
+          <element xmi:type="behavior:Object" href="PLS.behavior#//@rules.8/@patterns.1/@els.1"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_p4xBkkPGEeSV19NzhIwgTQ" x="81" y="21"/>
+        </children>
+        <styles xmi:type="notation:DrawerStyle" xmi:id="_O2H6pUPGEeSV19NzhIwgTQ"/>
+        <styles xmi:type="notation:SortingStyle" xmi:id="_O2H6pkPGEeSV19NzhIwgTQ"/>
+        <styles xmi:type="notation:FilteringStyle" xmi:id="_O2H6p0PGEeSV19NzhIwgTQ"/>
+      </children>
+      <styles xmi:type="notation:ShapeStyle" xmi:id="_O2H6oUPGEeSV19NzhIwgTQ" fontName="Cantarell"/>
+      <element xmi:type="behavior:Pattern" href="PLS.behavior#//@rules.8/@patterns.1"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_O2H6okPGEeSV19NzhIwgTQ" x="324" y="72" width="325" height="145"/>
+    </children>
     <styles xmi:type="notation:DiagramStyle" xmi:id="_O0lpkUPGEeSV19NzhIwgTQ"/>
     <element xmi:type="behavior:OngoingRule" href="PLS.behavior#FailureRate2"/>
+    <edges xmi:type="notation:Edge" xmi:id="_cOKSwEPGEeSV19NzhIwgTQ" type="4001" source="_azC_oEPGEeSV19NzhIwgTQ" target="_ZJ1mIEPGEeSV19NzhIwgTQ">
+      <children xmi:type="notation:Node" xmi:id="_cOK50EPGEeSV19NzhIwgTQ" type="6001">
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_cOK50UPGEeSV19NzhIwgTQ" y="40"/>
+      </children>
+      <children xmi:type="notation:Node" xmi:id="_cOK50kPGEeSV19NzhIwgTQ" type="6002">
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_cOK500PGEeSV19NzhIwgTQ" x="-1" y="9"/>
+      </children>
+      <styles xmi:type="notation:ConnectorStyle" xmi:id="_cOKSwUPGEeSV19NzhIwgTQ"/>
+      <styles xmi:type="notation:FontStyle" xmi:id="_cOKSwkPGEeSV19NzhIwgTQ" fontName="Cantarell"/>
+      <element xmi:type="behavior:Link" href="PLS.behavior#//@rules.8/@patterns.0/@els.2"/>
+      <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_cOKSw0PGEeSV19NzhIwgTQ" points="[-20, 3, 72, 3]$[-112, 3, -20, 3]"/>
+    </edges>
   </notation:Diagram>
 </xmi:XMI>

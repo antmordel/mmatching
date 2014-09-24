@@ -304,7 +304,31 @@
     </patterns>
   </rules>
   <rules xsi:type="behavior:OngoingRule" name="FailureRate2" lhs="//@rules.8/@patterns.0" rhs="//@rules.8/@patterns.1">
-    <patterns name="LHS"/>
-    <patterns name="RHS"/>
+    <patterns name="LHS">
+      <els xsi:type="behavior:Object" id="p" inLinks="//@rules.8/@patterns.0/@els.2">
+        <classGD href="PLS.gcs#//@packagesGD.0/@classesGD.12"/>
+      </els>
+      <els xsi:type="behavior:Object" id="o" outLinks="//@rules.8/@patterns.0/@els.2">
+        <classGD href="PLS.gcs#//@packagesGD.0/@classesGD.16"/>
+      </els>
+      <els xsi:type="behavior:Link" src="//@rules.8/@patterns.0/@els.1" target="//@rules.8/@patterns.0/@els.0">
+        <ref href="../Metamodel/DEVSMM.ecore#//FailureRate/reqResults"/>
+      </els>
+      <els xsi:type="behavior:Condition" oclValue="not p.defective"/>
+    </patterns>
+    <patterns name="RHS">
+      <els xsi:type="behavior:Object" id="p">
+        <classGD href="PLS.gcs#//@packagesGD.0/@classesGD.12"/>
+      </els>
+      <els xsi:type="behavior:Object" id="o">
+        <sfs oclValue="o.numTotal + 1">
+          <sf href="../Metamodel/DEVSMM.ecore#//FailureRate/numTotal"/>
+        </sfs>
+        <sfs oclValue="o.numFailures / (o.numTotal + 1)">
+          <sf href="../Metamodel/DEVSMM.ecore#//FailureRate/rate"/>
+        </sfs>
+        <classGD href="PLS.gcs#//@packagesGD.0/@classesGD.16"/>
+      </els>
+    </patterns>
   </rules>
 </behavior:Behavior>
