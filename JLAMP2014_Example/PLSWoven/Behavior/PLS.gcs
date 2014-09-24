@@ -52,6 +52,9 @@
     <classesGD name="FailureRate" figurePath="/JLAMP2014_workspace_project/PLSWoven/Images/ObserverFailure.png">
       <class href="../Metamodel/DEVSMM.ecore#//FailureRate"/>
     </classesGD>
+    <classesGD name="ResponseTime" figurePath="/JLAMP2014_workspace_project/PLSWoven/Images/ObserverResponseTime.jpg">
+      <class href="../Metamodel/DEVSMM.ecore#//ResponseTime"/>
+    </classesGD>
     <package href="../Metamodel/DEVSMM.ecore#/"/>
   </packagesGD>
 </gcs:MetamodelGD>
