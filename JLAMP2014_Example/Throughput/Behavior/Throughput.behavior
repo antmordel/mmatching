@@ -44,6 +44,9 @@
       <els xsi:type="behavior:Link" src="//@rules.0/@patterns.1/@els.0" target="//@rules.0/@patterns.1/@els.3">
         <ref href="../Metamodel/Throughput.ecore#//System/thp"/>
       </els>
+      <els xsi:type="behavior:Object" id="r">
+        <classGD href="Throughput.gcs#//@packagesGD.0/@classesGD.2"/>
+      </els>
     </patterns>
   </rules>
   <rules xsi:type="behavior:OngoingRule" name="ContinuousThpUpdate" lhs="//@rules.1/@patterns.0" rhs="//@rules.1/@patterns.1">

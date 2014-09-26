@@ -202,7 +202,7 @@
       </els>
     </patterns>
   </rules>
-  <rules xsi:type="behavior:AtomicRule" name="Collect" lhs="//@rules.5/@patterns.0" rhs="//@rules.5/@patterns.1" nacs="//@rules.5/@patterns.2" maxDuration="0">
+  <rules xsi:type="behavior:AtomicRule" name="Collect" lhs="//@rules.5/@patterns.0" rhs="//@rules.5/@patterns.1" nacs="//@rules.5/@patterns.2" maxDuration="M" minDuration="N">
     <vbles name="collectTime" type="Int" value="eMotions.random(5)"/>
     <patterns name="LHS">
       <els xsi:type="behavior:Object" id="h" inLinks="//@rules.5/@patterns.0/@els.2">

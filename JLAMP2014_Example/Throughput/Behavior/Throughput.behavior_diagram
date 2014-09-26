@@ -151,13 +151,26 @@
           <element xmi:type="behavior:Object" href="Throughput.behavior#//@rules.0/@patterns.1/@els.3"/>
           <layoutConstraint xmi:type="notation:Bounds" xmi:id="_ucw1gkI3EeSckt0yyZ_PRg" x="7" y="103"/>
         </children>
+        <children xmi:type="notation:Node" xmi:id="_imYtEEVbEeSIF5atOfMlxw" type="3005">
+          <children xmi:type="notation:Node" xmi:id="_imbJUEVbEeSIF5atOfMlxw" type="5013"/>
+          <children xmi:type="notation:Node" xmi:id="_imbwYEVbEeSIF5atOfMlxw" type="5014"/>
+          <children xmi:type="notation:Node" xmi:id="_imcXcEVbEeSIF5atOfMlxw" type="5015"/>
+          <children xmi:type="notation:Node" xmi:id="_imc-gEVbEeSIF5atOfMlxw" type="7003">
+            <styles xmi:type="notation:DrawerStyle" xmi:id="_imc-gUVbEeSIF5atOfMlxw"/>
+            <styles xmi:type="notation:SortingStyle" xmi:id="_imc-gkVbEeSIF5atOfMlxw"/>
+            <styles xmi:type="notation:FilteringStyle" xmi:id="_imc-g0VbEeSIF5atOfMlxw"/>
+          </children>
+          <styles xmi:type="notation:ShapeStyle" xmi:id="_imYtEUVbEeSIF5atOfMlxw" fontName="Cantarell"/>
+          <element xmi:type="behavior:Object" href="Throughput.behavior#//@rules.0/@patterns.1/@els.5"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_imYtEkVbEeSIF5atOfMlxw" x="175" y="7"/>
+        </children>
         <styles xmi:type="notation:DrawerStyle" xmi:id="_MFYVoUI3EeSckt0yyZ_PRg"/>
         <styles xmi:type="notation:SortingStyle" xmi:id="_MFYVokI3EeSckt0yyZ_PRg"/>
         <styles xmi:type="notation:FilteringStyle" xmi:id="_MFYVo0I3EeSckt0yyZ_PRg"/>
       </children>
       <styles xmi:type="notation:ShapeStyle" xmi:id="_MFXukUI3EeSckt0yyZ_PRg" fontName="Cantarell"/>
       <element xmi:type="behavior:Pattern" href="Throughput.behavior#//@rules.0/@patterns.1"/>
-      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_MFXukkI3EeSckt0yyZ_PRg" x="480" y="48" width="181" height="217"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_MFXukkI3EeSckt0yyZ_PRg" x="480" y="48" width="253" height="217"/>
     </children>
     <styles xmi:type="notation:DiagramStyle" xmi:id="_MDiikUI3EeSckt0yyZ_PRg"/>
     <element xmi:type="behavior:AtomicRule" href="Throughput.behavior#RecordLeave"/>

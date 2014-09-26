@@ -22,8 +22,9 @@
   <eClassifiers xsi:type="ecore:EClass" name="GenHead" eSuperTypes="#//Generator"/>
   <eClassifiers xsi:type="ecore:EClass" name="GenHandle" eSuperTypes="#//Generator"/>
   <eClassifiers xsi:type="ecore:EClass" name="Assemble" eSuperTypes="#//Machine">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="flRt" eType="#//FailureRate"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="rt" eType="#//ResponseTime"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="flRt" lowerBound="1" eType="#//FailureRate"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="rt" lowerBound="1" eType="#//ResponseTime"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="thp" lowerBound="1" eType="#//Throughput"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Container" eSuperTypes="#//PlantEl">
     <eStructuralFeatures xsi:type="ecore:EReference" name="parts" unique="false" upperBound="-1"
@@ -68,5 +69,10 @@
         upperBound="-1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="failRate" unique="false"
         upperBound="-1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Throughput">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="counter" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="thp" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
   </eClassifiers>
 </ecore:EPackage>

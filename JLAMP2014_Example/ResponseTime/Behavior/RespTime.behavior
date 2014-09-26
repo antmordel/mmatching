@@ -20,7 +20,7 @@
       </els>
     </patterns>
   </rules>
-  <rules xsi:type="behavior:AtomicRule" name="ResponseTime" lhs="//@rules.1/@patterns.0" rhs="//@rules.1/@patterns.1" maxDuration="0">
+  <rules xsi:type="behavior:AtomicRule" name="ResponseTime" lhs="//@rules.1/@patterns.0" rhs="//@rules.1/@patterns.1" maxDuration="M" minDuration="N">
     <patterns name="LHS">
       <els xsi:type="behavior:Object" id="r" inLinks="//@rules.1/@patterns.0/@els.6">
         <classGD href="RespTime.gcs#//@packagesGD.0/@classesGD.2"/>
