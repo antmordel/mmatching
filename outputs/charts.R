@@ -38,9 +38,8 @@ grid(nx = 10, ny = 4, col = "gray", lty = "dotted",
 title("Throughput Observer")
 
 # FailureRate chart
-plot(outTimes, outFailures, type="o", ylab = "Failure rate (pieces/time units)", pch=20,
+plot(outTimes, outFailures, type="o", ylab = "Failure rate (fail pieces/pieces)", pch=20,
      xlab = "Time (time units)")
-lines(outTimes, thpAsymp, col="green", lty=4)
 grid(nx = 10, ny = 4, col = "gray", lty = "dotted",
      lwd = par("lwd"), equilogs = TRUE)
-title("Throughput Observer")
+title("Failure Rate Observer")
